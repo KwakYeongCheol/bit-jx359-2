@@ -16,6 +16,12 @@ public class UserRepositoryImpl implements UserRepository{
 	public List<User> findAll() {
 		return template.queryForList("Sample.findAll");
 	}
+
+	@Override
+	public void insert(String string) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	/* good morning */
 	/* hehehe */
