@@ -2,8 +2,10 @@ package kr.co.webcash;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
+import kr.co.webcash.sample.User;
 import kr.co.webcash.sample.UserRepository;
 
 import org.slf4j.Logger;
@@ -29,7 +31,11 @@ public class HomeController {
 	@Autowired UserRepository userRepository;
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		model.addAttribute("userList", userRepository.findAll());
+		
+		List<User> userList = userRepository.findAll();
+		
+		System.out.println(userList);
+		model.addAttribute("userList", userList);
 		
 		return "home";
 	}
