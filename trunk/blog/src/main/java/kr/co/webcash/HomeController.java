@@ -34,6 +34,7 @@ public class HomeController {
 		
 		List<User> userList = userRepository.findAll();
 		
+		userRepository.insert("hello");
 		System.out.println(userList);
 		model.addAttribute("userList", userList);
 		
