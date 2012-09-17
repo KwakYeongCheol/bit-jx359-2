@@ -16,5 +16,7 @@ public class UserRepositoryImpl implements UserRepository{
 	public List<User> findAll() {
 		return template.queryForList("Sample.findAll");
 	}
+	
+	/* good morning */
 
 }
