@@ -6,4 +6,5 @@
     <settings useStatementNamespaces="true" cacheModelsEnabled="false"/>
     <sqlMap resource="user.xml" />
     <sqlMap resource="blog.xml" />
+    <sqlMap resource="post.xml"/>
 </sqlMapConfig>
