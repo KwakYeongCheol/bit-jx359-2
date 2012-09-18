@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
 	
 	@RequestMapping("/")
-	public void main(){
-		
+	public String main(){
+		return "home";
 	}
 	
 	@RequestMapping("/logout")
