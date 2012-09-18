@@ -1,0 +1,20 @@
+<!DOCTYPE sqlMap
+    PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Post">
+	<typeAlias alias="Post" type="kr.co.webcash.domain.Post"/>
+		
+	<insert id="insert" parameterClass="Post">
+		insert into post (id, blogId, title, contents, dateCreated) 
+		values(#id#, #blog.id#, #title#, #contents#, #dateCreated#)
+	</insert>
+	
+	<select id="findLastPostByBlogId" resultClass="Post">
+		SELECT p.id as id
+		FROM post p
+		join blogs b on b.id = p.blogId
+		where p.blogId = #blogId#
+		order by p.id desc
+		limit 1
+	</select>
+</sqlMap>
