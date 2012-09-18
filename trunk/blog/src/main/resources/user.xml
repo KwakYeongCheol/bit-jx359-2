@@ -9,4 +9,15 @@
     	SELECT id, name, password
    		FROM users
     </select>
+    
+    <insert id="insert" parameterClass="User">
+    	insert into users(id, name, password)
+    	values(#loginId#, #name#, #password#)
+    </insert>
+    
+    <select id="findById" resultClass="User">
+    	SELECT id, name, password
+   		FROM users 
+   		WHERE id = #loginId#
+    </select>
 </sqlMap>

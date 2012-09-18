@@ -17,4 +17,16 @@ public class UserRepositoryImpl implements UserRepository{
 		return template.queryForList("User.findAll");
 	}
 
+	@Override
+	public void insert(User user) {
+		// TODO Auto-generated method stub
+		template.insert("User.insert", user);
+	}
+
+	@Override
+	public User findByLoginId(String loginId) {
+		// TODO Auto-generated method stub
+		return (User) template.queryForObject("User.findById", loginId);
+	}
+	
 }
