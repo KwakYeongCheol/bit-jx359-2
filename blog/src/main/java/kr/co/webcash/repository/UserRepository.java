@@ -8,4 +8,8 @@ public interface UserRepository {
 	
 	public List<User> findAll();
 
+	public void insert(User user);
+
+	public User findByLoginId(String loginId);
+
 }
