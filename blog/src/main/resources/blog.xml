@@ -5,8 +5,8 @@
 	<typeAlias alias="Blog" type="kr.co.webcash.domain.Blog"/>
 		
 	<insert id="create" parameterClass="Blog">
-		insert into blogs (id, title, owner) 
-		values(#id#, #title#, #owner#)
+		insert into blogs (id, title, owner,dateCreated) 
+		values(#id#, #title#, #owner#, #dateCreated#)
 	</insert>
 	
 	<select id="findByUserLoginId" resultClass="Blog">
