@@ -1,0 +1,17 @@
+<!DOCTYPE sqlMap
+    PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Blog">
+	<typeAlias alias="Blog" type="kr.co.webcash.domain.Blog"/>
+		
+	<insert id="create" parameterClass="Blog">
+		insert into blogs (id, title, owner) 
+		values(#id#, #title#, #owner#)
+	</insert>
+	
+	<select id="findByUserLoginId" resultClass="Blog">
+		SELECT id, title, owner, dateCreated
+		FROM blogs
+		WHERE id = #loginId#
+	</select>
+</sqlMap>
