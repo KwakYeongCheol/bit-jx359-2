@@ -20,4 +20,5 @@
    		FROM users 
    		WHERE id = #loginId#
     </select>
+   
 </sqlMap>
