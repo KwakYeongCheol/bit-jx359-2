@@ -6,7 +6,7 @@ public class Blog {
 	private String id;
 	private String title;
 	private String owner;
-	
+	private Date dateCreated;
 	public String getId() {
 		return id;
 	}
@@ -25,5 +25,12 @@ public class Blog {
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
 	
+
 }

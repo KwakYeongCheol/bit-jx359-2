@@ -4,5 +4,9 @@
 <div>
 	HOME PAGE
 </div>
+	<p>${blog.id }</p>
+	<p>${blog.title }</p>
+	<p>${blog.owner }</p>
+	<p>${blog.dateCreated }</p>
 
 <jsp:include page="common/footer.jsp" />
