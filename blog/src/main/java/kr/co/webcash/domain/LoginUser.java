@@ -11,7 +11,5 @@ public class LoginUser {
 	public void setLoginId(String loginId) {
 		this.loginId = loginId;
 	}
-	
-	
 
 }

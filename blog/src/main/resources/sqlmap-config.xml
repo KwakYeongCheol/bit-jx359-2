@@ -4,5 +4,5 @@
 
 <sqlMapConfig>
     <settings useStatementNamespaces="true" cacheModelsEnabled="false"/>
-    <sqlMap resource="sample.xml" />
+    <sqlMap resource="user.xml" />
 </sqlMapConfig>
