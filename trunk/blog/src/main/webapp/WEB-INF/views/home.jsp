@@ -6,6 +6,11 @@
 	<title>Home</title>
 </head>
 <body>
+
+<h2>
+	${loginUser.loginId }
+</h2>
+
 <h1>
 	Hello world!  
 </h1>
