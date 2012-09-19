@@ -36,4 +36,9 @@
 		update visitor set contents = #contents#
 		where id = #id# and blogId = #blog.id#
 	</update>
+	
+	<delete id="delete" parameterClass="Visitor">
+		delete from visitor
+		where id = #id# and blogId = #blog.id#
+	</delete>
 </sqlMap>

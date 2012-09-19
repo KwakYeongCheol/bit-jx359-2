@@ -38,5 +38,9 @@ public class VisitorRepositoryImpl implements VisitorRepository{
 	public void update(Visitor visitor) {
 		template.update("Visitor.update", visitor);
 	}
+	@Override
+	public void delete(Visitor visitor) {
+		template.delete("Visitor.delete", visitor);
+	}
 
 }

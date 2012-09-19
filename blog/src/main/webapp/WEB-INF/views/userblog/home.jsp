@@ -27,6 +27,7 @@
 		${visitor.writer } | ${visitor.dateCreated } <br />
 		${visitor.contents } <br />
 		<a href="${pageContext.request.contextPath }/${blogId}/visitor/modify?id=${visitor.id}">수정</a>
+		<a href="${pageContext.request.contextPath }/${blogId}/visitor/delete?id=${visitor.id}">삭제</a>
 	</div>
 	
 	</c:forEach>
