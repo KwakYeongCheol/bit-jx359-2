@@ -31,6 +31,11 @@
 			<mvc:mapping path="/{blogId}/admin/**"/>
 			<beans:bean class="kr.co.webcash.web.userblog.security.UserSecurityInterceptor" />
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/blog/**"/>
+			<mvc:mapping path="/{blogId}/visitor/**"/>
+			<beans:bean class="kr.co.webcash.web.security.LoginUserInterceptor" />
+		</mvc:interceptor>
 	</mvc:interceptors>
 	
 </beans:beans>
