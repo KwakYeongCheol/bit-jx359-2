@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 @SessionAttributes("loginUser")
 public class MainController {
+	
+	/* Branch Modify */
 	@Autowired BlogService blogService;
 	
 	@RequestMapping("/")
