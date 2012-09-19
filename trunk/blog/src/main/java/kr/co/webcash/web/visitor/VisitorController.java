@@ -13,6 +13,7 @@ import kr.co.webcash.service.VisitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -54,4 +55,30 @@ public class VisitorController {
 		return "redirect:/" + blogId;
 	}
 	
+	@RequestMapping("/modify")
+	public String modify(@ModelAttribute LoginUser loginUser, @PathVariable String blogId, @RequestParam String id, Model model){
+		
+		Visitor visitor = visitorService.findByIdAndBlogId(id, blogId);
+		
+		if(visitor != null){
+			if(loginUser.getLoginId() == visitor.getWriter()){
+				model.addAttribute("visitor", visitor);
+				return "/userblog/visitor/modify";
+			}
+		}
+		
+		return "redirect:/" + blogId;	
+	}
+	@RequestMapping(value="/modifyAction", method=RequestMethod.POST)
+	public String modifyAction(@PathVariable String blogId, @RequestParam String contents, @RequestParam String id){
+		Blog blog = new Blog();
+		blog.setId(blogId);
+		Visitor visitor = new Visitor();
+		visitor.setId(id);
+		visitor.setContents(contents);
+		visitor.setBlog(blog);
+		
+		visitorService.update(visitor);
+		return "redirect:/" + blogId;	
+	}
 }

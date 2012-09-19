@@ -12,5 +12,9 @@ public interface VisitorRepository {
 
 	List<Visitor> findAllByBlogId(String blogId);
 
+	Visitor findByIdAndBlogId(String id, String blogId);
+
+	void update(Visitor visitor);
+
 
 }

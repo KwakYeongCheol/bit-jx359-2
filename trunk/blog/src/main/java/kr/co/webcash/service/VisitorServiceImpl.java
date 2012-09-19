@@ -32,4 +32,14 @@ public class VisitorServiceImpl implements VisitorService{
 		return visitorRepository.findAllByBlogId(blogId);
 	}
 
+	@Override
+	public Visitor findByIdAndBlogId(String id, String blogId) {
+		return visitorRepository.findByIdAndBlogId(id, blogId);
+	}
+
+	@Override
+	public void update(Visitor visitor) {
+		visitorRepository.update(visitor);
+	}
+
 }
