@@ -27,11 +27,10 @@ public class VisitorController {
 	@Autowired private BlogService blogService;
 	@Autowired private VisitorService visitorService;
 	@RequestMapping
-	public String main(@PathVariable String blogId){
-		
+	public String main(@PathVariable String blogId,Model model,HttpSession session){	
+
 		return "redirect:/" + blogId;
 	}
-	
 	@RequestMapping(value="/wirteAction", method=RequestMethod.POST)
 	public String wirteAction(HttpSession session, @RequestParam String contents, @PathVariable String blogId){
 		LoginUser loginUser = (LoginUser)session.getAttribute("loginUser");

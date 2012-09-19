@@ -17,12 +17,11 @@
 		limit 1
 	</select>
 	
-<!-- 	<select id="findAllByBlogId" resultClass="Post">
-		SELECT p.id as id, p.title as title, p.contents as contents, p.dateCreated as dateCreated
-		FROM post p
-		join blogs b on b.id = p.blogId
-		where p.blogId = #blogId#
-		order by p.id desc
+	<select id="findAllByBlogId" resultClass="Visitor">
+		SELECT v.id as id, v.writer as writer, v.contents as contents, v.dateCreated as dateCreated
+		FROM visitor v
+		where v.blogId = #blogId#
+		order by v.id desc
 	</select>
- -->	
+
 </sqlMap>

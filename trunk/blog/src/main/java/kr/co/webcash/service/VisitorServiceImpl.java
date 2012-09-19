@@ -1,5 +1,7 @@
 package kr.co.webcash.service;
 
+import java.util.List;
+
 import kr.co.webcash.domain.Visitor;
 import kr.co.webcash.repository.VisitorRepository;
 
@@ -23,6 +25,11 @@ public class VisitorServiceImpl implements VisitorService{
 		if(visitor == null)		return 0;
 		
 		return Integer.parseInt(visitor.getId());
+	}
+
+	@Override
+	public List<Visitor> listByBlogId(String blogId) {
+		return visitorRepository.findAllByBlogId(blogId);
 	}
 
 }

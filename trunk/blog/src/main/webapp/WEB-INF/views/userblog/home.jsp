@@ -22,10 +22,10 @@
 	</form>
 </div>
 <div>
-	<c:forEach items="${postList }" var="post">
+	<c:forEach items="${visitorList }" var="visitor">
 	<div>
-		${post.title } | ${post.dateCreated } <br />
-		${post.contents }
+		${visitor.writer } | ${visitor.dateCreated } <br />
+		${visitor.contents }
 	</div>
 	
 	</c:forEach>
