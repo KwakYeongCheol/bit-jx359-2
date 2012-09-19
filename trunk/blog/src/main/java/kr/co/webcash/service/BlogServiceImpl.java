@@ -23,4 +23,12 @@ public class BlogServiceImpl implements BlogService {
 		return blogRepository.findByUserLoginId(loginId);
 	}
 
+	@Override
+	public boolean isExist(String id) {
+		
+		if(blogRepository.findById(id) != null) return true;
+		
+		return false;
+	}
+
 }

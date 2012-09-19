@@ -2,11 +2,14 @@
 <jsp:include page="common/header.jsp" />
 
 <div>
+	<h1>
 	HOME PAGE
+	</h1>
 </div>
-	<p>${blog.id }</p>
-	<p>${blog.title }</p>
-	<p>${blog.owner }</p>
-	<p>${blog.dateCreated }</p>
+<div border="1">
+	<div>내 블로그</div>
+	<a href="${pageContext.request.contextPath }/${blog.id}">${blog.title }</a> &nbsp;
+	<a href="${pageContext.request.contextPath }/blog/settings">설정</a>
+</div>
 
 <jsp:include page="common/footer.jsp" />

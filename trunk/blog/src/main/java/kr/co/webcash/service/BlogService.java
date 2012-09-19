@@ -8,4 +8,6 @@ public interface BlogService {
 
 	Blog findByUserLoginId(String loginId);
 
+	boolean isExist(String id);
+
 }

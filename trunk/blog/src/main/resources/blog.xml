@@ -12,6 +12,12 @@
 	<select id="findByUserLoginId" resultClass="Blog">
 		SELECT id, title, owner, dateCreated
 		FROM blogs
-		WHERE id = #loginId#
+		WHERE owner = #loginId#
+	</select>
+	
+	<select id="findById" resultClass="Blog">
+		SELECT id, title, owner, dateCreated
+		FROM blogs
+		WHERE id = #id#
 	</select>
 </sqlMap>

@@ -12,6 +12,8 @@ import kr.co.webcash.service.PostService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +26,9 @@ public class UserBlogAdminController {
 	@Autowired private PostService postService;
 	
 	@RequestMapping
-	public String main(){
+	public String main(@PathVariable String blogId, Model model){
+		model.addAttribute("postList", postService.listByBlogId(blogId));
+		
 		return "/userblog/admin/home";
 	}
 	
@@ -38,7 +42,6 @@ public class UserBlogAdminController {
 		LoginUser loginUser = (LoginUser) session.getAttribute("loginUser");
 		String redirectUrl = "redirect:/";
 		if(loginUser != null){
-			System.out.println("enter writeAction");
 			Blog blog = blogService.findByUserLoginId(loginUser.getLoginId());
 			
 			Post post = new Post();
@@ -48,7 +51,6 @@ public class UserBlogAdminController {
 			post.setContents(contents);
 			post.setDateCreated(new Date(System.currentTimeMillis()));
 			
-			System.out.println(post.getId());
 			postService.save(post);
 			redirectUrl = "redirect:/" + blog.getId() + "/admin";
 		}

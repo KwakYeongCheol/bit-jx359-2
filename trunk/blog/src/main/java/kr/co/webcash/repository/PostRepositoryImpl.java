@@ -1,5 +1,7 @@
 package kr.co.webcash.repository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
@@ -18,8 +20,12 @@ public class PostRepositoryImpl implements PostRepository {
 
 	@Override
 	public void insert(Post post) {
-		System.out.println(post);
 		template.insert("Post.insert", post);
+	}
+
+	@Override
+	public List<Post> findAllByBlogId(String blogId) {
+		return template.queryForList("Post.findAllByBlogId", blogId);
 	}
 
 }

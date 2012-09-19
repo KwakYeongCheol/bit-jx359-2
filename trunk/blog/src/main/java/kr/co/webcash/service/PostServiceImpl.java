@@ -1,5 +1,7 @@
 package kr.co.webcash.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,11 @@ public class PostServiceImpl implements PostService {
 	public void save(Post post) {
 		postRepository.insert(post);
 
+	}
+
+	@Override
+	public List<Post> listByBlogId(String blogId) {
+		return postRepository.findAllByBlogId(blogId);
 	}
 
 }
