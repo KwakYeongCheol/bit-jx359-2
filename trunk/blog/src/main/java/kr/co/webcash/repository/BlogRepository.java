@@ -9,5 +9,7 @@ public interface BlogRepository {
 	Blog findByUserLoginId(String loginId);
 
 	Blog findById(String id);
+
+	void update(Blog blog);
 	
 }

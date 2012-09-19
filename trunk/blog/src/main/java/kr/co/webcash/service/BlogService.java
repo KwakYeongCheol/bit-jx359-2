@@ -10,4 +10,6 @@ public interface BlogService {
 
 	boolean isExist(String id);
 
+	void modify(Blog blog);
+
 }

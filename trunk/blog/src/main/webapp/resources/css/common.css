@@ -1,0 +1,21 @@
+#wrap{
+	width: 1000px;
+}
+
+#header {
+	height: 40px;
+	color: #000;
+}
+
+#header ul{
+	list-style-type: none;
+	
+}
+
+#header ul li{
+	float: right;
+	display: block;
+	padding: 10px 10px 10px 10px;
+	font-size:12px;
+	text-decoration: none;
+}

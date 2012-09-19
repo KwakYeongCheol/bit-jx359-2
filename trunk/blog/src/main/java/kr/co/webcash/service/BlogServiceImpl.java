@@ -31,4 +31,9 @@ public class BlogServiceImpl implements BlogService {
 		return false;
 	}
 
+	@Override
+	public void modify(Blog blog) {
+		blogRepository.update(blog);
+	}
+
 }
