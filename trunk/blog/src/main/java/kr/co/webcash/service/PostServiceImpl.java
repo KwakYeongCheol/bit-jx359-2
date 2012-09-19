@@ -47,4 +47,9 @@ public class PostServiceImpl implements PostService {
 		postRepository.update(post);
 	}
 
+	@Override
+	public void delete(Post post) {
+		postRepository.delete(post);
+	}
+
 }

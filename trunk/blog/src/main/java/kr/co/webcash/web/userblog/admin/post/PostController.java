@@ -76,4 +76,17 @@ public class PostController {
 		
 		return "redirect:/" + blogId + "/admin";
 	}
+	
+	@RequestMapping("/delete")
+	public String delete(@RequestParam String id, @PathVariable String blogId){
+		Post post = new Post();
+		post.setId(id);
+		Blog blog = new Blog();
+		blog.setId(blogId);
+		post.setBlog(blog);
+		
+		postService.delete(post);
+		
+		return "redirect:/" + blogId + "/admin";
+	}
 }
