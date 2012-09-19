@@ -1,6 +1,8 @@
 package kr.co.webcash.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
@@ -26,6 +28,20 @@ public class PostRepositoryImpl implements PostRepository {
 	@Override
 	public List<Post> findAllByBlogId(String blogId) {
 		return template.queryForList("Post.findAllByBlogId", blogId);
+	}
+
+	@Override
+	public Post findByIdAndBlogId(String id, String blogId) {
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("id", id);
+		param.put("blogId", blogId);
+		return (Post) template.queryForObject("Post.findByIdAndBlogId", param );
+	}
+
+	@Override
+	public void update(Post post) {
+		template.update("Post.update", post);
+		
 	}
 
 }

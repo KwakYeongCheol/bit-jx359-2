@@ -12,4 +12,8 @@ public interface PostRepository {
 
 	List<Post> findAllByBlogId(String blogId);
 
+	Post findByIdAndBlogId(String id, String blogId);
+
+	void update(Post post);
+
 }
