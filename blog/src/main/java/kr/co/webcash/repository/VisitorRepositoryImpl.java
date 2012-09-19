@@ -1,5 +1,7 @@
 package kr.co.webcash.repository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
@@ -18,6 +20,10 @@ public class VisitorRepositoryImpl implements VisitorRepository{
 	@Override
 	public Visitor findLastVisitorByBlogId(String blogId) {
 		return (Visitor) template.queryForObject("Visitor.findLastVisitorByBlogId", blogId);
+	}
+	@Override
+	public List<Visitor> findAllByBlogId(String blogId) {
+		return template.queryForList("Visitor.findAllByBlogId", blogId);
 	}
 
 }

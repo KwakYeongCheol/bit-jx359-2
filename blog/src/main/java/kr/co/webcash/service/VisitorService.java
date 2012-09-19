@@ -1,5 +1,7 @@
 package kr.co.webcash.service;
 
+import java.util.List;
+
 import kr.co.webcash.domain.Visitor;
 
 public interface VisitorService {
@@ -7,5 +9,7 @@ public interface VisitorService {
 	void write(Visitor visitor);
 
 	int findLastIdByBlogId(String blogId);
+
+	List<Visitor> listByBlogId(String blogId);
 	
 }
