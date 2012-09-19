@@ -15,5 +15,7 @@ public interface VisitorService {
 	Visitor findByIdAndBlogId(String id, String blogId);
 
 	void update(Visitor visitor);
+
+	void delete(Visitor visitor);
 	
 }

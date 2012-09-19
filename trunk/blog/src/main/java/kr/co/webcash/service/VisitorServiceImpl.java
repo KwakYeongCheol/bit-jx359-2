@@ -42,4 +42,9 @@ public class VisitorServiceImpl implements VisitorService{
 		visitorRepository.update(visitor);
 	}
 
+	@Override
+	public void delete(Visitor visitor) {
+		visitorRepository.delete(visitor);
+	}
+
 }

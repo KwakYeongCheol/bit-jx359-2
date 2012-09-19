@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.LoginUser;
+import kr.co.webcash.domain.Post;
 import kr.co.webcash.domain.Visitor;
 import kr.co.webcash.service.BlogService;
 import kr.co.webcash.service.VisitorService;
@@ -80,5 +81,17 @@ public class VisitorController {
 		
 		visitorService.update(visitor);
 		return "redirect:/" + blogId;	
+	}
+	@RequestMapping("/delete")
+	public String delete(@RequestParam String id, @PathVariable String blogId){
+		Visitor visitor = new Visitor();
+		visitor.setId(id);
+		Blog blog = new Blog();
+		blog.setId(blogId);
+		visitor.setBlog(blog);
+		
+		visitorService.delete(visitor);
+		
+		return "redirect:/" + blogId;
 	}
 }
