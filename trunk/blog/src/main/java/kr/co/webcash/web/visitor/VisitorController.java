@@ -62,7 +62,7 @@ public class VisitorController {
 		Visitor visitor = visitorService.findByIdAndBlogId(id, blogId);
 		
 		if(visitor != null){
-			if(loginUser.getLoginId() == visitor.getWriter()){
+			if(loginUser.getLoginId().equals(visitor.getWriter())){
 				model.addAttribute("visitor", visitor);
 				return "/userblog/visitor/modify";
 			}
@@ -71,27 +71,42 @@ public class VisitorController {
 		return "redirect:/" + blogId;	
 	}
 	@RequestMapping(value="/modifyAction", method=RequestMethod.POST)
-	public String modifyAction(@PathVariable String blogId, @RequestParam String contents, @RequestParam String id){
-		Blog blog = new Blog();
-		blog.setId(blogId);
-		Visitor visitor = new Visitor();
-		visitor.setId(id);
-		visitor.setContents(contents);
-		visitor.setBlog(blog);
+	public String modifyAction(@ModelAttribute LoginUser loginUser, @PathVariable String blogId, @RequestParam String contents, @RequestParam String id){
+		Visitor visitor = visitorService.findByIdAndBlogId(id, blogId);
 		
-		visitorService.update(visitor);
+		if(visitor != null){
+			if(loginUser.getLoginId().equals(visitor.getWriter())){
+				Blog blog = new Blog();
+				blog.setId(blogId);
+				Visitor modifiedVisitor = new Visitor();
+				modifiedVisitor.setId(id);
+				modifiedVisitor.setContents(contents);
+				modifiedVisitor.setBlog(blog);
+				
+				visitorService.update(modifiedVisitor);
+			}
+		}
+		
 		return "redirect:/" + blogId;	
 	}
 	@RequestMapping("/delete")
-	public String delete(@RequestParam String id, @PathVariable String blogId){
-		Visitor visitor = new Visitor();
-		visitor.setId(id);
-		Blog blog = new Blog();
-		blog.setId(blogId);
-		visitor.setBlog(blog);
+	public String delete(@ModelAttribute LoginUser loginUser, @RequestParam String id, @PathVariable String blogId){
 		
-		visitorService.delete(visitor);
+		Blog currentBlog = blogService.findById(blogId);
 		
+		Visitor visitor = visitorService.findByIdAndBlogId(id, blogId);
+		
+		if(visitor != null && currentBlog != null){
+			if(loginUser.getLoginId().equals(visitor.getWriter()) || loginUser.getLoginId().equals(currentBlog.getOwner())){
+				Visitor deletedVisitor = new Visitor();
+				deletedVisitor.setId(id);
+				Blog blog = new Blog();
+				blog.setId(blogId);
+				deletedVisitor.setBlog(blog);
+				
+				visitorService.delete(deletedVisitor);
+			}
+		}
 		return "redirect:/" + blogId;
 	}
 }

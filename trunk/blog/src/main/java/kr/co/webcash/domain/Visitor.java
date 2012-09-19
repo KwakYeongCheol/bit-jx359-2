@@ -41,5 +41,12 @@ public class Visitor {
 	public void setBlog(Blog blog) {
 		this.blog = blog;
 	}
+	@Override
+	public String toString() {
+		return "Visitor [id=" + id + ", writer=" + writer + ", blog=" + blog
+				+ ", contents=" + contents + ", dateCreated=" + dateCreated
+				+ "]";
+	}
+	
 	
 }

@@ -12,4 +12,6 @@ public interface BlogService {
 
 	void modify(Blog blog);
 
+	Blog findById(String blogId);
+
 }
