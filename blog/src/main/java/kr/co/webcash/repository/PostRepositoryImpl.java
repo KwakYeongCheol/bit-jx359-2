@@ -44,4 +44,9 @@ public class PostRepositoryImpl implements PostRepository {
 		
 	}
 
+	@Override
+	public void delete(Post post) {
+		template.delete("Post.delete", post);
+	}
+
 }

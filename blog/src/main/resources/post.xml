@@ -14,6 +14,11 @@
 		where id = #id# and blogId = #blog.id#
 	</update>
 	
+	<delete id="delete" parameterClass="Post">
+		delete from post
+		where id = #id# and blogId = #blog.id#
+	</delete>
+	
 	<select id="findLastPostByBlogId" resultClass="Post">
 		SELECT p.id as id
 		FROM post p

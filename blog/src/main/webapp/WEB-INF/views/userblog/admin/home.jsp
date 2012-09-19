@@ -15,7 +15,8 @@
 			<div>
 				${post.title } | 
 				${post.dateCreated } | 
-				<a href="${pageContext.request.contextPath }/${loginUser.loginId}/admin/post/modify?id=${post.id}">수정</a><br />
+				<a href="${pageContext.request.contextPath }/${loginUser.loginId}/admin/post/modify?id=${post.id}">수정</a> |
+				<a href="${pageContext.request.contextPath }/${loginUser.loginId}/admin/post/delete?id=${post.id}">삭제</a><br />
 				${post.contents }
 			</div>
 			</c:forEach>
