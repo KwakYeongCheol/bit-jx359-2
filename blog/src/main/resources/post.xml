@@ -17,4 +17,13 @@
 		order by p.id desc
 		limit 1
 	</select>
+	
+	<select id="findAllByBlogId" resultClass="Post">
+		SELECT p.id as id, p.title as title, p.contents as contents, p.dateCreated as dateCreated
+		FROM post p
+		join blogs b on b.id = p.blogId
+		where p.blogId = #blogId#
+		order by p.id desc
+	</select>
+	
 </sqlMap>

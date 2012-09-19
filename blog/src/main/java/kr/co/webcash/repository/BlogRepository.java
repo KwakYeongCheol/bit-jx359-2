@@ -7,5 +7,7 @@ public interface BlogRepository {
 	void create(Blog blog);
 
 	Blog findByUserLoginId(String loginId);
+
+	Blog findById(String id);
 	
 }

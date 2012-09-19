@@ -22,4 +22,9 @@ public class BlogRepositoryImpl implements BlogRepository{
 		return (Blog)template.queryForObject("Blog.findByUserLoginId", loginId);
 	}
 
+	@Override
+	public Blog findById(String id) {
+		return (Blog)template.queryForObject("Blog.findById", id);
+	}
+
 }

@@ -25,6 +25,7 @@ public class BlogController {
 	public void settings(){
 	
 	}
+	
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public String create(@RequestParam String title, @ModelAttribute LoginUser loginUser){
 		Blog blog = new Blog();
@@ -32,7 +33,6 @@ public class BlogController {
 		blog.setId(loginUser.getLoginId());
 		blog.setOwner(loginUser.getLoginId());
 		blog.setDateCreated(new Date(System.currentTimeMillis()));
-		System.out.println(blog);
 		
 		blogService.createBlog(blog);
 		
