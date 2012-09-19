@@ -9,6 +9,11 @@
 		values(#id#, #blog.id#, #title#, #contents#, #dateCreated#)
 	</insert>
 	
+	<update id="update" parameterClass="Post">
+		update post set title = #title#, contents = #contents#
+		where id = #id# and blogId = #blog.id#
+	</update>
+	
 	<select id="findLastPostByBlogId" resultClass="Post">
 		SELECT p.id as id
 		FROM post p
@@ -25,5 +30,14 @@
 		where p.blogId = #blogId#
 		order by p.id desc
 	</select>
+	
+	<select id="findByIdAndBlogId" resultClass="Post">
+		SELECT p.id as id, p.title as title, p.contents as contents, p.dateCreated as dateCreated
+		FROM post p
+		join blogs b on b.id = p.blogId
+		where p.blogId = #blogId#
+			and p.id = #id#
+	</select>
+	
 	
 </sqlMap>

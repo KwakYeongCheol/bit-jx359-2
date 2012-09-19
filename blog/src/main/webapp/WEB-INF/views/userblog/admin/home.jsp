@@ -13,10 +13,11 @@
 		<div>
 			<c:forEach items="${postList }" var="post">
 			<div>
-				${post.title } | ${post.dateCreated } <br />
+				${post.title } | 
+				${post.dateCreated } | 
+				<a href="${pageContext.request.contextPath }/${loginUser.loginId}/admin/post/modify?id=${post.id}">수정</a><br />
 				${post.contents }
 			</div>
-			
 			</c:forEach>
 		</div>
 	</div>

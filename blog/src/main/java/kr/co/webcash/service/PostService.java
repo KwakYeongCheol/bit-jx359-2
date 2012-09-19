@@ -12,4 +12,8 @@ public interface PostService {
 
 	List<Post> listByBlogId(String blogId);
 
+	Post findByIdAndBlogId(String id, String blogId);
+
+	void update(Post post);
+
 }

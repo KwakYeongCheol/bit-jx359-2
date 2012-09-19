@@ -36,4 +36,15 @@ public class PostServiceImpl implements PostService {
 		return postRepository.findAllByBlogId(blogId);
 	}
 
+	@Override
+	public Post findByIdAndBlogId(String id, String blogId) {
+	    return postRepository.findByIdAndBlogId(id, blogId);
+		
+	}
+
+	@Override
+	public void update(Post post) {
+		postRepository.update(post);
+	}
+
 }
