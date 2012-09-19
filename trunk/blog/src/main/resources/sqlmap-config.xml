@@ -7,4 +7,5 @@
     <sqlMap resource="user.xml" />
     <sqlMap resource="blog.xml" />
     <sqlMap resource="post.xml"/>
+    <sqlMap resource="visitor.xml"/>
 </sqlMapConfig>
