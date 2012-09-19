@@ -25,7 +25,8 @@
 	<c:forEach items="${visitorList }" var="visitor">
 	<div>
 		${visitor.writer } | ${visitor.dateCreated } <br />
-		${visitor.contents }
+		${visitor.contents } <br />
+		<a href="${pageContext.request.contextPath }/${blogId}/visitor/modify?id=${visitor.id}">수정</a>
 	</div>
 	
 	</c:forEach>

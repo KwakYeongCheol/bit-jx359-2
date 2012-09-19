@@ -11,5 +11,9 @@ public interface VisitorService {
 	int findLastIdByBlogId(String blogId);
 
 	List<Visitor> listByBlogId(String blogId);
+
+	Visitor findByIdAndBlogId(String id, String blogId);
+
+	void update(Visitor visitor);
 	
 }

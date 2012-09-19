@@ -23,5 +23,17 @@
 		where v.blogId = #blogId#
 		order by v.id desc
 	</select>
-
+	
+	<select id="findByIdAndBlogId" resultClass="Visitor">
+		SELECT v.id as id, v.writer as writer, v.contents as contents, v.dateCreated as dateCreated
+		FROM visitor v
+		join blogs b on b.id = v.blogId
+		where v.blogId = #blogId#
+			and v.id = #id#
+	</select>
+	
+	<update id="update" parameterClass="Visitor">
+		update visitor set contents = #contents#
+		where id = #id# and blogId = #blog.id#
+	</update>
 </sqlMap>
