@@ -1,0 +1,28 @@
+<!DOCTYPE sqlMap
+    PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Visitor">
+	<typeAlias alias="Visitor" type="kr.co.webcash.domain.Visitor"/>
+		
+	<insert id="insert" parameterClass="Visitor">
+		insert into visitor (id, writer, blogId, contents, dateCreated) 
+		values(#id#,#writer#,#blog.id#, #contents#, #dateCreated#)
+	</insert>
+	
+	<select id="findLastVisitorByBlogId" resultClass="Visitor">
+		select id
+		from visitor
+		where blogId = #blogId#
+		order by id desc
+		limit 1
+	</select>
+	
+<!-- 	<select id="findAllByBlogId" resultClass="Post">
+		SELECT p.id as id, p.title as title, p.contents as contents, p.dateCreated as dateCreated
+		FROM post p
+		join blogs b on b.id = p.blogId
+		where p.blogId = #blogId#
+		order by p.id desc
+	</select>
+ -->	
+</sqlMap>

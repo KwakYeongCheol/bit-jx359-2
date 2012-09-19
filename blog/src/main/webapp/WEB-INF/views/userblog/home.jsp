@@ -15,5 +15,19 @@
 	
 	</c:forEach>
 </div>
-
+<div>
+	<form action="${pageContext.request.contextPath }/${blogId}/visitor/wirteAction" method="post">
+		<input type="text" name="contents">
+		<input type="submit" value="글쓰기">
+	</form>
+</div>
+<div>
+	<c:forEach items="${postList }" var="post">
+	<div>
+		${post.title } | ${post.dateCreated } <br />
+		${post.contents }
+	</div>
+	
+	</c:forEach>
+</div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
