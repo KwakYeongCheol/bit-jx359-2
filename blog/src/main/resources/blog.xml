@@ -9,6 +9,12 @@
 		values(#id#, #title#, #owner#, #dateCreated#)
 	</insert>
 	
+	<update id="update" parameterClass="Blog">
+		update blogs set
+			title = #title#
+		where id = #id#
+	</update>
+	
 	<select id="findByUserLoginId" resultClass="Blog">
 		SELECT id, title, owner, dateCreated
 		FROM blogs

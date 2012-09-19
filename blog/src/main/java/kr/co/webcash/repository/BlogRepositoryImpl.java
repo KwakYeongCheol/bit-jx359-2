@@ -27,4 +27,9 @@ public class BlogRepositoryImpl implements BlogRepository{
 		return (Blog)template.queryForObject("Blog.findById", id);
 	}
 
+	@Override
+	public void update(Blog blog) {
+		template.update("Blog.update", blog);
+	}
+
 }
