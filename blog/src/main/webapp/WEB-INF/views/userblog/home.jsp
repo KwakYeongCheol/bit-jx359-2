@@ -6,25 +6,33 @@
 	<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/write">글쓰기</a> | 
 	<a href="${pageContext.request.contextPath }/${blog.id}/admin">관리자</a>
 </div>
+
+<hr />
+
 <div>
 	<c:forEach items="${postList }" var="post">
-	<div>
+	<div style="margin: 5px;">
 		${post.title } | ${post.dateCreated } <br />
 		${post.contents }
 	</div>
 	
 	</c:forEach>
 </div>
-<div>
+
+<hr />
+
+<div style="margin: 20px">
 	<form action="${pageContext.request.contextPath }/${blog.id}/visitor/wirteAction" method="post">
 		<input type="text" name="contents">
-		<input type="submit" value="글쓰기">
+		<input type="submit" value="방명록 작성">
 	</form>
 </div>
+
 <div>
 	<c:forEach items="${visitorList }" var="visitor">
-	<div>
-		${visitor.writer } | ${visitor.dateCreated } <br />
+	<div style="margin: 5px; ">
+		<a href="${pageContext.request.contextPath }/${visitor.writer}">${visitor.writer }</a> | 
+		${visitor.dateCreated } <br />
 		${visitor.contents } <br />
 		
 		<c:if test="${loginUser != null }">
