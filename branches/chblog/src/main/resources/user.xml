@@ -1,0 +1,24 @@
+<!DOCTYPE sqlMap
+    PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="User">
+	<typeAlias alias="User" type="kr.co.webcash.domain.User" />
+		
+    <select id="findAll" resultClass="User">
+    	SELECT id, name, password
+   		FROM users
+    </select>
+    
+    <insert id="insert" parameterClass="User">
+    	insert into users(id, name, password)
+    	values(#loginId#, #name#, #password#)
+    </insert>
+    
+    <select id="findById" resultClass="User">
+    	SELECT id, name, password
+   		FROM users 
+   		WHERE id = #loginId#
+    </select>
+   
+</sqlMap>
