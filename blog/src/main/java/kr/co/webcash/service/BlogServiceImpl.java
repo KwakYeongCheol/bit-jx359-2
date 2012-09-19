@@ -36,4 +36,9 @@ public class BlogServiceImpl implements BlogService {
 		blogRepository.update(blog);
 	}
 
+	@Override
+	public Blog findById(String blogId) {
+		return blogRepository.findById(blogId);
+	}
+
 }

@@ -3,8 +3,8 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 <div>
-	<a href="${pageContext.request.contextPath }/${blogId}/admin/post/write">글쓰기</a> | 
-	<a href="${pageContext.request.contextPath }/${blogId}/admin">관리자</a>
+	<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/write">글쓰기</a> | 
+	<a href="${pageContext.request.contextPath }/${blog.id}/admin">관리자</a>
 </div>
 <div>
 	<c:forEach items="${postList }" var="post">
@@ -16,7 +16,7 @@
 	</c:forEach>
 </div>
 <div>
-	<form action="${pageContext.request.contextPath }/${blogId}/visitor/wirteAction" method="post">
+	<form action="${pageContext.request.contextPath }/${blog.id}/visitor/wirteAction" method="post">
 		<input type="text" name="contents">
 		<input type="submit" value="글쓰기">
 	</form>
@@ -26,8 +26,15 @@
 	<div>
 		${visitor.writer } | ${visitor.dateCreated } <br />
 		${visitor.contents } <br />
-		<a href="${pageContext.request.contextPath }/${blogId}/visitor/modify?id=${visitor.id}">수정</a>
-		<a href="${pageContext.request.contextPath }/${blogId}/visitor/delete?id=${visitor.id}">삭제</a>
+		
+		<c:if test="${loginUser != null }">
+			<c:if test="${loginUser.loginId == visitor.writer }">
+				<a href="${pageContext.request.contextPath }/${blog.id }/visitor/modify?id=${visitor.id}">수정</a>
+			</c:if>
+			<c:if test="${loginUser.loginId == blog.owner || loginUser.loginId == visitor.writer }">
+				<a href="${pageContext.request.contextPath }/${blog.id}/visitor/delete?id=${visitor.id}">삭제</a>
+			</c:if>
+		</c:if>
 	</div>
 	
 	</c:forEach>

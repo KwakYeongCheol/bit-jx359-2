@@ -12,4 +12,11 @@ public class LoginUser {
 		this.loginId = loginId;
 	}
 
+	@Override
+	public String toString() {
+		return "LoginUser [loginId=" + loginId + "]";
+	}
+	
+	
+
 }
