@@ -5,6 +5,7 @@ import java.util.Date;
 public class Post {
 	private String id;
 	private Blog blog;
+	private Category category;
 	private String title;
 	private String contents;
 	private Date dateCreated;
@@ -51,6 +52,14 @@ public class Post {
 		return "Post [id=" + id + ", blog=" + blog + ", title=" + title
 				+ ", contents=" + contents + ", dateCreated=" + dateCreated
 				+ "]";
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}	
 	
 	
