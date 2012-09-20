@@ -1,0 +1,46 @@
+<!DOCTYPE sqlMap
+    PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Category">
+	<typeAlias alias="Category" type="kr.co.webcash.domain.Category"/>
+		
+	<insert id="insert" parameterClass="Category">
+		insert into category (id, title, blogId) 
+		values(#id#, #title#,  #blog.id#)
+	</insert>
+	
+	<select id="findAllByBlogId" resultClass="Category">
+		SELECT c.id as id, c.title as title
+		FROM category c
+		join blogs b on b.id = c.blogId
+		where c.blogId = #blogId#
+		order by c.id desc
+	</select>
+	
+	<select id="findLastPostByBlogId" resultClass="Category">
+		SELECT c.id as id
+		FROM category c
+		join blogs b on b.id = c.blogId
+		where c.blogId = #blogId#
+		order by c.id desc
+		limit 1
+	</select>
+	
+	<select id="findByIdAndBlogId" resultClass="Category">
+		SELECT c.id as id, c.title as title
+		FROM category c
+		join blogs b on b.id = c.blogId
+		where c.blogId = #blogId#
+			and c.id = #id#
+	</select>
+	
+	<update id="update" parameterClass="Category">
+		update category set title = #title#
+		where id = #id# and blogId = #blog.id#
+	</update>
+	
+	<delete id="delete" parameterClass="Category">
+		delete from category
+		where id = #id# and blogId = #blog.id#
+	</delete>
+</sqlMap>
