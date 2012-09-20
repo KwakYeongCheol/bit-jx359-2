@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
+@SessionAttributes("loginUser")
 @RequestMapping("/{blogId}/admin/post")
 public class PostController {
 	
@@ -32,15 +34,15 @@ public class PostController {
 	
 	@RequestMapping("/write")
 	public String write(@PathVariable String blogId, Model model){
-		model.addAttribute("categoryList", categoryService.findAllByBlogId(blogId));
+		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
 		return "/userblog/admin/post/write";
 	}
 	
 	@RequestMapping(value= "/writeAction", method=RequestMethod.POST)
 	public String writeAction(@RequestParam String categoryId, @RequestParam String title, @RequestParam String contents, @ModelAttribute LoginUser loginUser){
+		
 		Blog blog = blogService.findByUserLoginId(loginUser.getLoginId());
 		Category category = new Category();
-		
 		category.setId(categoryId);
 		
 		Post post = new Post();
@@ -62,7 +64,7 @@ public class PostController {
 		Post post = postService.findByIdAndBlogId(id,blogId);
 		
 		model.addAttribute("post", post);
-		model.addAttribute("categoryList", categoryService.findAllByBlogId(blogId));
+		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
 		
 		return "/userblog/admin/post/modify";
 	}

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/{blogId}/admin/category")
-public class CategoryController {
+public class AdminCategoryController {
 	@Autowired private BlogService blogService;
 	@Autowired private CategoryService categoryService;
 	
