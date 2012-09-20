@@ -14,6 +14,7 @@
 		<div>
 			<c:forEach items="${postList }" var="post">
 			<div>
+				<a href="${pageContext.request.contextPath }/${blog.id}/category/${post.category.id}">${post.category.title }</a> | 
 				${post.title } | 
 				${post.dateCreated } | 
 				<a href="${pageContext.request.contextPath }/${loginUser.loginId}/admin/post/modify?id=${post.id}">수정</a> |
