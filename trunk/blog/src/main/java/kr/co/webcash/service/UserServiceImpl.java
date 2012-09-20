@@ -2,6 +2,7 @@ package kr.co.webcash.service;
 
 import kr.co.webcash.domain.User;
 import kr.co.webcash.repository.UserRepository;
+import kr.co.webcash.utils.EncryptUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,16 +16,27 @@ public class UserServiceImpl implements UserService{
 		User user = userRepository.findByLoginId(loginId);
 		
 		if(user != null){
-			if(password.equals(user.getPassword()))		return true;
+			String decryptedPassword = EncryptUtils.descrypt(user.getPassword(), password);
+			
+			if(decryptedPassword!=null && decryptedPassword.equals(loginId)){
+				return true;
+			}
 		}
-		
 		return false;
 	}
 
 	@Override
-	public void save(User user) {
-		// TODO Auto-generated method stub
-		userRepository.insert(user);
+	public boolean save(User user) {
+		try{
+			String encryptedPassword = EncryptUtils.encrypt(user.getLoginId(), user.getPassword());
+			user.setPassword(encryptedPassword);
+
+			userRepository.insert(user);
+			
+			return true;
+		}catch(Exception e){
+			return false;
+		}
 	}
 
 }

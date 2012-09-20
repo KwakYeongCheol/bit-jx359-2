@@ -6,6 +6,6 @@ public interface UserService {
 
 	boolean checkLoginIdAndPassword(String loginId, String password);
 
-	void save(User user);
+	boolean save(User user);
 
 }
