@@ -1,5 +1,6 @@
 package kr.co.webcash.web.userblog.category;
 
+import kr.co.webcash.service.BlogService;
 import kr.co.webcash.service.CategoryService;
 import kr.co.webcash.service.PostService;
 
@@ -15,11 +16,14 @@ public class CategoryController {
 	
 	@Autowired private PostService postService;
 	@Autowired private CategoryService categoryService;
+	@Autowired private BlogService blogService;
 	
 
 	@RequestMapping("/{categoryId}")
 	public String home(Model model, @PathVariable String blogId, @PathVariable String categoryId){
-		model.addAttribute("categoryList", categoryService.findAllByBlogId(blogId));
+		
+		model.addAttribute("blog", blogService.findById(blogId));
+		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
 		model.addAttribute("postList", postService.listByBlogIdAndCategoryId(blogId, categoryId));
 		
 		return "/userblog/category/home";

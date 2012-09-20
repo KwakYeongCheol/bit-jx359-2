@@ -7,7 +7,7 @@
 	<form action="${pageContext.request.contextPath }/${loginUser.loginId }/admin/post/writeAction" method="POST">
 		<label>카테고리 </label>
 		<select name="categoryId">
-			<c:forEach items="categoryList" var="category">
+			<c:forEach items="${categoryList }" var="category">
 				<option value="${category.id }">${category.title }</option>
 			</c:forEach>
 		</select>

@@ -31,6 +31,13 @@ public class Blog {
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
 	}
+	@Override
+	public String toString() {
+		return "Blog [id=" + id + ", title=" + title + ", owner=" + owner
+				+ ", dateCreated=" + dateCreated + "]";
+	}
+	
+	
 	
 
 }

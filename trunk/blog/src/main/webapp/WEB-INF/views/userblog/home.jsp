@@ -9,6 +9,8 @@
 	</c:forEach>
 	</div>
 	
+	<hr />
+	
 	<c:forEach items="${postList }" var="post">
 	<div style="margin: 5px;">
 		
