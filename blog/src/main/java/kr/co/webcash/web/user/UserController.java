@@ -30,14 +30,16 @@ public class UserController {
 		user.setPassword(password);
 		user.setName(name);
 		
-		userService.save(user);
+		if(userService.save(user)){
+			// session에 LoginUser 저장
+			LoginUser loginUser = new LoginUser();
+			loginUser.setLoginId(user.getLoginId());
+			model.addAttribute("loginUser", loginUser);
+			
+			return "redirect:/blog/settings";
+		}
 		
-		// session에 LoginUser 저장
-		LoginUser loginUser = new LoginUser();
-		loginUser.setLoginId(user.getLoginId());
-		model.addAttribute("loginUser", loginUser);
-		
-		return "redirect:/blog/settings";
+		return "redirect:/user/register/step01";
 	}
 
 }
