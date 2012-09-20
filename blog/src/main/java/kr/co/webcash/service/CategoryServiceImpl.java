@@ -6,6 +6,7 @@ import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Post;
 import kr.co.webcash.repository.CategoryRepository;
+import kr.co.webcash.repository.PostRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 	@Autowired private CategoryRepository categoryRepository;
+	@Autowired private PostRepository postRepository;
 	@Override
 	public List<Category> listByBlogId(String blogId) {
 		return categoryRepository.findAllByBlogId(blogId);
@@ -37,7 +39,9 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public void delete(Category category) {
-		categoryRepository.delete(category);
+		if(postRepository.findLastByBlogIdAndCategoryId(category.getBlog().getId(), category.getId()) == null){
+			categoryRepository.delete(category);
+		}
 	}
 
 	@Override

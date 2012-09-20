@@ -20,4 +20,6 @@ public interface PostRepository {
 
 	List<Post> findAllByBlogIdAndCategoryId(String blogId, String categoryId);
 
+	Post findLastByBlogIdAndCategoryId(String blogId, String categoryId);
+
 }

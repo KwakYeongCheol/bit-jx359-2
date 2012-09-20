@@ -58,5 +58,16 @@
 		order by p.id desc
 	</select>
 	
+	<select id="findLastByBlogIdAndCategoryId" resultClass="Post">
+		SELECT
+		<include refid="defaultSelect" />
+		FROM post p
+		join category c on c.blogId = p.blogId
+		where p.blogId = #blogId# and c.id = p.categoryId and p.categoryId = #categoryId#
+		order by p.id desc
+		limit 1
+	</select>
+	
+	
 	
 </sqlMap>
