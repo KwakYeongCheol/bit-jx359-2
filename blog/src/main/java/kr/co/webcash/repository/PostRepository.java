@@ -18,4 +18,6 @@ public interface PostRepository {
 
 	void delete(Post post);
 
+	List<Post> findAllByBlogIdAndCategoryId(String blogId, String categoryId);
+
 }

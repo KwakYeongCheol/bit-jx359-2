@@ -52,4 +52,8 @@ public class PostServiceImpl implements PostService {
 		postRepository.delete(post);
 	}
 
+	@Override
+	public List<Post> listByBlogIdAndCategoryId(String blogId, String categoryId) {
+		return postRepository.findAllByBlogIdAndCategoryId(blogId, categoryId);	}
+
 }

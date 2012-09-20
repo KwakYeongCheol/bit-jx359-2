@@ -49,4 +49,12 @@ public class PostRepositoryImpl implements PostRepository {
 		template.delete("Post.delete", post);
 	}
 
+	@Override
+	public List<Post> findAllByBlogIdAndCategoryId(String blogId, String categoryId) {
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("blogId", blogId);
+		param.put("categoryId", categoryId);
+		return template.queryForList("Post.findAllByBlogIdAndCategoryId", param );
+	}
+
 }

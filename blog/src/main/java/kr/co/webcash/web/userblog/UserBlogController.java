@@ -1,6 +1,7 @@
 package kr.co.webcash.web.userblog;
 
 import kr.co.webcash.service.BlogService;
+import kr.co.webcash.service.CategoryService;
 import kr.co.webcash.service.PostService;
 import kr.co.webcash.service.VisitorService;
 
@@ -17,6 +18,7 @@ public class UserBlogController {
 	@Autowired private PostService postService;
 	@Autowired private BlogService blogService;
 	@Autowired private VisitorService visitorService;
+	@Autowired private CategoryService categoryService;
 	
 	@RequestMapping
 	public String main(@PathVariable String blogId, Model model){
@@ -27,8 +29,8 @@ public class UserBlogController {
 		
 //		model.addAttribute("blogId", blogId);
 		model.addAttribute("blog", blogService.findById(blogId));
-		model.addAttribute("postList", postService.listByBlogId(blogId));	
-		
+		model.addAttribute("postList", postService.listByBlogId(blogId));
+		model.addAttribute("categoryList", categoryService.findAllByBlogId(blogId));
 		
 		return "/userblog/home";
 	}
