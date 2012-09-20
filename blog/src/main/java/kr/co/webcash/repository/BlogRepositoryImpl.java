@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class BlogRepositoryImpl implements BlogRepository{
 
-	@Autowired SqlMapClientTemplate template;
+	@Autowired private SqlMapClientTemplate template;
 	
 	@Override
 	public void create(Blog blog) {
