@@ -1,7 +1,9 @@
 package kr.co.webcash.service;
 
 import kr.co.webcash.domain.Blog;
+import kr.co.webcash.domain.Category;
 import kr.co.webcash.repository.BlogRepository;
+import kr.co.webcash.repository.CategoryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,11 +12,17 @@ import org.springframework.stereotype.Service;
 public class BlogServiceImpl implements BlogService {
 	
 	@Autowired private BlogRepository blogRepository;
-
+	@Autowired private CategoryRepository categoryRepository;
+	
 	@Override
 	public void createBlog(Blog blog) {
-		// TODO Auto-generated method stub
 		blogRepository.create(blog);
+		Category category = new Category();
+		category.setId(String.valueOf(1));
+		category.setBlog(blog);
+		category.setTitle("내 글");
+		
+		categoryRepository.insert(category);
 	}
 
 	@Override

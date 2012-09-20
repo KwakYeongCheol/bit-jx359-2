@@ -5,12 +5,12 @@
 	<typeAlias alias="Post" type="kr.co.webcash.domain.Post"/>
 		
 	<insert id="insert" parameterClass="Post">
-		insert into post (id, blogId, title, contents, dateCreated) 
-		values(#id#, #blog.id#, #title#, #contents#, #dateCreated#)
+		insert into post (id, blogId, categoryId, title, contents, dateCreated) 
+		values(#id#, #blog.id#, #category.id#, #title#, #contents#, #dateCreated#)
 	</insert>
 	
 	<update id="update" parameterClass="Post">
-		update post set title = #title#, contents = #contents#
+		update post set title = #title#, contents = #contents#, categoryId = #category.id#
 		where id = #id# and blogId = #blog.id#
 	</update>
 	
@@ -28,8 +28,14 @@
 		limit 1
 	</select>
 	
+	<sql id="defaultSelect">
+		SELECT
+			p.id as id, p.title as title, p.contents as contents, p.dateCreated as dateCreated,
+			c.id as 'category.id', c.title as 'category.title'
+	</sql>
+	
 	<select id="findAllByBlogId" resultClass="Post">
-		SELECT p.id as id, p.title as title, p.contents as contents, p.dateCreated as dateCreated
+		<include refid="defaultSelect" />
 		FROM post p
 		join blogs b on b.id = p.blogId
 		where p.blogId = #blogId#
@@ -37,9 +43,10 @@
 	</select>
 	
 	<select id="findByIdAndBlogId" resultClass="Post">
-		SELECT p.id as id, p.title as title, p.contents as contents, p.dateCreated as dateCreated
+		<include refid="defaultSelect" />
 		FROM post p
 		join blogs b on b.id = p.blogId
+		join category c on c.blogId = p.blogId
 		where p.blogId = #blogId#
 			and p.id = #id#
 	</select>

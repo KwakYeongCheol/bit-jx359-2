@@ -5,15 +5,18 @@ import java.util.Date;
 import javax.servlet.http.HttpSession;
 
 import kr.co.webcash.domain.Blog;
+import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.LoginUser;
 import kr.co.webcash.domain.Post;
 import kr.co.webcash.service.BlogService;
+import kr.co.webcash.service.CategoryService;
 import kr.co.webcash.service.PostService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,31 +28,32 @@ public class PostController {
 	
 	@Autowired private PostService postService;
 	@Autowired private BlogService blogService;
+	@Autowired private CategoryService categoryService;
 	
 	@RequestMapping("/write")
-	public String write(){
+	public String write(@PathVariable String blogId, Model model){
+		model.addAttribute("categoryList", categoryService.findAllByBlogId(blogId));
 		return "/userblog/admin/post/write";
 	}
 	
 	@RequestMapping(value= "/writeAction", method=RequestMethod.POST)
-	public String writeAction(@RequestParam String title, @RequestParam String contents, HttpSession session){
-		LoginUser loginUser = (LoginUser) session.getAttribute("loginUser");
-		String redirectUrl = "redirect:/";
-		if(loginUser != null){
-			Blog blog = blogService.findByUserLoginId(loginUser.getLoginId());
-			
-			Post post = new Post();
-			post.setId(String.valueOf(postService.findLastIdByBlogId(blog.getId()) + 1));
-			post.setBlog(blog);
-			post.setTitle(title);
-			post.setContents(contents);
-			post.setDateCreated(new Date(System.currentTimeMillis()));
-			
-			postService.save(post);
-			redirectUrl = "redirect:/" + blog.getId() + "/admin";
-		}
+	public String writeAction(@RequestParam String categoryId, @RequestParam String title, @RequestParam String contents, @ModelAttribute LoginUser loginUser){
+		Blog blog = blogService.findByUserLoginId(loginUser.getLoginId());
+		Category category = new Category();
 		
-		return redirectUrl;
+		category.setId(categoryId);
+		
+		Post post = new Post();
+		post.setId(String.valueOf(postService.findLastIdByBlogId(blog.getId()) + 1));
+		post.setBlog(blog);
+		post.setCategory(category);
+		post.setTitle(title);
+		post.setContents(contents);
+		post.setDateCreated(new Date(System.currentTimeMillis()));
+		
+		postService.save(post);
+		
+		return "redirect:/" + blog.getId() + "/admin";
 	}
 	
 	@RequestMapping("/modify")
@@ -58,17 +62,21 @@ public class PostController {
 		Post post = postService.findByIdAndBlogId(id,blogId);
 		
 		model.addAttribute("post", post);
+		model.addAttribute("categoryList", categoryService.findAllByBlogId(blogId));
 		
 		return "/userblog/admin/post/modify";
 	}
 	
 	@RequestMapping(value = "/modifyAction", method = RequestMethod.POST)
-	public String modifyAction(@PathVariable String blogId, @RequestParam String id, @RequestParam String title, @RequestParam String contents){
+	public String modifyAction(@PathVariable String blogId, @RequestParam String id, @RequestParam String title, @RequestParam String contents, @RequestParam String categoryId){
+		Category category = new Category();
+		category.setId(categoryId);
 		Post post = new Post();
 		Blog blog = new Blog();
 		blog.setId(blogId);
 		post.setId(id);
 		post.setBlog(blog);
+		post.setCategory(category);
 		post.setTitle(title);
 		post.setContents(contents);
 		

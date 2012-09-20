@@ -1,4 +1,4 @@
-package kr.co.webcash.web.visitor;
+package kr.co.webcash.web.userblog.visitor;
 
 import java.util.Date;
 
@@ -30,8 +30,8 @@ public class VisitorController {
 	@Autowired private VisitorService visitorService;
 	@RequestMapping
 	public String main(@PathVariable String blogId,Model model,HttpSession session){	
-
-		return "redirect:/" + blogId;
+		model.addAttribute("visitorList",visitorService.listByBlogId(blogId));
+		return "userblog/visitor/home";
 	}
 	@RequestMapping(value="/wirteAction", method=RequestMethod.POST)
 	public String wirteAction(HttpSession session, @RequestParam String contents, @PathVariable String blogId){
