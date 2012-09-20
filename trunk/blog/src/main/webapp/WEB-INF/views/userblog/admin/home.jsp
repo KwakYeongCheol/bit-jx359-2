@@ -7,6 +7,7 @@
 	
 	<div>
 		<a href="${pageContext.request.contextPath }/${loginUser.loginId }/admin/post/write">글 쓰기</a>
+		<a href="${pageContext.request.contextPath }/${loginUser.loginId }/admin/category">카테고리 설정</a>
 	</div>
 	<div>
 		글 목록
