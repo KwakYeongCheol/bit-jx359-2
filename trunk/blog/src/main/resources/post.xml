@@ -51,5 +51,13 @@
 			and p.id = #id#
 	</select>
 	
+	<select id="findAllByBlogIdAndCategoryId" resultClass="Post">
+		<include refid="defaultSelect" />
+		FROM post p
+		join blogs b on b.id = p.blogId
+		where p.blogId = #blogId# and p.categoryId = #categoryId#
+		order by p.id desc
+	</select>
+	
 	
 </sqlMap>
