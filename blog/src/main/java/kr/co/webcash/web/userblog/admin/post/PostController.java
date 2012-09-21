@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes("loginUser")
+@SessionAttributes(value={"categoryList", "post","loginUser"})
 @RequestMapping("/{blogId}/admin/post")
 public class PostController {
 	
@@ -35,24 +35,17 @@ public class PostController {
 	@RequestMapping("/write")
 	public String write(@PathVariable String blogId, Model model){
 		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
+		model.addAttribute("post", new Post());
 		return "/userblog/admin/post/write";
 	}
 	
 	@RequestMapping(value= "/writeAction", method=RequestMethod.POST)
-	public String writeAction(@RequestParam String categoryId, @RequestParam String title, @RequestParam String contents, @ModelAttribute LoginUser loginUser){
-		
+	public String writeAction(@ModelAttribute Post post, @ModelAttribute LoginUser loginUser, Model model, HttpSession session){
+
 		Blog blog = blogService.findByUserLoginId(loginUser.getLoginId());
-		Category category = new Category();
-		category.setId(categoryId);
-		
-		Post post = new Post();
-		post.setId(String.valueOf(postService.findLastIdByBlogId(blog.getId()) + 1));
 		post.setBlog(blog);
-		post.setCategory(category);
-		post.setTitle(title);
-		post.setContents(contents);
-		post.setDateCreated(new Date(System.currentTimeMillis()));
-		
+		post.setId(String.valueOf(postService.findLastIdByBlogId(blog.getId()) + 1));
+		post.setDateCreated(new Date(System.currentTimeMillis()));		
 		postService.save(post);
 		
 		return "redirect:/" + blog.getId() + "/admin";
@@ -70,18 +63,10 @@ public class PostController {
 	}
 	
 	@RequestMapping(value = "/modifyAction", method = RequestMethod.POST)
-	public String modifyAction(@PathVariable String blogId, @RequestParam String id, @RequestParam String title, @RequestParam String contents, @RequestParam String categoryId){
-		Category category = new Category();
-		category.setId(categoryId);
-		Post post = new Post();
+	public String modifyAction(@PathVariable String blogId, @ModelAttribute Post post){	
 		Blog blog = new Blog();
 		blog.setId(blogId);
-		post.setId(id);
 		post.setBlog(blog);
-		post.setCategory(category);
-		post.setTitle(title);
-		post.setContents(contents);
-		
 		postService.update(post);
 		
 		return "redirect:/" + blogId + "/admin";
