@@ -30,6 +30,12 @@ public class PostController {
 	@Autowired private BlogService blogService;
 	@Autowired private CategoryService categoryService;
 	
+	@RequestMapping()
+	public String home(@PathVariable String blogId, Model model){
+		model.addAttribute("postList", postService.listByBlogId(blogId));
+		return "/userblog/admin/home";
+	}
+	
 	@RequestMapping("/write")
 	public String write(@PathVariable String blogId, Model model){
 		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));

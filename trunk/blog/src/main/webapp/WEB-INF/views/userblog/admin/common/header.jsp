@@ -4,9 +4,9 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 <div id="header">
-	${blog.title }
+	관리자 페이지 - ${blog.title } 
 	<div id="link">
-		<a href="${pageContext.request.contextPath }/${blog.id}/">홈</a> |
+		<a href="${pageContext.request.contextPath }/${blog.id}/">블로그 홈</a> |
 		<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/write">글쓰기</a> | 
 		<a href="${pageContext.request.contextPath }/${blog.id}/admin">관리자</a> |
 		<a href="${pageContext.request.contextPath }/${blog.id}/visitor">방명록</a>
@@ -14,7 +14,10 @@
 </div>
 
 <div id="menu">
-	<c:forEach items="${categoryList }" var="category">
-		<a href="${pageContext.request.contextPath }/${blog.id}/category/${category.id}">${category.title }</a><br />
-	</c:forEach>
+	<div>
+		<a href="${pageContext.request.contextPath }/${blog.id}/admin/category">카테고리 관리</a>
+	</div>
+	<div>
+		<a href="${pageContext.request.contextPath }/${blog.id}/admin/post">글 목록</a>
+	</div>
 </div>
