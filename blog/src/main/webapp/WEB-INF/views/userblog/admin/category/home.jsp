@@ -6,7 +6,7 @@
 	${blogId } 카테고리 페이지
 	
 	<div>
-		<a href="${pageContext.request.contextPath }/${loginUser.loginId }/admin/category/add">카테고리 추가</a>
+		<a href="${pageContext.request.contextPath }/${blog.id }/admin/category/add">카테고리 추가</a>
 	</div>
 	<div>
 		카테고리 목록
@@ -14,8 +14,8 @@
 			<c:forEach items="${categoryList }" var="category">
 			<div>
 				${category.title } | 
-				<a href="${pageContext.request.contextPath }/${loginUser.loginId}/admin/category/modify?id=${category.id}">수정</a> |
-				<a href="${pageContext.request.contextPath }/${loginUser.loginId}/admin/category/delete?id=${category.id}">삭제</a><br />
+				<a href="${pageContext.request.contextPath }/${blog.id}/admin/category/modify?id=${category.id}">수정</a> |
+				<a href="${pageContext.request.contextPath }/${blog.id}/admin/category/delete?id=${category.id}">삭제</a><br />
 			</div>
 			</c:forEach>
 		</div>

@@ -4,7 +4,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 <div>
-	<form:form modelAttribute="post" action="${pageContext.request.contextPath }/${loginUser.loginId }/admin/post/writeAction" method="POST">
+	<form:form modelAttribute="post" action="${pageContext.request.contextPath }/${blog.id }/admin/post/writeAction" method="POST">
 		<p>
 			<form:label path="category.id">카테고리</form:label>
 			<form:select path="category.id">
