@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.service.BlogService;
+import kr.co.webcash.service.CategoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 public class AddBlogInfoInterceptor extends HandlerInterceptorAdapter {
 	
 	@Autowired private BlogService blogService;
+	@Autowired private CategoryService categoryService;
 	
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, 
@@ -25,6 +27,7 @@ public class AddBlogInfoInterceptor extends HandlerInterceptorAdapter {
 		Blog blog = blogService.findById(blogId);
 		if(blog != null){
 			modelAndView.getModel().put("blog", blog);
+			modelAndView.getModel().put("categoryList", categoryService.listByBlogId(blog.getId()));
 			modelAndView.getModel().put("htmlTitle", blog.getTitle());
 		}
 	}
