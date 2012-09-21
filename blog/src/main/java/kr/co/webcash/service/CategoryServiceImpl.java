@@ -40,7 +40,16 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public void delete(Category category) {
 		if(postRepository.findLastByBlogIdAndCategoryId(category.getBlog().getId(), category.getId()) == null){
-			categoryRepository.delete(category);
+			int categoryCount = categoryRepository.findAllCountByBlogId(category.getBlog().getId());
+			
+			if(categoryCount > 1){
+				System.out.println("카테고리가 삭제되었습니다.");
+				categoryRepository.delete(category);
+			}else{
+				System.out.println("최소 한 개의 카테고리는 존재해야 합니다.");
+			}
+		}else{
+			System.out.println("해당 카테고리에 글이 있기 때문에 삭제할 수 없습니다.");
 		}
 	}
 
