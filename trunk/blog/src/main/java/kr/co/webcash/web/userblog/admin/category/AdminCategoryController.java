@@ -12,12 +12,15 @@ import kr.co.webcash.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
+@SessionAttributes("category")
 @RequestMapping("/{blogId}/admin/category")
 public class AdminCategoryController {
 	@Autowired private BlogService blogService;
@@ -25,24 +28,23 @@ public class AdminCategoryController {
 	
 	@RequestMapping
 	public String home(@PathVariable String blogId, Model model){
-		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));	
+		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
 		return "/userblog/admin/category/home";
 	}
 	
 	@RequestMapping("/add")
-	public String add(){
+	public String add(Model model){
+		model.addAttribute("category", new Category());
 		return "/userblog/admin/category/add";
 	}
 	@RequestMapping(value="/addAction", method=RequestMethod.POST)
-	public String addAciton(@RequestParam String title, HttpSession session, @PathVariable String blogId ){
+	public String addAciton(@ModelAttribute Category category, HttpSession session, @PathVariable String blogId ){
 		LoginUser loginUser = (LoginUser)session.getAttribute("loginUser");
 		String redirectUrl = "redirect:/";
 		if(loginUser != null){
 			Blog blog = blogService.findByUserLoginId(loginUser.getLoginId());
 			
-			Category category = new Category();
 			category.setId(String.valueOf(categoryService.findLastIdByBlogId(blog.getId())+1));
-			category.setTitle(title);
 			category.setBlog(blog);
 			
 			categoryService.save(category);
@@ -62,13 +64,10 @@ public class AdminCategoryController {
 	}
 	
 	@RequestMapping(value = "/modifyAction", method = RequestMethod.POST)
-	public String modifyAction(@PathVariable String blogId, @RequestParam String title, @RequestParam String id){
-		Category category = new Category();
+	public String modifyAction(@PathVariable String blogId, @ModelAttribute Category category){
 		Blog blog = new Blog();
 		blog.setId(blogId);
-		category.setId(id);
 		category.setBlog(blog);
-		category.setTitle(title);
 		
 		categoryService.update(category);
 		
