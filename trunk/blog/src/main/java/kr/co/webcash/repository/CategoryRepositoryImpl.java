@@ -48,4 +48,9 @@ public class CategoryRepositoryImpl implements CategoryRepository{
 		return (Category) template.queryForObject("Category.findByIdAndBlogId", param);
 	}
 
+	@Override
+	public int findAllCountByBlogId(String blogId) {
+		return (Integer) template.queryForObject("Category.findAllCountByIdAndBlogId", blogId);
+	}
+
 }

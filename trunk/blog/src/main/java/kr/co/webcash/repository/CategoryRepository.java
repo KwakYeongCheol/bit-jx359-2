@@ -18,5 +18,7 @@ public interface CategoryRepository {
 	void delete(Category category);
 
 	Category findByIdAndBlogId(String id, String blogId);
+
+	int findAllCountByBlogId(String blogId);
 	
 }
