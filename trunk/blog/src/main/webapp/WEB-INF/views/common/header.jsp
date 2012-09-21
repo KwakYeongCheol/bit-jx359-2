@@ -7,6 +7,7 @@
 	<title>${htmlTitle }</title>
 	<link href="${pageContext.request.contextPath }/resources/css/common.css" rel="stylesheet" type="text/css" media="screen" />
 	<link href="${pageContext.request.contextPath }/resources/css/home.css" rel="stylesheet" type="text/css" media="screen" />
+	<link href="${pageContext.request.contextPath }/resources/css/blog/blog_default.css" rel="stylesheet" type="text/css" media="screen" />
 </head>
 
 <body>

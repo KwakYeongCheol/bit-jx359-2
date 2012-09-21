@@ -21,7 +21,6 @@ public class CategoryController {
 
 	@RequestMapping("/{categoryId}")
 	public String home(Model model, @PathVariable String blogId, @PathVariable String categoryId){
-		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
 		model.addAttribute("postList", postService.listByBlogIdAndCategoryId(blogId, categoryId));
 		
 		return "/userblog/category/home";

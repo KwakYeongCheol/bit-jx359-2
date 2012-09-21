@@ -22,13 +22,9 @@ public class UserBlogController {
 	
 	@RequestMapping
 	public String main(@PathVariable String blogId, Model model){
-		
 		if(!blogService.isExist(blogId))	return "redirect:/";
 
-		model.addAttribute("htmlTitle", blogId);
-		
 		model.addAttribute("postList", postService.listByBlogId(blogId));
-		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
 		
 		return "/userblog/home";
 	}

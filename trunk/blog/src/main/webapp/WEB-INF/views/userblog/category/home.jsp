@@ -2,16 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="/WEB-INF/views/userblog/common/header.jsp" />
 
-<div>
-	<div>
-	<c:forEach items="${categoryList }" var="category">
-		<a href="${pageContext.request.contextPath }/${blog.id}/category/${category.id}">${category.title }</a>
-	</c:forEach>
-	</div>
-	
+<div id="articles">
 	<c:forEach items="${postList }" var="post">
-	<div style="margin: 5px;">
-		
+	<div class="article">
 		<a href="${pageContext.request.contextPath }/${blog.id}/category/${post.category.id}">${post.category.title }</a> | 
 		${post.title } | 
 		${post.dateCreated } <br />

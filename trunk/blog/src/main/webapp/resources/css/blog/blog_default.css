@@ -1,0 +1,64 @@
+
+a {
+	color: #09c;
+	font-size: 13px;
+	text-decoration: none;
+	font-weight: 600;
+	font-family: verdana, arial, helvetica, sans-serif;
+}
+
+a:link {
+	color: #09c;
+}
+
+a:visited {
+	color: #07a;
+}
+
+a:hover {
+	background-color: #eee;
+}
+
+#contents #header {
+	margin: 50px 0px 10px 0px;
+	padding: 17px 0px 0px 20px;
+	height: 50px;
+	border-style: solid;
+	border-color: black;
+	border-width: 1px 0px;
+	line-height: 11px;
+	background-color: #eee;
+	voice-family: "\"}\"";
+	voice-family: inherit;
+}
+
+#contents #header #link{
+	margin: 20px 0px;
+}
+
+#contents #menu {
+	position: absolute;
+	top: 200px;
+	left: 20px;
+	width: 172px;
+	padding: 10px;
+	background-color: #eee;
+	border: 1px dashed #999;
+	line-height: 17px;
+	/* Again, the ugly brilliant hack. */
+	voice-family: "\"}\"";
+	voice-family: inherit;
+	width: 150px;
+}
+
+#contents #articles {
+	margin: 0px 50px 50px 200px;
+	padding: 10px;
+}
+
+#contents #articles .article {
+	border-collapse: collapse;
+	border: 1px solid;
+	margin: 24px;
+	font-size: 1.1em;
+}
