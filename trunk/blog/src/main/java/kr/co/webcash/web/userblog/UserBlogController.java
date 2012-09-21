@@ -27,8 +27,6 @@ public class UserBlogController {
 
 		model.addAttribute("htmlTitle", blogId);
 		
-//		model.addAttribute("blogId", blogId);
-		model.addAttribute("blog", blogService.findById(blogId));
 		model.addAttribute("postList", postService.listByBlogId(blogId));
 		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
 		

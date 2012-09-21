@@ -28,6 +28,10 @@
 	
 	<mvc:interceptors>
 		<mvc:interceptor>
+			<mvc:mapping path="/{blogId}/**"/>
+			<beans:bean class="kr.co.webcash.web.userblog.common.AddBlogInfoInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
 			<mvc:mapping path="/{blogId}/admin/**"/>
 			<beans:bean class="kr.co.webcash.web.userblog.security.UserSecurityInterceptor" />
 		</mvc:interceptor>
