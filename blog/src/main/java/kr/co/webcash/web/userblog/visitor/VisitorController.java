@@ -6,7 +6,6 @@ import javax.servlet.http.HttpSession;
 
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.LoginUser;
-import kr.co.webcash.domain.Post;
 import kr.co.webcash.domain.Visitor;
 import kr.co.webcash.service.BlogService;
 import kr.co.webcash.service.VisitorService;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes("loginUser")
+@SessionAttributes(value={"visitor","loginUser"})
 @RequestMapping("/{blogId}/visitor")
 public class VisitorController {
 	
@@ -31,29 +30,27 @@ public class VisitorController {
 	@RequestMapping
 	public String main(@PathVariable String blogId,Model model,HttpSession session){	
 		model.addAttribute("visitorList",visitorService.listByBlogId(blogId));
+		model.addAttribute("visitor",new Visitor());
 		return "userblog/visitor/home";
 	}
 	@RequestMapping(value="/wirteAction", method=RequestMethod.POST)
-	public String wirteAction(HttpSession session, @RequestParam String contents, @PathVariable String blogId){
+	public String wirteAction(HttpSession session, @ModelAttribute Visitor visitor, @PathVariable String blogId){
 		LoginUser loginUser = (LoginUser)session.getAttribute("loginUser");
 		
 		if(loginUser != null){
 			Blog blog = new Blog();
 			blog.setId(blogId);
-			
-			Visitor visitor = new Visitor();
-			
+		
 			int lastId = visitorService.findLastIdByBlogId(blog.getId());
 			visitor.setId(String.valueOf(lastId + 1));
 			visitor.setWriter(loginUser.getLoginId());
-			visitor.setContents(contents);
 			visitor.setBlog(blog);
 			visitor.setDateCreated(new Date(System.currentTimeMillis()));
 			
 			visitorService.write(visitor);
 		}
 		
-		return "redirect:/" + blogId;
+		return "redirect:/" + blogId +"/visitor";
 	}
 	
 	@RequestMapping("/modify")
@@ -71,23 +68,21 @@ public class VisitorController {
 		return "redirect:/" + blogId;	
 	}
 	@RequestMapping(value="/modifyAction", method=RequestMethod.POST)
-	public String modifyAction(@ModelAttribute LoginUser loginUser, @PathVariable String blogId, @RequestParam String contents, @RequestParam String id){
+	public String modifyAction(@ModelAttribute LoginUser loginUser, @PathVariable String blogId, @ModelAttribute Visitor modifiedVisitor, @RequestParam String id){
 		Visitor visitor = visitorService.findByIdAndBlogId(id, blogId);
 		
 		if(visitor != null){
 			if(loginUser.getLoginId().equals(visitor.getWriter())){
 				Blog blog = new Blog();
 				blog.setId(blogId);
-				Visitor modifiedVisitor = new Visitor();
 				modifiedVisitor.setId(id);
-				modifiedVisitor.setContents(contents);
 				modifiedVisitor.setBlog(blog);
 				
 				visitorService.update(modifiedVisitor);
 			}
 		}
 		
-		return "redirect:/" + blogId;	
+		return "redirect:/" + blogId +"/visitor";	
 	}
 	@RequestMapping("/delete")
 	public String delete(@ModelAttribute LoginUser loginUser, @RequestParam String id, @PathVariable String blogId){
@@ -107,6 +102,6 @@ public class VisitorController {
 				visitorService.delete(deletedVisitor);
 			}
 		}
-		return "redirect:/" + blogId;
+		return "redirect:/" + blogId +"/visitor";
 	}
 }

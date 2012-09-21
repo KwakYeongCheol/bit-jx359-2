@@ -76,7 +76,7 @@ public class AdminCategoryController {
 	}
 	
 	@RequestMapping("/delete")
-	public String delete(@RequestParam String id, @PathVariable String blogId){
+	public String delete(@RequestParam String id, @PathVariable String blogId){		
 		Category category = new Category();
 		category.setId(id);
 		Blog blog = new Blog();

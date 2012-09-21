@@ -1,12 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <jsp:include page="/WEB-INF/views/userblog/common/header.jsp" />
 
 <div style="margin: 20px">
-	<form action="${pageContext.request.contextPath }/${blog.id}/visitor/wirteAction" method="post">
+	<form:form modelAttribute="visitor" action="${pageContext.request.contextPath }/${blog.id}/visitor/wirteAction" method="post">
+		<p>
+			<form:input path="contents"/>
+			<input type="submit" value="방명록 작성">			
+		</p>
+	</form:form>
+	<%-- <form action="${pageContext.request.contextPath }/${blog.id}/visitor/wirteAction" method="post">
 		<input type="text" name="contents">
 		<input type="submit" value="방명록 작성">
-	</form>
+	</form> --%>
 </div>
 
 <div>
