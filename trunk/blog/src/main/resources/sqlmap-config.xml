@@ -9,4 +9,5 @@
     <sqlMap resource="post.xml"/>
     <sqlMap resource="visitor.xml"/>
     <sqlMap resource="category.xml"/>
+    <sqlMap resource="favorite.xml"/>
 </sqlMapConfig>

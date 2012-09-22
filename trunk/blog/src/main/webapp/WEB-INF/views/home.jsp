@@ -10,7 +10,8 @@
 		<a href="${pageContext.request.contextPath }/user/home">회원 정보</a>
 		</div>
 		<c:if test="${blog != null }">
-		<a href="${pageContext.request.contextPath }/${blog.id}">${blog.title }</a> &nbsp;
+		<a href="${pageContext.request.contextPath }/${blog.id}">${blog.title }</a> &nbsp; | &nbsp;
+		<a href="${pageContext.request.contextPath }/favorite">이웃들</a>		
 		</c:if>
 	</c:if>
 </div>
