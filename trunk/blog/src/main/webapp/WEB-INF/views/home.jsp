@@ -5,7 +5,10 @@
 
 <div id="blogInfo">
 	<c:if test="${loginUser != null }">
-		<div>내 블로그 &nbsp; &nbsp; <a href="${pageContext.request.contextPath }/blog/settings">설정</a></div>
+		<div>내 블로그 &nbsp; &nbsp; 
+		<a href="${pageContext.request.contextPath }/blog/settings">설정</a>
+		<a href="${pageContext.request.contextPath }/user/home">회원 정보</a>
+		</div>
 		<c:if test="${blog != null }">
 		<a href="${pageContext.request.contextPath }/${blog.id}">${blog.title }</a> &nbsp;
 		</c:if>

@@ -22,6 +22,14 @@ public class UserController {
 	
 	@Autowired private UserService userService;
 	
+	@RequestMapping("/home")
+	public void Main(HttpSession session, Model model){
+		LoginUser loginUser = (LoginUser)session.getAttribute("loginUser");
+		User user = userService.findLoginId(loginUser.getLoginId());
+		System.out.println(user);
+		model.addAttribute("user", user);
+	}
+	
 	@RequestMapping("/register/step01")
 	public void step01(Model model){
 		model.addAttribute("user", new User());
@@ -42,4 +50,8 @@ public class UserController {
 		return "redirect:/user/register/step01";
 	}
 
+	@RequestMapping(value="/modify", method=RequestMethod.POST)
+	public void modify(@ModelAttribute User user, Model model, HttpSession session){
+		
+	}
 }

@@ -16,7 +16,7 @@
     </insert>
     
     <select id="findById" resultClass="User">
-    	SELECT id, name, password
+    	SELECT id as loginId, name, password
    		FROM users 
    		WHERE id = #loginId#
     </select>
