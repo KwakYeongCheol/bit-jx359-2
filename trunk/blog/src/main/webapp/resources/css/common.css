@@ -19,3 +19,7 @@
 	font-size:12px;
 	text-decoration: none;
 }
+
+.error {
+	color:#FF0000;
+}
