@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="/WEB-INF/views/userblog/admin/common/header.jsp" />
 
-<div id="articles">
+<div id="blogArticles">
 	카테고리 목록 &nbsp; &nbsp; <a href="${pageContext.request.contextPath }/${blog.id }/admin/category/add">카테고리 추가</a>
 	<br /><br />
 	<div>

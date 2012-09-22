@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <jsp:include page="/WEB-INF/views/userblog/admin/common/header.jsp" />
 
-<div id="articles">
+<div id="blogArticles">
 	<form:form modelAttribute="post" action="${pageContext.request.contextPath }/${blog.id }/admin/post/modifyAction" method="POST">
 		<input type="hidden" name="id" value="${post.id }" />
 		<p>

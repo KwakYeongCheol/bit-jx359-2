@@ -31,7 +31,8 @@ a:hover {
 	border-color: black;
 	border-width: 1px 0px;
 	line-height: 11px;
-	background-color: #eee;
+	background-color: #23658b;
+	color:#FFF;
 }
 
 #blog #blogHeader #blogTitle {
@@ -70,7 +71,7 @@ a:hover {
 #blog #blogContents #blogArticles {
 	margin: 0px 50px 50px 200px;
 	padding: 10px;
-	background-color: #eee;
+	background-color: #23658b;
 }
 
 #blog #blogContents #blogArticles .blogArticle {
@@ -78,5 +79,9 @@ a:hover {
 	border-collapse: collapse;
 	margin: 10px 10px 30px 10px;
 	padding: 15px;;
+	font-size: 1.1em;
+}
+
+#blog #blogContents #blogArticles .blogArticle a{
 	font-size: 1.1em;
 }

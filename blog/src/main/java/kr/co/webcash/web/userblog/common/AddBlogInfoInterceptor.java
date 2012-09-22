@@ -1,5 +1,8 @@
 package kr.co.webcash.web.userblog.common;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,9 +29,16 @@ public class AddBlogInfoInterceptor extends HandlerInterceptorAdapter {
 		
 		Blog blog = blogService.findById(blogId);
 		if(blog != null){
-			modelAndView.getModel().put("blog", blog);
-			modelAndView.getModel().put("categoryList", categoryService.listByBlogId(blog.getId()));
-			modelAndView.getModel().put("htmlTitle", blog.getTitle());
+			modelAndView.addObject("blog", blog);
+			modelAndView.addObject("categoryList", categoryService.listByBlogId(blog.getId()));
+			modelAndView.addObject("htmlTitle", blog.getTitle());
+			
+			if(modelAndView.getModel().get("cssList") == null){
+				List<String> cssList = new ArrayList<String>();
+				cssList.add("css/blog/blog_default.css");
+				
+				modelAndView.addObject("cssList", cssList);
+			}
 		}
 	}
 
