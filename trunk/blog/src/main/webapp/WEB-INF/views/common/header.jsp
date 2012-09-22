@@ -7,22 +7,24 @@
 	<title>${htmlTitle }</title>
 	<link href="${pageContext.request.contextPath }/resources/css/common.css" rel="stylesheet" type="text/css" media="screen" />
 	<link href="${pageContext.request.contextPath }/resources/css/home.css" rel="stylesheet" type="text/css" media="screen" />
-	<link href="${pageContext.request.contextPath }/resources/css/blog/blog_default.css" rel="stylesheet" type="text/css" media="screen" />
+	<c:forEach items="${cssList}" var="css">
+	<link href="${pageContext.request.contextPath }/resources/${css}" rel="stylesheet" type="text/css" media="screen" />
+	</c:forEach>
 </head>
 
 <body>
 <div id="wrap">
 	<div id="header">
 		<ul>
-			<c:if test="${loginUser != null }">
-			<li>${loginUser.loginId } 님</li>
+			<li><a href="${pageContext.request.contextPath }/user/register/step01">회원가입</a></li>
+			<c:if test="${loginUserProvider.loggedIn }">
+			<li>${loginUserProvider.loginId } 님</li>
 			<li><a href="${pageContext.request.contextPath }/logout">로그아웃</a></li>
 			</c:if>
-			<li><a href="${pageContext.request.contextPath }">홈</a></li>
-			<c:if test="${loginUser == null }">
+			<c:if test="${!loginUserProvider.loggedIn }">
 			<li><a href="${pageContext.request.contextPath }/login">로그인</a></li>
 			</c:if>
-			<li><a href="${pageContext.request.contextPath }/user/register/step01">회원가입</a></li>
+			<li><a href="${pageContext.request.contextPath }">홈</a></li>
 		</ul>
 	</div>
 	

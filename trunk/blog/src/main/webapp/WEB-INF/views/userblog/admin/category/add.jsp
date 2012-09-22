@@ -2,7 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <jsp:include page="/WEB-INF/views/userblog/admin/common/header.jsp" />
 
-<div id="articles">
+<div id="blogArticles">
 	<form:form modelAttribute="category" action="${pageContext.request.contextPath }/${blog.id }/admin/category/addAction" method="POST">
 		<p>
 			<form:label path="title">Title</form:label>

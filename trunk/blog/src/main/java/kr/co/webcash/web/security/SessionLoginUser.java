@@ -5,12 +5,17 @@ import kr.co.webcash.domain.User;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("loginUserProvider")
 @Scope("session")
 public class SessionLoginUser implements LoginUser{
 	
 	private User loginUser;
-
+	
+	public String getLoginId(){
+		if(isLoggedIn())	return this.loginUser.getLoginId();
+		else				throw new IllegalStateException();
+	}
+	
 	@Override
 	public void save(User user) {
 		this.loginUser = user;

@@ -1,9 +1,10 @@
 #wrap{
 	width: 1000px;
+	margin: 0pt auto;
 }
 
 #header {
-	height: 40px;
+	height: 20px;
 	color: #000;
 }
 

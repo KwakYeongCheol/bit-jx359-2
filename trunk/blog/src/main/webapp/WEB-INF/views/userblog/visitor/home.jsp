@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <jsp:include page="/WEB-INF/views/userblog/common/header.jsp" />
 
-<div id="articles">
+<div id="blogArticles">
 	<div style="margin: 20px">
 		<form:form modelAttribute="visitor" action="${pageContext.request.contextPath }/${blog.id}/visitor/wirteAction" method="post">
 			<p>
@@ -13,7 +13,7 @@
 		</form:form>
 	</div>
 	
-	<div class="article">
+	<div class="blogArticle">
 		<c:forEach items="${visitorList }" var="visitor">
 		<div style="margin: 5px; ">
 			<a href="${pageContext.request.contextPath }/${visitor.writer}">${visitor.writer }</a> | 

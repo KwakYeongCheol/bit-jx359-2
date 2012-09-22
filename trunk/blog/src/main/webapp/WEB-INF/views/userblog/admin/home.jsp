@@ -2,10 +2,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="/WEB-INF/views/userblog/admin/common/header.jsp" />
 
-<div id="articles">
+<div id="blogArticles">
 	글 목록
 	<c:forEach items="${postList }" var="post">
-	<div class="article">
+	<div class="blogArticle">
 		<a href="${pageContext.request.contextPath }/${blog.id}/category/${post.category.id}">${post.category.title }</a> | 
 		${post.title } | 
 		${post.dateCreated } | 
