@@ -1,13 +1,18 @@
 package kr.co.webcash.web.userblog.security;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kr.co.webcash.domain.LoginUser;
+import kr.co.webcash.domain.User;
+import kr.co.webcash.web.security.LoginUser;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class UserSecurityInterceptor extends HandlerInterceptorAdapter{
+	
+	@Inject private Provider<LoginUser> loginUserProvider;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -27,7 +32,7 @@ public class UserSecurityInterceptor extends HandlerInterceptorAdapter{
 		
 		String blogId = requestURI.substring(startIndex + 1, startWithAdmin);
 		
-		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("loginUser");
+		User loginUser = this.loginUserProvider.get().loginUser();
 		
 		if(loginUser != null){
 			if(loginUser.getLoginId().equals(blogId))	return true;
@@ -36,7 +41,4 @@ public class UserSecurityInterceptor extends HandlerInterceptorAdapter{
 		response.sendRedirect(request.getContextPath() + "/" + blogId);
 		return false;
 	}
-	
-	
-
 }

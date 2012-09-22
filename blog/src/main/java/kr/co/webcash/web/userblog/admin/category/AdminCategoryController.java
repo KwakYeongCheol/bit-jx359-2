@@ -1,13 +1,14 @@
 package kr.co.webcash.web.userblog.admin.category;
 
-import javax.servlet.http.HttpSession;
+import javax.inject.Inject;
+import javax.inject.Provider;
 
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Category;
-import kr.co.webcash.domain.LoginUser;
-import kr.co.webcash.domain.Post;
+import kr.co.webcash.domain.User;
 import kr.co.webcash.service.BlogService;
 import kr.co.webcash.service.CategoryService;
+import kr.co.webcash.web.security.LoginUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,13 @@ public class AdminCategoryController {
 	@Autowired private BlogService blogService;
 	@Autowired private CategoryService categoryService;
 	
+	@Inject private Provider<LoginUser> loginUserProvider;
+	
+	@ModelAttribute("loginUser")
+	public User loginUser(){
+		return this.loginUserProvider.get().loginUser();
+	}
+	
 	@RequestMapping
 	public String home(@PathVariable String blogId, Model model){
 		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
@@ -37,12 +45,12 @@ public class AdminCategoryController {
 		model.addAttribute("category", new Category());
 		return "/userblog/admin/category/add";
 	}
+	
 	@RequestMapping(value="/addAction", method=RequestMethod.POST)
-	public String addAciton(@ModelAttribute Category category, HttpSession session, @PathVariable String blogId ){
-		LoginUser loginUser = (LoginUser)session.getAttribute("loginUser");
+	public String addAciton(@ModelAttribute Category category, @PathVariable String blogId ){
 		String redirectUrl = "redirect:/";
-		if(loginUser != null){
-			Blog blog = blogService.findByUserLoginId(loginUser.getLoginId());
+		if(loginUser() != null){
+			Blog blog = blogService.findByUserLoginId(loginUser().getLoginId());
 			
 			category.setId(String.valueOf(categoryService.findLastIdByBlogId(blog.getId())+1));
 			category.setBlog(blog);

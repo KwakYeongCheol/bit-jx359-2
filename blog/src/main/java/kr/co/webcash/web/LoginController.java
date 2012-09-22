@@ -1,7 +1,11 @@
 package kr.co.webcash.web;
 
-import kr.co.webcash.domain.LoginUser;
+import javax.inject.Inject;
+import javax.inject.Provider;
+
+import kr.co.webcash.domain.User;
 import kr.co.webcash.service.UserService;
+import kr.co.webcash.web.security.LoginUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,13 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes("loginUser")
 public class LoginController {
 	
 	@Autowired private UserService userService;
+	
+	@Inject private Provider<LoginUser> loginUserProvider;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void login(){
@@ -29,10 +33,8 @@ public class LoginController {
 		}
 		
 		if(userService.checkLoginIdAndPassword(loginId, password)){
-			LoginUser loginUser = new LoginUser();
-			loginUser.setLoginId(loginId);
-			
-			model.addAttribute("loginUser", loginUser);
+			User user = userService.findLoginId(loginId);
+			this.loginUserProvider.get().save(user);
 			return "redirect:/";
 		}
 		
