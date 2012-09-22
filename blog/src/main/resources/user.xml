@@ -21,4 +21,8 @@
    		WHERE id = #loginId#
     </select>
    
+  	<update id="update" parameterClass="User">
+		update users set password = #password#
+		where id = #loginId#
+	</update>
 </sqlMap>

@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
@@ -28,7 +29,6 @@ public class UserController {
 	public void Main(HttpSession session, Model model){
 		LoginUser loginUser = (LoginUser)session.getAttribute("loginUser");
 		User user = userService.findLoginId(loginUser.getLoginId());
-		System.out.println(user);
 		model.addAttribute("user", user);
 	}
 	
@@ -54,7 +54,6 @@ public class UserController {
 				LoginUser loginUser = new LoginUser();
 				loginUser.setLoginId(user.getLoginId());
 				model.addAttribute("loginUser", loginUser);
-				
 				session.removeAttribute("user");
 				
 				return "redirect:/blog/settings";
@@ -64,8 +63,24 @@ public class UserController {
 		return "/user/register/register";
 	}
 
-	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public void modify(@ModelAttribute User user, Model model, HttpSession session){
+	@RequestMapping(value="/modify")
+	public void modify(Model model, HttpSession session){
+		LoginUser loginUser = (LoginUser)session.getAttribute("loginUser");
+		User user = userService.findLoginId(loginUser.getLoginId());
+		model.addAttribute("user", user);
+	}
+	@RequestMapping(value="/modifyAction", method=RequestMethod.POST)
+	public String modifyAction(@RequestParam String password,@RequestParam String newPassword, Model model, HttpSession session){
+		LoginUser loginUser = (LoginUser)session.getAttribute("loginUser");
 		
+		if(userService.checkLoginIdAndPassword(loginUser.getLoginId(), password)){
+			User user = new User();
+			user.setLoginId(loginUser.getLoginId());
+			user.setPassword(newPassword);
+			userService.update(user);
+			return "redirect:/user/home";			
+		}
+		
+		return "redirect:/user/modify";
 	}
 }

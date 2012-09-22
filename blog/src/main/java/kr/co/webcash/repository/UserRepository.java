@@ -12,4 +12,6 @@ public interface UserRepository {
 
 	public User findByLoginId(String loginId);
 
+	public void update(User user);
+
 }

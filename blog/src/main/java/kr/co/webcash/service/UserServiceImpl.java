@@ -28,8 +28,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public boolean save(User user) {
 		try{
-			String encryptedPassword = EncryptUtils.encrypt(user.getLoginId(), user.getPassword());
-			user.setPassword(encryptedPassword);
+			user.setPassword(EncryptUtils.encrypt(user.getLoginId(), user.getPassword()));
 
 			userRepository.insert(user);
 			
@@ -38,10 +37,24 @@ public class UserServiceImpl implements UserService{
 			return false;
 		}
 	}
+	
+	@Override
+	public boolean update(User user) {
+		try{
+			user.setPassword(EncryptUtils.encrypt(user.getLoginId(), user.getPassword()));
+			
+			userRepository.update(user);
+			return true;
+		}catch(Exception e){
+			return false;
+		}
+	}
+	
 
 	@Override
 	public User findLoginId(String loginId) {
 		return (User)userRepository.findByLoginId(loginId);
 	}
+
 
 }
