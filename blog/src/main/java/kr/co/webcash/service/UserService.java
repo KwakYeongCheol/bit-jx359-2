@@ -8,4 +8,7 @@ public interface UserService {
 
 	boolean save(User user);
 
+	User findLoginId(String loginId);
+	
+
 }
