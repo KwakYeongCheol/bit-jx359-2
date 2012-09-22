@@ -1,25 +1,33 @@
 package kr.co.webcash.web;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.servlet.http.HttpSession;
 
-import kr.co.webcash.domain.LoginUser;
+import kr.co.webcash.domain.User;
 import kr.co.webcash.service.BlogService;
+import kr.co.webcash.web.security.LoginUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes("loginUser")
 public class MainController {
 	@Autowired BlogService blogService;
 	
+	@Inject private Provider<LoginUser> loginUserProvider;
+	
+	@ModelAttribute("loginUser") 
+	public User loginUser(){
+		return loginUserProvider.get().loginUser();
+	}
+	
 	@RequestMapping("/")
 	public String main(HttpSession session, Model model){
-		LoginUser loginUser = (LoginUser)session.getAttribute("loginUser");
+		User loginUser = loginUserProvider.get().loginUser();
 		if(loginUser != null){
 			model.addAttribute("blog", blogService.findByUserLoginId(loginUser.getLoginId()));
 		}
@@ -27,8 +35,8 @@ public class MainController {
 	}
 	
 	@RequestMapping("/logout")
-	public String logout(HttpSession session){
-		session.removeAttribute("loginUser");
+	public String logout(){
+		loginUserProvider.get().remove();
 		
 		return "redirect:/";
 	}
