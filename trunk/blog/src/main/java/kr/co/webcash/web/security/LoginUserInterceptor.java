@@ -5,6 +5,8 @@ import javax.inject.Provider;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.webcash.utils.URLUtils;
+
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class LoginUserInterceptor extends HandlerInterceptorAdapter {
@@ -15,8 +17,9 @@ public class LoginUserInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		if(this.loginUserProvider.get().isLoggedIn())		return true;
 		
-		response.sendRedirect(request.getContextPath() + "/login");
+		String requestURL = URLUtils.getRequestURL(request.getRequestURI(), request.getContextPath());
+		
+		response.sendRedirect(request.getContextPath() + "/login?redirectURI=" + requestURL);
 		return false;
 	}
-
 }

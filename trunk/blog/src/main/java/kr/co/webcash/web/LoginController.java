@@ -22,11 +22,13 @@ public class LoginController {
 	@Inject private Provider<LoginUser> loginUserProvider;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public void login(){
+	public void login(@RequestParam(value="redirectURI", required=false) String redirectURI, Model model){
+		model.addAttribute("redirectURI", redirectURI);
 	}
 	
 	@RequestMapping(value = "/loginAction", method = RequestMethod.POST)
-	public String loginAction(@RequestParam String loginId, @RequestParam String password, Model model){
+	public String loginAction(@RequestParam String loginId, @RequestParam String password, 
+			@RequestParam(value="redirectURI", required=false) String redirectURI, Model model){
 		
 		if(loginId.equals("1") || loginId.equals("2")){
 			password = "password";
@@ -35,7 +37,9 @@ public class LoginController {
 		if(userService.checkLoginIdAndPassword(loginId, password)){
 			User user = userService.findLoginId(loginId);
 			this.loginUserProvider.get().save(user);
-			return "redirect:/";
+			
+			if(redirectURI != null)		return "redirect:" + redirectURI;
+			else						return "redirect:/";
 		}
 		
 		return "redirect:/login";
