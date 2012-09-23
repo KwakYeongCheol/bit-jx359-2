@@ -3,25 +3,27 @@
 
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
-<div>
+<div id="register">
 	<form:form modelAttribute="user" action="${pageContext.request.contextPath }/user/register/register" method="POST">
-		<p>
-			<form:label path="name">이름:</form:label><br/>
-			<form:input path="name" size="20" maxlength="20" /> 
-		</p>
-		<p>
-			<form:label path="loginId">아이디:</form:label><br/>
-			<form:input path="loginId" size="20" maxlength="20" />
-			 <form:errors cssClass="error" path="loginId"></form:errors>
-		</p>
-		<p>
-			<form:label path="">비밀번호:</form:label><br/>
-			<form:password path="password" showPassword="false" size="20" maxlength="12" />
-			<form:errors cssClass="error" path="password"></form:errors> 
-		</p>
-		<p>
-			<input type="submit" value="회원가입" />
-		</p>
+		<h2>회원가입</h2>
+		<form:errors cssClass="error" path="loginId"></form:errors>
+		<form:errors cssClass="error" path="password"></form:errors>
+		
+		<div>
+			<form:label cssClass="label" path="name">이름:</form:label>
+			<form:input cssClass="input" path="name" size="20" maxlength="20" /> 
+		</div>
+		<div>
+			<form:label cssClass="label" path="loginId">아이디:</form:label>
+			<form:input cssClass="input" path="loginId" size="20" maxlength="20" />
+		</div>
+		<div>
+			<form:label cssClass="label" path="">비밀번호:</form:label>
+			<form:password cssClass="input" path="password" showPassword="false" size="20" maxlength="12" />
+		</div>
+		<div>
+			<input class="submit" type="submit" value="회원가입" />
+		</div>
 	</form:form>
 </div>
 

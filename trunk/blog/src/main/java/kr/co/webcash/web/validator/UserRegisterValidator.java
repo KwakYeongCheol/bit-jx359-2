@@ -24,7 +24,7 @@ public class UserRegisterValidator implements Validator{
 		User user = (User)target;
 		
 		if(user != null){
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "loginId", "field.required");
+			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "loginId", "field.required.user.loginId");
 
 			String loginId = user.getLoginId();
 			if(loginId != null){
@@ -32,7 +32,7 @@ public class UserRegisterValidator implements Validator{
 			}
 			
 			
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "field.required");
+			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "field.required.user.password");
 			
 			String password = user.getPassword(); 
 			if(password != null){
