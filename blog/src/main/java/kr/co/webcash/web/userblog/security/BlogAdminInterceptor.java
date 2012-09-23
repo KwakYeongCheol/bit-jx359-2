@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.service.BlogService;
+import kr.co.webcash.utils.URLUtils;
 import kr.co.webcash.web.security.LoginUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class BlogAdminInterceptor extends HandlerInterceptorAdapter{
 		LoginUser loginUser = this.loginUserProvider.get(); 
 		
 		if(loginUser.isLoggedIn()){
-			String blogId = getBlogId(request.getRequestURI());
+			String blogId = URLUtils.getBlogId(request.getRequestURI(), request.getContextPath());
 			if(isAdmin(loginUser.getLoginId(), blogId)){
 				return true;
 			}else{
@@ -35,19 +36,12 @@ public class BlogAdminInterceptor extends HandlerInterceptorAdapter{
 			}
 		}
 		
-		response.sendRedirect(request.getContextPath() + "/login");
+		String requestURL = URLUtils.getRequestURL(request.getRequestURI(), request.getContextPath());
+		
+		response.sendRedirect(request.getContextPath() + "/login?redirectURI=" + requestURL);
 		return false;
 	}
 	
-	private boolean isAdmin(String loginId, String blogId){
-		Blog blog = this.blogService.findById(blogId);
-		
-		if(blog != null && blog.getOwner().equals(loginId)){
-			return true;
-		}
-		
-		return false;
-	}
 	
 	@Override
 	public void postHandle(HttpServletRequest request,
@@ -60,19 +54,14 @@ public class BlogAdminInterceptor extends HandlerInterceptorAdapter{
 		modelAndView.getModel().put("cssList", cssList);
 	}
 
-	private String getBlogId(String requestURI) {
-		int startWithAdmin = requestURI.indexOf("/admin");
-		int startIndex = 0;
+	private boolean isAdmin(String loginId, String blogId){
+		Blog blog = this.blogService.findById(blogId);
 		
-		while(true){
-			int tmp = requestURI.indexOf("/", startIndex + 1);
-			
-			if(tmp >= startWithAdmin)	break;
-			
-			startIndex = tmp;
+		if(blog != null && blog.getOwner().equals(loginId)){
+			return true;
 		}
 		
-		String blogId = requestURI.substring(startIndex + 1, startWithAdmin);
-		return blogId;
+		return false;
 	}
+	
 }
