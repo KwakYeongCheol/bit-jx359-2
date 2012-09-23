@@ -13,15 +13,14 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean checkLoginIdAndPassword(String loginId, String password) {
-		User user = userRepository.findByLoginId(loginId);
+		String encryptedPassword = EncryptUtils.encrypt(loginId, password);
+		
+		User user = userRepository.findByLoginIdAndPassword(loginId, encryptedPassword);
 		
 		if(user != null){
-			String decryptedPassword = EncryptUtils.descrypt(user.getPassword(), password);
-			
-			if(decryptedPassword!=null && decryptedPassword.equals(loginId)){
-				return true;
-			}
+			return true;
 		}
+		
 		return false;
 	}
 
@@ -52,7 +51,7 @@ public class UserServiceImpl implements UserService{
 	
 
 	@Override
-	public User findLoginId(String loginId) {
+	public User findByLoginId(String loginId) {
 		return (User)userRepository.findByLoginId(loginId);
 	}
 

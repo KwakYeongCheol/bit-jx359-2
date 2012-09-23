@@ -14,4 +14,6 @@ public interface UserRepository {
 
 	public void update(User user);
 
+	public User findByLoginIdAndPassword(String loginId, String password);
+
 }

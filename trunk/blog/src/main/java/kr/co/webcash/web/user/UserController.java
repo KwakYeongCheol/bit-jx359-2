@@ -38,7 +38,7 @@ public class UserController {
 	@RequestMapping("/home")
 	public void Main(Model model){
 		User loginUser = this.loginUserProvider.get().loginUser();
-		User user = userService.findLoginId(loginUser.getLoginId());
+		User user = userService.findByLoginId(loginUser.getLoginId());
 		model.addAttribute("user", user);
 	}
 	
@@ -74,7 +74,7 @@ public class UserController {
 
 	@RequestMapping(value="/modify")
 	public void modify(Model model){
-		User user = userService.findLoginId(loginUser().getLoginId());
+		User user = userService.findByLoginId(loginUser().getLoginId());
 		
 		model.addAttribute("user", user);
 	}

@@ -6,7 +6,7 @@
 	<typeAlias alias="User" type="kr.co.webcash.domain.User" />
 		
     <select id="findAll" resultClass="User">
-    	SELECT id, name, password
+    	SELECT id, name
    		FROM users
     </select>
     
@@ -16,9 +16,15 @@
     </insert>
     
     <select id="findById" resultClass="User">
-    	SELECT id as loginId, name, password
+    	SELECT id as loginId, name
    		FROM users 
    		WHERE id = #loginId#
+    </select>
+    
+    <select id="findByIdAndPassword" resultClass="User">
+    	SELECT id as loginId, name
+   		FROM users 
+   		WHERE id = #loginId# and password = #password#
     </select>
    
   	<update id="update" parameterClass="User">
