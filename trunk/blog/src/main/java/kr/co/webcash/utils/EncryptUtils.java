@@ -16,7 +16,6 @@ public class EncryptUtils {
 			
 			return keyFactory.generateSecret(desKeySpec);
 		}catch(Exception e){
-			e.printStackTrace();
 			return null;
 		}
 	}
@@ -28,7 +27,6 @@ public class EncryptUtils {
 			byte[] encrypted = c.doFinal(loginUserId.getBytes());
 			return toHexString(encrypted);
 		}catch(Exception e){
-			System.out.println("encrypt(String, Key) exception");
 			return null;
 		}
 		
@@ -40,7 +38,6 @@ public class EncryptUtils {
 			c.init(Cipher.DECRYPT_MODE, key);
 			return new String(c.doFinal(encryptedResult));
 		}catch(Exception e){
-			System.out.println("descrypt(byte[], Key) exception");
 			return null;
 		}
 	}
