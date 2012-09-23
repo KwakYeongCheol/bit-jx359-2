@@ -28,7 +28,7 @@ public class UserRegisterValidator implements Validator{
 
 			String loginId = user.getLoginId();
 			if(loginId != null){
-				if(userService.findLoginId(loginId) != null)	errors.rejectValue("loginId", "field.duplicate.user.loginId");
+				if(userService.findByLoginId(loginId) != null)	errors.rejectValue("loginId", "field.duplicate.user.loginId");
 			}
 			
 			

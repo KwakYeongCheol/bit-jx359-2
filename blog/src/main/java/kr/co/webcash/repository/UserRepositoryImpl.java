@@ -1,6 +1,8 @@
 package kr.co.webcash.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import kr.co.webcash.domain.User;
 
@@ -33,6 +35,15 @@ public class UserRepositoryImpl implements UserRepository{
 	public void update(User user) {
 		// TODO Auto-generated method stub
 		template.update("User.update", user);
+	}
+
+	@Override
+	public User findByLoginIdAndPassword(String loginId, String password) {
+		
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("loginId", loginId);
+		params.put("password", password);
+		return (User) template.queryForObject("User.findByIdAndPassword", params);
 	}
 
 }

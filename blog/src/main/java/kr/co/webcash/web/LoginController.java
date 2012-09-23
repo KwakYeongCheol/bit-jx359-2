@@ -35,7 +35,7 @@ public class LoginController {
 		}
 		
 		if(userService.checkLoginIdAndPassword(loginId, password)){
-			User user = userService.findLoginId(loginId);
+			User user = userService.findByLoginId(loginId);
 			this.loginUserProvider.get().save(user);
 			
 			if(redirectURI != null)		return "redirect:" + redirectURI;
