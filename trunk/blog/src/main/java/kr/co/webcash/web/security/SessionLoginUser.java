@@ -11,6 +11,7 @@ public class SessionLoginUser implements LoginUser{
 	
 	private User loginUser;
 	
+	@Override
 	public String getLoginId(){
 		if(isLoggedIn())	return this.loginUser.getLoginId();
 		else				throw new IllegalStateException();
