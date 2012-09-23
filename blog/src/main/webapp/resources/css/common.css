@@ -21,6 +21,73 @@
 	text-decoration: none;
 }
 
+/* #login - begin*/
+
+#login{
+	padding: 60px 0 0 0;
+	margin: 0 auto 0;
+	width: 360px;
+}
+
+#loginForm{
+	width: 300px;
+	padding: 10px 30px 10px 30px;
+	background-color: #E9E9E9;
+	color: #393939;
+	font-size: 16px;
+}
+
+#loginForm div{
+	height: 30px;
+}
+
+#loginForm div .label{
+	display: inline;
+	width: 100px;
+}
+
+#loginForm div .input{
+	float: right;
+	width: 200px;
+	border: 1px solid #BFBFBF;
+	border-radius: 3px;
+}
+
+#loginForm div .submit{
+	width: 140px;
+	border: 1px solid #BFBFBF;
+	border-radius: 3px;
+	font-size: 20px;
+}
+
+#loginForm div .register{
+	float:right;
+	width: 100px;
+	font-size: 12px;
+}
+
+/* #login - end */
+
+a {
+	color: #09c;
+	font-size: 13px;
+	text-decoration: none;
+	font-weight: 600;
+	font-family: verdana, arial, helvetica, sans-serif;
+}
+
+a:link {
+	color: #09c;
+}
+
+a:visited {
+	color: #07a;
+}
+
+a:hover {
+	background-color: #eee;
+}
+
 .error {
 	color:#FF0000;
 }

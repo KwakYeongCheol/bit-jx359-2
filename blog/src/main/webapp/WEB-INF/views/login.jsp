@@ -3,14 +3,24 @@
 
 <jsp:include page="common/header.jsp" />
 
-<div>
-	<form action="${pageContext.request.contextPath }/loginAction" method="POST">
+<div id="login">
+	<form id="loginForm" action="${pageContext.request.contextPath }/loginAction" method="POST">
 		<c:if test="${redirectURI != null}">
 		<input type="hidden" name="redirectURI" value="${redirectURI }" />
 		</c:if>
-		<label>ID </label><input type="text" name="loginId" /> <br />
-		<label>Password </label><input type="password" name="password" /> <br />
-		<input type="submit" value="로그인" />
+		<h2>Login</h2>
+		<div>
+			<div class="label">ID</div><input type="text" class="input" name="loginId" autofocus />
+		</div>
+		<div>
+			<div class="label">Password</div><input type="password" class="input" name="password" />
+		</div>
+		<div>
+			<input type="submit" class="submit" value="로그인" />
+			<a href="${pageContext.request.contextPath }/user/register/step01" class="register">회원가입</a>
+		</div>
+		 
+		
 	</form>
 </div>
 

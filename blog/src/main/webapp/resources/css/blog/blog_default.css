@@ -1,24 +1,4 @@
 
-a {
-	color: #09c;
-	font-size: 13px;
-	text-decoration: none;
-	font-weight: 600;
-	font-family: verdana, arial, helvetica, sans-serif;
-}
-
-a:link {
-	color: #09c;
-}
-
-a:visited {
-	color: #07a;
-}
-
-a:hover {
-	background-color: #eee;
-}
-
 #blog{
 	margin:0 auto 0;
 }
