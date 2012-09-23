@@ -5,14 +5,14 @@
 
 <div id="blogInfo">
 	<c:if test="${loginUserProvider.loggedIn }">
-		<div>내 블로그 &nbsp; &nbsp; 
-		<a href="${pageContext.request.contextPath }/blog/settings">설정</a>
+	<div>내 블로그 &nbsp; &nbsp; 
+		<a href="${pageContext.request.contextPath }/blog/settings">블로그 설정</a>
 		<a href="${pageContext.request.contextPath }/user/home">회원 정보</a>
-		</div>
+		<a href="${pageContext.request.contextPath }/favorite">이웃들</a> <br /><br />
 		<c:if test="${blog != null }">
-		<a href="${pageContext.request.contextPath }/${blog.id}">${blog.title }</a> &nbsp; | &nbsp;
-		<a href="${pageContext.request.contextPath }/favorite">이웃들</a>		
+		<a href="${pageContext.request.contextPath }/${blog.id}">${blog.title }</a>
 		</c:if>
+	</div>
 	</c:if>
 </div>
 

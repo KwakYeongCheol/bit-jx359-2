@@ -18,8 +18,8 @@
 		<ul>
 			<li><a href="${pageContext.request.contextPath }/user/register/step01">회원가입</a></li>
 			<c:if test="${loginUserProvider.loggedIn }">
-			<li>${loginUserProvider.loginId } 님</li>
 			<li><a href="${pageContext.request.contextPath }/logout">로그아웃</a></li>
+			<li>${loginUserProvider.loginId } 님</li>
 			</c:if>
 			<c:if test="${!loginUserProvider.loggedIn }">
 			<li><a href="${pageContext.request.contextPath }/login">로그인</a></li>
