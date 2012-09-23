@@ -5,8 +5,6 @@ import javax.inject.Provider;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kr.co.webcash.domain.User;
-
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class LoginUserInterceptor extends HandlerInterceptorAdapter {
@@ -15,9 +13,7 @@ public class LoginUserInterceptor extends HandlerInterceptorAdapter {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		User loginUser = this.loginUserProvider.get().loginUser();
-		
-		if(loginUser != null)		return true;
+		if(this.loginUserProvider.get().isLoggedIn())		return true;
 		
 		response.sendRedirect(request.getContextPath() + "/login");
 		return false;

@@ -14,7 +14,7 @@ import kr.co.webcash.web.security.LoginUser;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-public class UserSecurityInterceptor extends HandlerInterceptorAdapter{
+public class BlogAdminInterceptor extends HandlerInterceptorAdapter{
 	
 	@Inject private Provider<LoginUser> loginUserProvider;
 
