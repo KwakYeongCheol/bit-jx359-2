@@ -21,6 +21,31 @@
 	text-decoration: none;
 }
 
+a {
+	color: #09c;
+	font-size: 13px;
+	text-decoration: none;
+	font-weight: 600;
+	font-family: verdana, arial, helvetica, sans-serif;
+}
+
+a:link {
+	color: #09c;
+}
+
+a:visited {
+	color: #07a;
+}
+
+a:hover {
+	background-color: #eee;
+}
+
+.error {
+	display: block;
+	color:#FF0000;
+}
+
 /* #login - begin*/
 
 #login{
@@ -109,27 +134,42 @@
 /* #register - end */
 
 
-a {
-	color: #09c;
-	font-size: 13px;
-	text-decoration: none;
-	font-weight: 600;
-	font-family: verdana, arial, helvetica, sans-serif;
+/* #blogSetting - begin*/
+
+#blogSetting{
+	padding: 60px 0 0 0;
+	margin: 0 auto 0;
+	width: 360px;
 }
 
-a:link {
-	color: #09c;
+#blogSetting form{
+	width: 300px;
+	padding: 10px 30px 10px 30px;
+	background-color: #E9E9E9;
+	color: #393939;
+	font-size: 16px;
 }
 
-a:visited {
-	color: #07a;
+#blogSetting form div{
+	height: 30px;
 }
 
-a:hover {
-	background-color: #eee;
+#blogSetting form div .label{
 }
 
-.error {
-	color:#FF0000;
-	display: block;
+#blogSetting form div .input{
+	float: right;
+	width: 200px;
+	border: 1px solid #BFBFBF;
+	border-radius: 3px;
 }
+
+#blogSetting form div .submit{
+	margin: 0 auto 0;
+	width: 140px;
+	border: 1px solid #BFBFBF;
+	border-radius: 3px;
+	font-size: 20px;
+}
+
+/* #blogSetting - end */

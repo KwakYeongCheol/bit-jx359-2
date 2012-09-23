@@ -4,14 +4,14 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 <div id="register">
+	<h2>회원가입</h2>
 	<form:form modelAttribute="user" action="${pageContext.request.contextPath }/user/register/register" method="POST">
-		<h2>회원가입</h2>
 		<form:errors cssClass="error" path="loginId"></form:errors>
 		<form:errors cssClass="error" path="password"></form:errors>
 		
 		<div>
 			<form:label cssClass="label" path="name">이름:</form:label>
-			<form:input cssClass="input" path="name" size="20" maxlength="20" /> 
+			<form:input cssClass="input" path="name" size="20" maxlength="20" autofocus /> 
 		</div>
 		<div>
 			<form:label cssClass="label" path="loginId">아이디:</form:label>
