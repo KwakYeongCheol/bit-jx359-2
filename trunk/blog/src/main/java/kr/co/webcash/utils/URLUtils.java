@@ -13,10 +13,7 @@ public class URLUtils {
 	public static String getBlogId(String requestURL, String contextPath) {
 		int contextPathLength = contextPath.length();
 		
-		int beginIndex = contextPathLength;
-		if(contextPathLength > 1){
-			beginIndex = beginIndex + 1;
-		}
+		int beginIndex = contextPathLength + 1;
 		
 		int endIndex = requestURL.indexOf("/", beginIndex);
 		
