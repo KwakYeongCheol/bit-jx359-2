@@ -72,10 +72,12 @@ a:hover {
 	margin: 0px 50px 50px 200px;
 	padding: 10px;
 	background-color: #23658b;
+	color: #FFF;
 }
 
 #blog #blogContents #blogArticles .blogArticle {
 	background-color: #fff;
+	color: #000;
 	border-collapse: collapse;
 	margin: 10px 10px 30px 10px;
 	padding: 15px;;

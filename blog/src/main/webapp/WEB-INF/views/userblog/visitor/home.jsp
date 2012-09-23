@@ -20,11 +20,11 @@
 			${visitor.dateCreated } <br />
 			${visitor.contents } <br />
 			
-			<c:if test="${loginUser != null }">
-				<c:if test="${loginUser.loginId == visitor.writer }">
+			<c:if test="${loginUserProvider.loggedIn }">
+				<c:if test="${loginUserProvider.loginId == visitor.writer }">
 					<a href="${pageContext.request.contextPath }/${blog.id }/visitor/modify?id=${visitor.id}">수정</a>
 				</c:if>
-				<c:if test="${loginUser.loginId == blog.owner || loginUser.loginId == visitor.writer }">
+				<c:if test="${loginUserProvider.loginId == blog.owner || loginUserProvider.loginId == visitor.writer }">
 					<a href="${pageContext.request.contextPath }/${blog.id}/visitor/delete?id=${visitor.id}">삭제</a>
 				</c:if>
 			</c:if>

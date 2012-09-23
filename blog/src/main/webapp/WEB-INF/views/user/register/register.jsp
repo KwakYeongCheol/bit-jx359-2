@@ -11,7 +11,7 @@
 		
 		<div>
 			<form:label cssClass="label" path="name">이름:</form:label>
-			<form:input cssClass="input" path="name" size="20" maxlength="20" autofocus /> 
+			<form:input cssClass="input" path="name" size="20" maxlength="20" /> 
 		</div>
 		<div>
 			<form:label cssClass="label" path="loginId">아이디:</form:label>

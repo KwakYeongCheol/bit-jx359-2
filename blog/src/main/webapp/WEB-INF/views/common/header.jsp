@@ -24,7 +24,7 @@
 			<c:if test="${!loginUserProvider.loggedIn }">
 			<li><a href="${pageContext.request.contextPath }/login">로그인</a></li>
 			</c:if>
-			<li><a href="${pageContext.request.contextPath }">홈</a></li>
+			<li><a href="${pageContext.request.contextPath }/">홈</a></li>
 		</ul>
 	</div>
 	
