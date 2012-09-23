@@ -7,24 +7,28 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 
 public class EncryptUtils {
+	public static final String algorithm = "DES";
+	
 	public static Key generateKey(String password) {
 		try{
 			DESKeySpec desKeySpec = new DESKeySpec(password.getBytes());
-			SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+			SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(algorithm);
 			
 			return keyFactory.generateSecret(desKeySpec);
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}
 
 	public static String encrypt(String loginUserId, Key key) {
 		try{
-			Cipher c = Cipher.getInstance("DES");
+			Cipher c = Cipher.getInstance(algorithm);
 			c.init(Cipher.ENCRYPT_MODE, key);
 			byte[] encrypted = c.doFinal(loginUserId.getBytes());
 			return toHexString(encrypted);
 		}catch(Exception e){
+			System.out.println("encrypt(String, Key) exception");
 			return null;
 		}
 		
@@ -32,10 +36,11 @@ public class EncryptUtils {
 
 	public static String descrypt(byte[] encryptedResult, Key key) {
 		try{
-			Cipher c = Cipher.getInstance("DES");
+			Cipher c = Cipher.getInstance(algorithm);
 			c.init(Cipher.DECRYPT_MODE, key);
 			return new String(c.doFinal(encryptedResult));
 		}catch(Exception e){
+			System.out.println("descrypt(byte[], Key) exception");
 			return null;
 		}
 	}

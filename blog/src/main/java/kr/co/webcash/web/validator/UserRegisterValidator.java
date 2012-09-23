@@ -36,7 +36,7 @@ public class UserRegisterValidator implements Validator{
 			
 			String password = user.getPassword(); 
 			if(password != null){
-				if(password.length() < 8)	errors.rejectValue("password", "field.minlength.user.password");
+				if(password.length() != 8)	errors.rejectValue("password", "field.minlength.user.password");
 			}
 		}
 		
