@@ -13,9 +13,13 @@
 	<div id="blogMenu">
 		<ul>
 			<li><a href="${pageContext.request.contextPath }/${blog.id}/">홈</a></li>
+			<li><a href="${pageContext.request.contextPath }/${blog.id}/visitor">방명록</a></li>
+			<c:if test="${loginUserProvider.loggedIn }">
+			<c:if test="${loginUserProvider.loginId == blog.owner }">
 			<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/post/write">글쓰기</a></li> 
 			<li><a href="${pageContext.request.contextPath }/${blog.id}/admin">관리자</a></li>
-			<li><a href="${pageContext.request.contextPath }/${blog.id}/visitor">방명록</a></li>
+			</c:if>
+			</c:if>
 		</ul> 
 	</div>
 	
