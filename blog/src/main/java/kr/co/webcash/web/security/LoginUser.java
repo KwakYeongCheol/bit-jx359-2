@@ -8,5 +8,6 @@ public interface LoginUser {
 	public void remove();
 	public boolean isLoggedIn();
 	public User loginUser();
+	String getLoginId();
 
 }
