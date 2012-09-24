@@ -4,8 +4,8 @@
 <jsp:include page="/WEB-INF/views/userblog/common/header.jsp" />
 
 <div id="blogArticles">
-	<form:form modelAttribute="visitor" action="${pageContext.request.contextPath }/${blog.id}/visitor/modifyAction" method="post">
-		<input type="hidden" name="id" value="${visitor.id }" />
+	<form:form modelAttribute="guestbook" action="${pageContext.request.contextPath }/${blog.id}/guestbook/modifyAction" method="post">
+		<input type="hidden" name="id" value="${guestbook.id }" />
 		<p>
 			<form:input path="contents"/>
 			<input type="submit" value="수정">		
