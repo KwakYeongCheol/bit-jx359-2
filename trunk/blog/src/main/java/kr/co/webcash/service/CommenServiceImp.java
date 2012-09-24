@@ -25,5 +25,20 @@ public class CommenServiceImp implements CommentService{
 		}
 		return Integer.parseInt(comment.getId());
 	}
+
+	@Override
+	public void delete(Comment comment) {
+		commentRepository.delete(comment);
+	}
+
+	@Override
+	public void update(Comment comment) {
+		commentRepository.update(comment);
+	}
+
+	@Override
+	public Comment findByIdAndBlogIdAndTargetIdAndType(String id, String blogId, String targetId, String type) {
+		return commentRepository.findByIdAndBlogIdAndTargetIdAndType(id, blogId, targetId, type);
+	}
 	
 }

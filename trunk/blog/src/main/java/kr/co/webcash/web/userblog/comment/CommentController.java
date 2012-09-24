@@ -8,7 +8,6 @@ import javax.inject.Provider;
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Comment;
 import kr.co.webcash.domain.CommentType;
-import kr.co.webcash.domain.Post;
 import kr.co.webcash.domain.User;
 import kr.co.webcash.service.BlogService;
 import kr.co.webcash.service.CommentService;
@@ -31,7 +30,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public class CommentController {
 	
 	@Autowired private BlogService blogService;
-	@Autowired private PostService postService;
 	@Autowired private CommentService commentService;
 	
 	
@@ -45,7 +43,6 @@ public class CommentController {
 	@RequestMapping(value= "writeAction", method=RequestMethod.POST)
 	public String writeAction(@PathVariable String blogId, @RequestParam String targetId, @RequestParam String type, @RequestParam String contents){
 		
-		
 		Blog blog = new Blog();
 		blog.setId(blogId);
 		Comment comment = new Comment();
@@ -58,6 +55,58 @@ public class CommentController {
 		comment.setDateCreated(new Date(System.currentTimeMillis()));
 		
 		commentService.save(comment);
+		
+		return "redirect:/" + blogId;
+	}
+	
+	@RequestMapping("/modify")
+	public String modify(@PathVariable String blogId, @RequestParam String id, @RequestParam String targetId, @RequestParam String type, Model model){
+		Comment comment = commentService.findByIdAndBlogIdAndTargetIdAndType(id,blogId,targetId, type);
+		
+		if(comment.getWriter().getLoginId().equals(loginUser().getLoginId())){
+			model.addAttribute("comment", comment);
+			return "/userblog/comment/modify";
+		}
+		
+		return "redirect:/" + blogId;
+	}
+	
+	@RequestMapping(value="/modifyAction", method=RequestMethod.POST)
+	public String modifyAction(@PathVariable String blogId, @RequestParam String id, @RequestParam String targetId, @RequestParam String type, @RequestParam String contents){
+		Comment comment = commentService.findByIdAndBlogIdAndTargetIdAndType(id, blogId, targetId, type);
+		
+		if(comment.getWriter().getLoginId().equals(loginUser().getLoginId())){
+			Blog updatedBlog = new Blog();
+			updatedBlog.setId(blogId);		
+			Comment updatedComment = new Comment();
+			updatedComment.setId(id);
+			updatedComment.setBlog(updatedBlog);
+			updatedComment.setTargetId(targetId);
+			updatedComment.setType(CommentType.valueOf(type));
+			updatedComment.setContents(contents);
+			
+			commentService.update(updatedComment);
+		}
+		
+		return "redirect:/" + blogId; 
+	}
+	
+	@RequestMapping("/delete")
+	public String delete(@PathVariable  String blogId, @RequestParam String id, @RequestParam String targetId, @RequestParam String type){
+		Blog currentBlog = blogService.findById(blogId);
+		Comment comment = commentService.findByIdAndBlogIdAndTargetIdAndType(id, blogId, targetId, type);
+		
+		if(currentBlog.getOwner().equals(loginUser().getLoginId()) || comment.getWriter().getLoginId().equals(loginUser().getLoginId())){
+			Blog deletedBlog = new Blog();
+			deletedBlog.setId(blogId);		
+			Comment deletedComment = new Comment();
+			deletedComment.setId(id);
+			deletedComment.setBlog(deletedBlog);
+			deletedComment.setTargetId(targetId);
+			deletedComment.setType(CommentType.valueOf(type));
+			
+			commentService.delete(deletedComment);
+		}
 		
 		return "redirect:/" + blogId;
 	}

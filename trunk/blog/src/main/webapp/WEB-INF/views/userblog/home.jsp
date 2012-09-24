@@ -43,7 +43,13 @@
 		<c:forEach items="${post.commentList }" var="comment">
 		<div>
 			${comment.writer.loginId } | ${comment.dateCreated } <br />
-			${comment.contents }
+			${comment.contents } 
+			<c:if test="${loginUserProvider.loginUser().loginId == comment.writer.loginId  }">
+			<a href="${pageContext.request.contextPath }/${blog.id }/comment/modify?id=${comment.id}&targetId=${comment.targetId}&type=post">수정</a>
+			</c:if>
+			<c:if test="${loginUserProvider.loginUser().loginId == comment.writer.loginId || loginUserProvider.loginUser().loginId == blog.owner }">
+			<a href="${pageContext.request.contextPath }/${blog.id}/comment/delete?id=${comment.id}&targetId=${comment.targetId}&type=post">삭제</a>
+			</c:if>
 		</div>
 		</c:forEach>
 	</div>
