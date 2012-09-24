@@ -40,4 +40,25 @@ public class CommentRepositoryImp implements CommentRepository {
 		
 		return  (Comment) template.queryForObject("Comment.findLastIdByBlogIdAndTargetIdAndType", params);
 	}
+
+	@Override
+	public void delete(Comment comment) {		
+		template.delete("Comment.delete",comment);
+	}
+
+	@Override
+	public void update(Comment comment) {
+		template.update("Comment.update",comment);
+	}
+
+	@Override
+	public Comment findByIdAndBlogIdAndTargetIdAndType(String id, String blogId, String targetId, String type) {
+		Map<String,String> params = new HashMap<String, String>();
+		params.put("id", id);
+		params.put("blogId", blogId);
+		params.put("targetId", targetId);
+		params.put("type", type);
+		
+		return (Comment) template.queryForObject("Comment.findByIdAndBlogIdAndTargetIdAndType",params);
+	}
 }
