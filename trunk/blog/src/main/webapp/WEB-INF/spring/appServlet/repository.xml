@@ -23,7 +23,7 @@
     <jdbc:embedded-database id="dataSource">
 		<jdbc:script location="classpath:schema-user.sql"/>
 		<jdbc:script location="classpath:schema-post.sql"/>
-		<jdbc:script location="classpath:schema-visitor.sql"/>
+		<jdbc:script location="classpath:schema-guestbook.sql"/>
 		<jdbc:script location="classpath:schema-category.sql"/>
 		<jdbc:script location="classpath:schema-favorite.sql"/>
 	</jdbc:embedded-database>

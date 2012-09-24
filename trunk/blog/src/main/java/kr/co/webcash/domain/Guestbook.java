@@ -2,7 +2,7 @@ package kr.co.webcash.domain;
 
 import java.util.Date;
 
-public class Visitor {
+public class Guestbook {
 	private String id;
 	private String writer;
 	private Blog blog;
@@ -43,7 +43,7 @@ public class Visitor {
 	}
 	@Override
 	public String toString() {
-		return "Visitor [id=" + id + ", writer=" + writer + ", blog=" + blog
+		return "Guestbook [id=" + id + ", writer=" + writer + ", blog=" + blog
 				+ ", contents=" + contents + ", dateCreated=" + dateCreated
 				+ "]";
 	}
