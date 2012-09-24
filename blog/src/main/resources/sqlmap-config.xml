@@ -10,4 +10,5 @@
     <sqlMap resource="guestbook.xml"/>
     <sqlMap resource="category.xml"/>
     <sqlMap resource="favorite.xml"/>
+    <sqlMap resource="comment.xml"/>
 </sqlMapConfig>

@@ -1,0 +1,37 @@
+<!DOCTYPE sqlMap
+    PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Comment">
+	<typeAlias alias="Comment" type="kr.co.webcash.domain.Comment"/>
+		
+	<insert id="insert" parameterClass="Comment">
+		insert into comment (id, blogId, targetId, commentType, writerId,contents, dateCreated) 
+		values(#id#, #blog.id#, #targetId#, #type#, #writer.loginId#, #contents#, #dateCreated#)
+	</insert>
+	
+	<select id="findLastIdByBlogIdAndTargetIdAndType" resultClass="Comment">
+		SELECT c.id as id
+		FROM comment c
+		where c.blogId = #blogId# and
+		c.targetId = #targetId# and
+		c.commentType = #type#
+		order by c.id desc
+		limit 1
+	</select>	
+	
+	<select id="findAllByBlogIdAndTargetIdAndType" resultClass="Comment">
+		SELECT
+			c.id as id,
+			c.blogId as "blog.id",
+			c.targetId as targetId,
+			c.commentType as type,
+			c.writerId as "writer.loginId",
+			c.contents as contents,
+			c.dateCreated as dateCreated
+		FROM comment c
+		where c.blogId = #blogId# and		 
+		c.targetId = #targetId# and
+		c.commentType = #type#  
+		order by c.id desc
+	</select>
+</sqlMap>

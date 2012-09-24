@@ -26,6 +26,7 @@
 		<jdbc:script location="classpath:schema-guestbook.sql"/>
 		<jdbc:script location="classpath:schema-category.sql"/>
 		<jdbc:script location="classpath:schema-favorite.sql"/>
+		<jdbc:script location="classpath:schema-comment.sql"/>
 	</jdbc:embedded-database>
 	
 	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
