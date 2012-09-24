@@ -1,0 +1,18 @@
+<!DOCTYPE sqlMap
+    PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Scrap">
+	<typeAlias alias="Scrap" type="kr.co.webcash.domain.Scrap"/>
+
+	<select id="findByBlogIdAndPostId" resultClass="Scrap">
+		SELECT
+			postId, blogId, scrappedBlogId as "scrappedBlog.id", scrappedPostId, scrappedPostTitle, scrappedPostContents
+		FROM scraps
+		where blogId = #blogId# and postId = #postId#
+	</select>
+	
+	<insert id="insert" parameterClass="Scrap">
+		insert into scraps (blogId, postId, scrappedBlogId, scrappedPostId, scrappedPostTitle, scrappedPostContents)
+		values(#blogId#, #postId#, #scrappedBlog.id#, #scrappedPostId#, #scrappedPostTitle#, #scrappedPostContents#)
+	</insert>
+</sqlMap>

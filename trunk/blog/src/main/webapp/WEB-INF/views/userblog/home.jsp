@@ -8,9 +8,26 @@
 	<div class="blogArticle">
 		<a href="${pageContext.request.contextPath }/${blog.id}/category/${post.category.id}">${post.category.title }</a> | 
 		${post.title } | 
-		${post.dateCreated } <br />
+		${post.dateCreated } <br /><br />
+		
+		<c:if test="${post.scrap != null }">
+		출처: <a href="${pageContext.request.contextPath }/${post.scrap.scrappedBlog.id }">${post.scrap.scrappedBlog.title }</a>
+		<div>${post.scrap.scrappedPostTitle }</div>
+		<div>${post.scrap.scrappedPostContents }</div>
+		</c:if>
+		<br /><br />
 		
 		${post.contents }
+	</div>
+		<form action="${pageContext.request.contextPath }/blog/scrap" method="post">
+			<input type="hidden" name="scrappedBlog.id" value="${blog.id }">
+			<input type="hidden" name="scrappedBlog.title" value="${blog.title }">
+			<input type="hidden" name="scrappedPostId" value="${post.id }">
+			<input type="hidden" name="scrappedPostTitle" value="${post.title }">
+			<input type="hidden" name="scrappedPostContents" value="${post.contents }">
+			<input type="submit" value="스크랩">
+		</form>
+	<div>
 	</div>
 	<c:if test="${loginUserProvider.loggedIn }">
 	<div>

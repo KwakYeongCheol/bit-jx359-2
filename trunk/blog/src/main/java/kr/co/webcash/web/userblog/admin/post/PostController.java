@@ -7,6 +7,7 @@ import javax.inject.Provider;
 
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Post;
+import kr.co.webcash.domain.Scrap;
 import kr.co.webcash.domain.User;
 import kr.co.webcash.service.BlogService;
 import kr.co.webcash.service.CategoryService;
@@ -49,6 +50,12 @@ public class PostController {
 	public String write(@PathVariable String blogId, Model model){
 		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
 		model.addAttribute("post", new Post());
+		return "/userblog/admin/post/write";
+	}
+	
+	@RequestMapping(value="/scrap")
+	public String scrap(@ModelAttribute Post post, @PathVariable String blogId, Model model){
+		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
 		return "/userblog/admin/post/write";
 	}
 	

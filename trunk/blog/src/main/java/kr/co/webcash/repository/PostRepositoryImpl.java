@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.webcash.domain.CommentType;
 import kr.co.webcash.domain.Post;
+import kr.co.webcash.domain.Scrap;
 
 @Repository
 public class PostRepositoryImpl implements PostRepository {
@@ -18,14 +19,30 @@ public class PostRepositoryImpl implements PostRepository {
 	
 	@Autowired CommentRepository commentRepository;
 
+	@Autowired private ScrapRepository scrapRepository;
+
 	@Override
 	public Post findLastPostByBlogId(String blogId) {
 		Post post = (Post) template.queryForObject("Post.findLastPostByBlogId", blogId);
-		
+		addScrap(blogId, post);
 		addComments(blogId, post);
 		
 		return post;
 	}
+
+	private void addScrap(String blogId, Post post) {
+		if(post!=null){
+			Scrap scrap = scrapRepository.findByBlogIdAndPostId(blogId, post.getId());
+			post.setScrap(scrap);
+		}
+	}
+	private void addScrap(String blogId, List<Post> postList) {
+		for(Post post: postList){
+			addScrap(blogId, post);
+		}
+	}
+	
+	
 
 	private void addComments(String blogId, Post post) {
 		if(post != null){
@@ -48,7 +65,7 @@ public class PostRepositoryImpl implements PostRepository {
 	public List<Post> findAllByBlogId(String blogId) {
 		List<Post> postList = template.queryForList("Post.findAllByBlogId", blogId);
 		addComments(blogId, postList);
-		
+		addScrap(blogId, postList);
 		return postList;
 	}
 
@@ -58,7 +75,7 @@ public class PostRepositoryImpl implements PostRepository {
 		param.put("id", id);
 		param.put("blogId", blogId);
 		Post post = (Post) template.queryForObject("Post.findByIdAndBlogId", param );
-		
+		addScrap(blogId, post);
 		addComments(blogId, post);
 		return post;
 	}
@@ -81,7 +98,7 @@ public class PostRepositoryImpl implements PostRepository {
 		param.put("categoryId", categoryId);
 		List<Post> postList = template.queryForList("Post.findAllByBlogIdAndCategoryId", param );
 		addComments(blogId, postList);
-		
+		addScrap(blogId, postList);
 		return postList;
 	}
 
@@ -92,6 +109,7 @@ public class PostRepositoryImpl implements PostRepository {
 		param.put("categoryId", categoryId);
 		Post post = (Post) template.queryForObject("Post.findLastByBlogIdAndCategoryId", param);
 		addComments(blogId, post);
+		addScrap(blogId, post);
 		return post;
 	}
 
