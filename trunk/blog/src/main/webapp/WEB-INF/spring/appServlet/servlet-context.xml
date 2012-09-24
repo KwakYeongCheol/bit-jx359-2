@@ -37,6 +37,7 @@
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/blog/**"/>
+			<mvc:mapping path="/{blogId}/comment/**"/>
 			<mvc:mapping path="/favorite/**"/>
 			<mvc:mapping path="/{blogId}/guestbook/**"/>
 			<beans:bean class="kr.co.webcash.web.security.LoginUserInterceptor" />

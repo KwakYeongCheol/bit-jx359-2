@@ -1,6 +1,7 @@
 package kr.co.webcash.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class Post {
 	private String id;
@@ -9,6 +10,8 @@ public class Post {
 	private String title;
 	private String contents;
 	private Date dateCreated;
+	
+	private List<Comment> commentList;
 	
 	public Post(){}	
 	
@@ -60,6 +63,14 @@ public class Post {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public List<Comment> getCommentList() {
+		return commentList;
+	}
+
+	public void setCommentList(List<Comment> commentList) {
+		this.commentList = commentList;
 	}	
 	
 	
