@@ -6,13 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.webcash.domain.Post;
+import kr.co.webcash.domain.Scrap;
 import kr.co.webcash.repository.PostRepository;
+import kr.co.webcash.repository.ScrapRepository;
 
 @Service
 public class PostServiceImpl implements PostService {
 
-	@Autowired
-	private PostRepository postRepository;
+	@Autowired private PostRepository postRepository;
+	@Autowired private ScrapRepository scrapRepository;
 
 	@Override
 	public int findLastIdByBlogId(String blogId) {
@@ -28,6 +30,10 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public void save(Post post) {
 		postRepository.insert(post);
+		Scrap scrap = post.getScrap();
+		scrap.setPostId(post.getId());
+		scrap.setBlogId(post.getBlog().getId());
+		scrapRepository.insert(scrap);
 
 	}
 

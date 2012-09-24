@@ -11,4 +11,5 @@
     <sqlMap resource="category.xml"/>
     <sqlMap resource="favorite.xml"/>
     <sqlMap resource="comment.xml"/>
+    <sqlMap resource="scrap.xml"/>
 </sqlMapConfig>

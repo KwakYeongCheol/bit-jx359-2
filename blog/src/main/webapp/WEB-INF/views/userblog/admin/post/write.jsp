@@ -4,6 +4,12 @@
 <jsp:include page="/WEB-INF/views/userblog/admin/common/header.jsp" />
 
 <div id="blogArticles">
+	<c:if test="${post.scrap != null }">
+		<div>
+			출처 : ${post.scrap.scrappedBlog.title }
+		</div>
+	</c:if>
+	
 	<form:form modelAttribute="post" action="${pageContext.request.contextPath }/${blog.id }/admin/post/writeAction" method="POST">
 		<p>
 			<form:label path="category.id">카테고리</form:label>

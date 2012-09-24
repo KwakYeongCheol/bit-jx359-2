@@ -23,3 +23,16 @@ VALUES('2', '2', '해적 시리즈..  ', '더럽게 안나와 ㅠㅠ ', NOW(), 1
 
 INSERT INTO POST (id, blogId, title, contents, dateCreated, categoryId)
 VALUES('3', '2', '전설템 득템  ', '오예 치킨먹자 고고 ', NOW(), 2);
+
+CREATE TABLE scraps (
+  postId VARCHAR(10) NOT NULL,
+  blogId VARCHAR(10) NOT NULL,
+  scrappedBlogId VARCHAR(10) NOT NULL,
+  scrappedPostId VARCHAR(10) NOT NULL,
+  scrappedPostTitle VARCHAR(50) NOT NULL,
+  scrappedPostContents VARCHAR(1024) NOT NULL,
+  PRIMARY KEY(postId, blogId)
+);
+
+insert into scraps (postId, blogId, scrappedBlogId, scrappedPostId, scrappedPostTitle, scrappedPostContents)
+values('1','1','2','1', 'Tiny Farm ', '말하는 피닉스는 안생기나? ');

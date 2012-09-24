@@ -11,6 +11,7 @@ public class Post {
 	private String contents;
 	private Date dateCreated;
 	
+	private Scrap scrap;
 	private List<Comment> commentList;
 	
 	public Post(){}	
@@ -71,6 +72,14 @@ public class Post {
 
 	public void setCommentList(List<Comment> commentList) {
 		this.commentList = commentList;
+	}
+
+	public Scrap getScrap() {
+		return scrap;
+	}
+
+	public void setScrap(Scrap scrap) {
+		this.scrap = scrap;
 	}	
 	
 	
