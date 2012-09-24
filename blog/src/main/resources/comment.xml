@@ -19,19 +19,39 @@
 		limit 1
 	</select>	
 	
+	<sql id="selectColumn">
+		c.id as id,
+		c.blogId as "blog.id",
+		c.targetId as targetId,
+		c.commentType as type,
+		c.writerId as "writer.loginId",
+		c.contents as contents,
+		c.dateCreated as dateCreated
+	</sql>
+	
 	<select id="findAllByBlogIdAndTargetIdAndType" resultClass="Comment">
 		SELECT
-			c.id as id,
-			c.blogId as "blog.id",
-			c.targetId as targetId,
-			c.commentType as type,
-			c.writerId as "writer.loginId",
-			c.contents as contents,
-			c.dateCreated as dateCreated
+			<include refid="selectColumn" />
 		FROM comment c
 		where c.blogId = #blogId# and		 
 		c.targetId = #targetId# and
 		c.commentType = #type#  
 		order by c.id desc
 	</select>
+	
+	<select id="findByIdAndBlogIdAndTargetIdAndType" resultClass="Comment">
+		SELECT <include refid="selectColumn" />
+		FROM comment c
+		where c.blogId = #blogId# and c.id = #id# and c.targetId = #targetId# and c.commentType = #type#
+	</select>
+	
+	<update id="update" parameterClass="Comment">
+		update comment set contents = #contents#
+		where id = #id# and blogId = #blog.id# and targetId = #targetId# and commentType = #type#
+	</update>
+	
+	<delete id="delete" parameterClass="Comment">
+		delete from Comment
+		where id = #id# and blogId = #blog.id# and targetId = #targetId# and commentType = #type#
+	</delete>
 </sqlMap>
