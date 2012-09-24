@@ -5,7 +5,7 @@
 
 <div id="blogArticles">
 	<div style="margin: 20px">
-		<form:form modelAttribute="visitor" action="${pageContext.request.contextPath }/${blog.id}/visitor/wirteAction" method="post">
+		<form:form modelAttribute="guestbook" action="${pageContext.request.contextPath }/${blog.id}/guestbook/wirteAction" method="post">
 			<p>
 				<form:input path="contents"/>
 				<input type="submit" value="방명록 작성">			
@@ -14,18 +14,18 @@
 	</div>
 	
 	<div class="blogArticle">
-		<c:forEach items="${visitorList }" var="visitor">
+		<c:forEach items="${guestbookList }" var="guestbook">
 		<div style="margin: 5px; ">
-			<a href="${pageContext.request.contextPath }/${visitor.writer}">${visitor.writer }</a> | 
-			${visitor.dateCreated } <br />
-			${visitor.contents } <br />
+			<a href="${pageContext.request.contextPath }/${guestbook.writer}">${guestbook.writer }</a> | 
+			${guestbook.dateCreated } <br />
+			${guestbook.contents } <br />
 			
 			<c:if test="${loginUserProvider.loggedIn }">
-				<c:if test="${loginUserProvider.loginId == visitor.writer }">
-					<a href="${pageContext.request.contextPath }/${blog.id }/visitor/modify?id=${visitor.id}">수정</a>
+				<c:if test="${loginUserProvider.loginId == guestbook.writer }">
+					<a href="${pageContext.request.contextPath }/${blog.id }/guestbook/modify?id=${guestbook.id}">수정</a>
 				</c:if>
-				<c:if test="${loginUserProvider.loginId == blog.owner || loginUserProvider.loginId == visitor.writer }">
-					<a href="${pageContext.request.contextPath }/${blog.id}/visitor/delete?id=${visitor.id}">삭제</a>
+				<c:if test="${loginUserProvider.loginId == blog.owner || loginUserProvider.loginId == guestbook.writer }">
+					<a href="${pageContext.request.contextPath }/${blog.id}/guestbook/delete?id=${guestbook.id}">삭제</a>
 				</c:if>
 			</c:if>
 		</div>
