@@ -1,4 +1,4 @@
-package kr.co.webcash.web.user;
+package kr.co.webcash.web.user.register;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -21,8 +21,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@SessionAttributes("user")
+@RequestMapping("/user/register")
+public class RegisterController {
 	
 	@Autowired private UserService userService;
 	@Autowired private UserRegisterValidator validator;
@@ -34,29 +35,33 @@ public class UserController {
 		return this.loginUserProvider.get().loginUser();
 	}
 	
-	@RequestMapping("/home")
-	public void Main(Model model){
-		User loginUser = this.loginUserProvider.get().loginUser();
-		User user = userService.findByLoginId(loginUser.getLoginId());
-		model.addAttribute("user", user);
+	@RequestMapping("/step01")
+	public String step01(){
+		return "redirect:/user/register/register";
 	}
-
-	@RequestMapping(value="/modify")
-	public void modify(Model model){
-		User user = userService.findByLoginId(loginUser().getLoginId());
+	
+	@RequestMapping(value="/register", method=RequestMethod.GET)
+	public void showRegisterForm(Model model, HttpSession session){
+		User user = (User) session.getAttribute("user");
+		if(user == null)	user = new User();
 		
 		model.addAttribute("user", user);
 	}
-	@RequestMapping(value="/modifyAction", method=RequestMethod.POST)
-	public String modifyAction(@RequestParam String password,@RequestParam String newPassword, Model model){
-		if(userService.checkLoginIdAndPassword(loginUser().getLoginId(), password)){
-			User user = new User();
-			user.setLoginId(loginUser().getLoginId());
-			user.setPassword(newPassword);
-			userService.update(user);
-			return "redirect:/user/home";			
+	
+	@RequestMapping(value="/register", method=RequestMethod.POST)
+	public String register(@ModelAttribute User user, BindingResult result, Model model, SessionStatus status){
+		this.validator.validate(user, result);
+		
+		if(!result.hasErrors()){
+			if(userService.save(user)){
+				status.setComplete();
+				
+				this.loginUserProvider.get().save(user);
+				
+				return "redirect:/blog/settings";
+			}
 		}
 		
-		return "redirect:/user/modify";
+		return "/user/register/register";
 	}
 }
