@@ -11,7 +11,6 @@ import kr.co.webcash.domain.CommentType;
 import kr.co.webcash.domain.User;
 import kr.co.webcash.service.BlogService;
 import kr.co.webcash.service.CommentService;
-import kr.co.webcash.service.PostService;
 import kr.co.webcash.web.security.LoginUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,7 @@ public class CommentController {
 	@Inject private Provider<LoginUser> loginUserProvider;
 	@ModelAttribute("loginUser")
 	public User loginUser(){
-		return this.loginUserProvider.get().loginUser();
+		return this.loginUserProvider.get().getLoginUser();
 	}
 	
 	

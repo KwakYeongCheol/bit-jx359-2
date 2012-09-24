@@ -5,6 +5,7 @@ import javax.inject.Provider;
 
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Favorite;
+import kr.co.webcash.domain.User;
 import kr.co.webcash.service.FavoriteService;
 import kr.co.webcash.web.security.LoginUser;
 
@@ -21,18 +22,26 @@ public class FavoriteController {
 	@Autowired private FavoriteService favoriteService;
 	@Inject private Provider<LoginUser> loginUserProvider;
 	
+	private User loginUser() {
+		return loginUserProvider.get().getLoginUser();
+	}
+	
 	@RequestMapping
-	public String Main(Model model){
-		model.addAttribute("favoritesList", favoriteService.listByLoginId(loginUserProvider.get().loginUser().getLoginId()));
+	public String Main(){
 		return "favorite/home";
 	}
+	
 	@RequestMapping("/delete")
-	public String delete(@RequestParam String id){
+	public String delete(@RequestParam String blogId){
 		Blog blog = new Blog();
-		blog.setId(id);
+		blog.setId(blogId);
 		Favorite favorite = new Favorite();
-		favorite.setFavoriteBlog(blog);
+		favorite.setLoginId(loginUser().getLoginId());
+		favorite.setBlog(blog);
+		
 		favoriteService.delete(favorite);
+		this.loginUserProvider.get().removeFavorite(favorite);
+		
 		return "redirect:/favorite";
 	}
 }

@@ -27,13 +27,12 @@ public class UserController {
 	
 	@ModelAttribute("loginUser")
 	public User loginUser(){
-		return this.loginUserProvider.get().loginUser();
+		return this.loginUserProvider.get().getLoginUser();
 	}
 	
 	@RequestMapping("/home")
 	public void Main(Model model){
-		User loginUser = this.loginUserProvider.get().loginUser();
-		User user = userService.findByLoginId(loginUser.getLoginId());
+		User user = userService.findByLoginId(loginUser().getLoginId());
 		model.addAttribute("user", user);
 	}
 

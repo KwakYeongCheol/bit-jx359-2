@@ -38,18 +38,16 @@ public class GuestbookController {
 		model.addAttribute("guestbook",new Guestbook());
 		return "userblog/guestbook/home";
 	}
+	
 	@RequestMapping(value="/wirteAction", method=RequestMethod.POST)
 	public String wirteAction(@ModelAttribute Guestbook guestbook, @PathVariable String blogId){
-		
-		User loginUser = this.loginUserProvider.get().loginUser();
-		
-		if(loginUser != null){
+		if(loginUser() != null){
 			Blog blog = new Blog();
 			blog.setId(blogId);
 		
 			int lastId = guestbookService.findLastIdByBlogId(blog.getId());
 			guestbook.setId(String.valueOf(lastId + 1));
-			guestbook.setWriter(loginUser.getLoginId());
+			guestbook.setWriter(loginUser().getLoginId());
 			guestbook.setBlog(blog);
 			guestbook.setDateCreated(new Date(System.currentTimeMillis()));
 			
@@ -61,13 +59,10 @@ public class GuestbookController {
 	
 	@RequestMapping("/modify")
 	public String modify(@PathVariable String blogId, @RequestParam String id, Model model){
-		
 		Guestbook guestbook = guestbookService.findByIdAndBlogId(id, blogId);
 		
-		User loginUser = this.loginUserProvider.get().loginUser();
-		
 		if(guestbook != null){
-			if(loginUser.getLoginId().equals(guestbook.getWriter())){
+			if(loginUser().getLoginId().equals(guestbook.getWriter())){
 				model.addAttribute("guestbook", guestbook);
 				return "/userblog/guestbook/modify";
 			}
@@ -75,14 +70,13 @@ public class GuestbookController {
 		
 		return "redirect:/" + blogId;	
 	}
+	
 	@RequestMapping(value="/modifyAction", method=RequestMethod.POST)
 	public String modifyAction(@PathVariable String blogId, @ModelAttribute Guestbook modifiedguestbook, @RequestParam String id){
 		Guestbook guestbook = guestbookService.findByIdAndBlogId(id, blogId);
 		
-		User loginUser = this.loginUserProvider.get().loginUser();
-		
 		if(guestbook != null){
-			if(loginUser.getLoginId().equals(guestbook.getWriter())){
+			if(loginUser().getLoginId().equals(guestbook.getWriter())){
 				Blog blog = new Blog();
 				blog.setId(blogId);
 				modifiedguestbook.setId(id);
@@ -94,6 +88,7 @@ public class GuestbookController {
 		
 		return "redirect:/" + blogId +"/guestbook";	
 	}
+	
 	@RequestMapping("/delete")
 	public String delete(@RequestParam String id, @PathVariable String blogId){
 		
@@ -101,10 +96,8 @@ public class GuestbookController {
 		
 		Guestbook guestbook = guestbookService.findByIdAndBlogId(id, blogId);
 		
-		User loginUser = this.loginUserProvider.get().loginUser();
-		
 		if(guestbook != null && currentBlog != null){
-			if(loginUser.getLoginId().equals(guestbook.getWriter()) || loginUser.getLoginId().equals(currentBlog.getOwner())){
+			if(loginUser().getLoginId().equals(guestbook.getWriter()) || loginUser().getLoginId().equals(currentBlog.getOwner())){
 				Guestbook deletedguestbook = new Guestbook();
 				deletedguestbook.setId(id);
 				Blog blog = new Blog();
@@ -115,5 +108,10 @@ public class GuestbookController {
 			}
 		}
 		return "redirect:/" + blogId +"/guestbook";
+	}
+	
+	
+	private User loginUser() {
+		return this.loginUserProvider.get().getLoginUser();
 	}
 }

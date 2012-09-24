@@ -31,12 +31,11 @@ public class BlogController {
 	
 	@ModelAttribute("loginUser")
 	public User loginUser(){
-		return this.loginUserProvider.get().loginUser();
+		return this.loginUserProvider.get().getLoginUser();
 	}
 	
 	@RequestMapping("/settings")
-	public void settings(Model model){
-		model.addAttribute("blog", blogService.findByUserLoginId(loginUser().getLoginId()));
+	public void settings(){
 	}
 	
 	@RequestMapping(value="/create", method=RequestMethod.POST)
@@ -48,6 +47,7 @@ public class BlogController {
 		blog.setDateCreated(new Date(System.currentTimeMillis()));
 		
 		blogService.createBlog(blog);
+		this.loginUserProvider.get().setBlog(blog);
 		
 		return "redirect:/";
 	}
@@ -59,6 +59,7 @@ public class BlogController {
 		blog.setId(loginUser().getLoginId());
 		
 		blogService.modify(blog);
+		this.loginUserProvider.get().setBlog(blog);
 		
 		return "redirect:/";
 	}

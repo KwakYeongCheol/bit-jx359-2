@@ -5,11 +5,11 @@
 
 <div id="blogSetting">
 	<h2>블로그 정보</h2>
-	<c:if test="${blog != null }">
+	<c:if test="${loginUserProvider.blog != null }">
 	<form action="${pageContext.request.contextPath }/blog/modify" method="POST">
 		<div>
 			<label class="label">Blog Title</label>
-			<input class="input" type="text" name="title" value="${blog.title }" autofocus />
+			<input class="input" type="text" name="title" value="${loginUserProvider.blog.title }" autofocus />
 		</div>
 		<div>
 			<input class="submit" type="submit" value="블로그 수정" />
@@ -17,7 +17,7 @@
 	</form>
 	</c:if>
 
-	<c:if test="${blog == null }">
+	<c:if test="${loginUserProvider.blog == null }">
 	<form action="${pageContext.request.contextPath }/blog/create" method="POST">
 		<div>
 			<label class="label">Blog Title</label>

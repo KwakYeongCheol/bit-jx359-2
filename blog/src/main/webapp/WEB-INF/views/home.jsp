@@ -9,10 +9,11 @@
 		<a href="${pageContext.request.contextPath }/blog/settings">블로그 설정</a>
 		<a href="${pageContext.request.contextPath }/user/home">회원 정보</a>
 		<a href="${pageContext.request.contextPath }/favorite">이웃들</a> <br /><br />
-		<c:if test="${blog != null }">
-		<a href="${pageContext.request.contextPath }/${blog.id}">${blog.title }</a>
+		<c:if test="${loginUserProvider.blog != null }">
+		<a href="${pageContext.request.contextPath }/${loginUserProvider.blog.id}">${loginUserProvider.blog.title }</a>
 		</c:if>
 	</div>
+	<br /><br /><br />
 	</c:if>
 </div>
 

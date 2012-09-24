@@ -19,13 +19,21 @@
 			<li><a href="${pageContext.request.contextPath }/user/register/step01">회원가입</a></li>
 			<c:if test="${loginUserProvider.loggedIn }">
 			<li><a href="${pageContext.request.contextPath }/logout">로그아웃</a></li>
-			<li>${loginUserProvider.loginId } 님</li>
+			<li>${loginUserProvider.loginUser.loginId } 님</li>
+			<li><a href="${pageContext.request.contextPath }/${loginUserProvider.blog.id}">블로그홈</a></li>
 			</c:if>
 			<c:if test="${!loginUserProvider.loggedIn }">
 			<li><a href="${pageContext.request.contextPath }/login">로그인</a></li>
 			</c:if>
 			<li><a href="${pageContext.request.contextPath }/">홈</a></li>
 		</ul>
+		<c:if test="${loginUserProvider.loggedIn }">
+		<ul>
+		<c:forEach items="${loginUserProvider.loginUser.favoriteList }" var="favorite">
+			<li><a href="${pageContext.request.contextPath }/${favorite.blog.id }">${favorite.blog.title }</a></li>
+		</c:forEach>
+		</ul>
+		</c:if>
 	</div>
 	
 	<div id="contents">
