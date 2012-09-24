@@ -31,7 +31,7 @@ public class RegisterController {
 	
 	@ModelAttribute("loginUser")
 	public User loginUser(){
-		return this.loginUserProvider.get().loginUser();
+		return this.loginUserProvider.get().getLoginUser();
 	}
 	
 	@RequestMapping("/step01")
@@ -54,8 +54,7 @@ public class RegisterController {
 		if(!result.hasErrors()){
 			if(userService.save(user)){
 				status.setComplete();
-				
-				this.loginUserProvider.get().save(user);
+				this.loginUserProvider.get().login(user);
 				
 				return "redirect:/blog/settings";
 			}

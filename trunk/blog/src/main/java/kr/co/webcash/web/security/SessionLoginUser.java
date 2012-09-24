@@ -1,7 +1,14 @@
 package kr.co.webcash.web.security;
 
-import kr.co.webcash.domain.User;
+import java.util.List;
 
+import kr.co.webcash.domain.Blog;
+import kr.co.webcash.domain.Favorite;
+import kr.co.webcash.domain.User;
+import kr.co.webcash.service.BlogService;
+import kr.co.webcash.service.FavoriteService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -11,20 +18,18 @@ public class SessionLoginUser implements LoginUser{
 	
 	private User loginUser;
 	
-	@Override
-	public String getLoginId(){
-		if(isLoggedIn())	return this.loginUser.getLoginId();
-		else				throw new IllegalStateException();
-	}
+	@Autowired private FavoriteService favoriteService;
+	@Autowired private BlogService blogService;
 	
 	@Override
-	public void save(User user) {
+	public void login(User user) {
 		this.loginUser = user;
+		user.setFavoriteList(favoriteService.listByLoginId(user.getLoginId()));
+		user.setBlog(blogService.findByUserLoginId(user.getLoginId()));
 	}
 
 	@Override
-	public void remove() {
-		if(this.loginUser == null)		throw new IllegalStateException();
+	public void logout() {
 		this.loginUser = null;
 	}
 
@@ -34,8 +39,33 @@ public class SessionLoginUser implements LoginUser{
 	}
 
 	@Override
-	public User loginUser() {
+	public User getLoginUser() {
 		return this.loginUser;
+	}
+
+	@Override
+	public List<Favorite> getFavoriteList() {
+		if(!isLoggedIn())	return null;
+		return this.loginUser.getFavoriteList();
+	}
+
+	@Override
+	public Blog getBlog() {
+		if(!isLoggedIn())	return null;
+		return this.loginUser.getBlog();
+	}
+	
+	@Override
+	public void setBlog(Blog blog) {
+		if(!isLoggedIn())	return;
+		this.loginUser.setBlog(blog);
+	}
+
+	@Override
+	public void removeFavorite(Favorite favorite) {
+		if(getFavoriteList() != null){
+			getFavoriteList().remove(favorite);
+		}
 	}
 
 }

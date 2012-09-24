@@ -3,20 +3,17 @@
     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="Favorite">
 	<typeAlias alias="Favorite" type="kr.co.webcash.domain.Favorite"/>
-		
 	
 	<delete id="delete" parameterClass="Favorite">
 		delete from favorites f
-		where f.favoriteBlogId = #favoriteBlog.id#
+		where f.loginId = #loginId# and f.blogId = #blog.id#
 	</delete>
 
 	<select id="findAllByLoginId" resultClass="Favorite">
-		SELECT
-			b.id as "favoriteBlog.id", b.title as "favoriteBlog.title"
+		SELECT 
+			f.loginId as "loginId", b.id as "blog.id", b.title as "blog.title"
 		FROM favorites f
-		join blogs b on b.id = f.favoriteBlogId
+		join blogs b on b.id = f.blogId
 		where f.loginId = #loginId#
 	</select>
-	
-
 </sqlMap>

@@ -28,7 +28,7 @@ public class BlogAdminInterceptor extends HandlerInterceptorAdapter{
 		
 		if(loginUser.isLoggedIn()){
 			String blogId = URLUtils.getBlogId(request.getRequestURI(), request.getContextPath());
-			if(isAdmin(loginUser.getLoginId(), blogId)){
+			if(isAdmin(loginUser.getLoginUser().getLoginId(), blogId)){
 				return true;
 			}else{
 				response.sendRedirect(request.getContextPath() + "/" + blogId);

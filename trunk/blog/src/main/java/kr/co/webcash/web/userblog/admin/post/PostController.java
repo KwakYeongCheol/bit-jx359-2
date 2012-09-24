@@ -37,7 +37,7 @@ public class PostController {
 	
 	@ModelAttribute("loginUser")
 	public User loginUser(){
-		return this.loginUserProvider.get().loginUser();
+		return this.loginUserProvider.get().getLoginUser();
 	}
 	
 	@RequestMapping()

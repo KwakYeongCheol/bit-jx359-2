@@ -7,6 +7,10 @@
 	<div id="blogHeader">
 		<div id="blogTitle">
 			${blog.title }
+			<c:if test="${loginProvider.loggedIn }">
+			
+			<a href="">이웃 추가</a>
+			</c:if>
 		</div>
 	</div>
 		
@@ -15,7 +19,7 @@
 			<li><a href="${pageContext.request.contextPath }/${blog.id}/">홈</a></li>
 			<li><a href="${pageContext.request.contextPath }/${blog.id}/guestbook">방명록</a></li>
 			<c:if test="${loginUserProvider.loggedIn }">
-			<c:if test="${loginUserProvider.loginId == blog.owner }">
+			<c:if test="${loginUserProvider.loginUser.loginId == blog.owner }">
 			<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/post/write">글쓰기</a></li> 
 			<li><a href="${pageContext.request.contextPath }/${blog.id}/admin">관리자</a></li>
 			</c:if>
