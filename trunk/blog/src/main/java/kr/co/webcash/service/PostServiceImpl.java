@@ -31,10 +31,11 @@ public class PostServiceImpl implements PostService {
 	public void save(Post post) {
 		postRepository.insert(post);
 		Scrap scrap = post.getScrap();
-		scrap.setPostId(post.getId());
-		scrap.setBlogId(post.getBlog().getId());
-		scrapRepository.insert(scrap);
-
+		if(scrap != null){
+			scrap.setBlogId(post.getBlog().getId());
+			scrap.setPostId(post.getId());
+			scrapRepository.insert(scrap);
+		}
 	}
 
 	@Override

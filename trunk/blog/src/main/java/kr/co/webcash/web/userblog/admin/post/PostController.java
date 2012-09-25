@@ -13,6 +13,7 @@ import kr.co.webcash.domain.User;
 import kr.co.webcash.service.BlogService;
 import kr.co.webcash.service.CategoryService;
 import kr.co.webcash.service.PostService;
+
 import kr.co.webcash.service.TrackbackService;
 import kr.co.webcash.utils.URLUtils;
 import kr.co.webcash.web.security.LoginUser;
@@ -72,8 +73,7 @@ public class PostController {
 		post.setId(String.valueOf(postService.findLastIdByBlogId(blog.getId()) + 1));
 		post.setDateCreated(new Date(System.currentTimeMillis()));		
 		postService.save(post);
-		
-		
+	
 		if(trackbackBlogId != null && trackbackPostId != null){
 			Trackback trackback = new Trackback();
 			trackback.setBlogId(trackbackBlogId);

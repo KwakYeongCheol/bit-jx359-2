@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import kr.co.webcash.domain.CommentType;
 import kr.co.webcash.domain.Post;
 import kr.co.webcash.domain.Scrap;
+import kr.co.webcash.domain.Trackback;
 
 @Repository
 public class PostRepositoryImpl implements PostRepository {
@@ -21,12 +22,14 @@ public class PostRepositoryImpl implements PostRepository {
 
 	@Autowired private ScrapRepository scrapRepository;
 
+	@Autowired private TrackbackRepository trackbackRepository;
+
 	@Override
 	public Post findLastPostByBlogId(String blogId) {
 		Post post = (Post) template.queryForObject("Post.findLastPostByBlogId", blogId);
 		addScrap(blogId, post);
 		addComments(blogId, post);
-		
+		addTrackback(blogId,post);
 		return post;
 	}
 
@@ -41,8 +44,6 @@ public class PostRepositoryImpl implements PostRepository {
 			addScrap(blogId, post);
 		}
 	}
-	
-	
 
 	private void addComments(String blogId, Post post) {
 		if(post != null){
@@ -56,6 +57,17 @@ public class PostRepositoryImpl implements PostRepository {
 		}
 	}
 
+	private void addTrackback(String blogId, Post post) {
+		if(post != null){
+			post.setTrackbackList(trackbackRepository.findAllByBlogIdAndPostId(blogId, post.getId()));
+		}
+	}
+	
+	private void addTrackback(String blogId, List<Post> postList){
+		for(Post post : postList){
+			addComments(blogId, post);
+		}
+	}
 	@Override
 	public void insert(Post post) {
 		template.insert("Post.insert", post);
@@ -66,6 +78,7 @@ public class PostRepositoryImpl implements PostRepository {
 		List<Post> postList = template.queryForList("Post.findAllByBlogId", blogId);
 		addComments(blogId, postList);
 		addScrap(blogId, postList);
+		addTrackback(blogId,postList);
 		return postList;
 	}
 
@@ -77,6 +90,7 @@ public class PostRepositoryImpl implements PostRepository {
 		Post post = (Post) template.queryForObject("Post.findByIdAndBlogId", param );
 		addScrap(blogId, post);
 		addComments(blogId, post);
+		addTrackback(blogId,post);
 		return post;
 	}
 
@@ -99,6 +113,7 @@ public class PostRepositoryImpl implements PostRepository {
 		List<Post> postList = template.queryForList("Post.findAllByBlogIdAndCategoryId", param );
 		addComments(blogId, postList);
 		addScrap(blogId, postList);
+		addTrackback(blogId,postList);
 		return postList;
 	}
 
@@ -110,6 +125,7 @@ public class PostRepositoryImpl implements PostRepository {
 		Post post = (Post) template.queryForObject("Post.findLastByBlogIdAndCategoryId", param);
 		addComments(blogId, post);
 		addScrap(blogId, post);
+		addTrackback(blogId,post);
 		return post;
 	}
 

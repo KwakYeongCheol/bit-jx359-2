@@ -13,6 +13,7 @@ public class Post {
 	
 	private Scrap scrap;
 	private List<Comment> commentList;
+	private List<Trackback> trackbackList;
 	
 	public Post(){}	
 	
@@ -80,6 +81,13 @@ public class Post {
 
 	public void setScrap(Scrap scrap) {
 		this.scrap = scrap;
+	}
+	public List<Trackback> getTrackbackList() {
+		return trackbackList;
+	}
+
+	public void setTrackbackList(List<Trackback> trackbackList) {
+		this.trackbackList = trackbackList;
 	}	
 	
 	
