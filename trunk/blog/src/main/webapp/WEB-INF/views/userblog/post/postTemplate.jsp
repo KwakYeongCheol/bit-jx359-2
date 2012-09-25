@@ -1,16 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<jsp:include page="/WEB-INF/views/userblog/admin/common/header.jsp" />
 
 <div id="blogArticles">
-	글 목록
-	<c:forEach items="${postList }" var="post">
 	<div class="blogArticle">
 		<a href="${pageContext.request.contextPath }/${blog.id}/category/${post.category.id}">${post.category.title }</a> | 
 		${post.title } | 
-		${post.dateCreated } | 
-		<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/modify?id=${post.id}">수정</a> |
-		<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/delete?id=${post.id}">삭제</a><br /><br />
+		${post.dateCreated } <br /><br />
 		
 		<c:if test="${post.scrap != null }">
 		출처: <a href="${pageContext.request.contextPath }/${post.scrap.scrappedBlog.id }">${post.scrap.scrappedBlog.title }</a>
@@ -21,6 +16,26 @@
 		
 		${post.contents }
 	</div>
+		<form action="${pageContext.request.contextPath }/blog/scrap" method="post">
+			<input type="hidden" name="scrappedBlog.id" value="${blog.id }">
+			<input type="hidden" name="scrappedBlog.title" value="${blog.title }">
+			<input type="hidden" name="scrappedPostId" value="${post.id }">
+			<input type="hidden" name="scrappedPostTitle" value="${post.title }">
+			<input type="hidden" name="scrappedPostContents" value="${post.contents }">
+			<input type="submit" value="스크랩">
+		</form>
+	<div>
+	</div>
+	<c:if test="${loginUserProvider.loggedIn }">
+	<div>
+		<form action="${pageContext.request.contextPath }/${blog.id}/comment/writeAction" method="post">
+			<input type="hidden" name="targetId" value="${post.id }" />
+			<input type="hidden" name="type" value="post" />
+			<input type="text" name="contents" />
+			<input type="submit" value="댓글작성" />
+		</form>
+	</div>
+	</c:if>
 	<div>
 		<c:forEach items="${post.commentList }" var="comment">
 		<div>
@@ -35,7 +50,4 @@
 		</div>
 		</c:forEach>
 	</div>
-	</c:forEach>
 </div>
-
-<jsp:include page="/WEB-INF/views/userblog/admin/common/footer.jsp" />
