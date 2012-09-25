@@ -7,9 +7,8 @@
 	<div id="blogHeader">
 		<div id="blogTitle">
 			${blog.title }
-			<c:if test="${loginProvider.loggedIn }">
-			
-			<a href="">이웃 추가</a>
+			<c:if test="${loginUserProvider.loggedIn && (loginUserProvider.blog.id != blog.id) }">
+				<a href="${pageContext.request.contextPath }/favorite/addAction?blogId=${blog.id}">이웃 추가</a>
 			</c:if>
 		</div>
 	</div>

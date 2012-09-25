@@ -6,12 +6,12 @@ import javax.inject.Provider;
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Favorite;
 import kr.co.webcash.domain.User;
+import kr.co.webcash.service.BlogService;
 import kr.co.webcash.service.FavoriteService;
 import kr.co.webcash.web.security.LoginUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/favorite")
 public class FavoriteController {
 	
+	@Autowired private BlogService blogService;
 	@Autowired private FavoriteService favoriteService;
 	@Inject private Provider<LoginUser> loginUserProvider;
 	
@@ -31,12 +32,26 @@ public class FavoriteController {
 		return "favorite/home";
 	}
 	
+	@RequestMapping("/addAction")
+	public String addAction(@RequestParam String blogId){
+		Blog blog = blogService.findById(blogId);
+		Favorite favorite = new Favorite();
+		favorite.setLoginId(loginUserProvider.get().getLoginUser().getLoginId());
+		favorite.setBlog(blog);
+	
+		favoriteService.add(favorite);
+		this.loginUserProvider.get().addFavorite(favorite);
+		
+		return "redirect:/"+ blogId;
+	}
+	
+	
 	@RequestMapping("/delete")
 	public String delete(@RequestParam String blogId){
 		Blog blog = new Blog();
 		blog.setId(blogId);
 		Favorite favorite = new Favorite();
-		favorite.setLoginId(loginUser().getLoginId());
+		favorite.setLoginId(loginUserProvider.get().getLoginUser().getLoginId());
 		favorite.setBlog(blog);
 		
 		favoriteService.delete(favorite);

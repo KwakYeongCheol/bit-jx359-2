@@ -10,4 +10,6 @@ public interface FavoriteService {
 
 	void delete(Favorite favorite);
 
+	void add(Favorite favorite);
+
 }

@@ -19,5 +19,9 @@ public class FavoriteRepositoryImpl implements FavoriteRepository{
 	public void delete(Favorite favorite) {
 		template.delete("Favorite.delete", favorite);
 	}
+	@Override
+	public void insert(Favorite favorite) {
+		template.insert("Favorite.insert", favorite);
+	}
 
 }

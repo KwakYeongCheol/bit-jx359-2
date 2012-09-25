@@ -8,6 +8,11 @@
 		delete from favorites f
 		where f.loginId = #loginId# and f.blogId = #blog.id#
 	</delete>
+	
+	<insert id="insert" parameterClass="Favorite">
+		insert into favorites (loginId, blogId)
+		values(#loginId#, #blog.id#)
+	</insert>
 
 	<select id="findAllByLoginId" resultClass="Favorite">
 		SELECT 

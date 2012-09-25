@@ -9,5 +9,7 @@ public interface FavoriteRepository {
 	List<Favorite> findAllByLoginId(String loginId);
 
 	void delete(Favorite favorite);
+
+	void insert(Favorite favorite);
 	
 }
