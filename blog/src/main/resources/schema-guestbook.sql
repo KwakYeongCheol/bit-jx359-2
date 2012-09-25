@@ -3,7 +3,7 @@ CREATE TABLE guestbook (
   writer VARCHAR(20) NOT NULL,
   blogId VARCHAR(10) NOT NULL,
   contents VARCHAR(512) NOT NULL,
-  dateCreated date NOT NULL,
+  dateCreated timestamp NOT NULL,
   PRIMARY KEY(id, blogId)
 );
 

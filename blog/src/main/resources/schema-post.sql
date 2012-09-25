@@ -4,7 +4,7 @@ CREATE TABLE post (
   categoryId VARCHAR(10) NOT NULL,
   title VARCHAR(50) NOT NULL,
   contents VARCHAR(512) NOT NULL,
-  dateCreated date,
+  dateCreated timestamp,
   PRIMARY KEY(id, blogId)
 );
 
