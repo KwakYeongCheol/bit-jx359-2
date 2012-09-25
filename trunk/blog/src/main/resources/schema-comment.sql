@@ -5,7 +5,7 @@ CREATE TABLE comment (
   commentType VARCHAR(50) NOT NULL,
   writerId VARCHAR(20) NOT NULL,
   contents VARCHAR(512) NOT NULL,
-  dateCreated date,
+  dateCreated timestamp,
   PRIMARY KEY(id, blogId, targetId, commentType)
 );
 
