@@ -14,6 +14,7 @@ public interface LoginUser {
 	public List<Favorite> getFavoriteList();
 	public void removeFavorite(Favorite favorite);
 	public void addFavorite(Favorite favorite);
+	public boolean isExistFavorite(String blogId);
 	
 	public Blog getBlog();
 	public void setBlog(Blog blog);

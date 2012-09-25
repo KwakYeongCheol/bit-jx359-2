@@ -75,4 +75,12 @@ public class SessionLoginUser implements LoginUser{
 		}
 	}
 
+	@Override
+	public boolean isExistFavorite(String blogId) {
+		for(Favorite favorite : getFavoriteList()){
+			if(favorite.getBlog().getId().equals(blogId))		return true;
+		}
+		
+		return false;
+	}
 }
