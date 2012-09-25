@@ -4,13 +4,5 @@
 
 <sqlMapConfig>
     <settings useStatementNamespaces="true" cacheModelsEnabled="false"/>
-    <sqlMap resource="user.xml" />
-    <sqlMap resource="blog.xml" />
-    <sqlMap resource="post.xml"/>
-    <sqlMap resource="guestbook.xml"/>
-    <sqlMap resource="category.xml"/>
-    <sqlMap resource="favorite.xml"/>
-    <sqlMap resource="comment.xml"/>
-    <sqlMap resource="scrap.xml"/>
-    <sqlMap resource="trackback.xml"/>
+    <sqlMap resource="sample.xml" />
 </sqlMapConfig>
