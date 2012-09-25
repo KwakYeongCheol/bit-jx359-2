@@ -12,4 +12,5 @@
     <sqlMap resource="favorite.xml"/>
     <sqlMap resource="comment.xml"/>
     <sqlMap resource="scrap.xml"/>
+    <sqlMap resource="trackback.xml"/>
 </sqlMapConfig>

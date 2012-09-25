@@ -50,4 +50,12 @@
 		</div>
 		</c:forEach>
 	</div>
+	
+	<div>
+		<c:forEach items="${post.trackbackList }" var="trackback">
+		<div>
+			<a href="${trackback.url }">${trackback.title }</a> | ${trackback.dateCreated } <br />
+		</div>
+		</c:forEach>
+	</div>
 </div>
