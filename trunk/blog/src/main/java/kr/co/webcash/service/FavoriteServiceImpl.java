@@ -23,4 +23,9 @@ public class FavoriteServiceImpl implements FavoriteService{
 		favoriteRepository.delete(favorite);
 	}
 
+	@Override
+	public void add(Favorite favorite) {
+		favoriteRepository.insert(favorite);
+	}
+
 }

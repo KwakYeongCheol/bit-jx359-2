@@ -68,4 +68,11 @@ public class SessionLoginUser implements LoginUser{
 		}
 	}
 
+	@Override
+	public void addFavorite(Favorite favorite) {
+		if(getFavoriteList() != null){
+			getFavoriteList().add(favorite);
+		}
+	}
+
 }
