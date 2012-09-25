@@ -26,7 +26,7 @@ public class CommentRepositoryImp implements CommentRepository {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("blogId", blogId);
 		params.put("targetId", targetId);
-		params.put("type", CommentType.post.toString());
+		params.put("type", type.toString());
 		
 		return template.queryForList("Comment.findAllByBlogIdAndTargetIdAndType", params);
 	}
@@ -36,7 +36,7 @@ public class CommentRepositoryImp implements CommentRepository {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("blogId", blogId);
 		params.put("targetId", targetId);
-		params.put("type", CommentType.post.toString());
+		params.put("type", type.toString());
 		
 		return  (Comment) template.queryForObject("Comment.findLastIdByBlogIdAndTargetIdAndType", params);
 	}

@@ -6,7 +6,7 @@ CREATE TABLE comment (
   writerId VARCHAR(20) NOT NULL,
   contents VARCHAR(512) NOT NULL,
   dateCreated date,
-  PRIMARY KEY(id, blogId, targetId)
+  PRIMARY KEY(id, blogId, targetId, commentType)
 );
 
 

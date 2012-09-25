@@ -1,6 +1,7 @@
 package kr.co.webcash.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class Guestbook {
 	private String id;
@@ -8,6 +9,8 @@ public class Guestbook {
 	private Blog blog;
 	private String contents;
 	private Date dateCreated;
+	
+	private List<Comment> commentList;
 	
 	public String getId() {
 		return id;
@@ -40,13 +43,17 @@ public class Guestbook {
 	}
 	public void setBlog(Blog blog) {
 		this.blog = blog;
+	}	
+	public List<Comment> getCommentList() {
+		return commentList;
+	}
+	public void setCommentList(List<Comment> commentList) {
+		this.commentList = commentList;
 	}
 	@Override
 	public String toString() {
 		return "Guestbook [id=" + id + ", writer=" + writer + ", blog=" + blog
 				+ ", contents=" + contents + ", dateCreated=" + dateCreated
-				+ "]";
-	}
-	
-	
+				+ ", commentList=" + commentList + "]";
+	}	
 }
