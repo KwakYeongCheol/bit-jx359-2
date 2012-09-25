@@ -8,10 +8,13 @@ import javax.inject.Provider;
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Post;
 import kr.co.webcash.domain.Scrap;
+import kr.co.webcash.domain.Trackback;
 import kr.co.webcash.domain.User;
 import kr.co.webcash.service.BlogService;
 import kr.co.webcash.service.CategoryService;
 import kr.co.webcash.service.PostService;
+import kr.co.webcash.service.TrackbackService;
+import kr.co.webcash.utils.URLUtils;
 import kr.co.webcash.web.security.LoginUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,7 @@ public class PostController {
 	@Autowired private PostService postService;
 	@Autowired private BlogService blogService;
 	@Autowired private CategoryService categoryService;
+	@Autowired private TrackbackService trackbackService;
 	
 	@Inject private Provider<LoginUser> loginUserProvider;
 	
@@ -60,15 +64,44 @@ public class PostController {
 	}
 	
 	@RequestMapping(value= "/writeAction", method=RequestMethod.POST)
-	public String writeAction(@ModelAttribute Post post, Model model){
+	public String writeAction(@ModelAttribute Post post, @RequestParam(required=false) String trackbackBlogId, 
+												@RequestParam(required=false) String trackbackPostId, Model model){
+		
 		Blog blog = blogService.findByUserLoginId(loginUser().getLoginId());
 		post.setBlog(blog);
 		post.setId(String.valueOf(postService.findLastIdByBlogId(blog.getId()) + 1));
 		post.setDateCreated(new Date(System.currentTimeMillis()));		
 		postService.save(post);
 		
+		
+		if(trackbackBlogId != null && trackbackPostId != null){
+			Trackback trackback = new Trackback();
+			trackback.setBlogId(trackbackBlogId);
+			trackback.setPostId(trackbackPostId);
+			
+			if(trackback != null && trackbackService.canTrackback(trackback.getBlogId(), trackback.getPostId())){
+				trackback.setUrl("http://localhost:8080/" + post.getBlog().getId() + "/" + post.getId());
+				trackback.setTitle(post.getTitle());
+				trackback.setDateCreated(new Date(System.currentTimeMillis()));
+				
+				trackbackService.add(trackback);
+				
+				Trackback myTrackback = new Trackback();
+				myTrackback.setBlogId(post.getBlog().getId());
+				myTrackback.setPostId(post.getId());
+				myTrackback.setUrl("http://localhost:8080/" + trackback.getBlogId() + "/" + trackback.getPostId());
+				Post targetPost = postService.findByIdAndBlogId(trackback.getPostId(), trackback.getBlogId());
+				myTrackback.setTitle(targetPost.getTitle());
+				myTrackback.setDateCreated(new Date(System.currentTimeMillis()));
+				
+				trackbackService.add(myTrackback);
+			}
+		}
+		
 		return "redirect:/" + blog.getId() + "/admin";
 	}
+	
+	
 	
 	@RequestMapping("/modify")
 	public String modify(@PathVariable String blogId, @RequestParam String id, Model model){
