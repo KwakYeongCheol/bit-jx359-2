@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @SessionAttributes(value={"post"})
+
 @RequestMapping("/{blogId}/comment")
 public class CommentController {
 	
@@ -42,18 +43,23 @@ public class CommentController {
 	@RequestMapping(value= "writeAction", method=RequestMethod.POST)
 	public String writeAction(@PathVariable String blogId, @RequestParam String targetId, @RequestParam String type, @RequestParam String contents){
 		
-		Blog blog = new Blog();
-		blog.setId(blogId);
-		Comment comment = new Comment();
-		comment.setId(String.valueOf(commentService.findLastIdByBlogIdAndTargetIdAndType(blogId, targetId, type) + 1));
-		comment.setBlog(blog);
-		comment.setTargetId(targetId);
-		comment.setType(CommentType.valueOf(type));
-		comment.setContents(contents);
-		comment.setWriter(loginUser());
-		comment.setDateCreated(new Date(System.currentTimeMillis()));
 		
-		commentService.save(comment);
+			Blog blog = new Blog();
+			blog.setId(blogId);
+			Comment comment = new Comment();
+			comment.setId(String.valueOf(commentService.findLastIdByBlogIdAndTargetIdAndType(blogId, targetId, type) + 1));
+			comment.setBlog(blog);
+			comment.setTargetId(targetId);
+			comment.setType(CommentType.valueOf(type));
+			comment.setContents(contents);
+			comment.setWriter(loginUser());
+			comment.setDateCreated(new Date(System.currentTimeMillis()));
+			
+			commentService.save(comment);
+			
+		if(type.toString().equals("guestbook")){
+			return "redirect:/" + blogId + "/guestbook";
+		}
 		
 		return "redirect:/" + blogId;
 	}
