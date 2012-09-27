@@ -9,10 +9,12 @@ import kr.co.webcash.domain.User;
 import kr.co.webcash.service.BlogService;
 import kr.co.webcash.service.CategoryService;
 import kr.co.webcash.web.security.LoginUser;
+import kr.co.webcash.web.validator.AdminCategoryValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,8 @@ public class AdminCategoryController {
 	@Autowired private BlogService blogService;
 	@Autowired private CategoryService categoryService;
 	
+	@Autowired private AdminCategoryValidator categoryValidator;
+	
 	@Inject private Provider<LoginUser> loginUserProvider;
 	
 	@ModelAttribute("loginUser")
@@ -39,26 +43,30 @@ public class AdminCategoryController {
 		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
 		return "/userblog/admin/category/home";
 	}
-	
+
 	@RequestMapping("/add")
 	public String add(Model model){
 		model.addAttribute("category", new Category());
 		return "/userblog/admin/category/add";
 	}
-	
 	@RequestMapping(value="/addAction", method=RequestMethod.POST)
-	public String addAciton(@ModelAttribute Category category, @PathVariable String blogId ){
+	public String addAciton(@ModelAttribute Category category,  BindingResult result , @PathVariable String blogId){
 		String redirectUrl = "redirect:/";
-		if(loginUser() != null){
-			Blog blog = blogService.findByUserLoginId(loginUser().getLoginId());
-			
-			category.setId(String.valueOf(categoryService.findLastIdByBlogId(blog.getId())+1));
-			category.setBlog(blog);
-			
-			categoryService.save(category);
-			redirectUrl = "redirect:/" + blog.getId() + "/admin/category";
+		
+		this.categoryValidator.validate(category, result);
+		if(!result.hasErrors()){
+			if(loginUser() != null){
+				Blog blog = blogService.findByUserLoginId(loginUser().getLoginId());
+				
+				category.setId(String.valueOf(categoryService.findLastIdByBlogId(blog.getId())+1));
+				category.setBlog(blog);
+				
+				categoryService.save(category);
+				redirectUrl = "redirect:/" + blog.getId() + "/admin/category";
+				return redirectUrl;
+			}
 		}
-		return redirectUrl;
+		return "/userblog/admin/category/add";
 	}
 	
 	@RequestMapping("/modify")
@@ -72,14 +80,17 @@ public class AdminCategoryController {
 	}
 	
 	@RequestMapping(value = "/modifyAction", method = RequestMethod.POST)
-	public String modifyAction(@PathVariable String blogId, @ModelAttribute Category category){
-		Blog blog = new Blog();
-		blog.setId(blogId);
-		category.setBlog(blog);
-		
-		categoryService.update(category);
-		
-		return "redirect:/" + blogId + "/admin/category";
+	public String modifyAction(@PathVariable String blogId, @ModelAttribute Category category, BindingResult result){
+		this.categoryValidator.validate(category, result);
+		if(!result.hasErrors()){
+			Blog blog = new Blog();
+			blog.setId(blogId);
+			category.setBlog(blog);
+			
+			categoryService.update(category);
+			return "redirect:/" + blogId + "/admin/category";
+		}
+		return "/userblog/admin/category/modify";
 	}
 	
 	@RequestMapping("/delete")

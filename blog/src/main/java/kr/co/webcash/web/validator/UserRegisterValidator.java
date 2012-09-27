@@ -18,7 +18,6 @@ public class UserRegisterValidator implements Validator{
 	public boolean supports(Class<?> clazz) {
 		return User.class.isAssignableFrom(clazz);
 	}
-
 	@Override
 	public void validate(Object target, Errors errors) {
 		User user = (User)target;
@@ -36,7 +35,7 @@ public class UserRegisterValidator implements Validator{
 			
 			String password = user.getPassword(); 
 			if(password != null){
-				if(password.length() != 8)	errors.rejectValue("password", "field.minlength.user.password");
+				if(password.length() < 8)	errors.rejectValue("password", "field.minlength.user.password");
 			}
 		}
 		

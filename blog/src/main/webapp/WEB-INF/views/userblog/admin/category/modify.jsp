@@ -4,12 +4,13 @@
 
 <div id="blogArticles">
 	<form:form modelAttribute="category"  action="${pageContext.request.contextPath }/${blog.id }/admin/category/modifyAction" method="POST">
+		<form:errors cssClass="error" path="title"></form:errors>
 		<input type="hidden" name="id" value="${category.id }"/>
-		<p>
-			<form:label path="title">Title</form:label>
-			<form:input path="title"/>
+		<div>
+			<form:label cssClass="title" path="title">Title</form:label>
+			<form:input cssClass="title" path="title"/>
 			<input type="submit" value="수정">
-		</p>
+		</div>
 	</form:form>
 </div>
 
