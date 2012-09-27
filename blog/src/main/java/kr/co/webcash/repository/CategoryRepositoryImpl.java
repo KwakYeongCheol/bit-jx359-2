@@ -4,9 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Category;
-import kr.co.webcash.domain.Post;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
