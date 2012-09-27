@@ -11,10 +11,12 @@ import kr.co.webcash.domain.Scrap;
 import kr.co.webcash.domain.User;
 import kr.co.webcash.service.BlogService;
 import kr.co.webcash.web.security.LoginUser;
+import kr.co.webcash.web.validator.BlogValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @RequestMapping("/blog")
 public class BlogController {
 	@Autowired private BlogService blogService;
+	@Autowired private BlogValidator blogValidator;
 	
 	@Inject private Provider<LoginUser> loginUserProvider;
 	
@@ -39,29 +42,31 @@ public class BlogController {
 	}
 	
 	@RequestMapping(value="/create", method=RequestMethod.POST)
-	public String create(@RequestParam String title){
-		Blog blog = new Blog();
-		blog.setTitle(title);
-		blog.setId(loginUser().getLoginId());
-		blog.setOwner(loginUser().getLoginId());
-		blog.setDateCreated(new Date(System.currentTimeMillis()));
-		
-		blogService.createBlog(blog);
-		this.loginUserProvider.get().setBlog(blog);
-		
-		return "redirect:/";
+	public String create(@ModelAttribute("blog") Blog blog, BindingResult result){
+		this.blogValidator.validate(blog, result);
+		if(!result.hasErrors()){
+			blog.setId(loginUser().getLoginId());
+			blog.setOwner(loginUser().getLoginId());
+			blog.setDateCreated(new Date(System.currentTimeMillis()));
+			
+			blogService.createBlog(blog);
+			this.loginUserProvider.get().setBlog(blog);
+			return "redirect:/";
+		}
+		return "/blog/settings";
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String modify(@RequestParam String title){
-		Blog blog = new Blog();
-		blog.setTitle(title);
-		blog.setId(loginUser().getLoginId());
-		
-		blogService.modify(blog);
-		this.loginUserProvider.get().setBlog(blog);
-		
-		return "redirect:/";
+	public String modify(@ModelAttribute("blog") Blog blog, BindingResult result){
+		this.blogValidator.validate(blog, result);
+		if(!result.hasErrors()){
+			blog.setId(loginUser().getLoginId());
+			
+			blogService.modify(blog);
+			this.loginUserProvider.get().setBlog(blog);
+			return "redirect:/";
+		}
+		return "/blog/settings";
 	}
 	
 	@RequestMapping(value="/scrap", method=RequestMethod.POST)
