@@ -34,7 +34,7 @@
 			and c.id = #id#
 	</select>
 	
-	<select id="findAllCountByIdAndBlogId" resultClass="Integer">
+	<select id="findAllCountByIdAndBlogId" resultClass="Long">
 		SELECT count(*)
 		FROM category
 		where blogId = #blogId#

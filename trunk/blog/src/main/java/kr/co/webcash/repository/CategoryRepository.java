@@ -18,6 +18,6 @@ public interface CategoryRepository {
 
 	Category findByIdAndBlogId(String id, String blogId);
 
-	int findAllCountByBlogId(String blogId);
+	long findAllCountByBlogId(String blogId);
 	
 }

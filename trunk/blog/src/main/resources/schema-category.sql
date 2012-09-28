@@ -1,5 +1,5 @@
 CREATE TABLE category (
-  id VARCHAR(10) NOT NULL,
+  id bigint NOT NULL,
   blogId VARCHAR(10) NOT NULL,
   title VARCHAR(50) NOT NULL,
   primary key(id, blogId)

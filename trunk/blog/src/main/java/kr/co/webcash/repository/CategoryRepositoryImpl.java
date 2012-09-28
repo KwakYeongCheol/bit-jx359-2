@@ -47,8 +47,8 @@ public class CategoryRepositoryImpl implements CategoryRepository{
 	}
 
 	@Override
-	public int findAllCountByBlogId(String blogId) {
-		return (Integer) template.queryForObject("Category.findAllCountByIdAndBlogId", blogId);
+	public long findAllCountByBlogId(String blogId) {
+		return (Long) template.queryForObject("Category.findAllCountByIdAndBlogId", blogId);
 	}
 
 }

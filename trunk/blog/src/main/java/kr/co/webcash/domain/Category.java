@@ -2,13 +2,13 @@ package kr.co.webcash.domain;
 
 public class Category {
 	
-	private String id;
+	private long id;
 	private Blog blog;
 	private String title;
-	public String getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public Blog getBlog() {

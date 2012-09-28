@@ -2,9 +2,7 @@ package kr.co.webcash.service;
 
 import java.util.List;
 
-import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Category;
-import kr.co.webcash.domain.Post;
 import kr.co.webcash.repository.CategoryRepository;
 import kr.co.webcash.repository.PostRepository;
 
@@ -15,16 +13,17 @@ import org.springframework.stereotype.Service;
 public class CategoryServiceImpl implements CategoryService {
 	@Autowired private CategoryRepository categoryRepository;
 	@Autowired private PostRepository postRepository;
+	
 	@Override
 	public List<Category> listByBlogId(String blogId) {
 		return categoryRepository.findAllByBlogId(blogId);
 	}
 
 	@Override
-	public int findLastIdByBlogId(String blogId) {
+	public long findLastIdByBlogId(String blogId) {
 		Category category = categoryRepository.findLastPostByBlogId(blogId);
 
-		return Integer.parseInt(category.getId());
+		return category.getId();
 	}
 
 	@Override
@@ -40,7 +39,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public void delete(Category category) {
 		if(postRepository.findLastByBlogIdAndCategoryId(category.getBlog().getId(), category.getId()) == null){
-			int categoryCount = categoryRepository.findAllCountByBlogId(category.getBlog().getId());
+			long categoryCount = categoryRepository.findAllCountByBlogId(category.getBlog().getId());
 			
 			if(categoryCount > 1){
 				System.out.println("카테고리가 삭제되었습니다.");
@@ -55,7 +54,6 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public Category findByIdAndBlogId(String id, String blogId) {
-		// TODO Auto-generated method stub
 		return categoryRepository.findByIdAndBlogId(id,blogId);
 	}
 

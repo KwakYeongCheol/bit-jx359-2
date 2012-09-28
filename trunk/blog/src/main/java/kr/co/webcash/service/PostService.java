@@ -18,6 +18,6 @@ public interface PostService {
 
 	void delete(Post post);
 
-	List<Post> listByBlogIdAndCategoryId(String blogId, String categoryId);
+	List<Post> listByBlogIdAndCategoryId(String blogId, long categoryId);
 
 }
