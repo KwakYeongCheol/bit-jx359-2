@@ -60,7 +60,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<Post> listByBlogIdAndCategoryId(String blogId, String categoryId) {
+	public List<Post> listByBlogIdAndCategoryId(String blogId, long categoryId) {
 		return postRepository.findAllByBlogIdAndCategoryId(blogId, categoryId);	}
 
 }

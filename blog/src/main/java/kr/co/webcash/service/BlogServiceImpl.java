@@ -18,7 +18,7 @@ public class BlogServiceImpl implements BlogService {
 	public void createBlog(Blog blog) {
 		blogRepository.create(blog);
 		Category category = new Category();
-		category.setId(String.valueOf(1));
+		category.setId(1);
 		category.setBlog(blog);
 		category.setTitle("내 글");
 		
@@ -27,7 +27,6 @@ public class BlogServiceImpl implements BlogService {
 
 	@Override
 	public Blog findByUserLoginId(String loginId) {
-		// TODO Auto-generated method stub
 		return blogRepository.findByUserLoginId(loginId);
 	}
 

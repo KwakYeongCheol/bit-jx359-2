@@ -4,14 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.ibatis.SqlMapClientTemplate;
-import org.springframework.stereotype.Repository;
-
 import kr.co.webcash.domain.CommentType;
 import kr.co.webcash.domain.Post;
 import kr.co.webcash.domain.Scrap;
-import kr.co.webcash.domain.Trackback;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.ibatis.SqlMapClientTemplate;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class PostRepositoryImpl implements PostRepository {
@@ -65,7 +64,7 @@ public class PostRepositoryImpl implements PostRepository {
 	
 	private void addTrackback(String blogId, List<Post> postList){
 		for(Post post : postList){
-			addComments(blogId, post);
+			addTrackback(blogId, post);
 		}
 	}
 	@Override
@@ -106,8 +105,8 @@ public class PostRepositoryImpl implements PostRepository {
 	}
 
 	@Override
-	public List<Post> findAllByBlogIdAndCategoryId(String blogId, String categoryId) {
-		Map<String, String> param = new HashMap<String, String>();
+	public List<Post> findAllByBlogIdAndCategoryId(String blogId, long categoryId) {
+		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("blogId", blogId);
 		param.put("categoryId", categoryId);
 		List<Post> postList = template.queryForList("Post.findAllByBlogIdAndCategoryId", param );
@@ -118,8 +117,8 @@ public class PostRepositoryImpl implements PostRepository {
 	}
 
 	@Override
-	public Post findLastByBlogIdAndCategoryId(String blogId, String categoryId) {
-		Map<String, String> param = new HashMap<String, String>();
+	public Post findLastByBlogIdAndCategoryId(String blogId, long categoryId) {
+		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("blogId", blogId);
 		param.put("categoryId", categoryId);
 		Post post = (Post) template.queryForObject("Post.findLastByBlogIdAndCategoryId", param);

@@ -58,7 +58,7 @@ public class AdminCategoryController {
 			if(loginUser() != null){
 				Blog blog = blogService.findByUserLoginId(loginUser().getLoginId());
 				
-				category.setId(String.valueOf(categoryService.findLastIdByBlogId(blog.getId())+1));
+				category.setId(categoryService.findLastIdByBlogId(blog.getId())+1);
 				category.setBlog(blog);
 				
 				categoryService.save(category);
@@ -96,7 +96,7 @@ public class AdminCategoryController {
 	@RequestMapping("/delete")
 	public String delete(@RequestParam String id, @PathVariable String blogId){		
 		Category category = new Category();
-		category.setId(id);
+		category.setId(Long.valueOf(id));
 		Blog blog = new Blog();
 		blog.setId(blogId);
 		category.setBlog(blog);
