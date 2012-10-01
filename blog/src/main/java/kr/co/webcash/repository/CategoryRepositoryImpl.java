@@ -39,8 +39,8 @@ public class CategoryRepositoryImpl implements CategoryRepository{
 	}
 
 	@Override
-	public Category findByIdAndBlogId(String id, String blogId) {
-		Map<String, String> param = new HashMap<String, String>();
+	public Category findByIdAndBlogId(long id, String blogId) {
+		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("id", id);
 		param.put("blogId", blogId);
 		return (Category) template.queryForObject("Category.findByIdAndBlogId", param);

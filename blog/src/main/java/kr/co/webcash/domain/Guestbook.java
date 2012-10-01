@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Guestbook {
-	private String id;
+	private long id;
 	private String writer;
 	private Blog blog;
 	private String contents;
@@ -12,19 +12,19 @@ public class Guestbook {
 	
 	private List<Comment> commentList;
 	
-	public String getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
+	
 	public String getWriter() {
 		return writer;
 	}
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
-
 	
 	public String getContents() {
 		return contents;

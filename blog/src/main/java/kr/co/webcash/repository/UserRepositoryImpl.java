@@ -21,25 +21,21 @@ public class UserRepositoryImpl implements UserRepository{
 
 	@Override
 	public void insert(User user) {
-		// TODO Auto-generated method stub
 		template.insert("User.insert", user);
 	}
 
 	@Override
 	public User findByLoginId(String loginId) {
-		// TODO Auto-generated method stub
 		return (User) template.queryForObject("User.findById", loginId);
 	}
 
 	@Override
 	public void update(User user) {
-		// TODO Auto-generated method stub
 		template.update("User.update", user);
 	}
 
 	@Override
 	public User findByLoginIdAndPassword(String loginId, String password) {
-		
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("loginId", loginId);
 		params.put("password", password);

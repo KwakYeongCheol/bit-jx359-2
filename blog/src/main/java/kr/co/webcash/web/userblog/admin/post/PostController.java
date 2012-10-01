@@ -7,15 +7,12 @@ import javax.inject.Provider;
 
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Post;
-import kr.co.webcash.domain.Scrap;
 import kr.co.webcash.domain.Trackback;
 import kr.co.webcash.domain.User;
 import kr.co.webcash.service.BlogService;
 import kr.co.webcash.service.CategoryService;
 import kr.co.webcash.service.PostService;
-
 import kr.co.webcash.service.TrackbackService;
-import kr.co.webcash.utils.URLUtils;
 import kr.co.webcash.web.security.LoginUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,19 +62,21 @@ public class PostController {
 	}
 	
 	@RequestMapping(value= "/writeAction", method=RequestMethod.POST)
-	public String writeAction(@ModelAttribute Post post, @RequestParam(required=false) String trackbackBlogId, 
-												@RequestParam(required=false) String trackbackPostId, Model model){
+	public String writeAction(@ModelAttribute Post post, 
+			@RequestParam String trackbackBlogId, 
+			@RequestParam String trackbackPostId, 
+			Model model){
 		
 		Blog blog = blogService.findByUserLoginId(loginUser().getLoginId());
 		post.setBlog(blog);
-		post.setId(String.valueOf(postService.findLastIdByBlogId(blog.getId()) + 1));
+		post.setId(postService.findLastIdByBlogId(blog.getId()) + 1);
 		post.setDateCreated(new Date(System.currentTimeMillis()));		
 		postService.save(post);
 	
-		if(trackbackBlogId != null && trackbackPostId != null){
+		if(trackbackBlogId != null && trackbackBlogId.length() > 0 && trackbackPostId != null && trackbackPostId.length() > 0){
 			Trackback trackback = new Trackback();
 			trackback.setBlogId(trackbackBlogId);
-			trackback.setPostId(trackbackPostId);
+			trackback.setPostId(Long.valueOf(trackbackPostId));
 			
 			if(trackback != null && trackbackService.canTrackback(trackback.getBlogId(), trackback.getPostId())){
 				trackback.setUrl("http://localhost:8080/" + post.getBlog().getId() + "/" + post.getId());
@@ -104,7 +103,7 @@ public class PostController {
 	
 	
 	@RequestMapping("/modify")
-	public String modify(@PathVariable String blogId, @RequestParam String id, Model model){
+	public String modify(@PathVariable String blogId, @RequestParam long id, Model model){
 		Post post = postService.findByIdAndBlogId(id,blogId);
 		
 		model.addAttribute("post", post);
@@ -124,7 +123,7 @@ public class PostController {
 	}
 	
 	@RequestMapping("/delete")
-	public String delete(@RequestParam String id, @PathVariable String blogId){
+	public String delete(@RequestParam long id, @PathVariable String blogId){
 		Post post = new Post();
 		post.setId(id);
 		Blog blog = new Blog();

@@ -45,8 +45,7 @@ public class GuestbookController {
 			Blog blog = new Blog();
 			blog.setId(blogId);
 		
-			int lastId = guestbookService.findLastIdByBlogId(blog.getId());
-			guestbook.setId(String.valueOf(lastId + 1));
+			guestbook.setId(guestbookService.findLastIdByBlogId(blog.getId()) + 1);
 			guestbook.setWriter(loginUser().getLoginId());
 			guestbook.setBlog(blog);
 			guestbook.setDateCreated(new Date(System.currentTimeMillis()));
@@ -58,7 +57,7 @@ public class GuestbookController {
 	}
 	
 	@RequestMapping("/modify")
-	public String modify(@PathVariable String blogId, @RequestParam String id, Model model){
+	public String modify(@PathVariable String blogId, @RequestParam long id, Model model){
 		Guestbook guestbook = guestbookService.findByIdAndBlogId(id, blogId);
 		
 		if(guestbook != null){
@@ -72,7 +71,7 @@ public class GuestbookController {
 	}
 	
 	@RequestMapping(value="/modifyAction", method=RequestMethod.POST)
-	public String modifyAction(@PathVariable String blogId, @ModelAttribute Guestbook modifiedguestbook, @RequestParam String id){
+	public String modifyAction(@PathVariable String blogId, @ModelAttribute Guestbook modifiedguestbook, @RequestParam long id){
 		Guestbook guestbook = guestbookService.findByIdAndBlogId(id, blogId);
 		
 		if(guestbook != null){
@@ -90,7 +89,7 @@ public class GuestbookController {
 	}
 	
 	@RequestMapping("/delete")
-	public String delete(@RequestParam String id, @PathVariable String blogId){
+	public String delete(@RequestParam long id, @PathVariable String blogId){
 		
 		Blog currentBlog = blogService.findById(blogId);
 		

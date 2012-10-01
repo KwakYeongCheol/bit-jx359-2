@@ -5,7 +5,7 @@ import java.util.Date;
 public class Trackback {
 	
 	private String blogId;
-	private String postId;
+	private long postId;
 	private String url;
 	private String title;
 	private Date dateCreated;
@@ -15,10 +15,10 @@ public class Trackback {
 	public void setBlogId(String blogId) {
 		this.blogId = blogId;
 	}
-	public String getPostId() {
+	public long getPostId() {
 		return postId;
 	}
-	public void setPostId(String postId) {
+	public void setPostId(long postId) {
 		this.postId = postId;
 	}
 	public String getUrl() {

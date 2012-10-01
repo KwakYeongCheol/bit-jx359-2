@@ -4,12 +4,13 @@ import java.util.Date;
 import java.util.List;
 
 public class Post {
-	private String id;
+	private long id;
 	private Blog blog;
 	private Category category;
 	private String title;
 	private String contents;
 	private Date dateCreated;
+	
 	
 	private Scrap scrap;
 	private List<Comment> commentList;
@@ -17,10 +18,10 @@ public class Post {
 	
 	public Post(){}	
 	
-	public String getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getTitle() {

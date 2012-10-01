@@ -41,13 +41,13 @@ public class CommentController {
 	
 	
 	@RequestMapping(value= "writeAction", method=RequestMethod.POST)
-	public String writeAction(@PathVariable String blogId, @RequestParam String targetId, @RequestParam String type, @RequestParam String contents){
+	public String writeAction(@PathVariable String blogId, @RequestParam long targetId, @RequestParam String type, @RequestParam String contents){
 		
 		
 			Blog blog = new Blog();
 			blog.setId(blogId);
 			Comment comment = new Comment();
-			comment.setId(String.valueOf(commentService.findLastIdByBlogIdAndTargetIdAndType(blogId, targetId, type) + 1));
+			comment.setId(commentService.findLastIdByBlogIdAndTargetIdAndType(blogId, targetId, type) + 1);
 			comment.setBlog(blog);
 			comment.setTargetId(targetId);
 			comment.setType(CommentType.valueOf(type));
@@ -65,7 +65,7 @@ public class CommentController {
 	}
 	
 	@RequestMapping("/modify")
-	public String modify(@PathVariable String blogId, @RequestParam String id, @RequestParam String targetId, @RequestParam String type, Model model){
+	public String modify(@PathVariable String blogId, @RequestParam long id, @RequestParam long targetId, @RequestParam String type, Model model){
 		Comment comment = commentService.findByIdAndBlogIdAndTargetIdAndType(id,blogId,targetId, type);
 		
 		if(comment.getWriter().getLoginId().equals(loginUser().getLoginId())){
@@ -77,7 +77,7 @@ public class CommentController {
 	}
 	
 	@RequestMapping(value="/modifyAction", method=RequestMethod.POST)
-	public String modifyAction(@PathVariable String blogId, @RequestParam String id, @RequestParam String targetId, @RequestParam String type, @RequestParam String contents){
+	public String modifyAction(@PathVariable String blogId, @RequestParam long id, @RequestParam long targetId, @RequestParam String type, @RequestParam String contents){
 		Comment comment = commentService.findByIdAndBlogIdAndTargetIdAndType(id, blogId, targetId, type);
 		
 		if(comment.getWriter().getLoginId().equals(loginUser().getLoginId())){
@@ -97,7 +97,7 @@ public class CommentController {
 	}
 	
 	@RequestMapping("/delete")
-	public String delete(@PathVariable  String blogId, @RequestParam String id, @RequestParam String targetId, @RequestParam String type){
+	public String delete(@PathVariable  String blogId, @RequestParam long id, @RequestParam long targetId, @RequestParam String type){
 		Blog currentBlog = blogService.findById(blogId);
 		Comment comment = commentService.findByIdAndBlogIdAndTargetIdAndType(id, blogId, targetId, type);
 		

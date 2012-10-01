@@ -70,9 +70,8 @@ public class AdminCategoryController {
 	}
 	
 	@RequestMapping("/modify")
-	public String modify(@PathVariable String blogId, @RequestParam String id, Model model){
-		
-		Category category = categoryService.findByIdAndBlogId(id,blogId);
+	public String modify(@PathVariable String blogId, @RequestParam long id, Model model){
+		Category category = categoryService.findByIdAndBlogId(id, blogId);
 		
 		model.addAttribute("category", category);
 		

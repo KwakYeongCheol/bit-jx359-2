@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CommenServiceImp implements CommentService{
+public class CommentServiceImp implements CommentService{
 	
 	@Autowired CommentRepository commentRepository;
 
@@ -17,13 +17,14 @@ public class CommenServiceImp implements CommentService{
 	}
 
 	@Override
-	public int findLastIdByBlogIdAndTargetIdAndType(String blogId, String targetId, String type) {
+	public long findLastIdByBlogIdAndTargetIdAndType(String blogId, long targetId, String type) {
 		Comment comment = commentRepository.findLastByBlogIdAndTargetIdAndType(blogId, targetId, type);
 		
 		if(comment == null){
 			return 0;
 		}
-		return Integer.parseInt(comment.getId());
+		
+		return comment.getId();
 	}
 
 	@Override
@@ -37,7 +38,7 @@ public class CommenServiceImp implements CommentService{
 	}
 
 	@Override
-	public Comment findByIdAndBlogIdAndTargetIdAndType(String id, String blogId, String targetId, String type) {
+	public Comment findByIdAndBlogIdAndTargetIdAndType(long id, String blogId, long targetId, String type) {
 		return commentRepository.findByIdAndBlogIdAndTargetIdAndType(id, blogId, targetId, type);
 	}
 	

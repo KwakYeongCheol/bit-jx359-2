@@ -82,8 +82,8 @@ public class PostRepositoryImpl implements PostRepository {
 	}
 
 	@Override
-	public Post findByIdAndBlogId(String id, String blogId) {
-		Map<String, String> param = new HashMap<String, String>();
+	public Post findByIdAndBlogId(long id, String blogId) {
+		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("id", id);
 		param.put("blogId", blogId);
 		Post post = (Post) template.queryForObject("Post.findByIdAndBlogId", param );

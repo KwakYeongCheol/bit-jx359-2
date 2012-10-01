@@ -1,19 +1,18 @@
 package kr.co.webcash.domain;
 
-import java.util.Date;
 
 public class Scrap {
-	private String postId;
+	private long postId;
 	private String blogId;
 	private Blog scrappedBlog;
-	private String scrappedPostId;
+	private long scrappedPostId;
 	private String scrappedPostTitle;
 	private String scrappedPostContents;
 	
-	public String getPostId() {
+	public long getPostId() {
 		return postId;
 	}
-	public void setPostId(String postId) {
+	public void setPostId(long postId) {
 		this.postId = postId;
 	}
 	public String getBlogId() {
@@ -22,10 +21,10 @@ public class Scrap {
 	public void setBlogId(String blogId) {
 		this.blogId = blogId;
 	}
-	public String getScrappedPostId() {
+	public long getScrappedPostId() {
 		return scrappedPostId;
 	}
-	public void setScrappedPostId(String scrappedPostId) {
+	public void setScrappedPostId(long scrappedPostId) {
 		this.scrappedPostId = scrappedPostId;
 	}
 	public String getScrappedPostTitle() {

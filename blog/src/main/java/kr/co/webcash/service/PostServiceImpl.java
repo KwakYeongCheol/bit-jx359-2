@@ -2,13 +2,13 @@ package kr.co.webcash.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import kr.co.webcash.domain.Post;
 import kr.co.webcash.domain.Scrap;
 import kr.co.webcash.repository.PostRepository;
 import kr.co.webcash.repository.ScrapRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -17,14 +17,14 @@ public class PostServiceImpl implements PostService {
 	@Autowired private ScrapRepository scrapRepository;
 
 	@Override
-	public int findLastIdByBlogId(String blogId) {
+	public long findLastIdByBlogId(String blogId) {
 		Post post = postRepository.findLastPostByBlogId(blogId);
 		
 		if(post==null){
 			return 0;
 		}
 
-		return Integer.parseInt(post.getId());
+		return post.getId();
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public Post findByIdAndBlogId(String id, String blogId) {
+	public Post findByIdAndBlogId(long id, String blogId) {
 	    return postRepository.findByIdAndBlogId(id, blogId);
 		
 	}
