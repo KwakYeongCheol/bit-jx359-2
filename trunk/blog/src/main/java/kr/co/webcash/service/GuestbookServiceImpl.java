@@ -20,11 +20,11 @@ public class GuestbookServiceImpl implements GuestbookService{
 	}
 
 	@Override
-	public int findLastIdByBlogId(String blogId) {
+	public long findLastIdByBlogId(String blogId) {
 		Guestbook visitor = guestbookRepository.findLastGuestbookByBlogId(blogId);
 		if(visitor == null)		return 0;
 		
-		return Integer.parseInt(visitor.getId());
+		return visitor.getId();
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class GuestbookServiceImpl implements GuestbookService{
 	}
 
 	@Override
-	public Guestbook findByIdAndBlogId(String id, String blogId) {
+	public Guestbook findByIdAndBlogId(long id, String blogId) {
 		return guestbookRepository.findByIdAndBlogId(id, blogId);
 	}
 

@@ -12,7 +12,7 @@ public interface GuestbookRepository {
 
 	List<Guestbook> findAllByBlogId(String blogId);
 
-	Guestbook findByIdAndBlogId(String id, String blogId);
+	Guestbook findByIdAndBlogId(long id, String blogId);
 
 	void update(Guestbook visitor);
 

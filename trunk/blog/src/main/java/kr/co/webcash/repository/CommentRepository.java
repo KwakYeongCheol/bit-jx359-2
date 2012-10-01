@@ -9,14 +9,14 @@ public interface CommentRepository {
 
 	void save(Comment comment);
 
-	List<Comment> findAllByBlogIdAndTargetIdAndType(String blogId, String targetId, CommentType type);
+	List<Comment> findAllByBlogIdAndTargetIdAndType(String blogId, long targetId, CommentType type);
 
-	Comment findLastByBlogIdAndTargetIdAndType(String blogId, String targetId, String type);
+	Comment findLastByBlogIdAndTargetIdAndType(String blogId, long targetId, String type);
 
 	void delete(Comment comment);
 
 	void update(Comment comment);
 
-	Comment findByIdAndBlogIdAndTargetIdAndType(String id, String blogId, String targetId, String type);
+	Comment findByIdAndBlogIdAndTargetIdAndType(long id, String blogId, long targetId, String type);
 
 }

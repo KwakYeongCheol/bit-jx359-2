@@ -8,11 +8,11 @@ public interface GuestbookService {
 
 	void write(Guestbook guestbook);
 
-	int findLastIdByBlogId(String blogId);
+	long findLastIdByBlogId(String blogId);
 
 	List<Guestbook> listByBlogId(String blogId);
 
-	Guestbook findByIdAndBlogId(String id, String blogId);
+	Guestbook findByIdAndBlogId(long id, String blogId);
 
 	void update(Guestbook guestbook);
 

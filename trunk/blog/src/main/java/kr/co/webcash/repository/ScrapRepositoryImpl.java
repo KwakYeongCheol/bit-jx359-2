@@ -16,8 +16,8 @@ public class ScrapRepositoryImpl implements ScrapRepository{
 	@Autowired private BlogRepository blogRepository;
 	
 	@Override
-	public Scrap findByBlogIdAndPostId(String blogId, String postId) {
-		Map<String, String> params = new HashMap<String, String>();
+	public Scrap findByBlogIdAndPostId(String blogId, long postId) {
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("blogId", blogId);
 		params.put("postId", postId);
 		Scrap scrap = (Scrap) template.queryForObject("Scrap.findByBlogIdAndPostId",params);

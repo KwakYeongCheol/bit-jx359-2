@@ -6,12 +6,12 @@ public interface CommentService {
 
 	void save(Comment comment);
 
-	int findLastIdByBlogIdAndTargetIdAndType(String blogId, String targetId, String type);
+	long findLastIdByBlogIdAndTargetIdAndType(String blogId, long targetId, String type);
 
 	void delete(Comment comment);
 
 	void update(Comment comment);
 
-	Comment findByIdAndBlogIdAndTargetIdAndType(String id, String blogId, String targetId, String type);
+	Comment findByIdAndBlogIdAndTargetIdAndType(long id, String blogId, long targetId, String type);
 	
 }

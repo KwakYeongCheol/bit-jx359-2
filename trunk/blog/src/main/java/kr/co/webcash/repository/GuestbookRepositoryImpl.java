@@ -19,16 +19,6 @@ public class GuestbookRepositoryImpl implements GuestbookRepository{
 	@Autowired SqlMapClientTemplate template;
 	@Autowired CommentRepository commentRepository;
 	
-	private void addComments(String blogId, Guestbook guestbook) {
-		if(guestbook != null){
-			guestbook.setCommentList(commentRepository.findAllByBlogIdAndTargetIdAndType(blogId, guestbook.getId(), CommentType.guestbook));
-		}
-	}	
-	private void addComments(String blogId, List<Guestbook> guestbookList){
-		for(Guestbook guestbook : guestbookList){
-			addComments(blogId, guestbook);
-		}
-	}	
 	@Override
 	public void insert(Guestbook guestbook) {
 		template.insert("Guestbook.insert",guestbook);
@@ -48,8 +38,8 @@ public class GuestbookRepositoryImpl implements GuestbookRepository{
 		return guestbookList;
 	}
 	@Override
-	public Guestbook findByIdAndBlogId(String id, String blogId) {
-		Map<String, String> param = new HashMap<String,String>();
+	public Guestbook findByIdAndBlogId(long id, String blogId) {
+		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("id", id);
 		param.put("blogId", blogId);
 		Guestbook guestbook = (Guestbook)template.queryForObject("Guestbook.findByIdAndBlogId",param);
@@ -57,6 +47,7 @@ public class GuestbookRepositoryImpl implements GuestbookRepository{
 		
 		return guestbook;
 	}
+	
 	@Override
 	public void update(Guestbook guestbook) {
 		template.update("Guestbook.update", guestbook);
@@ -65,5 +56,15 @@ public class GuestbookRepositoryImpl implements GuestbookRepository{
 	public void delete(Guestbook guestbook) {
 		template.delete("Guestbook.delete", guestbook);
 	}
-
+	
+	private void addComments(String blogId, Guestbook guestbook) {
+		if(guestbook != null){
+			guestbook.setCommentList(commentRepository.findAllByBlogIdAndTargetIdAndType(blogId, guestbook.getId(), CommentType.guestbook));
+		}
+	}	
+	private void addComments(String blogId, List<Guestbook> guestbookList){
+		for(Guestbook guestbook : guestbookList){
+			addComments(blogId, guestbook);
+		}
+	}	
 }

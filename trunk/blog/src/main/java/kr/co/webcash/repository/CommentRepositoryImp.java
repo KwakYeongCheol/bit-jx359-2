@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.webcash.domain.Comment;
+import kr.co.webcash.domain.CommentType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
-
-import kr.co.webcash.domain.Comment;
-import kr.co.webcash.domain.CommentType;
 
 @Repository
 public class CommentRepositoryImp implements CommentRepository {
@@ -22,8 +22,8 @@ public class CommentRepositoryImp implements CommentRepository {
 	}
 
 	@Override
-	public List<Comment> findAllByBlogIdAndTargetIdAndType(String blogId, String targetId, CommentType type) {
-		Map<String, String> params = new HashMap<String, String>();
+	public List<Comment> findAllByBlogIdAndTargetIdAndType(String blogId, long targetId, CommentType type) {
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("blogId", blogId);
 		params.put("targetId", targetId);
 		params.put("type", type.toString());
@@ -32,8 +32,8 @@ public class CommentRepositoryImp implements CommentRepository {
 	}
 
 	@Override
-	public Comment findLastByBlogIdAndTargetIdAndType(String blogId, String targetId, String type) {
-		Map<String, String> params = new HashMap<String, String>();
+	public Comment findLastByBlogIdAndTargetIdAndType(String blogId, long targetId, String type) {
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("blogId", blogId);
 		params.put("targetId", targetId);
 		params.put("type", type.toString());
@@ -52,8 +52,8 @@ public class CommentRepositoryImp implements CommentRepository {
 	}
 
 	@Override
-	public Comment findByIdAndBlogIdAndTargetIdAndType(String id, String blogId, String targetId, String type) {
-		Map<String,String> params = new HashMap<String, String>();
+	public Comment findByIdAndBlogIdAndTargetIdAndType(long id, String blogId, long targetId, String type) {
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
 		params.put("blogId", blogId);
 		params.put("targetId", targetId);

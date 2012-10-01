@@ -27,7 +27,7 @@ public class UserBlogController {
 	}
 	
 	@RequestMapping("/{postId}")
-	public String postView(@PathVariable String blogId, @PathVariable String postId, Model model){
+	public String postView(@PathVariable String blogId, @PathVariable long postId, Model model){
 		Post currentPost = postService.findByIdAndBlogId(postId, blogId);
 		
 		model.addAttribute("post", currentPost);

@@ -3,18 +3,18 @@ package kr.co.webcash.domain;
 import java.util.Date;
 
 public class Comment {
-	private String id;
+	private long id;
 	private Blog blog;
-	private String targetId;
+	private long targetId;
 	private CommentType type;
 	private User writer;
 	private String contents;
 	private Date dateCreated;
 	
-	public String getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public Blog getBlog() {
@@ -23,10 +23,10 @@ public class Comment {
 	public void setBlog(Blog blog) {
 		this.blog = blog;
 	}
-	public String getTargetId() {
+	public long getTargetId() {
 		return targetId;
 	}
-	public void setTargetId(String targetId) {
+	public void setTargetId(long targetId) {
 		this.targetId = targetId;
 	}
 	public CommentType getType() {

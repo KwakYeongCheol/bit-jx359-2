@@ -8,7 +8,7 @@ public interface TrackbackRepository {
 
 	void insert(Trackback trackback);
 
-	List<Trackback> findAllByBlogIdAndPostId(String blogId, String postId);
+	List<Trackback> findAllByBlogIdAndPostId(String blogId, long postId);
 
 	
 }

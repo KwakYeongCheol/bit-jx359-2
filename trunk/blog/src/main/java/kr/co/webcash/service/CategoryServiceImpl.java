@@ -53,7 +53,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public Category findByIdAndBlogId(String id, String blogId) {
+	public Category findByIdAndBlogId(long id, String blogId) {
 		return categoryRepository.findByIdAndBlogId(id,blogId);
 	}
 
