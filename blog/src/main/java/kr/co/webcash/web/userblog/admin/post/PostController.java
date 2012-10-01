@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
+import javax.servlet.http.HttpServletRequest;
 
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Post;
@@ -63,9 +64,8 @@ public class PostController {
 	
 	@RequestMapping(value= "/writeAction", method=RequestMethod.POST)
 	public String writeAction(@ModelAttribute Post post, 
-			@RequestParam String trackbackBlogId, 
-			@RequestParam String trackbackPostId, 
-			Model model){
+			@RequestParam String trackbackURL, 
+			Model model, HttpServletRequest request){
 		
 		Blog blog = blogService.findByUserLoginId(loginUser().getLoginId());
 		post.setBlog(blog);
@@ -73,27 +73,28 @@ public class PostController {
 		post.setDateCreated(new Date(System.currentTimeMillis()));		
 		postService.save(post);
 	
-		if(trackbackBlogId != null && trackbackBlogId.length() > 0 && trackbackPostId != null && trackbackPostId.length() > 0){
+		if(trackbackURL != null && trackbackURL.length() > 0){
 			Trackback trackback = new Trackback();
-			trackback.setBlogId(trackbackBlogId);
-			trackback.setPostId(Long.valueOf(trackbackPostId));
 			
-			if(trackback != null && trackbackService.canTrackback(trackback.getBlogId(), trackback.getPostId())){
-				trackback.setUrl("http://localhost:8080/" + post.getBlog().getId() + "/" + post.getId());
+			if(trackback != null){
+				trackback.setUrl(request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/" + post.getBlog().getId() + "/" + post.getId());
 				trackback.setTitle(post.getTitle());
 				trackback.setDateCreated(new Date(System.currentTimeMillis()));
 				
-				trackbackService.add(trackback);
-				
-				Trackback myTrackback = new Trackback();
-				myTrackback.setBlogId(post.getBlog().getId());
-				myTrackback.setPostId(post.getId());
-				myTrackback.setUrl("http://localhost:8080/" + trackback.getBlogId() + "/" + trackback.getPostId());
-				Post targetPost = postService.findByIdAndBlogId(trackback.getPostId(), trackback.getBlogId());
-				myTrackback.setTitle(targetPost.getTitle());
-				myTrackback.setDateCreated(new Date(System.currentTimeMillis()));
-				
-				trackbackService.add(myTrackback);
+				if(trackbackService.sendTrackback(trackbackURL, trackback)){
+					/*
+					 * Trackback Log 구현해야함
+					 */
+					System.out.println(trackbackURL);
+//					Trackback myTrackback = new Trackback();
+//					myTrackback.setBlogId(post.getBlog().getId());
+//					myTrackback.setPostId(post.getId());
+//					myTrackback.setUrl(trackbackURL);
+//					myTrackback.setTitle("Trackback title");
+//					myTrackback.setDateCreated(new Date(System.currentTimeMillis()));
+//					
+//					trackbackService.add(myTrackback);
+				}
 			}
 		}
 		

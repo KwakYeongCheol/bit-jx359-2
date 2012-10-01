@@ -28,12 +28,8 @@
 			<form:input path="contents"/>
 		</p>
 		<div>
-			<label>Trackback Blog Id</label>
-			<input type="text" name="trackbackBlogId" />
-		</div>
-		<div>
-			<label>Trackback Post Id</label>
-			<input type="text" name="trackbackPostId" />
+			<label>Trackback URL</label>
+			<input type="text" name="trackbackURL" />
 		</div>
 		<p>
 			<input type="submit" value="글쓰기" />
