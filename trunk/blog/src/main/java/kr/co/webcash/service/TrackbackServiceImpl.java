@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.webcash.domain.Trackback;
 import kr.co.webcash.repository.TrackbackRepository;
+import kr.co.webcash.utils.TrackbackUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,13 +15,18 @@ public class TrackbackServiceImpl implements TrackbackService {
 	@Autowired private TrackbackRepository trackbackRepository;
 
 	@Override
+	public boolean sendTrackback(String url, Trackback trackback) {
+		return TrackbackUtils.trackback(url, trackback);
+	}
+	
+	@Override
 	public boolean canTrackback(String blogId, long postId) {
 		if(postService.findByIdAndBlogId(postId,blogId) != null){
 			return true;
 		}
 		return false;
 	}
-
+	
 	@Override
 	public boolean add(Trackback trackback) {
 		trackbackRepository.insert(trackback);
@@ -31,5 +37,6 @@ public class TrackbackServiceImpl implements TrackbackService {
 	public List<Trackback> findAllByBlogIdAndpostId(String blogId, long postId) {
 		return trackbackRepository.findAllByBlogIdAndPostId(blogId, postId);
 	}
+
 
 }

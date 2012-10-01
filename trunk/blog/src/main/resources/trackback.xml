@@ -5,13 +5,13 @@
 	<typeAlias alias="Trackback" type="kr.co.webcash.domain.Trackback"/>
 		
 	<insert id="insert" parameterClass="Trackback">
-		insert into trackback (blogId, postId, url, title, dateCreated) 
-		values(#blogId#, #postId#, #url#, #title#, #dateCreated#)
+		insert into trackback (blogId, postId, url, blogName, title, excerpt, dateCreated) 
+		values(#blogId#, #postId#, #url#, #blogName#, #title#, #excerpt#, #dateCreated#)
 	</insert>
 
 	<select id="findAllByBlogIdAndPostId" resultClass="Trackback">
 		SELECT
-			blogId, postId, url, title, dateCreated
+			blogId, postId, url, blogName, title, excerpt, dateCreated
 		FROM trackback
 		where blogId = #blogId# and postId = #postId#
 	</select>
