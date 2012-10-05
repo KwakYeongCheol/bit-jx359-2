@@ -5,8 +5,9 @@
 
 <div id="blogArticles">
 	<form:form modelAttribute="post" action="${pageContext.request.contextPath }/${blog.id }/admin/post/modifyAction" method="POST">
+		
 		<input type="hidden" name="id" value="${post.id }" />
-		<p>
+		<div>
 			<form:label path="category.id">Category</form:label>
 			<form:select path="category.id">
 				<c:forEach items="${categoryList}" var="category">
@@ -15,18 +16,20 @@
 					</form:option>
 				</c:forEach>
 			</form:select>
-		</p>
-		<p>
-			<form:label path="title">Title</form:label>
-			<form:input path="title"/>
-		</p>
-		<p>
-			<form:label path="contents">Contents</form:label>
-			<form:input path="contents"/>
-		</p>
-		<p>
+		</div>
+		<div>
+			<form:errors cssClass="title" path="title"></form:errors>
+			<form:label cssClass="title" path="title">Title</form:label>
+			<form:input cssClass="title" path="title"/>
+		</div>
+		<div>
+			<form:errors cssClass="contents" path="contents"></form:errors>
+			<form:label cssClass="contents" path="contents">Contents</form:label>
+			<form:input cssClass="contents" path="contents"/>
+		</div>
+		<div>
 			<input type="submit" value="수정" />
-		</p>
+		</div>
 	</form:form>
 </div>
 
