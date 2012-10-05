@@ -18,14 +18,14 @@
 			</form:select>
 		</div>
 		<div>
-			<form:errors cssClass="title" path="title"></form:errors>
-			<form:label cssClass="title" path="title">Title</form:label>
-			<form:input cssClass="title" path="title"/>
+			<form:errors cssClass="errors" path="title"></form:errors>
+			<form:label cssClass="label" path="title">Title</form:label>
+			<form:input cssClass="input" path="title"/>
 		</div>
 		<div>
-			<form:errors cssClass="contents" path="contents"></form:errors>
-			<form:label cssClass="contents" path="contents">Contents</form:label>
-			<form:input cssClass="contents" path="contents"/>
+			<form:errors cssClass="errors" path="contents"></form:errors>
+			<form:label cssClass="label" path="contents">Contents</form:label>
+			<form:input cssClass="input" path="contents"/>
 		</div>
 		<div>
 			<input type="submit" value="수정" />
