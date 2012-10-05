@@ -15,10 +15,12 @@ import kr.co.webcash.service.CategoryService;
 import kr.co.webcash.service.PostService;
 import kr.co.webcash.service.TrackbackService;
 import kr.co.webcash.web.security.LoginUser;
+import kr.co.webcash.web.validator.PostValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +37,7 @@ public class PostController {
 	@Autowired private BlogService blogService;
 	@Autowired private CategoryService categoryService;
 	@Autowired private TrackbackService trackbackService;
+	@Autowired private PostValidator postValidator;
 	
 	@Inject private Provider<LoginUser> loginUserProvider;
 	
@@ -114,13 +117,21 @@ public class PostController {
 	}
 	
 	@RequestMapping(value = "/modifyAction", method = RequestMethod.POST)
-	public String modifyAction(@PathVariable String blogId, @ModelAttribute Post post){	
+	public String modifyAction(@PathVariable String blogId,
+					@ModelAttribute Post post, BindingResult result){	
+		System.out.println(result);
+		System.out.println(post);
+		this.postValidator.validate(post, result);
+		System.out.println(result);
+		if(!result.hasErrors()){
 		Blog blog = new Blog();
 		blog.setId(blogId);
 		post.setBlog(blog);
-		postService.update(post);
 		
+		postService.update(post);		
 		return "redirect:/" + blogId + "/admin";
+		}
+		return "/userblog/admin/post/modify";
 	}
 	
 	@RequestMapping("/delete")
