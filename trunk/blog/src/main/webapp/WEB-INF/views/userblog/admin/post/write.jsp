@@ -20,12 +20,14 @@
 			</form:select>
 		</p>
 		<p>
-			<form:label path="title">Title</form:label>
-			<form:input path="title"/>
+			<form:errors cssClass="errors" path="title"></form:errors>
+			<form:label cssClass="label" path="title">Title</form:label>
+			<form:input cssClass="input" path="title"/>
 		</p>
 		<p>
-			<form:label path="contents">Contents</form:label>
-			<form:input path="contents"/>
+			<form:errors cssClass="errors" path="contents"></form:errors>
+			<form:label cssClass="label" path="contents">Contents</form:label>
+			<form:input cssClass="input" path="contents"/>
 		</p>
 		<div>
 			<label>Trackback URL</label>

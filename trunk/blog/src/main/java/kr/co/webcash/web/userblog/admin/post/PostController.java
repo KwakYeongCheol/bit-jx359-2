@@ -29,121 +29,133 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes(value={"categoryList", "post"})
+@SessionAttributes(value = { "categoryList", "post" })
 @RequestMapping("/{blogId}/admin/post")
 public class PostController {
-	
-	@Autowired private PostService postService;
-	@Autowired private BlogService blogService;
-	@Autowired private CategoryService categoryService;
-	@Autowired private TrackbackService trackbackService;
-	@Autowired private PostValidator postValidator;
-	
-	@Inject private Provider<LoginUser> loginUserProvider;
-	
+
+	@Autowired
+	private PostService postService;
+	@Autowired
+	private BlogService blogService;
+	@Autowired
+	private CategoryService categoryService;
+	@Autowired
+	private TrackbackService trackbackService;
+	@Autowired
+	private PostValidator postValidator;
+
+	@Inject
+	private Provider<LoginUser> loginUserProvider;
+
 	@ModelAttribute("loginUser")
-	public User loginUser(){
+	public User loginUser() {
 		return this.loginUserProvider.get().getLoginUser();
 	}
-	
+
 	@RequestMapping()
-	public String home(@PathVariable String blogId, Model model){
+	public String home(@PathVariable String blogId, Model model) {
 		model.addAttribute("postList", postService.listByBlogId(blogId));
 		return "/userblog/admin/home";
 	}
-	
+
 	@RequestMapping("/write")
-	public String write(@PathVariable String blogId, Model model){
+	public String write(@PathVariable String blogId, Model model) {
 		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
 		model.addAttribute("post", new Post());
 		return "/userblog/admin/post/write";
 	}
-	
-	@RequestMapping(value="/scrap")
-	public String scrap(@ModelAttribute Post post, @PathVariable String blogId, Model model){
+
+	@RequestMapping(value = "/scrap")
+	public String scrap(@ModelAttribute Post post, @PathVariable String blogId,
+			Model model) {
 		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
 		return "/userblog/admin/post/write";
 	}
-	
-	@RequestMapping(value= "/writeAction", method=RequestMethod.POST)
-	public String writeAction(@ModelAttribute Post post, 
-			@RequestParam String trackbackURL, 
-			Model model, HttpServletRequest request){
-		
-		Blog blog = blogService.findByUserLoginId(loginUser().getLoginId());
-		post.setBlog(blog);
-		post.setId(postService.findLastIdByBlogId(blog.getId()) + 1);
-		post.setDateCreated(new Date(System.currentTimeMillis()));		
-		postService.save(post);
-	
-		if(trackbackURL != null && trackbackURL.length() > 0){
-			Trackback trackback = new Trackback();
-			
-			if(trackback != null){
-				trackback.setUrl(request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/" + post.getBlog().getId() + "/" + post.getId());
-				trackback.setTitle(post.getTitle());
-				trackback.setDateCreated(new Date(System.currentTimeMillis()));
-				
-				if(trackbackService.sendTrackback(trackbackURL, trackback)){
-					/*
-					 * Trackback Log 구현해야함
-					 */
-					System.out.println(trackbackURL);
-//					Trackback myTrackback = new Trackback();
-//					myTrackback.setBlogId(post.getBlog().getId());
-//					myTrackback.setPostId(post.getId());
-//					myTrackback.setUrl(trackbackURL);
-//					myTrackback.setTitle("Trackback title");
-//					myTrackback.setDateCreated(new Date(System.currentTimeMillis()));
-//					
-//					trackbackService.add(myTrackback);
+
+	@RequestMapping(value = "/writeAction", method = RequestMethod.POST)
+	public String writeAction(@ModelAttribute Post post,
+			@RequestParam String trackbackURL, Model model,
+			HttpServletRequest request, BindingResult result) {
+		this.postValidator.validate(post, result);
+		if (!result.hasErrors()) {
+
+			Blog blog = blogService.findByUserLoginId(loginUser().getLoginId());
+			post.setBlog(blog);
+			post.setId(postService.findLastIdByBlogId(blog.getId()) + 1);
+			post.setDateCreated(new Date(System.currentTimeMillis()));
+			postService.save(post);
+
+			if (trackbackURL != null && trackbackURL.length() > 0) {
+				Trackback trackback = new Trackback();
+
+				if (trackback != null) {
+					trackback.setUrl(request.getScheme() + "://"
+							+ request.getServerName() + ":"
+							+ request.getServerPort() + "/"
+							+ post.getBlog().getId() + "/" + post.getId());
+					trackback.setTitle(post.getTitle());
+					trackback.setDateCreated(new Date(System
+							.currentTimeMillis()));
+
+					if (trackbackService.sendTrackback(trackbackURL, trackback)) {
+						/*
+						 * Trackback Log 구현해야함
+						 */
+						System.out.println(trackbackURL);
+						// Trackback myTrackback = new Trackback();
+						// myTrackback.setBlogId(post.getBlog().getId());
+						// myTrackback.setPostId(post.getId());
+						// myTrackback.setUrl(trackbackURL);
+						// myTrackback.setTitle("Trackback title");
+						// myTrackback.setDateCreated(new
+						// Date(System.currentTimeMillis()));
+						//
+						// trackbackService.add(myTrackback);
+					}
 				}
 			}
+
+			return "redirect:/" + blog.getId() + "/admin";
 		}
-		
-		return "redirect:/" + blog.getId() + "/admin";
+		return "/userblog/admin/post/write";
 	}
-	
-	
-	
+
 	@RequestMapping("/modify")
-	public String modify(@PathVariable String blogId, @RequestParam long id, Model model){
-		Post post = postService.findByIdAndBlogId(id,blogId);
-		
+	public String modify(@PathVariable String blogId, @RequestParam long id,
+			Model model) {
+		Post post = postService.findByIdAndBlogId(id, blogId);
+
 		model.addAttribute("post", post);
 		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
-		
+
 		return "/userblog/admin/post/modify";
 	}
-	
+
 	@RequestMapping(value = "/modifyAction", method = RequestMethod.POST)
 	public String modifyAction(@PathVariable String blogId,
-					@ModelAttribute Post post, BindingResult result){	
-		System.out.println(result);
-		System.out.println(post);
+			@ModelAttribute Post post, BindingResult result) {
 		this.postValidator.validate(post, result);
-		System.out.println(result);
-		if(!result.hasErrors()){
-		Blog blog = new Blog();
-		blog.setId(blogId);
-		post.setBlog(blog);
-		
-		postService.update(post);		
-		return "redirect:/" + blogId + "/admin";
+		if (!result.hasErrors()) {
+			Blog blog = new Blog();
+			blog.setId(blogId);
+			post.setBlog(blog);
+
+			postService.update(post);
+			return "redirect:/" + blogId + "/admin";
 		}
 		return "/userblog/admin/post/modify";
 	}
-	
+
 	@RequestMapping("/delete")
-	public String delete(@RequestParam long id, @PathVariable String blogId){
+	public String delete(@RequestParam long id, @PathVariable String blogId) {
 		Post post = new Post();
 		post.setId(id);
 		Blog blog = new Blog();
 		blog.setId(blogId);
 		post.setBlog(blog);
-		
+
 		postService.delete(post);
-		
+
 		return "redirect:/" + blogId + "/admin";
 	}
 }
