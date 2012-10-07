@@ -5,6 +5,7 @@
 
 <div id="blogArticles">
 	<form:form modelAttribute="comment" action="${pageContext.request.contextPath }/${blog.id}/comment/modifyAction" method="post">
+		<form:errors cssClass="error" path="contents"></form:errors>
 		<form:hidden path="id" value="${comment.id }"/>
 		<form:hidden path="targetId" value="${comment.targetId }" />
 		<form:hidden path="type" value="${comment.type }" />
