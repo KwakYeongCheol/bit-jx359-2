@@ -170,6 +170,13 @@
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.6.4</version>
 		</dependency>
+		
+		<!-- Json Library -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20090211</version>
+		</dependency>
 	
 		<!-- Test -->
 		<dependency>
