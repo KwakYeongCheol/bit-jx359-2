@@ -10,6 +10,7 @@
 	<c:forEach items="${cssList}" var="css">
 	<link href="${pageContext.request.contextPath }/resources/${css}" rel="stylesheet" type="text/css" media="screen" />
 	</c:forEach>
+	<script src="${pageContext.request.contextPath }/resources/js/jquery-1.8.2.js"></script>
 </head>
 
 <body>

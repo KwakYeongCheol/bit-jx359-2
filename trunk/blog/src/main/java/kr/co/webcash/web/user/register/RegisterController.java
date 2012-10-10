@@ -1,5 +1,8 @@
 package kr.co.webcash.web.user.register;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.servlet.http.HttpSession;
@@ -14,8 +17,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -32,6 +37,24 @@ public class RegisterController {
 	@ModelAttribute("loginUser")
 	public User loginUser(){
 		return this.loginUserProvider.get().getLoginUser();
+	}
+	
+	@RequestMapping("/checkLoginId/{loginId}")
+	@ResponseBody
+	public Map checkLoginId(@PathVariable String loginId){
+		Map result = new HashMap();
+		
+		String duplicated = "duplicated";
+		
+		if(!(loginId == null && loginId.length() == 0)){
+			if(userService.findByLoginId(loginId) == null){
+				result.put(duplicated, false);
+				return result;
+			}
+		}
+		
+		result.put(duplicated, true);
+		return result;
 	}
 	
 	@RequestMapping("/step01")

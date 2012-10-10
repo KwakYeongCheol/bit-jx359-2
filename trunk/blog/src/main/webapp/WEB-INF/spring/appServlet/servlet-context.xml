@@ -44,4 +44,12 @@
 		</mvc:interceptor>
 	</mvc:interceptors>
 	
+	<beans:bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<beans:property name="messageConverters">
+			<beans:list>
+				<beans:bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
 </beans:beans>
