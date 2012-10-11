@@ -18,16 +18,16 @@
     </bean>
     
     <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean"
-        p:configLocation="classpath:sqlmap-config.xml" p:dataSource-ref="dataSource" />
+        p:configLocation="classpath:mybatis/sqlmap-config.xml" p:dataSource-ref="dataSource" />
     
     <jdbc:embedded-database id="dataSource">
-		<jdbc:script location="classpath:schema-user.sql"/>
-		<jdbc:script location="classpath:schema-post.sql"/>
-		<jdbc:script location="classpath:schema-guestbook.sql"/>
-		<jdbc:script location="classpath:schema-category.sql"/>
-		<jdbc:script location="classpath:schema-favorite.sql"/>
-		<jdbc:script location="classpath:schema-comment.sql"/>
-		<jdbc:script location="classpath:schema-trackback.sql"/>
+		<jdbc:script location="classpath:sql/schema-user.sql"/>
+		<jdbc:script location="classpath:sql/schema-post.sql"/>
+		<jdbc:script location="classpath:sql/schema-guestbook.sql"/>
+		<jdbc:script location="classpath:sql/schema-category.sql"/>
+		<jdbc:script location="classpath:sql/schema-favorite.sql"/>
+		<jdbc:script location="classpath:sql/schema-comment.sql"/>
+		<jdbc:script location="classpath:sql/schema-trackback.sql"/>
 	</jdbc:embedded-database>
 	
 	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
