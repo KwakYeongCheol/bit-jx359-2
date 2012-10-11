@@ -5,11 +5,14 @@ import java.util.List;
 
 public class Guestbook {
 	private long id;
-	private String writer;
 	private Blog blog;
+	private long displayId;
+	private String writer;
 	private String contents;
 	private Date dateCreated;
 	
+	
+	/* attach */
 	private List<Comment> commentList;
 	
 	public long getId() {
@@ -50,10 +53,19 @@ public class Guestbook {
 	public void setCommentList(List<Comment> commentList) {
 		this.commentList = commentList;
 	}
+	public long getDisplayId() {
+		return displayId;
+	}
+	public void setDisplayId(long displayId) {
+		this.displayId = displayId;
+	}
 	@Override
 	public String toString() {
-		return "Guestbook [id=" + id + ", writer=" + writer + ", blog=" + blog
-				+ ", contents=" + contents + ", dateCreated=" + dateCreated
-				+ ", commentList=" + commentList + "]";
-	}	
+		return "Guestbook [id=" + id + ", blog=" + blog + ", displayId="
+				+ displayId + ", writer=" + writer + ", contents=" + contents
+				+ ", dateCreated=" + dateCreated + ", commentList="
+				+ commentList + "]";
+	}
+	
+	
 }

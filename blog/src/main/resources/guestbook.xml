@@ -5,9 +5,19 @@
 	<typeAlias alias="Guestbook" type="kr.co.webcash.domain.Guestbook"/>
 		
 	<insert id="insert" parameterClass="Guestbook">
-		insert into guestbook (id, writer, blogId, contents, dateCreated) 
-		values(#id#,#writer#,#blog.id#, #contents#, #dateCreated#)
+		insert into guestbook (id, blogId, displayId, writer, contents, dateCreated) 
+		values(#id#, #blog.id#, #displayId#, #writer#, #contents#, #dateCreated#)
 	</insert>
+	
+	<update id="update" parameterClass="Guestbook">
+		update guestbook set contents = #contents#
+		where id = #id#
+	</update>
+	
+	<delete id="delete" parameterClass="Guestbook">
+		delete from guestbook
+		where id = #id#
+	</delete>
 	
 	<select id="findLastGuestbookByBlogId" resultClass="Guestbook">
 		select id
@@ -17,28 +27,38 @@
 		limit 1
 	</select>
 	
+	<sql id="defaultSelect">
+		g.id as id, 
+		g.displayId as displayId,
+		g.writer as writer,
+		g.contents as contents, 
+		g.dateCreated as dateCreated
+	</sql>
+	
 	<select id="findAllByBlogId" resultClass="Guestbook">
-		SELECT g.id as id, g.writer as writer, g.contents as contents, g.dateCreated as dateCreated
+		SELECT 
+			<include refid="defaultSelect"/>
 		FROM guestbook g
 		where g.blogId = #blogId#
 		order by g.id desc
 	</select>
 	
-	<select id="findByIdAndBlogId" resultClass="Guestbook">
-		SELECT g.id as id, g.writer as writer, g.contents as contents, g.dateCreated as dateCreated
+	<select id="findByBlogIdAndDisplayId" resultClass="Guestbook">
+		SELECT 
+			<include refid="defaultSelect"/>
 		FROM guestbook g
 		join blogs b on b.id = g.blogId
 		where g.blogId = #blogId#
-			and g.id = #id#
+			and g.displayId = #displayId#
 	</select>
 	
-	<update id="update" parameterClass="Guestbook">
-		update guestbook set contents = #contents#
-		where id = #id# and blogId = #blog.id#
-	</update>
+	<select id="findLast" resultClass="Guestbook">
+		SELECT
+			<include refid="defaultSelect"/>
+		FROM guestbook g
+		order by g.id desc
+		limit 1
+	</select>
 	
-	<delete id="delete" parameterClass="Guestbook">
-		delete from guestbook
-		where id = #id# and blogId = #blog.id#
-	</delete>
+	
 </sqlMap>

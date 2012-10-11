@@ -56,13 +56,14 @@ public class AdminCategoryController {
 		this.categoryValidator.validate(category, result);
 		if(!result.hasErrors()){
 			if(loginUser() != null){
-				Blog blog = blogService.findByUserLoginId(loginUser().getLoginId());
+				long lastDisplayId = categoryService.findLastDisplayIdByBlogId(blogId);
+				category.setDisplayId(lastDisplayId + 1);
 				
-				category.setId(categoryService.findLastIdByBlogId(blog.getId())+1);
-				category.setBlog(blog);
+				category.setBlog(blogService.findByUserLoginId(loginUser().getLoginId()));
 				
 				categoryService.save(category);
-				redirectUrl = "redirect:/" + blog.getId() + "/admin/category";
+				
+				redirectUrl = "redirect:/" + blogService.findByUserLoginId(loginUser().getLoginId()).getId() + "/admin/category";
 				return redirectUrl;
 			}
 		}
@@ -70,8 +71,8 @@ public class AdminCategoryController {
 	}
 	
 	@RequestMapping("/modify")
-	public String modify(@PathVariable String blogId, @RequestParam long id, Model model){
-		Category category = categoryService.findByIdAndBlogId(id, blogId);
+	public String modify(@PathVariable String blogId, @RequestParam long displayId, Model model){
+		Category category = categoryService.findByBlogIdAndDisplayId(blogId, displayId);
 		
 		model.addAttribute("category", category);
 		
@@ -81,10 +82,14 @@ public class AdminCategoryController {
 	@RequestMapping(value = "/modifyAction", method = RequestMethod.POST)
 	public String modifyAction(@PathVariable String blogId, @ModelAttribute Category category, BindingResult result){
 		this.categoryValidator.validate(category, result);
+		
+		Category findCategory = categoryService.findByBlogIdAndDisplayId(blogId, category.getDisplayId());
+		
 		if(!result.hasErrors()){
 			Blog blog = new Blog();
 			blog.setId(blogId);
 			category.setBlog(blog);
+			category.setId(findCategory.getId());
 			
 			categoryService.update(category);
 			return "redirect:/" + blogId + "/admin/category";
@@ -93,12 +98,8 @@ public class AdminCategoryController {
 	}
 	
 	@RequestMapping("/delete")
-	public String delete(@RequestParam String id, @PathVariable String blogId){		
-		Category category = new Category();
-		category.setId(Long.valueOf(id));
-		Blog blog = new Blog();
-		blog.setId(blogId);
-		category.setBlog(blog);
+	public String delete(@RequestParam long displayId, @PathVariable String blogId){		
+		Category category = categoryService.findByBlogIdAndDisplayId(blogId, displayId);
 		
 		categoryService.delete(category);
 		

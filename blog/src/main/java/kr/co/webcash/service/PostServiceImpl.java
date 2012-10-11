@@ -1,9 +1,13 @@
 package kr.co.webcash.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import kr.co.webcash.domain.Post;
+import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Scrap;
+import kr.co.webcash.domain.post.Post;
+import kr.co.webcash.repository.CategoryRepository;
 import kr.co.webcash.repository.PostRepository;
 import kr.co.webcash.repository.ScrapRepository;
 
@@ -15,38 +19,23 @@ public class PostServiceImpl implements PostService {
 
 	@Autowired private PostRepository postRepository;
 	@Autowired private ScrapRepository scrapRepository;
-
-	@Override
-	public long findLastIdByBlogId(String blogId) {
-		Post post = postRepository.findLastPostByBlogId(blogId);
-		
-		if(post==null){
-			return 0;
-		}
-
-		return post.getId();
-	}
+	@Autowired private CategoryRepository categoryRepository;
 
 	@Override
 	public void save(Post post) {
+		Post lastPost = postRepository.findLast();
+		if(lastPost == null){
+			post.setId(1);
+		}else{
+			post.setId(lastPost.getId() + 1);
+		}
+		
 		postRepository.insert(post);
 		Scrap scrap = post.getScrap();
 		if(scrap != null){
-			scrap.setBlogId(post.getBlog().getId());
 			scrap.setPostId(post.getId());
 			scrapRepository.insert(scrap);
 		}
-	}
-
-	@Override
-	public List<Post> listByBlogId(String blogId) {
-		return postRepository.findAllByBlogId(blogId);
-	}
-
-	@Override
-	public Post findByIdAndBlogId(long id, String blogId) {
-	    return postRepository.findByIdAndBlogId(id, blogId);
-		
 	}
 
 	@Override
@@ -60,7 +49,40 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<Post> listByBlogIdAndCategoryId(String blogId, long categoryId) {
-		return postRepository.findAllByBlogIdAndCategoryId(blogId, categoryId);	}
+	public List<Post> listByBlogIdAndCategoryDisplayId(String blogId, long categoryDisplayId) {
+		Category category = categoryRepository.findByBlogIdAndDisplayId(blogId, categoryDisplayId);
+		
+		return postRepository.findAllByCategoryId(category.getId());
+	}
+
+	@Override
+	public List<Post> listPublic(String blogId) {
+		Map params = new HashMap();
+		params.put("isPublic", "true");
+		return postRepository.findAllByBlogIdAndPostMetadataParams(blogId, params);
+	}
+
+	@Override
+	public List<Post> listAll(String blogId) {
+		return postRepository.findAllByBlogId(blogId);
+	}
+	
+	@Override
+	public long findLastDisplayIdByBlogId(String blogId){
+		Post post = postRepository.findLastByBlogId(blogId);
+		
+		if(post == null)	return 0;
+		else				return post.getDisplayId();
+	}
+
+//	@Override
+//	public Post findLastByBlogId(String blogId) {
+//		return postRepository.findLastByBlogId(blogId);
+//	}
+
+	@Override
+	public Post findByBlogIdAndDisplayId(String blogId, long displayId) {
+		return postRepository.findByBlogIdAndDisplayId(blogId, displayId);
+	}
 
 }

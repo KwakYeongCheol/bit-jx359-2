@@ -3,6 +3,7 @@ package kr.co.webcash.service;
 import java.util.List;
 
 import kr.co.webcash.domain.Trackback;
+import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.repository.TrackbackRepository;
 import kr.co.webcash.utils.TrackbackUtils;
 
@@ -21,7 +22,7 @@ public class TrackbackServiceImpl implements TrackbackService {
 	
 	@Override
 	public boolean canTrackback(String blogId, long postId) {
-		if(postService.findByIdAndBlogId(postId,blogId) != null){
+		if(postService.findByBlogIdAndDisplayId(blogId, postId) != null){
 			return true;
 		}
 		return false;
@@ -35,7 +36,9 @@ public class TrackbackServiceImpl implements TrackbackService {
 
 	@Override
 	public List<Trackback> findAllByBlogIdAndpostId(String blogId, long postId) {
-		return trackbackRepository.findAllByBlogIdAndPostId(blogId, postId);
+		Post post = postService.findByBlogIdAndDisplayId(blogId, postId);
+		
+		return trackbackRepository.findAllByPostId(post.getId());
 	}
 
 

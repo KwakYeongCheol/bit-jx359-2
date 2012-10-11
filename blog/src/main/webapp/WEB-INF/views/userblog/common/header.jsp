@@ -31,6 +31,6 @@
 	<div id="blogContents">
 		<div id="blogCategory">
 			<c:forEach items="${categoryList }" var="category">
-				<a href="${pageContext.request.contextPath }/${blog.id}/category/${category.id}">${category.title }</a><br />
+				<a href="${pageContext.request.contextPath }/${blog.id}/category/${category.displayId}">${category.title }</a><br />
 			</c:forEach>
 		</div>

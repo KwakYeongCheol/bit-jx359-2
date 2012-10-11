@@ -5,53 +5,70 @@
 	<typeAlias alias="Comment" type="kr.co.webcash.domain.Comment"/>
 		
 	<insert id="insert" parameterClass="Comment">
-		insert into comment (id, blogId, targetId, commentType, writerId,contents, dateCreated) 
-		values(#id#, #blog.id#, #targetId#, #type#, #writer.loginId#, #contents#, #dateCreated#)
+		insert into comment (id, targetId, commentType, displayId, writerId,contents, dateCreated) 
+		values(#id#, #targetId#, #type#, #displayId#, #writer.loginId#, #contents#, #dateCreated#)
 	</insert>
 	
-	<select id="findLastIdByBlogIdAndTargetIdAndType" resultClass="Comment">
-		SELECT c.id as id
-		FROM comment c
-		where c.blogId = #blogId# and
-		c.targetId = #targetId# and
-		c.commentType = #type#
-		order by c.id desc
-		limit 1
-	</select>	
+	<update id="update" parameterClass="Comment">
+		update comment set contents = #contents#
+		where id = #id#
+	</update>
+	
+	<delete id="delete" parameterClass="Comment">
+		delete from Comment
+		where id = #id#
+	</delete>
+	
 	
 	<sql id="selectColumn">
 		c.id as id,
-		c.blogId as "blog.id",
 		c.targetId as targetId,
 		c.commentType as type,
+		c.displayId as displayId,
 		c.writerId as "writer.loginId",
 		c.contents as contents,
 		c.dateCreated as dateCreated
 	</sql>
 	
-	<select id="findAllByBlogIdAndTargetIdAndType" resultClass="Comment">
+	<select id="findAllByTargetIdAndType" resultClass="Comment">
 		SELECT
 			<include refid="selectColumn" />
 		FROM comment c
-		where c.blogId = #blogId# and		 
-		c.targetId = #targetId# and
-		c.commentType = #type#  
+		where c.targetId = #targetId# and
+			c.commentType = #type#
 		order by c.id desc
 	</select>
 	
-	<select id="findByIdAndBlogIdAndTargetIdAndType" resultClass="Comment">
-		SELECT <include refid="selectColumn" />
+	<select id="findByDisplayIdAndTargetIdAndType" resultClass="Comment">
+		SELECT
+			<include refid="selectColumn" />
 		FROM comment c
-		where c.blogId = #blogId# and c.id = #id# and c.targetId = #targetId# and c.commentType = #type#
+		where c.displayId = #displayId# and 
+			c.targetId = #targetId# and
+			c.commentType = #type#
 	</select>
 	
-	<update id="update" parameterClass="Comment">
-		update comment set contents = #contents#
-		where id = #id# and blogId = #blog.id# and targetId = #targetId# and commentType = #type#
-	</update>
+	<select id="findLastByBlogIdAndCommentType" resultClass="Comment">
+		SELECT
+			<include refid="selectColumn" />
+		FROM comment c
+		join post p on p.id = c.targetId
+		join category ca on ca.id = p.categoryId
+		join blogs b on b.id = ca.blogId
+		where ca.blogId = #blogId# and
+			c.commentType = #type#
+		order by c.id desc
+		limit 1
+	</select>
 	
-	<delete id="delete" parameterClass="Comment">
-		delete from Comment
-		where id = #id# and blogId = #blog.id# and targetId = #targetId# and commentType = #type#
-	</delete>
+	<select id="findLast" resultClass="Comment">
+		SELECT
+			<include refid="selectColumn" />
+		FROM comment c
+		join post p on p.id = c.targetId
+		join category ca on ca.id = p.categoryId
+		join blogs b on b.id = ca.blogId
+		order by c.id desc
+		limit 1
+	</select>
 </sqlMap>

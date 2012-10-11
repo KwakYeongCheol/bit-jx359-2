@@ -9,8 +9,8 @@
 		<c:forEach items="${categoryList }" var="category">
 		<div>
 			${category.title } | 
-			<a href="${pageContext.request.contextPath }/${blog.id}/admin/category/modify?id=${category.id}">수정</a> |
-			<a href="${pageContext.request.contextPath }/${blog.id}/admin/category/delete?id=${category.id}">삭제</a><br />
+			<a href="${pageContext.request.contextPath }/${blog.id}/admin/category/modify?displayId=${category.displayId}">수정</a> |
+			<a href="${pageContext.request.contextPath }/${blog.id}/admin/category/delete?displayId=${category.displayId}">삭제</a><br />
 		</div>
 		</c:forEach>
 	</div>

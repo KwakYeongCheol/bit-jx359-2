@@ -1,6 +1,7 @@
 package kr.co.webcash.service;
 
 import kr.co.webcash.domain.Blog;
+import kr.co.webcash.domain.User;
 
 public interface BlogService {
 
@@ -13,5 +14,7 @@ public interface BlogService {
 	void modify(Blog blog);
 
 	Blog findById(String blogId);
+
+	boolean isAdmin(String blogId, User user);
 
 }

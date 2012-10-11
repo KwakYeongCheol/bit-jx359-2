@@ -36,7 +36,7 @@ public class FavoriteController {
 	public String addAction(@RequestParam String blogId){
 		Blog blog = blogService.findById(blogId);
 		Favorite favorite = new Favorite();
-		favorite.setLoginId(loginUserProvider.get().getLoginUser().getLoginId());
+		favorite.setLoginId(loginUser().getLoginId());
 		favorite.setBlog(blog);
 	
 		favoriteService.add(favorite);
@@ -51,7 +51,7 @@ public class FavoriteController {
 		Blog blog = new Blog();
 		blog.setId(blogId);
 		Favorite favorite = new Favorite();
-		favorite.setLoginId(loginUserProvider.get().getLoginUser().getLoginId());
+		favorite.setLoginId(loginUser().getLoginId());
 		favorite.setBlog(blog);
 		
 		favoriteService.delete(favorite);

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Comment {
 	private long id;
-	private Blog blog;
+	private long displayId;
 	private long targetId;
 	private CommentType type;
 	private User writer;
@@ -16,12 +16,6 @@ public class Comment {
 	}
 	public void setId(long id) {
 		this.id = id;
-	}
-	public Blog getBlog() {
-		return blog;
-	}
-	public void setBlog(Blog blog) {
-		this.blog = blog;
 	}
 	public long getTargetId() {
 		return targetId;
@@ -57,10 +51,15 @@ public class Comment {
 	
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", blog=" + blog + ", targetId="
-				+ targetId + ", type=" + type + ", writer=" + writer
+		return "Comment [id=" + id + ", targetId=" + targetId + ", type=" + type + ", writer=" + writer
 				+ ", contents=" + contents + ", dateCreated=" + dateCreated
 				+ "]";
+	}
+	public long getDisplayId() {
+		return displayId;
+	}
+	public void setDisplayId(long displayId) {
+		this.displayId = displayId;
 	}
 	
 	

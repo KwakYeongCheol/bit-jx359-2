@@ -5,7 +5,7 @@
 
 <div id="blogArticles">
 	<form:form modelAttribute="guestbook" action="${pageContext.request.contextPath }/${blog.id}/guestbook/modifyAction" method="post">
-		<input type="hidden" name="id" value="${guestbook.id }" />
+		<input type="hidden" name="displayId" value="${guestbook.displayId }" />
 		<p>
 			<form:input path="contents"/>
 			<input type="submit" value="수정">		

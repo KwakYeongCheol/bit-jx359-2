@@ -2,6 +2,7 @@ package kr.co.webcash.service;
 
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Category;
+import kr.co.webcash.domain.User;
 import kr.co.webcash.repository.BlogRepository;
 import kr.co.webcash.repository.CategoryRepository;
 
@@ -12,17 +13,18 @@ import org.springframework.stereotype.Service;
 public class BlogServiceImpl implements BlogService {
 	
 	@Autowired private BlogRepository blogRepository;
+	@Autowired private CategoryService categoryService;
 	@Autowired private CategoryRepository categoryRepository;
 	
 	@Override
 	public void createBlog(Blog blog) {
 		blogRepository.create(blog);
 		Category category = new Category();
-		category.setId(1);
 		category.setBlog(blog);
-		category.setTitle("내 글");
+		category.setDisplayId(1);
+		category.setTitle("분류없음");
 		
-		categoryRepository.insert(category);
+		categoryService.save(category);
 	}
 
 	@Override
@@ -48,4 +50,24 @@ public class BlogServiceImpl implements BlogService {
 		return blogRepository.findById(blogId);
 	}
 
+	@Override
+	public boolean isAdmin(String blogId, User user) {
+		if(notNull(blogId) && notNull(user) && notNull(user.getLoginId())){
+			Blog findBlog = blogRepository.findById(blogId);
+			
+			if(notNull(findBlog)){
+				if(user.getLoginId().equals(findBlog.getOwner()))		return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	private boolean notNull(Object obj){
+		if(obj != null){
+			return true;
+		}
+		
+		return false;
+	}
 }

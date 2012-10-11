@@ -39,16 +39,21 @@ public class CategoryRepositoryImpl implements CategoryRepository{
 	}
 
 	@Override
-	public Category findByIdAndBlogId(long id, String blogId) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("id", id);
-		param.put("blogId", blogId);
-		return (Category) template.queryForObject("Category.findByIdAndBlogId", param);
+	public Category findByBlogIdAndDisplayId(String blogId, long displayId) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("blogId", blogId);
+		params.put("displayId", displayId);
+		return (Category) template.queryForObject("Category.findByBlogIdAndDisplayId", params);
 	}
 
 	@Override
 	public long findAllCountByBlogId(String blogId) {
 		return (Long) template.queryForObject("Category.findAllCountByIdAndBlogId", blogId);
+	}
+
+	@Override
+	public Category findLast() {
+		return (Category) template.queryForObject("Category.findLast");
 	}
 
 }

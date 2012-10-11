@@ -6,17 +6,16 @@ import kr.co.webcash.domain.Comment;
 import kr.co.webcash.domain.CommentType;
 
 public interface CommentRepository {
-
 	void save(Comment comment);
-
-	List<Comment> findAllByBlogIdAndTargetIdAndType(String blogId, long targetId, CommentType type);
-
-	Comment findLastByBlogIdAndTargetIdAndType(String blogId, long targetId, String type);
-
+	void update(Comment comment);
 	void delete(Comment comment);
 
-	void update(Comment comment);
+	List<Comment> findAllByTargetIdAndType(long targetId, CommentType type);
 
-	Comment findByIdAndBlogIdAndTargetIdAndType(long id, String blogId, long targetId, String type);
+//	Comment findLastByTargetIdAndType(long targetId, String type);
 
+	Comment findByDisplayIdAndTargetIdAndType(long displayId, long targetId, String type);
+	
+	Comment findLastByBlogIdAndCommentType(String blogId, CommentType type);
+	Comment findLast();
 }

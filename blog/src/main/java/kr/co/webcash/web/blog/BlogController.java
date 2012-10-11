@@ -6,9 +6,9 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 
 import kr.co.webcash.domain.Blog;
-import kr.co.webcash.domain.Post;
 import kr.co.webcash.domain.Scrap;
 import kr.co.webcash.domain.User;
+import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.service.BlogService;
 import kr.co.webcash.web.security.LoginUser;
 import kr.co.webcash.web.validator.BlogValidator;
