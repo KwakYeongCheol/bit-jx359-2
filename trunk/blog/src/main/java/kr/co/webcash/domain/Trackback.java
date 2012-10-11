@@ -15,6 +15,8 @@ public class Trackback {
 	public Trackback(){
 	}
 	
+	
+	
 	public Trackback(String blogId, long postId, String url, String blogName, String title, String excerpt){
 		setBlogId(blogId);
 		setPostId(postId);
@@ -25,12 +27,6 @@ public class Trackback {
 		setDateCreated(new Date(System.currentTimeMillis()));
 	}
 	
-	public String getBlogId() {
-		return blogId;
-	}
-	public void setBlogId(String blogId) {
-		this.blogId = blogId;
-	}
 	public long getPostId() {
 		return postId;
 	}
@@ -58,7 +54,7 @@ public class Trackback {
 	
 	@Override
 	public String toString() {
-		return "Trackback [blogId=" + blogId + ", postId=" + postId + ", url="
+		return "Trackback [postId=" + postId + ", url="
 				+ url + ", title=" + title + ", dateCreated=" + dateCreated
 				+ "]";
 	}
@@ -73,6 +69,18 @@ public class Trackback {
 	}
 	public void setBlogName(String blogName) {
 		this.blogName = blogName;
+	}
+
+
+
+	public String getBlogId() {
+		return blogId;
+	}
+
+
+
+	public void setBlogId(String blogId) {
+		this.blogId = blogId;
 	}
 
 	

@@ -22,10 +22,10 @@
 			
 			<c:if test="${loginUserProvider.loggedIn }">
 				<c:if test="${loginUserProvider.loginUser.loginId == guestbook.writer }">
-					<a href="${pageContext.request.contextPath }/${blog.id }/guestbook/modify?id=${guestbook.id}">수정</a>
+					<a href="${pageContext.request.contextPath }/${blog.id }/guestbook/modify?displayId=${guestbook.displayId}">수정</a>
 				</c:if>
 				<c:if test="${loginUserProvider.loginUser.loginId == blog.owner || loginUserProvider.loginUser.loginId == guestbook.writer }">
-					<a href="${pageContext.request.contextPath }/${blog.id}/guestbook/delete?id=${guestbook.id}">삭제</a>
+					<a href="${pageContext.request.contextPath }/${blog.id}/guestbook/delete?displayId=${guestbook.displayId}">삭제</a>
 				</c:if>
 			</c:if>
 		</div>
@@ -33,7 +33,8 @@
 		<c:if test="${loginUserProvider.loggedIn }">
 		<div>
 			<form action="${pageContext.request.contextPath }/${blog.id}/comment/writeAction" method="post">
-				<input type="hidden" name="targetId" value="${guestbook.id }" />
+				
+				<input type="hidden" name="targetDisplayId" value="${guestbook.displayId }" />
 				<input type="hidden" name="type" value="guestbook" />
 				<input type="text" name="contents" />
 				<input type="submit" value="댓글작성" />
@@ -46,10 +47,10 @@
 				${comment.writer.loginId } | ${comment.dateCreated } <br />
 				${comment.contents } 
 				<c:if test="${loginUserProvider.loginUser.loginId == comment.writer.loginId  }">
-				<a href="${pageContext.request.contextPath }/${blog.id }/comment/modify?id=${comment.id}&targetId=${comment.targetId}&type=guestbook">수정</a>
+				<a href="${pageContext.request.contextPath }/${blog.id }/comment/modify?displayId=${comment.displayId}&targetId=${comment.targetId}&type=guestbook">수정</a>
 				</c:if>
 				<c:if test="${loginUserProvider.loginUser.loginId == comment.writer.loginId || loginUserProvider.loginUser.loginId == blog.owner }">
-				<a href="${pageContext.request.contextPath }/${blog.id}/comment/delete?id=${comment.id}&targetId=${comment.targetId}&type=guestbook">삭제</a>
+				<a href="${pageContext.request.contextPath }/${blog.id}/comment/delete?displayId=${comment.displayId}&targetId=${comment.targetId}&type=guestbook">삭제</a>
 				</c:if>
 			</div>
 			</c:forEach>

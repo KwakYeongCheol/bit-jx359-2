@@ -15,8 +15,15 @@ public class GuestbookServiceImpl implements GuestbookService{
 
 	@Override
 	public void write(Guestbook guestbook) {
-		guestbookRepository.insert(guestbook);
+		Guestbook lastGuestbook = guestbookRepository.findLast();
 		
+		if(lastGuestbook == null){
+			guestbook.setId(1);
+		}else{
+			guestbook.setId(lastGuestbook.getId() + 1);
+		}
+		
+		guestbookRepository.insert(guestbook);
 	}
 
 	@Override
@@ -33,8 +40,8 @@ public class GuestbookServiceImpl implements GuestbookService{
 	}
 
 	@Override
-	public Guestbook findByIdAndBlogId(long id, String blogId) {
-		return guestbookRepository.findByIdAndBlogId(id, blogId);
+	public Guestbook findByBlogIdAndDisplayId(String blogId, long displayId) {
+		return guestbookRepository.findByBlogIdAndDisplayId(blogId, displayId);
 	}
 
 	@Override

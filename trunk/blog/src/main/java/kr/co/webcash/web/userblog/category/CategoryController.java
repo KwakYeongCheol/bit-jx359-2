@@ -19,9 +19,9 @@ public class CategoryController {
 	@Autowired private BlogService blogService;
 	
 
-	@RequestMapping("/{categoryId}")
-	public String home(Model model, @PathVariable String blogId, @PathVariable String categoryId){
-		model.addAttribute("postList", postService.listByBlogIdAndCategoryId(blogId, Long.valueOf(categoryId)));
+	@RequestMapping("/{displayId}")
+	public String home(Model model, @PathVariable String blogId, @PathVariable String displayId){
+		model.addAttribute("postList", postService.listByBlogIdAndCategoryDisplayId(blogId, Long.valueOf(displayId)));
 		
 		return "/userblog/category/home";
 	}

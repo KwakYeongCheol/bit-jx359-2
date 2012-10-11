@@ -12,10 +12,10 @@
 	
 	<form:form modelAttribute="post" action="${pageContext.request.contextPath }/${blog.id }/admin/post/writeAction" method="POST">
 		<p>
-			<form:label path="category.id">카테고리</form:label>
-			<form:select path="category.id">
+			<form:label path="category.displayId">카테고리</form:label>
+			<form:select path="category.displayId">
 				<c:forEach items="${categoryList }" var="category">
-					<form:option value="${category.id }">${category.title }</form:option>
+					<form:option value="${category.displayId }">${category.title }</form:option>
 				</c:forEach>
 			</form:select>
 		</p>

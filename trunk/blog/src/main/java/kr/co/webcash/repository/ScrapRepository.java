@@ -4,7 +4,7 @@ import kr.co.webcash.domain.Scrap;
 
 public interface ScrapRepository {
 
-	Scrap findByBlogIdAndPostId(String blogId, long postId);
+	Scrap findByPostId(long postId);
 
 	void insert(Scrap scrap);
 

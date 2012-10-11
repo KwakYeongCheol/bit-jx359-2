@@ -5,7 +5,8 @@
 <div id="blogArticles">
 	<form:form modelAttribute="category"  action="${pageContext.request.contextPath }/${blog.id }/admin/category/modifyAction" method="POST">
 		<form:errors cssClass="error" path="title"></form:errors>
-		<input type="hidden" name="id" value="${category.id }"/>
+		<input type="hidden" name="displayId" value="${category.displayId }"/>
+		
 		<div>
 			<form:label cssClass="title" path="title">Title</form:label>
 			<form:input cssClass="title" path="title"/>

@@ -1,17 +1,29 @@
-package kr.co.webcash.domain;
+package kr.co.webcash.domain.post;
 
 import java.util.Date;
 import java.util.List;
 
+import kr.co.webcash.domain.Blog;
+import kr.co.webcash.domain.Category;
+import kr.co.webcash.domain.Comment;
+import kr.co.webcash.domain.Scrap;
+import kr.co.webcash.domain.Trackback;
+
 public class Post {
+	
 	private long id;
-	private Blog blog;
+	
 	private Category category;
+	
+	private long displayId;
+	
 	private String title;
 	private String contents;
 	private Date dateCreated;
 	
 	
+	/* meta data */
+	private PostMetadata postMetadata;
 	private Scrap scrap;
 	private List<Comment> commentList;
 	private List<Trackback> trackbackList;
@@ -37,27 +49,12 @@ public class Post {
 		this.contents = contents;
 	}
 
-	public Blog getBlog() {
-		return blog;
-	}
-
-	public void setBlog(Blog blog) {
-		this.blog = blog;
-	}
-
 	public Date getDateCreated() {
 		return dateCreated;
 	}
 
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
-	}
-
-	@Override
-	public String toString() {
-		return "Post [id=" + id + ", blog=" + blog + ", title=" + title
-				+ ", contents=" + contents + ", dateCreated=" + dateCreated
-				+ "]";
 	}
 
 	public Category getCategory() {
@@ -89,7 +86,32 @@ public class Post {
 
 	public void setTrackbackList(List<Trackback> trackbackList) {
 		this.trackbackList = trackbackList;
-	}	
+	}
+
+	public PostMetadata getPostMetadata() {
+		return postMetadata;
+	}
+
+	public void setPostMetadata(PostMetadata postMetadata) {
+		this.postMetadata = postMetadata;
+	}
+	
+	public long getDisplayId() {
+		return displayId;
+	}
+
+	public void setDisplayId(long displayId) {
+		this.displayId = displayId;
+	}
+
+	@Override
+	public String toString() {
+		return "Post [id=" + id + ", category=" + category + ", displayId="
+				+ displayId + ", title=" + title + ", contents=" + contents
+				+ ", dateCreated=" + dateCreated + ", postMetadata="
+				+ postMetadata + ", scrap=" + scrap + ", commentList="
+				+ commentList + ", trackbackList=" + trackbackList + "]";
+	}
 	
 	
 	

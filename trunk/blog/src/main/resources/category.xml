@@ -5,20 +5,47 @@
 	<typeAlias alias="Category" type="kr.co.webcash.domain.Category"/>
 		
 	<insert id="insert" parameterClass="Category">
-		insert into category (id, title, blogId) 
-		values(#id#, #title#,  #blog.id#)
+		insert into category (id, title, blogId, displayId) 
+		values(#id#, #title#,  #blog.id#, #displayId#)
 	</insert>
 	
+	<update id="update" parameterClass="Category">
+		update category set title = #title#
+		where id = #id#
+	</update>
+	
+	<delete id="delete" parameterClass="Category">
+		delete from category
+		where id = #id#
+	</delete>
+	
+	<sql id="defaultSelect">
+		c.id as id, 
+		c.blogId as "blog.id", 
+		c.displayId as displayId,
+		c.title as title
+	</sql>
+	
 	<select id="findAllByBlogId" resultClass="Category">
-		SELECT c.id as id, c.title as title
+		SELECT 
+			<include refid="defaultSelect"/>
 		FROM category c
 		join blogs b on b.id = c.blogId
 		where c.blogId = #blogId#
 		order by c.id desc
 	</select>
 	
+	<select id="findLast" resultClass="Category">
+		SELECT 
+			<include refid="defaultSelect"/>
+		FROM category c
+		order by c.id desc
+		limit 1
+	</select>
+	
 	<select id="findLastPostByBlogId" resultClass="Category">
-		SELECT c.id as id
+		SELECT 
+			<include refid="defaultSelect"/>
 		FROM category c
 		join blogs b on b.id = c.blogId
 		where c.blogId = #blogId#
@@ -26,12 +53,13 @@
 		limit 1
 	</select>
 	
-	<select id="findByIdAndBlogId" resultClass="Category">
-		SELECT c.id as id, c.title as title
+	<select id="findByBlogIdAndDisplayId" resultClass="Category">
+		SELECT 
+			<include refid="defaultSelect"/>
 		FROM category c
 		join blogs b on b.id = c.blogId
 		where c.blogId = #blogId#
-			and c.id = #id#
+			and c.displayId = #displayId#
 	</select>
 	
 	<select id="findAllCountByIdAndBlogId" resultClass="Long">
@@ -39,16 +67,4 @@
 		FROM category
 		where blogId = #blogId#
 	</select>
-	
-	
-	
-	<update id="update" parameterClass="Category">
-		update category set title = #title#
-		where id = #id# and blogId = #blog.id#
-	</update>
-	
-	<delete id="delete" parameterClass="Category">
-		delete from category
-		where id = #id# and blogId = #blog.id#
-	</delete>
 </sqlMap>

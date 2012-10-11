@@ -26,99 +26,95 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes(value={"post"})
-
+@SessionAttributes(value = { "post" })
 @RequestMapping("/{blogId}/comment")
 public class CommentController {
-	
+
 	@Autowired private BlogService blogService;
 	@Autowired private CommentService commentService;
 	@Autowired private CommentValidator commentValidator;
-	
+
 	@Inject private Provider<LoginUser> loginUserProvider;
+
 	@ModelAttribute("loginUser")
-	public User loginUser(){
+	public User loginUser() {
 		return this.loginUserProvider.get().getLoginUser();
 	}
-	
-	
-	@RequestMapping(value= "writeAction", method=RequestMethod.POST)
-	public String writeAction(@PathVariable String blogId, @RequestParam long targetId, @RequestParam String type, @RequestParam String contents){
+
+	@RequestMapping(value = "writeAction", method = RequestMethod.POST)
+	public String writeAction(@PathVariable String blogId,
+			@RequestParam long targetDisplayId, 
+			@RequestParam String type,
+			@RequestParam String contents) {
 		
+		long targetId = commentService.getTargetIdByBlogIdAndCommentTypeAndDisplayId(blogId, CommentType.valueOf(type), targetDisplayId);
+		long lastDisplayId = commentService.findLastDisplayIdByBlogIdAndCommentType(blogId, CommentType.valueOf(type));
 		
-			Blog blog = new Blog();
-			blog.setId(blogId);
-			Comment comment = new Comment();
-			comment.setId(commentService.findLastIdByBlogIdAndTargetIdAndType(blogId, targetId, type) + 1);
-			comment.setBlog(blog);
-			comment.setTargetId(targetId);
-			comment.setType(CommentType.valueOf(type));
-			comment.setContents(contents);
-			comment.setWriter(loginUser());
-			comment.setDateCreated(new Date(System.currentTimeMillis()));
-			
-			commentService.save(comment);
-			
-		if(type.toString().equals("guestbook")){
+		Comment comment = new Comment();
+		comment.setTargetId(targetId);
+		comment.setType(CommentType.valueOf(type));
+		comment.setDisplayId(lastDisplayId + 1);
+		comment.setWriter(loginUser());
+		comment.setContents(contents);
+		comment.setDateCreated(new Date(System.currentTimeMillis()));
+
+		commentService.save(comment);
+
+		if (type.toString().equals("guestbook")) {
 			return "redirect:/" + blogId + "/guestbook";
 		}
-		
+
 		return "redirect:/" + blogId;
 	}
-	
+
 	@RequestMapping("/modify")
-	public String modify(@PathVariable String blogId, @RequestParam long id, @RequestParam long targetId, @RequestParam String type, Model model){
-		Comment comment = commentService.findByIdAndBlogIdAndTargetIdAndType(id,blogId,targetId, type);
+	public String modify(@PathVariable String blogId, @RequestParam long displayId,
+			@RequestParam long targetId, @RequestParam String type, Model model) {
+		Comment comment = commentService.findByTargetIdAndCommentTypeAndDisplayId(targetId, CommentType.valueOf(type), displayId);
 		
-		if(comment.getWriter().getLoginId().equals(loginUser().getLoginId())){
+		if (comment.getWriter().getLoginId().equals(loginUser().getLoginId())) {
 			model.addAttribute("comment", comment);
 			return "/userblog/comment/modify";
 		}
-		
+
 		return "redirect:/" + blogId;
 	}
-	
-	@RequestMapping(value="/modifyAction", method=RequestMethod.POST)
-	public String modifyAction(@PathVariable String blogId, @RequestParam long id, @RequestParam long targetId, @RequestParam String type, @RequestParam String contents,
-								@ModelAttribute Comment comment, BindingResult result){
-		this.commentValidator.validate(comment, result);
-		if(!result.hasErrors()){		
-			comment = commentService.findByIdAndBlogIdAndTargetIdAndType(id, blogId, targetId, type);
+
+	@RequestMapping(value = "/modifyAction", method = RequestMethod.POST)
+	public String modifyAction(@PathVariable String blogId, 
+			@ModelAttribute Comment comment, BindingResult result) {
 		
-			if(comment.getWriter().getLoginId().equals(loginUser().getLoginId())){
-				Blog updatedBlog = new Blog();
-				updatedBlog.setId(blogId);		
-				Comment updatedComment = new Comment();
-				updatedComment.setId(id);
-				updatedComment.setBlog(updatedBlog);
-				updatedComment.setTargetId(targetId);
-				updatedComment.setType(CommentType.valueOf(type));
-				updatedComment.setContents(contents);
+		this.commentValidator.validate(comment, result);
+		
+		if (!result.hasErrors()) {
+//			comment = commentService.findByIdAndBlogIdAndTargetIdAndType(id,
+//					blogId, targetId, type);
 			
-				commentService.update(updatedComment);
+			Comment findComment = commentService.findByTargetIdAndCommentTypeAndDisplayId(
+					comment.getTargetId(), 
+					comment.getType(), 
+					comment.getDisplayId());
+			
+			if (findComment.getWriter().getLoginId().equals(loginUser().getLoginId())) {
+				comment.setId(findComment.getId());
+				commentService.update(comment);
 			}
 			return "redirect:/" + blogId;
 		}
 		return "/userblog/comment/modify";
 	}
-	
+
 	@RequestMapping("/delete")
-	public String delete(@PathVariable  String blogId, @RequestParam long id, @RequestParam long targetId, @RequestParam String type){
+	public String delete(@PathVariable String blogId, @RequestParam long displayId,
+			@RequestParam long targetId, @RequestParam String type) {
 		Blog currentBlog = blogService.findById(blogId);
-		Comment comment = commentService.findByIdAndBlogIdAndTargetIdAndType(id, blogId, targetId, type);
-		
-		if(currentBlog.getOwner().equals(loginUser().getLoginId()) || comment.getWriter().getLoginId().equals(loginUser().getLoginId())){
-			Blog deletedBlog = new Blog();
-			deletedBlog.setId(blogId);		
-			Comment deletedComment = new Comment();
-			deletedComment.setId(id);
-			deletedComment.setBlog(deletedBlog);
-			deletedComment.setTargetId(targetId);
-			deletedComment.setType(CommentType.valueOf(type));
-			
-			commentService.delete(deletedComment);
+		Comment comment = commentService.findByTargetIdAndCommentTypeAndDisplayId(targetId, CommentType.valueOf(type), displayId);
+
+		if (currentBlog.getOwner().equals(loginUser().getLoginId())
+				|| comment.getWriter().getLoginId().equals(loginUser().getLoginId())) {
+			commentService.delete(comment);
 		}
-		
+
 		return "redirect:/" + blogId;
 	}
 }

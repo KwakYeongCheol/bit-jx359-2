@@ -9,8 +9,8 @@
 		<a href="${pageContext.request.contextPath }/${blog.id}/category/${post.category.id}">${post.category.title }</a> | 
 		${post.title } | 
 		${post.dateCreated } | 
-		<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/modify?id=${post.id}">수정</a> |
-		<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/delete?id=${post.id}">삭제</a><br /><br />
+		<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/modify?displayId=${post.displayId}">수정</a> |
+		<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/delete?displayId=${post.displayId}">삭제</a><br /><br />
 		
 		<c:if test="${post.scrap != null }">
 		출처: <a href="${pageContext.request.contextPath }/${post.scrap.scrappedBlog.id }">${post.scrap.scrappedBlog.title }</a>
@@ -27,10 +27,10 @@
 			${comment.writer.loginId } | ${comment.dateCreated } <br />
 			${comment.contents } 
 			<c:if test="${loginUserProvider.loginUser.loginId == comment.writer.loginId  }">
-			<a href="${pageContext.request.contextPath }/${blog.id }/comment/modify?id=${comment.id}&targetId=${comment.targetId}&type=post">수정</a>
+			<a href="${pageContext.request.contextPath }/${blog.id }/comment/modify?displayId=${comment.displayId}&targetId=${comment.targetId}&type=post">수정</a>
 			</c:if>
 			<c:if test="${loginUserProvider.loginUser.loginId == comment.writer.loginId || loginUserProvider.loginUser.loginId == blog.owner }">
-			<a href="${pageContext.request.contextPath }/${blog.id}/comment/delete?id=${comment.id}&targetId=${comment.targetId}&type=post">삭제</a>
+			<a href="${pageContext.request.contextPath }/${blog.id}/comment/delete?displayId=${comment.displayId}&targetId=${comment.targetId}&type=post">삭제</a>
 			</c:if>
 		</div>
 		</c:forEach>

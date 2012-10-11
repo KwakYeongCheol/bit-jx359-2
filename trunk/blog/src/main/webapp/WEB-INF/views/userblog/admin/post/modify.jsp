@@ -6,12 +6,12 @@
 <div id="blogArticles">
 	<form:form modelAttribute="post" action="${pageContext.request.contextPath }/${blog.id }/admin/post/modifyAction" method="POST">
 		
-		<input type="hidden" name="id" value="${post.id }" />
+		<input type="hidden" name="displayId" value="${post.displayId }" />
 		<div>
-			<form:label path="category.id">Category</form:label>
-			<form:select path="category.id">
+			<form:label path="category.displayId">Category</form:label>
+			<form:select path="category.displayId">
 				<c:forEach items="${categoryList}" var="category">
-					<form:option value="${category.id }">
+					<form:option value="${category.displayId }">
 						${category.title }
 					</form:option>
 				</c:forEach>

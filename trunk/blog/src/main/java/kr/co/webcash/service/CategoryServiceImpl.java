@@ -15,21 +15,30 @@ public class CategoryServiceImpl implements CategoryService {
 	@Autowired private PostRepository postRepository;
 	
 	@Override
+	public void save(Category category) {
+		Category findCategory = categoryRepository.findLast();
+		
+		if(findCategory == null){
+			category.setId(1);
+		}else{
+			category.setId(findCategory.getId() + 1);
+		}
+		
+		categoryRepository.insert(category);
+	}
+	
+	@Override
 	public List<Category> listByBlogId(String blogId) {
 		return categoryRepository.findAllByBlogId(blogId);
 	}
 
 	@Override
-	public long findLastIdByBlogId(String blogId) {
+	public long findLastDisplayIdByBlogId(String blogId) {
 		Category category = categoryRepository.findLastPostByBlogId(blogId);
 
-		return category.getId();
+		return category.getDisplayId();
 	}
 
-	@Override
-	public void save(Category category) {
-		categoryRepository.insert(category);
-	}
 
 	@Override
 	public void update(Category category) {
@@ -38,7 +47,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public void delete(Category category) {
-		if(postRepository.findLastByBlogIdAndCategoryId(category.getBlog().getId(), category.getId()) == null){
+		if(postRepository.findLastByCategoryId(category.getId()) == null){
 			long categoryCount = categoryRepository.findAllCountByBlogId(category.getBlog().getId());
 			
 			if(categoryCount > 1){
@@ -53,8 +62,13 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public Category findByIdAndBlogId(long id, String blogId) {
-		return categoryRepository.findByIdAndBlogId(id,blogId);
+	public Category findByBlogIdAndDisplayId(String blogId, long displayId) {
+		return categoryRepository.findByBlogIdAndDisplayId(blogId, displayId);
+	}
+
+	@Override
+	public Category findByBlogIdAndDisplayId(Category category) {
+		return this.findByBlogIdAndDisplayId(category.getBlog().getId(), category.getDisplayId());
 	}
 
 }

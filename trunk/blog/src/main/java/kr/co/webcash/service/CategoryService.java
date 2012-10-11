@@ -8,7 +8,7 @@ public interface CategoryService {
 
 	List<Category> listByBlogId(String blogId);
 
-	long findLastIdByBlogId(String blogId);
+	long findLastDisplayIdByBlogId(String blogId);
 
 	void save(Category category);
 
@@ -16,6 +16,7 @@ public interface CategoryService {
 
 	void delete(Category category);
 
-	Category findByIdAndBlogId(long id, String blogId);
+	Category findByBlogIdAndDisplayId(Category category);
+	Category findByBlogIdAndDisplayId(String blogId, long displayId);
 
 }

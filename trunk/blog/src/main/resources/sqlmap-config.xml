@@ -7,6 +7,7 @@
     <sqlMap resource="user.xml" />
     <sqlMap resource="blog.xml" />
     <sqlMap resource="post.xml"/>
+    <sqlMap resource="post_metadata.xml"/>
     <sqlMap resource="guestbook.xml"/>
     <sqlMap resource="category.xml"/>
     <sqlMap resource="favorite.xml"/>

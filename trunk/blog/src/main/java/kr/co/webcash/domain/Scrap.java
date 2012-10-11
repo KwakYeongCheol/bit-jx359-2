@@ -3,7 +3,6 @@ package kr.co.webcash.domain;
 
 public class Scrap {
 	private long postId;
-	private String blogId;
 	private Blog scrappedBlog;
 	private long scrappedPostId;
 	private String scrappedPostTitle;
@@ -14,12 +13,6 @@ public class Scrap {
 	}
 	public void setPostId(long postId) {
 		this.postId = postId;
-	}
-	public String getBlogId() {
-		return blogId;
-	}
-	public void setBlogId(String blogId) {
-		this.blogId = blogId;
 	}
 	public long getScrappedPostId() {
 		return scrappedPostId;
@@ -47,8 +40,7 @@ public class Scrap {
 	}
 	@Override
 	public String toString() {
-		return "Scrap [postId=" + postId + ", blogId=" + blogId
-				+ ", scrappedBlog=" + scrappedBlog + ", scrappedPostId="
+		return "Scrap [postId=" + postId + ", scrappedBlog=" + scrappedBlog + ", scrappedPostId="
 				+ scrappedPostId + ", scrappedPostTitle=" + scrappedPostTitle
 				+ ", scrappedPostContents=" + scrappedPostContents + "]";
 	}

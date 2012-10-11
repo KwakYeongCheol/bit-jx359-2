@@ -3,14 +3,25 @@ package kr.co.webcash.domain;
 public class Category {
 	
 	private long id;
+	
+	private long displayId;
 	private Blog blog;
 	private String title;
+	
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
 	}
+	
+	public long getDisplayId() {
+		return displayId;
+	}
+	public void setDisplayId(long displayId) {
+		this.displayId = displayId;
+	}
+	
 	public Blog getBlog() {
 		return blog;
 	}
@@ -25,11 +36,8 @@ public class Category {
 	}
 	@Override
 	public String toString() {
-		return "Category [id=" + id + ", blog=" + blog + ", title=" + title
-				+ "]";
+		return "Category [id=" + id + ", displayId=" + displayId + ", blog="
+				+ blog + ", title=" + title + "]";
 	}
-	
-	
-	
 
 }

@@ -20,45 +20,58 @@ public class CommentRepositoryImp implements CommentRepository {
 	public void save(Comment comment) {
 		template.insert("Comment.insert",comment);
 	}
-
-	@Override
-	public List<Comment> findAllByBlogIdAndTargetIdAndType(String blogId, long targetId, CommentType type) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("blogId", blogId);
-		params.put("targetId", targetId);
-		params.put("type", type.toString());
-		
-		return template.queryForList("Comment.findAllByBlogIdAndTargetIdAndType", params);
-	}
-
-	@Override
-	public Comment findLastByBlogIdAndTargetIdAndType(String blogId, long targetId, String type) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("blogId", blogId);
-		params.put("targetId", targetId);
-		params.put("type", type.toString());
-		
-		return  (Comment) template.queryForObject("Comment.findLastIdByBlogIdAndTargetIdAndType", params);
-	}
-
+	
 	@Override
 	public void delete(Comment comment) {		
 		template.delete("Comment.delete",comment);
 	}
-
+	
 	@Override
 	public void update(Comment comment) {
 		template.update("Comment.update",comment);
 	}
 
 	@Override
-	public Comment findByIdAndBlogIdAndTargetIdAndType(long id, String blogId, long targetId, String type) {
+	public List<Comment> findAllByTargetIdAndType(long targetId, CommentType type) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("id", id);
+		params.put("targetId", targetId);
+		params.put("type", type.toString());
+		
+		return template.queryForList("Comment.findAllByTargetIdAndType", params);
+	}
+
+//	@Override
+//	public Comment findLastByTargetIdAndType(long targetId, String type) {
+//		Map<String, Object> params = new HashMap<String, Object>();
+//		params.put("targetId", targetId);
+//		params.put("type", type.toString());
+//		
+//		return  (Comment) template.queryForObject("Comment.findLastByTargetIdAndType", params);
+//	}
+	
+	@Override
+	public Comment findLastByBlogIdAndCommentType(String blogId, CommentType type) {
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("blogId", blogId);
+		params.put("type", type.toString());
+		
+		return (Comment) template.queryForObject("Comment.findLastByBlogIdAndCommentType", params);
+	}
+
+
+	@Override
+	public Comment findByDisplayIdAndTargetIdAndType(long displayId, long targetId, String type) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("displayId", displayId);
 		params.put("targetId", targetId);
 		params.put("type", type);
 		
-		return (Comment) template.queryForObject("Comment.findByIdAndBlogIdAndTargetIdAndType",params);
+		return (Comment) template.queryForObject("Comment.findByDisplayIdAndTargetIdAndType",params);
 	}
+
+	@Override
+	public Comment findLast() {
+		return (Comment) template.queryForObject("Comment.findLast");
+	}
+
 }

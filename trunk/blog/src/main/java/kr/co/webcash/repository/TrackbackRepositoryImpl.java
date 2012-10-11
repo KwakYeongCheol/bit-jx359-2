@@ -1,8 +1,6 @@
 package kr.co.webcash.repository;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import kr.co.webcash.domain.Trackback;
 
@@ -20,11 +18,8 @@ public class TrackbackRepositoryImpl implements TrackbackRepository {
 	}
 	
 	@Override
-	public List<Trackback> findAllByBlogIdAndPostId(String blogId, long postId) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("blogId", blogId);
-		params.put("postId", postId);
-		return template.queryForList("Trackback.findAllByBlogIdAndPostId",params);
+	public List<Trackback> findAllByPostId(long postId) {
+		return template.queryForList("Trackback.findAllByPostId",postId);
 	}
 
 }
