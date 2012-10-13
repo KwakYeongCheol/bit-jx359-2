@@ -13,7 +13,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean checkLoginIdAndPassword(String loginId, String password) {
-		String encryptedPassword = EncryptUtils.encrypt(loginId, password);
+		String encryptedPassword = EncryptUtils.encrypt(password);
 		
 		User user = userRepository.findByLoginIdAndPassword(loginId, encryptedPassword);
 		
@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public boolean save(User user) {
 		try{
-			user.setPassword(EncryptUtils.encrypt(user.getLoginId(), user.getPassword()));
+			user.setPassword(EncryptUtils.encrypt(user.getPassword()));
 
 			userRepository.insert(user);
 			
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public boolean update(User user) {
 		try{
-			user.setPassword(EncryptUtils.encrypt(user.getLoginId(), user.getPassword()));
+			user.setPassword(EncryptUtils.encrypt(user.getPassword()));
 			
 			userRepository.update(user);
 			return true;
@@ -54,6 +54,4 @@ public class UserServiceImpl implements UserService{
 	public User findByLoginId(String loginId) {
 		return (User)userRepository.findByLoginId(loginId);
 	}
-
-
 }

@@ -3,80 +3,31 @@ package kr.co.webcash.utils;
 import java.security.Key;
 
 import javax.crypto.Cipher;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.DESKeySpec;
+import javax.crypto.spec.SecretKeySpec;
+
+import org.apache.xerces.impl.dv.util.Base64;
 
 public class EncryptUtils {
-	public static final String algorithm = "DES";
+	private static final String ALGORITHM = "AES";
 	
-	public static Key generateKey(String password) {
+	private static final byte[] key = new byte[] {
+		'S', 'h', 'o', 'w', 'M', 'e', 'T', 'h', 
+		'e', 'M', 'o', 'n', 'e', 'y', 'o', 'h'
+	};
+	
+	public static String encrypt(String data){
 		try{
-			DESKeySpec desKeySpec = new DESKeySpec(password.getBytes());
-			SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(algorithm);
-			
-			return keyFactory.generateSecret(desKeySpec);
-		}catch(Exception e){
-			return null;
-		}
-	}
-
-	public static String encrypt(String loginUserId, Key key) {
-		try{
-			Cipher c = Cipher.getInstance(algorithm);
+			Key key = generateKey();
+			Cipher c = Cipher.getInstance(ALGORITHM);
 			c.init(Cipher.ENCRYPT_MODE, key);
-			byte[] encrypted = c.doFinal(loginUserId.getBytes());
-			return toHexString(encrypted);
-		}catch(Exception e){
-			return null;
-		}
-		
-	}
-
-	public static String descrypt(byte[] encryptedResult, Key key) {
-		try{
-			Cipher c = Cipher.getInstance(algorithm);
-			c.init(Cipher.DECRYPT_MODE, key);
-			return new String(c.doFinal(encryptedResult));
+			byte[] encValue = c.doFinal(data.getBytes());
+			return new Base64().encode(encValue);
 		}catch(Exception e){
 			return null;
 		}
 	}
 	
-	public static String encrypt(String loginId, String password) {
-		return encrypt(loginId, generateKey(password));
-	}
-
-	public static String descrypt(String encryptedPassword, String password) {
-		return descrypt(toBytesFromHexString(encryptedPassword), generateKey(password));
-	}
-	
-	public static String toHexString(byte[] bytes) {
-		if (bytes == null) {
-			return null;
-		}
-		
-		StringBuffer result = new StringBuffer();
-		for (byte b : bytes) {
-			result.append(Integer.toString((b & 0xF0) >> 4, 16));
-			result.append(Integer.toString(b & 0x0F, 16));
-		}
-		return result.toString();
-	}
-	
-	public static byte[] toBytesFromHexString(String digits) throws IllegalArgumentException, NumberFormatException {
-		if (digits == null) {
-			return null;
-		}
-    	int length = digits.length();
-    	if (length % 2 == 1) {
-    		throw new IllegalArgumentException("For input string: \"" + digits + "\"");
-    	}
-    	length = length / 2;
-    	byte[] bytes = new byte[length];
-    	for (int i = 0; i < length; i++) {
-    		int index = i * 2;
-    		bytes[i] = (byte)(Short.parseShort(digits.substring(index, index+2), 16));
-    	}
-    	return bytes;
+	private static Key generateKey(){
+		return new SecretKeySpec(key, ALGORITHM);
 	}
 }
