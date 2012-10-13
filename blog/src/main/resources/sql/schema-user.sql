@@ -4,8 +4,8 @@ CREATE TABLE users (
   password VARCHAR(50)  NOT NULL
 );
 
-INSERT INTO users(id, name, password) VALUES ('1', '곽영철', '84c352717eee43ed');
-INSERT INTO users(id, name, password) VALUES ('2', '민용기', 'ca5fb0a14fb33507');
+INSERT INTO users(id, name, password) VALUES ('1', '곽영철', '43EcDjo6s0CrGUiHIlFSRg==');
+INSERT INTO users(id, name, password) VALUES ('2', '민용기', '43EcDjo6s0CrGUiHIlFSRg==');
 
 CREATE TABLE blogs (
   id VARCHAR(10) NOT NULL PRIMARY KEY,
