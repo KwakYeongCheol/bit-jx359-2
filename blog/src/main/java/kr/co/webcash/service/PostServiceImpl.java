@@ -17,9 +17,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class PostServiceImpl implements PostService {
 
-	@Autowired private PostRepository postRepository;
-	@Autowired private ScrapRepository scrapRepository;
-	@Autowired private CategoryRepository categoryRepository;
+	private PostRepository postRepository;
+	private ScrapRepository scrapRepository;
+	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	public void setDependencies(PostRepository postRepository, 
+			ScrapRepository scrapRepository, 
+			CategoryRepository categoryRepository){
+		
+		this.postRepository = postRepository;
+		this.scrapRepository = scrapRepository;
+		this.categoryRepository = categoryRepository;
+	}
 
 	@Override
 	public void save(Post post) {
@@ -31,13 +41,18 @@ public class PostServiceImpl implements PostService {
 		}
 		
 		postRepository.insert(post);
+		
+		addScrap(post);
+	}
+
+	private void addScrap(Post post) {
 		Scrap scrap = post.getScrap();
 		if(scrap != null){
 			scrap.setPostId(post.getId());
 			scrapRepository.insert(scrap);
 		}
 	}
-
+	
 	@Override
 	public void update(Post post) {
 		postRepository.update(post);
