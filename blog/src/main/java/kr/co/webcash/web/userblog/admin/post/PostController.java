@@ -123,8 +123,7 @@ public class PostController {
 	public String modifyAction(@PathVariable String blogId,	@ModelAttribute Post post, BindingResult result) {
 		this.postValidator.validate(post, result);
 		if (!result.hasErrors()) {
-			System.out.println(post.getCategory());
-			Category category = categoryService.findByBlogIdAndDisplayId(post.getCategory());
+			Category category = categoryService.findByBlogIdAndDisplayId(blogId, post.getCategory().getDisplayId());
 			post.setCategory(category);
 
 			postService.update(post);
