@@ -1,0 +1,23 @@
+body{
+	background-color: #F00;
+}
+
+.category{
+	margin: 20px;
+	padding: 20px;
+	
+	background-color: #8cce24;
+	
+	width:200px;
+	height:500px;
+}
+
+.post{
+	width: 150px;
+	height: 50px;
+	
+	margin: 20px;
+	
+	background-color: #FFF;
+	color: #000;
+}
