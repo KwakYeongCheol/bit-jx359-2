@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<jsp:include page="/WEB-INF/views/userblog/admin/common/header.jsp" />
 
+<html>
+<head>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/ckeditor/ckeditor.js"></script>
+<jsp:include page="/WEB-INF/views/userblog/admin/common/header.jsp" />
+</head>
+<body>
 <div id="blogArticles">
 	<c:if test="${post.scrap != null }">
 		<div>
@@ -27,7 +32,7 @@
 		<p>
 			<form:errors cssClass="errors" path="contents"></form:errors>
 			<form:label cssClass="label" path="contents">Contents</form:label>
-			<form:input cssClass="input" path="contents"/>
+			<form:textarea id="editor" path="contents" />
 		</p>
 		<div>
 			<label>Trackback URL</label>
@@ -36,7 +41,22 @@
 		<p>
 			<input type="submit" value="글쓰기" />
 		</p>
+		
+
+		
 	</form:form>
 </div>
-
+<script type="text/javascript">
+	CKEDITOR.replace('editor',{
+		enterMode:'2',
+	    shiftEnterMode:'3',
+		width:'100%',
+	    height:'150',
+	    toolbar:[
+	    ['Bold','Italic','-','NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','Styles','Format','Font','FontSize']],
+	    skin:'office2003'
+	});
+</script>
+</body>
+</html>
 <jsp:include page="/WEB-INF/views/userblog/admin/common/footer.jsp" />
