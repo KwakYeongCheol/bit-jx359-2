@@ -25,7 +25,7 @@ public class SessionLoginUser implements LoginUser{
 	public void login(User user) {
 		this.loginUser = user;
 		user.setFavoriteList(favoriteService.listByLoginId(user.getLoginId()));
-		user.setBlog(blogService.findByUserLoginId(user.getLoginId()));
+		user.setBlogList(blogService.findAllByUserLoginId(user.getLoginId()));
 	}
 
 	@Override
@@ -49,18 +49,55 @@ public class SessionLoginUser implements LoginUser{
 		return this.loginUser.getFavoriteList();
 	}
 
-	@Override
-	public Blog getBlog() {
+	public List<Blog> getBlogList(){
 		if(!isLoggedIn())	return null;
-		return this.loginUser.getBlog();
+		return this.loginUser.getBlogList();
+	}
+	
+	public void setBlogList(List<Blog> blogList){
+		if(!isLoggedIn())	return;
+		this.loginUser.setBlogList(blogList);
 	}
 	
 	@Override
-	public void setBlog(Blog blog) {
+	public void addBlog(Blog blog) {
 		if(!isLoggedIn())	return;
-		this.loginUser.setBlog(blog);
+		
+		List<Blog> blogList = this.loginUser.getBlogList();
+		
+		boolean isUpdate = false;
+		for(Blog one : blogList){
+			if(one.getId().equals(blog.getId())){
+				blogList.remove(one);
+				blogList.add(blog);
+				isUpdate = true;
+			}
+		}
+		
+		if(!isUpdate)	blogList.add(blog);
+	}
+	
+	@Override
+	public Blog getBlog() {
+		if(!isLoggedIn())	return null; 
+		List<Blog> blogList = this.loginUser.getBlogList();
+		if(blogList != null && blogList.size() > 0){
+			return blogList.get(0);
+		}
+		
+		return null;
 	}
 
+	@Override
+	public boolean isMyBlog(String blogId) {
+		if(!isLoggedIn())	return false;
+		for(Blog blog : this.loginUser.getBlogList()){
+			if(blog.getId().equals(blogId))		return true;
+		}
+		
+		return false;
+	}
+	
 	@Override
 	public void removeFavorite(Favorite favorite) {
 		if(getFavoriteList() != null){
@@ -83,4 +120,5 @@ public class SessionLoginUser implements LoginUser{
 		
 		return false;
 	}
+
 }

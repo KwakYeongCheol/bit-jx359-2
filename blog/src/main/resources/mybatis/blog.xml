@@ -15,7 +15,7 @@
 		where id = #id#
 	</update>
 	
-	<select id="findByUserLoginId" resultClass="Blog">
+	<select id="findAllByUserLoginId" resultClass="Blog">
 		SELECT id, title, owner, dateCreated
 		FROM blogs
 		WHERE owner = #loginId#

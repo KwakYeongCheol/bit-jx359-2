@@ -1,5 +1,7 @@
 package kr.co.webcash.repository;
 
+import java.util.List;
+
 import kr.co.webcash.domain.Blog;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +19,8 @@ public class BlogRepositoryImpl implements BlogRepository{
 	}
 
 	@Override
-	public Blog findByUserLoginId(String loginId) {
-		// TODO Auto-generated method stub
-		return (Blog)template.queryForObject("Blog.findByUserLoginId", loginId);
+	public List<Blog> findAllByUserLoginId(String loginId) {
+		return template.queryForList("Blog.findAllByUserLoginId", loginId);
 	}
 
 	@Override

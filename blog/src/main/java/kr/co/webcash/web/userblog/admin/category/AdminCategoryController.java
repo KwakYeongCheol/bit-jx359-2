@@ -59,11 +59,11 @@ public class AdminCategoryController {
 				long lastDisplayId = categoryService.findLastDisplayIdByBlogId(blogId);
 				category.setDisplayId(lastDisplayId + 1);
 				
-				category.setBlog(blogService.findByUserLoginId(loginUser().getLoginId()));
+				category.setBlog(blogService.findById(blogId));
 				
 				categoryService.save(category);
 				
-				redirectUrl = "redirect:/" + blogService.findByUserLoginId(loginUser().getLoginId()).getId() + "/admin/category";
+				redirectUrl = "redirect:/" + blogId + "/admin/category";
 				return redirectUrl;
 			}
 		}

@@ -7,9 +7,11 @@
 	<div id="blogHeader">
 		<div id="blogTitle">
 			${blog.title }
-			<c:if test="${loginUserProvider.loggedIn && (loginUserProvider.blog.id != blog.id) }">
-				<c:if test="${!loginUserProvider.isExistFavorite(blog.id) }">
-				<a href="${pageContext.request.contextPath }/favorite/addAction?blogId=${blog.id}">이웃 추가</a>
+			<c:if test="${loginUserProvider.loggedIn }">
+				<c:if test="${!loginUserProvider.isMyBlog(blog.id) }">
+					<c:if test="${!loginUserProvider.isExistFavorite(blog.id) }">
+					<a href="${pageContext.request.contextPath }/favorite/addAction?blogId=${blog.id}">이웃 추가</a>
+					</c:if>
 				</c:if>
 			</c:if>
 		</div>

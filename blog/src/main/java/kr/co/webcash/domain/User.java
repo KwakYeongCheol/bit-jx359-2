@@ -10,7 +10,7 @@ public class User {
 	private String name;
 	
 	private List<Favorite> favoriteList;
-	private Blog blog;
+	private List<Blog> blogList;
 	
 	public User(){
 		this.favoriteList = new ArrayList<Favorite>();
@@ -34,13 +34,13 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	@Override
 	public String toString() {
 		return "User [loginId=" + loginId + ", password=" + password
 				+ ", name=" + name + "]";
 	}
 	
-
 	public List<Favorite> getFavoriteList() {
 		return favoriteList;
 	}
@@ -49,12 +49,12 @@ public class User {
 		this.favoriteList = favoriteList;
 	}
 
-	public Blog getBlog() {
-		return blog;
+	public List<Blog> getBlogList() {
+		return blogList;
 	}
 
-	public void setBlog(Blog blog) {
-		this.blog = blog;
+	public void setBlogList(List<Blog> blogList) {
+		this.blogList = blogList;
 	}
 }
   

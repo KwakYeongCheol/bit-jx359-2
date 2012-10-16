@@ -16,10 +16,14 @@ public interface LoginUser {
 	public void addFavorite(Favorite favorite);
 	public boolean isExistFavorite(String blogId);
 	
+	public List<Blog> getBlogList();
+	public void setBlogList(List<Blog> blogList);
+	public void addBlog(Blog blog);
 	public Blog getBlog();
-	public void setBlog(Blog blog);
+	public boolean isMyBlog(String blogId);
 	
 	public void login(User user);
 	public void logout();
+
 
 }

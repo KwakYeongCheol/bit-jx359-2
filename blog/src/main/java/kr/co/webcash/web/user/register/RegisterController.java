@@ -65,9 +65,7 @@ public class RegisterController {
 	@RequestMapping(value="/register", method=RequestMethod.GET)
 	public void showRegisterForm(Model model, HttpSession session){
 		User user = (User) session.getAttribute("user");
-		if(user == null)	user = new User();
-		
-		model.addAttribute("user", user);
+		if(user == null)	model.addAttribute("user", new User());	
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
@@ -79,10 +77,14 @@ public class RegisterController {
 				status.setComplete();
 				this.loginUserProvider.get().login(user);
 				
-				return "redirect:/blog/settings";
+				return "redirect:/user/register/complete";
 			}
 		}
 		
 		return "/user/register/register";
+	}
+	
+	@RequestMapping("/complete")
+	public void complete(){
 	}
 }

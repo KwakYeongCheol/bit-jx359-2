@@ -45,10 +45,20 @@ public class PostServiceImpl implements PostService {
 
 		postRepository.insert(post);
 		
-		addScrap(post);
+		insertScrap(post);
 	}
 
-	private void addScrap(Post post) {
+	@Override
+	public void update(Post post) {
+		postRepository.update(post);
+	}
+	
+	@Override
+	public void delete(Post post) {
+		postRepository.delete(post);
+	}
+	
+	private void insertScrap(Post post) {
 		List<Map<String, String>> scrapURLList = PostUtils.parseToMap(post.getContents());
 		
 		for(Map<String, String> blogIdAndPostIdPair : scrapURLList){
@@ -74,16 +84,6 @@ public class PostServiceImpl implements PostService {
 		}
 	}
 	
-	@Override
-	public void update(Post post) {
-		postRepository.update(post);
-	}
-
-	@Override
-	public void delete(Post post) {
-		postRepository.delete(post);
-	}
-
 	@Override
 	public List<Post> listByBlogIdAndCategoryDisplayId(String blogId, long categoryDisplayId) {
 		Category category = categoryRepository.findByBlogIdAndDisplayId(blogId, categoryDisplayId);

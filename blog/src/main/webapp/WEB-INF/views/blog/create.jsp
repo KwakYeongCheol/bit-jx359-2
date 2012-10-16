@@ -6,18 +6,18 @@
 <div id="blogSetting">
 	<h2>블로그 정보</h2>
 
-	<form:form modelAttribute="blog" action="${pageContext.request.contextPath }/blog/modify" method="POST">
+	<form:form modelAttribute="blog" action="${pageContext.request.contextPath }/blog/create" method="POST">
 	<form:errors cssClass="error" path="title"></form:errors>
 		<div>
 			<label class="label">Blog Title</label>
-			<form:input path="title" cssClass="input" />
+			<input class="input" type="text" name="title" autofocus/>
 		</div>
 		<div>
 			<label class="label">블로그 주소</label>
-			http://sample.kr/${blog.id }
+			http://sample.kr/<input class="input" type="text" name="id"></label>
 		</div>
 		<div>
-			<input class="submit" type="submit" value="블로그 수정" />
+			<input class="submit" type="submit" value="블로그 생성" />
 		</div>
 	</form:form>
 </div>
