@@ -21,7 +21,6 @@
 			<c:if test="${loginUserProvider.loggedIn }">
 			<li><a href="${pageContext.request.contextPath }/logout">로그아웃</a></li>
 			<li>${loginUserProvider.loginUser.loginId } 님</li>
-			<li><a href="${pageContext.request.contextPath }/${loginUserProvider.blog.id}">블로그홈</a></li>
 			</c:if>
 			<c:if test="${!loginUserProvider.loggedIn }">
 			<li><a href="${pageContext.request.contextPath }/login">로그인</a></li>
@@ -30,8 +29,12 @@
 		</ul>
 		<c:if test="${loginUserProvider.loggedIn }">
 		<ul>
+		<c:forEach items="${loginUserProvider.blogList }" var="blog">
+			<li>내 : <a href="${pageContext.request.contextPath }/${blog.id }">${blog.title }</a></li>
+		</c:forEach>
+		
 		<c:forEach items="${loginUserProvider.loginUser.favoriteList }" var="favorite">
-			<li><a href="${pageContext.request.contextPath }/${favorite.blog.id }">${favorite.blog.title }</a></li>
+			<li>이웃 : <a href="${pageContext.request.contextPath }/${favorite.blog.id }">${favorite.blog.title }</a></li>
 		</c:forEach>
 		</ul>
 		</c:if>

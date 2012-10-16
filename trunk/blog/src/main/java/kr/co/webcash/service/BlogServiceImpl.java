@@ -1,5 +1,7 @@
 package kr.co.webcash.service;
 
+import java.util.List;
+
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.User;
@@ -28,8 +30,8 @@ public class BlogServiceImpl implements BlogService {
 	}
 
 	@Override
-	public Blog findByUserLoginId(String loginId) {
-		return blogRepository.findByUserLoginId(loginId);
+	public List<Blog> findAllByUserLoginId(String loginId) {
+		return blogRepository.findAllByUserLoginId(loginId);
 	}
 
 	@Override
