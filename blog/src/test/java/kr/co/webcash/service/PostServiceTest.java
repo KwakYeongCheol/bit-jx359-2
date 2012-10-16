@@ -4,6 +4,9 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.util.List;
+import java.util.Map;
+
+import kr.co.webcash.utils.PostUtils;
 
 import org.junit.Test;
 
@@ -32,7 +35,7 @@ public class PostServiceTest {
 		assertThat(scrapURLList.size(), is(0));
 
 		scrapURLList = PostUtils.getScrapURLFromContents("Hello, @@123fail/1## It's failcase, too :(");
-		assertThat(scrapURLList.size(), is(0));
+		assertThat(scrapURLList.size(), is(1));
 
 		scrapURLList = PostUtils.getScrapURLFromContents("Hello, @@fail_/1## It's failcase, too :(");
 		assertThat(scrapURLList.size(), is(0));
@@ -46,6 +49,20 @@ public class PostServiceTest {
 		scrapURLList = PostUtils.getScrapURLFromContents("and.. @@@kwakyc87/1##23###. Can you find this?");
 		assertThat(scrapURLList.size(), is(1));
 		assertThat(scrapURLList.get(0), is("@@kwakyc87/1##"));
+	}
+	
+	@Test
+	public void parseToBlogIdAndPostDisplayId(){
+		List<String> scrapURLList = PostUtils.getScrapURLFromContents("Hello? @@kwakyc87/123## I'm posted this blog :D");
+		
+		List<Map<String, String>> scrapList = PostUtils.parseToMap(scrapURLList);
+		
+		assertThat(scrapList.size(), is(1));
+		
+		Map<String, String> scrap = scrapList.get(0);
+		
+		assertThat(scrap.get("blogId"), is("kwakyc87"));
+		assertThat(scrap.get("postDisplayId"), is("123"));
 	}
 }
 

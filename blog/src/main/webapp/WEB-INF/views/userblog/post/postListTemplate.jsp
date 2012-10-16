@@ -9,25 +9,15 @@
 		${post.dateCreated } |
 		공개여부 : ${post.postMetadata.isPublic() }
 		<br /><br />
-		
-		<c:if test="${post.scrap != null }">
-		출처: <a href="${pageContext.request.contextPath }/${post.scrap.scrappedBlog.id }">${post.scrap.scrappedBlog.title }</a>
-		<div>${post.scrap.scrappedPostTitle }</div>
-		<div>${post.scrap.scrappedPostContents }</div>
-		</c:if>
-		<br /><br />
-		
+				
 		${post.contents }
 	</div>
 	
 	<c:if test="${post.postMetadata.canScrap }">
 	<div>
-		<form action="${pageContext.request.contextPath }/blog/scrap" method="post">
+		<form action="${pageContext.request.contextPath }/${loginUserProvider.blog.id }/admin/post/scrap" method="post">
 			<input type="hidden" name="scrappedBlog.id" value="${blog.id }">
-			<input type="hidden" name="scrappedBlog.title" value="${blog.title }">
 			<input type="hidden" name="scrappedPostId" value="${post.displayId }">
-			<input type="hidden" name="scrappedPostTitle" value="${post.title }">
-			<input type="hidden" name="scrappedPostContents" value="${post.contents }">
 			<input type="submit" value="스크랩">
 		</form>
 	</div>

@@ -7,6 +7,7 @@ import javax.inject.Provider;
 import javax.servlet.http.HttpServletRequest;
 
 import kr.co.webcash.domain.Category;
+import kr.co.webcash.domain.Scrap;
 import kr.co.webcash.domain.Trackback;
 import kr.co.webcash.domain.User;
 import kr.co.webcash.domain.post.Post;
@@ -60,9 +61,10 @@ public class PostController {
 	}
 
 	@RequestMapping(value = "/scrap")
-	public String scrap(@ModelAttribute Post post, @PathVariable String blogId, Model model) {
-		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
-		return "/userblog/admin/post/write";
+	public String scrap(@ModelAttribute Scrap scrap, @PathVariable String blogId, Model model) {
+		model.addAttribute("scrap", scrap);
+		
+		return this.write(blogId, model);
 	}
 
 	@RequestMapping(value = "/writeAction", method = RequestMethod.POST)

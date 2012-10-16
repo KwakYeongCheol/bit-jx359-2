@@ -3,10 +3,8 @@ package kr.co.webcash.domain.post;
 import java.util.Date;
 import java.util.List;
 
-import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Comment;
-import kr.co.webcash.domain.Scrap;
 import kr.co.webcash.domain.Trackback;
 
 public class Post {
@@ -24,7 +22,6 @@ public class Post {
 	
 	/* meta data */
 	private PostMetadata postMetadata;
-	private Scrap scrap;
 	private List<Comment> commentList;
 	private List<Trackback> trackbackList;
 	
@@ -73,13 +70,13 @@ public class Post {
 		this.commentList = commentList;
 	}
 
-	public Scrap getScrap() {
-		return scrap;
-	}
-
-	public void setScrap(Scrap scrap) {
-		this.scrap = scrap;
-	}
+//	public Scrap getScrap() {
+//		return scrap;
+//	}
+//
+//	public void setScrap(Scrap scrap) {
+//		this.scrap = scrap;
+//	}
 	public List<Trackback> getTrackbackList() {
 		return trackbackList;
 	}
@@ -109,7 +106,7 @@ public class Post {
 		return "Post [id=" + id + ", category=" + category + ", displayId="
 				+ displayId + ", title=" + title + ", contents=" + contents
 				+ ", dateCreated=" + dateCreated + ", postMetadata="
-				+ postMetadata + ", scrap=" + scrap + ", commentList="
+				+ postMetadata + ", commentList="
 				+ commentList + ", trackbackList=" + trackbackList + "]";
 	}
 	

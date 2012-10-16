@@ -7,16 +7,11 @@
 		${post.title } | 
 		${post.dateCreated } <br /><br />
 		
-		<c:if test="${post.scrap != null }">
-		출처: <a href="${pageContext.request.contextPath }/${post.scrap.scrappedBlog.id }">${post.scrap.scrappedBlog.title }</a>
-		<div>${post.scrap.scrappedPostTitle }</div>
-		<div>${post.scrap.scrappedPostContents }</div>
-		</c:if>
 		<br /><br />
 		
 		${post.contents }
 	</div>
-		<form action="${pageContext.request.contextPath }/blog/scrap" method="post">
+		<form action="${pageContext.request.contextPath }/${loginUserProvider.blog.id }/admin/post/scrap" method="post">
 			<input type="hidden" name="scrappedBlog.id" value="${blog.id }">
 			<input type="hidden" name="scrappedBlog.title" value="${blog.title }">
 			<input type="hidden" name="scrappedPostId" value="${post.displayId }">

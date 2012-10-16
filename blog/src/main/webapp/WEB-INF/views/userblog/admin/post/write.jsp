@@ -8,13 +8,7 @@
 <jsp:include page="/WEB-INF/views/userblog/admin/common/header.jsp" />
 </head>
 <body>
-<div id="blogArticles">
-	<c:if test="${post.scrap != null }">
-		<div>
-			출처 : ${post.scrap.scrappedBlog.title }
-		</div>
-	</c:if>
-	
+<div id="blogArticles">	
 	<form:form modelAttribute="post" action="${pageContext.request.contextPath }/${blog.id }/admin/post/writeAction" method="POST">
 		<p>
 			<form:label path="category.displayId">카테고리</form:label>
@@ -32,7 +26,13 @@
 		<p>
 			<form:errors cssClass="errors" path="contents"></form:errors>
 			<form:label cssClass="label" path="contents">Contents</form:label>
-			<form:textarea id="editor" path="contents" />
+			<textarea id="editor" name="contents">
+			<c:if test="${scrap != null }">
+				<p>
+					@@${scrap.scrappedBlog.id }/${scrap.scrappedPostId }##
+				</p>
+			</c:if>
+			</textarea>
 		</p>
 		<div>
 			<label>Trackback URL</label>

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.webcash.domain.CommentType;
-import kr.co.webcash.domain.Scrap;
 import kr.co.webcash.domain.post.Post;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,19 +27,11 @@ public class PostRepositoryImpl implements PostRepository {
 	}
 	
 	private void addMoreInfo(Post post){
-		addScrap(post);
 		addComments(post);
 		addTrackback(post);
 		addPostMetadata(post);
 	}
 	
-	private void addScrap(Post post) {
-		if(post!=null){
-			Scrap scrap = scrapRepository.findByPostId(post.getId());
-			post.setScrap(scrap);
-		}
-	}
-
 	private void addComments(Post post) {
 		if(post != null){
 			post.setCommentList(commentRepository.findAllByTargetIdAndType(post.getId(), CommentType.post));
@@ -58,7 +49,6 @@ public class PostRepositoryImpl implements PostRepository {
 			post.setPostMetadata(postMetadataRepository.findByPostId(post.getId()));
 		}
 	}
-
 
 	@Override
 	public void insert(Post post) {
@@ -101,9 +91,6 @@ public class PostRepositoryImpl implements PostRepository {
 		addMoreInfo(postList);
 		return postList;
 	}
-	
-	
-
 	
 	@Override
 	public List<Post> findAllByBlogIdAndPostMetadataParams(String blogId, Map postMetadataParams) {
@@ -157,7 +144,5 @@ public class PostRepositoryImpl implements PostRepository {
 		addMoreInfo(post);
 		return post;
 	}
-
-
 }
 

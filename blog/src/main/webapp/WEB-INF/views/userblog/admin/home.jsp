@@ -12,11 +12,6 @@
 		<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/modify?displayId=${post.displayId}">수정</a> |
 		<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/delete?displayId=${post.displayId}">삭제</a><br /><br />
 		
-		<c:if test="${post.scrap != null }">
-		출처: <a href="${pageContext.request.contextPath }/${post.scrap.scrappedBlog.id }">${post.scrap.scrappedBlog.title }</a>
-		<div>${post.scrap.scrappedPostTitle }</div>
-		<div>${post.scrap.scrappedPostContents }</div>
-		</c:if>
 		<br /><br />
 		
 		${post.contents }
