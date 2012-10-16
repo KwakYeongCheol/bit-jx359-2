@@ -8,6 +8,12 @@ public class Blog {
 	private String owner;
 	private Date dateCreated;
 	
+	public Blog(){
+	}
+	
+	public Blog(String id) {
+		setId(id);
+	}
 	public String getId() {
 		return id;
 	}

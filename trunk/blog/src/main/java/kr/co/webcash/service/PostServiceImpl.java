@@ -4,15 +4,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Scrap;
 import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.repository.CategoryRepository;
 import kr.co.webcash.repository.PostRepository;
 import kr.co.webcash.repository.ScrapRepository;
+import kr.co.webcash.utils.PostUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -39,17 +42,35 @@ public class PostServiceImpl implements PostService {
 		}else{
 			post.setId(lastPost.getId() + 1);
 		}
-		
+
 		postRepository.insert(post);
 		
 		addScrap(post);
 	}
 
 	private void addScrap(Post post) {
-		Scrap scrap = post.getScrap();
-		if(scrap != null){
-			scrap.setPostId(post.getId());
-			scrapRepository.insert(scrap);
+		List<Map<String, String>> scrapURLList = PostUtils.parseToMap(post.getContents());
+		
+		for(Map<String, String> blogIdAndPostIdPair : scrapURLList){
+			String blogId = blogIdAndPostIdPair.get("blogId");
+			String postDisplayId = blogIdAndPostIdPair.get("postDisplayId");
+			
+			if(!StringUtils.hasLength(blogId) || !StringUtils.hasLength(postDisplayId))
+				continue;
+			
+			Post targetPost = findByBlogIdAndDisplayId(blogId, Long.valueOf(postDisplayId));
+			if(targetPost == null)		continue;
+			
+			if(targetPost.getPostMetadata().isCanScrap()){
+				Scrap scrap = new Scrap();
+				scrap.setPostId(post.getId());
+				scrap.setScrappedBlog(new Blog(blogId));
+				scrap.setScrappedPostId(targetPost.getDisplayId());
+				scrap.setScrappedPostContents(targetPost.getContents());
+				scrap.setScrappedPostTitle(targetPost.getTitle());
+				
+				scrapRepository.insert(scrap);
+			}
 		}
 	}
 	
@@ -79,9 +100,46 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public List<Post> listAll(String blogId) {
-		return postRepository.findAllByBlogId(blogId);
+		List<Post> postList = postRepository.findAllByBlogId(blogId);
+		
+		convertFromScrapTagToScrapContents(postList);
+		
+		return postList;
 	}
 	
+	private void convertFromScrapTagToScrapContents(List<Post> postList) {
+		for(Post post : postList){
+			StringBuffer buffer = new StringBuffer(post.getContents());
+			
+			List<String> scrapURLList = PostUtils.getScrapURLFromContents(post.getContents());
+			
+			for(String scrapURL : scrapURLList){
+				Map<String, String> pair = PostUtils.parseToBlogIdAndPostIdPair(scrapURL);
+				
+				String blogId = pair.get("blogId");
+				String postDisplayId = pair.get("postDisplayId");
+				
+				if(!StringUtils.hasLength(blogId) || !StringUtils.hasLength(postDisplayId))
+					continue;
+				
+				Scrap scrap = scrapRepository.findByPostIdAndTargetBlogIdAndTargetPostId(post.getId(), blogId, postDisplayId);
+				
+				if(scrap != null){
+					StringBuffer changeText = new StringBuffer();
+					changeText.append("<div class=\"scrap\">")
+						.append(scrap.getScrappedPostContents())
+						.append("</div>");
+					
+					int startIndex = buffer.indexOf(scrapURL);
+					
+					buffer.replace(startIndex, startIndex + scrapURL.length(), changeText.toString());
+				}
+			}
+			
+			post.setContents(buffer.toString());
+		}
+	}
+
 	@Override
 	public long findLastDisplayIdByBlogId(String blogId){
 		Post post = postRepository.findLastByBlogId(blogId);
@@ -90,10 +148,6 @@ public class PostServiceImpl implements PostService {
 		else				return post.getDisplayId();
 	}
 
-//	@Override
-//	public Post findLastByBlogId(String blogId) {
-//		return postRepository.findLastByBlogId(blogId);
-//	}
 
 	@Override
 	public Post findByBlogIdAndDisplayId(String blogId, long displayId) {

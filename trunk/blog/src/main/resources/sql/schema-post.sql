@@ -14,7 +14,7 @@ CREATE TABLE scraps (
   scrappedPostId bigint NOT NULL,
   scrappedPostTitle VARCHAR(50) NOT NULL,
   scrappedPostContents VARCHAR(1024) NOT NULL,
-  PRIMARY KEY(postId)
+  PRIMARY KEY(postId, scrappedBlogId, scrappedPostId)
 );
 
 CREATE TABLE post_metadata(
