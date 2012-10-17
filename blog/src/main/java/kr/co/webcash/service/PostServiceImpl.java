@@ -8,7 +8,9 @@ import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Scrap;
 import kr.co.webcash.domain.post.Post;
+import kr.co.webcash.domain.post.PostMetadata;
 import kr.co.webcash.repository.CategoryRepository;
+import kr.co.webcash.repository.PostMetadataRepository;
 import kr.co.webcash.repository.PostRepository;
 import kr.co.webcash.repository.ScrapRepository;
 import kr.co.webcash.utils.PostUtils;
@@ -21,15 +23,18 @@ import org.springframework.util.StringUtils;
 public class PostServiceImpl implements PostService {
 
 	private PostRepository postRepository;
+	private PostMetadataRepository postMetadataRepository;
 	private ScrapRepository scrapRepository;
 	private CategoryRepository categoryRepository;
 	
 	@Autowired
 	public void setDependencies(PostRepository postRepository, 
+			PostMetadataRepository postMetadataRepository,
 			ScrapRepository scrapRepository, 
 			CategoryRepository categoryRepository){
 		
 		this.postRepository = postRepository;
+		this.postMetadataRepository = postMetadataRepository;
 		this.scrapRepository = scrapRepository;
 		this.categoryRepository = categoryRepository;
 	}
@@ -45,6 +50,8 @@ public class PostServiceImpl implements PostService {
 
 		postRepository.insert(post);
 		
+		insertPostMetadata(post);
+		
 		insertScrap(post);
 	}
 
@@ -56,6 +63,13 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public void delete(Post post) {
 		postRepository.delete(post);
+	}
+	
+	private void insertPostMetadata(Post post){
+		PostMetadata metadata = post.getPostMetadata();
+		metadata.setPost(post);
+		
+		postMetadataRepository.insert(metadata);
 	}
 	
 	private void insertScrap(Post post) {
@@ -71,7 +85,7 @@ public class PostServiceImpl implements PostService {
 			Post targetPost = findByBlogIdAndDisplayId(blogId, Long.valueOf(postDisplayId));
 			if(targetPost == null)		continue;
 			
-			if(targetPost.getPostMetadata().isCanScrap()){
+			if(targetPost.getPostMetadata().getCanScrap()){
 				Scrap scrap = new Scrap();
 				scrap.setPostId(post.getId());
 				scrap.setScrappedBlog(new Blog(blogId));

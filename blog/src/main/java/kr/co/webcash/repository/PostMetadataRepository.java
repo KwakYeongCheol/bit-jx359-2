@@ -6,4 +6,6 @@ public interface PostMetadataRepository {
 
 	PostMetadata findByPostId(long postId);
 
+	void insert(PostMetadata metadata);
+
 }

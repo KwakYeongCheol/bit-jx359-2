@@ -16,4 +16,9 @@ public class PostMetadataRepositoryImpl implements PostMetadataRepository{
 		return (PostMetadata) template.queryForObject("PostMetadata.findByPostId", postId);
 	}
 
+	@Override
+	public void insert(PostMetadata metadata) {
+		template.insert("PostMetadata.insert", metadata);
+	}
+
 }

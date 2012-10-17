@@ -35,8 +35,24 @@
 			</textarea>
 		</p>
 		<div>
-			<label>Trackback URL</label>
-			<input type="text" name="trackbackURL" />
+			<h3>설정 정보</h3>
+			<div>
+				<form:radiobutton path="postMetadata.isPublic" value="true" />공개 
+				<form:radiobutton path="postMetadata.isPublic" value="false" />비공개
+			</div>
+			<div>
+				<form:checkbox path="postMetadata.canComment" />댓글허용 <br />
+				<form:checkbox path="postMetadata.canTrackback" />트랙백 허용<br />
+				<form:checkbox path="postMetadata.canScrap" />스크랩 허용<br />
+			</div>
+			<div>
+			</div>
+			<div>
+			</div>
+			<div>X
+				<label>트랙백 보내기</label>
+				<input type="text" name="trackbackURL" placeholder="http://"/>
+			</div>
 		</div>
 		<p>
 			<input type="submit" value="글쓰기" />

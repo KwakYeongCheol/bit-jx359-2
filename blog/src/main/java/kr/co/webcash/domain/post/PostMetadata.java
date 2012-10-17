@@ -5,6 +5,7 @@ public class PostMetadata {
 	private Post post;
 	
 	private boolean isPublic;
+	private boolean canComment;
 	private boolean canScrap;
 	private boolean canTrackback;
 	
@@ -23,15 +24,23 @@ public class PostMetadata {
 		this.post = post;
 	}
 
-	public boolean isPublic() {
+	public boolean getIsPublic() {
 		return isPublic;
 	}
 
-	public void setPublic(boolean isPublic) {
+	public void setIsPublic(boolean isPublic) {
 		this.isPublic = isPublic;
 	}
 
-	public boolean isCanScrap() {
+	public boolean getCanComment() {
+		return canComment;
+	}
+
+	public void setCanComment(boolean canComment) {
+		this.canComment = canComment;
+	}
+
+	public boolean getCanScrap() {
 		return canScrap;
 	}
 
@@ -39,7 +48,7 @@ public class PostMetadata {
 		this.canScrap = canScrap;
 	}
 
-	public boolean isCanTrackback() {
+	public boolean getCanTrackback() {
 		return canTrackback;
 	}
 
@@ -47,4 +56,14 @@ public class PostMetadata {
 		this.canTrackback = canTrackback;
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("[ isPublic : ").append(getIsPublic())
+			.append(", canComment : ").append(getCanComment())
+			.append(", canScrap : ").append(getCanScrap())
+			.append(", canTrackback : ").append(getCanTrackback()).append(" ]");
+		
+		return builder.toString();
+	}
 }
