@@ -154,4 +154,9 @@ public class PostServiceImpl implements PostService {
 		return postRepository.findByBlogIdAndDisplayId(blogId, displayId);
 	}
 
+	@Override
+	public List<Post> search(String query) {
+		return postRepository.findAllByQuery(query);
+	}
+
 }

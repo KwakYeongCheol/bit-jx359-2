@@ -14,4 +14,11 @@
 	</c:if>
 </div>
 
+<div>
+	<form action="${pageContext.request.contextPath }/search" method="post">
+		<input type="text" name="query" />
+		<input type="submit" value="검색" />
+	</form>
+</div>
+
 <jsp:include page="common/footer.jsp" />

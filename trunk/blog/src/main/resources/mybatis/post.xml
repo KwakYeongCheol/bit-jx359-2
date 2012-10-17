@@ -121,7 +121,15 @@
 		limit 1
 	</select>
 	
-	
-	
-	
+	<select id="findAllByQuery" resultClass="Post">
+		SELECT
+			<include refid="defaultSelect" />,
+			c.blogId as "category.blog.id"			
+		FROM post p
+		join category c on c.id = p.categoryId
+		join post_metadata pm on pm.postId = p.id
+		where pm.isPublic = 'true'
+			and p.contents LIKE '%'||#query#||'%'
+		order by p.id desc
+	</select>	
 </sqlMap>
