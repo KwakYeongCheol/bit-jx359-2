@@ -13,6 +13,7 @@ public interface PostRepository {
 	List<Post> findAllByCategoryId(long categoryId);
 	List<Post> findAllByBlogId(String blogId);
 	List<Post> findAllByBlogIdAndPostMetadataParams(String blogId, Map postMetadataParams);
+	List<Post> findAllByQuery(String query);
 	
 	Post findLastPostByBlogId(String blogId);
 	Post findByBlogIdAndDisplayId(String blogId, long displayId);

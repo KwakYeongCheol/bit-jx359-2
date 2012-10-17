@@ -144,5 +144,13 @@ public class PostRepositoryImpl implements PostRepository {
 		addMoreInfo(post);
 		return post;
 	}
+
+	@Override
+	public List<Post> findAllByQuery(String query) {
+		List<Post> postList = template.queryForList("Post.findAllByQuery", query);
+		
+		addMoreInfo(postList);
+		return postList;
+	}
 }
 
