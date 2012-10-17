@@ -6,6 +6,8 @@
 	<link rel="stylesheet" href="common.css"></head>
 </head>
 <body>
+<div class="wrap">
+	<div class="contents">
 	<div class="category dropable">
 		<div id="sample" class="post dragable">
 			글1
@@ -20,7 +22,7 @@
 		</div>
 	</div>
 	
-	<div class="category">
+	<div class="category dropable">
 		<div class="post dragable">
 			글#1
 		</div>
@@ -33,30 +35,44 @@
 			글#3
 		</div>
 	</div>
+	</div>
+</div>
 	
 	<script src="jquery-1.8.2.js"></script>
 	<script>
-		$(document).ready(function(){		
-			$('.dragable').mousedown(function(){
-				var currentDiv = $(this);
-				var isClick = true;
+		$(document).ready(function(){				
+			var currentDiv;
+			
+			$('.dragable').mousedown(function(e){
+				if(currentDiv)	currentDiv.show();
 				
+				currentDiv = $(this);
+				$(this).hide();
+				var moveDiv = $("<div>");
 				$(document).mousemove(function(e){
-					if(!isClick)	return;
-					
-					currentDiv.css('margin', 0);
-					
- 					currentDiv.css('position', 'absolute');
-					currentDiv.css('margin-left', e.pageX);
-					currentDiv.css('margin-top', e.pageY);
-
-					$('#sample').html(e.pageX + ', ' + e.pageY + ', ' + currentDiv.css('margin') + ', padding: ' + currentDiv.css('padding'));
+					moveDiv.html('hi');
+					moveDiv.css('position', 'absolute');
+					moveDiv.css('margin-left', e.pageX);
+					moveDiv.css('margin-top', e.pageY);
+					moveDiv.appendTo($("body"));
+					moveDiv.show();
 				});
+			});
+			
+			$('.dropable').mouseup(function(e){
+				if(currentDiv){
 				
-				$(document).mouseup(function(e){
-					$('#sample').html('mouse up!');
-					isClick = false;
-				});
+					$(this).children().eq(1).after(currentDiv);
+					currentDiv.show();
+					currentDiv = null;
+				}
+			});
+			
+			$('body').mouseup(function(e){
+				if(currentDiv){
+					currentDiv.show();
+					currentDiv = null;
+				}
 			});
 		});
 	</script>	
