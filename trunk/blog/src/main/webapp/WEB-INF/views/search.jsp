@@ -3,6 +3,13 @@
 
 <jsp:include page="common/header.jsp" />
 
+<div>
+	<form action="${pageContext.request.contextPath }/search" method="post">
+		<input type="text" name="query" value="${query }"/>
+		<input type="submit" value="검색" />
+	</form>
+</div>
+
 <div id="search">
 	<c:forEach items="${search.postList }" var="post">
 	<div>

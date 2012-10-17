@@ -4,10 +4,16 @@
 <sqlMap namespace="PostMetadata">
 	<typeAlias alias="PostMetadata" type="kr.co.webcash.domain.post.PostMetadata"/>
 	
+	<insert id="insert" parameterClass="PostMetadata">
+		INSERT INTO post_metadata (postId, isPublic, canComment, canScrap, canTrackback)
+		VALUES (#post.id#, #isPublic#, #canComment#, #canScrap#, #canTrackback#)
+	</insert>
+	
 	<select id="findByPostId" resultClass="PostMetadata">
 		SELECT
 			postId,
 			isPublic,
+			canComment,
 			canScrap,
 			canTrackback
 		FROM

@@ -7,7 +7,7 @@
 		<a href="${pageContext.request.contextPath }/${blog.id}/category/${post.category.displayId}">${post.category.title }</a> | 
 		${post.title } | 
 		${post.dateCreated } |
-		공개여부 : ${post.postMetadata.isPublic() }
+		공개여부 : ${post.postMetadata.isPublic }
 		<br /><br />
 				
 		${post.contents }
