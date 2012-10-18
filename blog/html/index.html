@@ -8,8 +8,10 @@
 <body>
 <div class="wrap">
 	<div class="contents">
+	<div id="infobox" class="infobox">
+	</div>
 	<div class="category dropable">
-		<div id="sample" class="post dragable">
+		<div class="post dragable">
 			글1
 		</div>
 		
@@ -19,6 +21,17 @@
 		
 		<div class="post dragable">
 			글3
+		</div>
+		<div class="post dragable">
+			글4
+		</div>
+		
+		<div class="post dragable">
+			글5
+		</div>
+		
+		<div class="post dragable">
+			글6
 		</div>
 	</div>
 	
@@ -35,45 +48,19 @@
 			글#3
 		</div>
 	</div>
+	<div class="category dropable">
+		<div class="post dragable">
+			ABC
+		</div>
+	</div>
 	</div>
 </div>
 	
 	<script src="jquery-1.8.2.js"></script>
+	<script src="dnd-0.0.1.js"></script>
 	<script>
-		$(document).ready(function(){				
-			var currentDiv;
-			
-			$('.dragable').mousedown(function(e){
-				if(currentDiv)	currentDiv.show();
-				
-				currentDiv = $(this);
-				$(this).hide();
-				var moveDiv = $("<div>");
-				$(document).mousemove(function(e){
-					moveDiv.html('hi');
-					moveDiv.css('position', 'absolute');
-					moveDiv.css('margin-left', e.pageX);
-					moveDiv.css('margin-top', e.pageY);
-					moveDiv.appendTo($("body"));
-					moveDiv.show();
-				});
-			});
-			
-			$('.dropable').mouseup(function(e){
-				if(currentDiv){
-				
-					$(this).children().eq(1).after(currentDiv);
-					currentDiv.show();
-					currentDiv = null;
-				}
-			});
-			
-			$('body').mouseup(function(e){
-				if(currentDiv){
-					currentDiv.show();
-					currentDiv = null;
-				}
-			});
+		$(document).ready(function(){
+			alert('hi');
 		});
 	</script>	
 </body>
