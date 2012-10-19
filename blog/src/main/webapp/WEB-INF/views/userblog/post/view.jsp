@@ -3,12 +3,6 @@
 <jsp:include page="/WEB-INF/views/userblog/common/header.jsp" />
 
 
-<div id="blogArticles">
-	<c:if test="${post != null }">
-	<div class="blogArticle">
-		<jsp:include page="postTemplate.jsp" />
-	</div>
-	</c:if>
-</div>
+<jsp:include page="post.jsp" />
 
 <jsp:include page="/WEB-INF/views/userblog/common/footer.jsp" />
