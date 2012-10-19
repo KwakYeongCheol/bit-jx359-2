@@ -3,24 +3,24 @@
 
 <div id="blogArticles">
 	<div class="blogArticle">
-		<a href="${pageContext.request.contextPath }/${blog.id}/category/${post.category.id}">${post.category.title }</a> | 
+		<a href="${pageContext.request.contextPath }/${blog.id}/category/${post.category.displayId}">${post.category.title }</a> | 
 		${post.title } | 
-		${post.dateCreated } <br /><br />
-		
+		${post.dateCreated } |
+		공개여부 : ${post.postMetadata.isPublic }
 		<br /><br />
-		
+				
 		${post.contents }
 	</div>
+	
+	<c:if test="${post.postMetadata.canScrap }">
+	<div>
 		<form action="${pageContext.request.contextPath }/${loginUserProvider.blog.id }/admin/post/scrap" method="post">
 			<input type="hidden" name="scrappedBlog.id" value="${blog.id }">
-			<input type="hidden" name="scrappedBlog.title" value="${blog.title }">
 			<input type="hidden" name="scrappedPostId" value="${post.displayId }">
-			<input type="hidden" name="scrappedPostTitle" value="${post.title }">
-			<input type="hidden" name="scrappedPostContents" value="${post.contents }">
 			<input type="submit" value="스크랩">
 		</form>
-	<div>
 	</div>
+	</c:if>
 	<c:if test="${loginUserProvider.loggedIn }">
 	<div>
 		<form action="${pageContext.request.contextPath }/${blog.id}/comment/writeAction" method="post">
@@ -45,7 +45,6 @@
 		</div>
 		</c:forEach>
 	</div>
-	
 	<div>
 		<c:forEach items="${post.trackbackList }" var="trackback">
 		<div>

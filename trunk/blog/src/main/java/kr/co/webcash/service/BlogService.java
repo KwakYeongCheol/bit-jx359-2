@@ -9,6 +9,7 @@ public interface BlogService {
 
 	void createBlog(Blog blog);
 
+	List<Blog> findAll();
 	List<Blog> findAllByUserLoginId(String loginId);
 
 	boolean isExist(String id);
@@ -18,4 +19,5 @@ public interface BlogService {
 	Blog findById(String blogId);
 
 	boolean isAdmin(String blogId, User user);
+
 }

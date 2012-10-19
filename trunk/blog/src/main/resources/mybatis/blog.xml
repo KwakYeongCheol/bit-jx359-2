@@ -21,6 +21,11 @@
 		WHERE owner = #loginId#
 	</select>
 	
+	<select id="findAll" resultClass="Blog">
+		SELECT id, title, owner, dateCreated
+		FROM blogs
+	</select>
+	
 	<select id="findById" resultClass="Blog">
 		SELECT id, title, owner, dateCreated
 		FROM blogs

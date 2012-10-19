@@ -33,4 +33,9 @@ public class BlogRepositoryImpl implements BlogRepository{
 		template.update("Blog.update", blog);
 	}
 
+	@Override
+	public List<Blog> findAll() {
+		return template.queryForList("Blog.findAll");
+	}
+
 }

@@ -13,5 +13,7 @@ public interface BlogRepository {
 	Blog findById(String id);
 
 	void update(Blog blog);
+
+	List<Blog> findAll();
 	
 }

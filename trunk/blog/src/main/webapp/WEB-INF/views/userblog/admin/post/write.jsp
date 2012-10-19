@@ -49,7 +49,7 @@
 			</div>
 			<div>
 			</div>
-			<div>X
+			<div>
 				<label>트랙백 보내기</label>
 				<input type="text" name="trackbackURL" placeholder="http://"/>
 			</div>
