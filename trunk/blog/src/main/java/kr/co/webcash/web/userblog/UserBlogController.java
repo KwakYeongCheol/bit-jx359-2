@@ -5,6 +5,7 @@ import javax.inject.Provider;
 
 import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.service.BlogService;
+import kr.co.webcash.service.PostRevisionService;
 import kr.co.webcash.service.PostService;
 import kr.co.webcash.web.security.LoginUser;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserBlogController {
 	
 	@Autowired private PostService postService;
+	@Autowired private PostRevisionService postRevisionService;
 	@Autowired private BlogService blogService;
 	
 	@Inject private Provider<LoginUser> loginUserProvider;
@@ -44,5 +46,16 @@ public class UserBlogController {
 		model.addAttribute("post", currentPost);
 		
 		return "/userblog/post/view";
+	}
+	
+	@RequestMapping("/{postId}/{revisionId}")
+	public String getRevisionContents(@PathVariable String blogId, @PathVariable long postId, @PathVariable long revisionId, Model model){
+		Post post = postService.findByBlogIdAndDisplayId(blogId, postId);
+		
+		String contents = postRevisionService.getContents(post, revisionId);
+		
+		model.addAttribute("contents", contents);
+		
+		return "/userblog/post/revision";
 	}
 }

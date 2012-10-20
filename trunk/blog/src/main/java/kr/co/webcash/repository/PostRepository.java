@@ -23,4 +23,5 @@ public interface PostRepository {
 	Post findLastByCategoryId(long categoryId);
 //	Post findLastByBlogIdAndCategoryId(String blogId, long categoryId);
 	Post findLast();
+	Post findById(long id);
 }

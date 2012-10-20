@@ -127,7 +127,6 @@ public class PostController {
 		if (!result.hasErrors()) {
 			Category category = categoryService.findByBlogIdAndDisplayId(blogId, post.getCategory().getDisplayId());
 			post.setCategory(category);
-
 			postService.update(post);
 			return "redirect:/" + blogId + "/admin";
 		}

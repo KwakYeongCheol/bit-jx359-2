@@ -11,6 +11,7 @@ public interface PostService {
 
 	long findLastDisplayIdByBlogId(String blogId);
 	
+	Post findById(long id);
 	Post findByBlogIdAndDisplayId(String blogId, long displayId);
 
 	List<Post> listByBlogIdAndCategoryDisplayId(String blogId, long categoryDisplayId);

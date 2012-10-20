@@ -152,5 +152,13 @@ public class PostRepositoryImpl implements PostRepository {
 		addMoreInfo(postList);
 		return postList;
 	}
+
+	@Override
+	public Post findById(long id) {
+		Post post = (Post) template.queryForObject("Post.findById", id);
+		
+		addMoreInfo(post);
+		return post;
+	}
 }
 
