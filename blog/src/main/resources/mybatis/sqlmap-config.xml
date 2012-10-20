@@ -8,6 +8,7 @@
     <sqlMap resource="mybatis/blog.xml" />
     <sqlMap resource="mybatis/post.xml"/>
     <sqlMap resource="mybatis/post_metadata.xml"/>
+    <sqlMap resource="mybatis/post_revision.xml"/>
     <sqlMap resource="mybatis/guestbook.xml"/>
     <sqlMap resource="mybatis/category.xml"/>
     <sqlMap resource="mybatis/favorite.xml"/>

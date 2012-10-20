@@ -24,17 +24,20 @@ public class PostServiceImpl implements PostService {
 
 	private PostRepository postRepository;
 	private PostMetadataRepository postMetadataRepository;
+	private PostRevisionService postRevisionService;
 	private ScrapRepository scrapRepository;
 	private CategoryRepository categoryRepository;
 	
 	@Autowired
 	public void setDependencies(PostRepository postRepository, 
 			PostMetadataRepository postMetadataRepository,
+			PostRevisionService postRevisionService,
 			ScrapRepository scrapRepository, 
 			CategoryRepository categoryRepository){
 		
 		this.postRepository = postRepository;
 		this.postMetadataRepository = postMetadataRepository;
+		this.postRevisionService = postRevisionService;
 		this.scrapRepository = scrapRepository;
 		this.categoryRepository = categoryRepository;
 	}
@@ -48,15 +51,17 @@ public class PostServiceImpl implements PostService {
 			post.setId(lastPost.getId() + 1);
 		}
 
+
 		postRepository.insert(post);
+		postRevisionService.save(post);
 		
 		insertPostMetadata(post);
-		
 		insertScrap(post);
 	}
 
 	@Override
 	public void update(Post post) {
+		postRevisionService.save(post);
 		postRepository.update(post);
 	}
 	
@@ -109,7 +114,11 @@ public class PostServiceImpl implements PostService {
 	public List<Post> listPublic(String blogId) {
 		Map params = new HashMap();
 		params.put("isPublic", "true");
-		return postRepository.findAllByBlogIdAndPostMetadataParams(blogId, params);
+		List<Post> postList = postRepository.findAllByBlogIdAndPostMetadataParams(blogId, params);
+		
+		convertFromScrapTagToScrapContents(postList);
+		
+		return postList;
 	}
 
 	@Override
@@ -161,7 +170,11 @@ public class PostServiceImpl implements PostService {
 		if(post == null)	return 0;
 		else				return post.getDisplayId();
 	}
-
+	
+	@Override
+	public Post findById(long id) {
+		return postRepository.findById(id);
+	}
 
 	@Override
 	public Post findByBlogIdAndDisplayId(String blogId, long displayId) {
@@ -172,5 +185,4 @@ public class PostServiceImpl implements PostService {
 	public List<Post> search(String query) {
 		return postRepository.findAllByQuery(query);
 	}
-
 }

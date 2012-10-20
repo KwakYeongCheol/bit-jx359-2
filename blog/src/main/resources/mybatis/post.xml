@@ -121,6 +121,14 @@
 		limit 1
 	</select>
 	
+	<select id="findById" resultClass="Post">
+		SELECT
+			<include refid="defaultSelect" />
+		FROM post p
+		join category c on c.id = p.categoryId
+		where p.id = #id#
+	</select>
+	
 	<select id="findAllByQuery" resultClass="Post">
 		SELECT
 			<include refid="defaultSelect" />,

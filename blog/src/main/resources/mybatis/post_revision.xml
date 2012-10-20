@@ -1,0 +1,54 @@
+<!DOCTYPE sqlMap
+    PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="PostRevision">
+	<typeAlias alias="PostRevision" type="kr.co.webcash.domain.PostRevision"/>
+	
+	<insert id="insert" parameterClass="PostRevision">
+		INSERT INTO post_revision (postId, displayId, diff)
+		VALUES (#post.id#, #displayId#, #diff#)
+	</insert>
+	
+	<update id="update" parameterClass="PostRevision">
+		UPDATE post_revision SET diff = #diff# 
+		WHERE postId = #post.id#
+			AND displayId = #displayId#
+	</update>
+	
+	<select id="findLastRevisionByPostId" resultClass="PostRevision">
+		SELECT
+			postId as "post.id",
+			displayId,
+			diff
+		FROM
+			post_revision
+		WHERE
+			postId = #postId#
+		ORDER BY displayId DESC
+		limit 1
+	</select>
+	
+	<select id="findAllByPostId" resultClass="PostRevision">
+		SELECT
+			postId as "post.id",
+			displayId,
+			diff
+		FROM
+			post_revision
+		WHERE
+			postId = #postId#
+	</select>
+	
+	<select id="findAllByPostAndFromRevisionAndToRevision" resultClass="PostRevision">
+		SELECT
+			postId as "post.id",
+			displayId,
+			diff
+		FROM
+			post_revision
+		WHERE
+			postId = #postId#
+			AND displayId BETWEEN #fromDisplayId# AND #toDisplayId#
+		ORDER BY displayId DESC
+	</select>
+</sqlMap>

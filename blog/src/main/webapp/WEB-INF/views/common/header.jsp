@@ -26,18 +26,23 @@
 			<li><a href="${pageContext.request.contextPath }/login">로그인</a></li>
 			</c:if>
 			<li><a href="${pageContext.request.contextPath }/">홈</a></li>
-		</ul>
-		<c:if test="${loginUserProvider.loggedIn }">
-		<ul>
-		<c:forEach items="${loginUserProvider.blogList }" var="blog">
-			<li>내 : <a href="${pageContext.request.contextPath }/${blog.id }">${blog.title }</a></li>
-		</c:forEach>
 		
-		<c:forEach items="${loginUserProvider.loginUser.favoriteList }" var="favorite">
+			<c:if test="${loginUserProvider.loggedIn }">
+			<c:forEach items="${loginUserProvider.blogList }" var="blog">
+			<li>내 : <a href="${pageContext.request.contextPath }/${blog.id }">${blog.title }</a></li>
+			</c:forEach>
+		
+			<c:forEach items="${loginUserProvider.loginUser.favoriteList }" var="favorite">
 			<li>이웃 : <a href="${pageContext.request.contextPath }/${favorite.blog.id }">${favorite.blog.title }</a></li>
-		</c:forEach>
+			</c:forEach>
+			</c:if>
+			<li>
+			<form action="${pageContext.request.contextPath }/search" method="post">
+				<input type="text" name="query" />
+				<input type="submit" value="검색" />
+			</form>
+			</li>
 		</ul>
-		</c:if>
 	</div>
 	
 	<div id="contents">
