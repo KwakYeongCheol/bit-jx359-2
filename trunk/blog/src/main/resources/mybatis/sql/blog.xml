@@ -11,20 +11,29 @@
 		where id = #{id}
 	</update>
 	
+	<sql id="select">
+		SELECT
+			id,
+			title,
+			owner,
+			dateCreated
+		FROM
+			blogs 
+	</sql>
+	
 	<select id="findAllByUserLoginId" resultType="Blog">
-		SELECT id, title, owner, dateCreated
-		FROM blogs
-		WHERE owner = #{loginId}
+		<include refid="select"/>
+		WHERE
+			owner = #{loginId}
 	</select>
 	
 	<select id="findAll" resultType="Blog">
-		SELECT id, title, owner, dateCreated
-		FROM blogs
+		<include refid="select"/>
 	</select>
 	
 	<select id="findById" resultType="Blog">
-		SELECT id, title, owner, dateCreated
-		FROM blogs
-		WHERE id = #{id}
+		<include refid="select"/>
+		WHERE
+			id = #{id}
 	</select>
 </mapper>

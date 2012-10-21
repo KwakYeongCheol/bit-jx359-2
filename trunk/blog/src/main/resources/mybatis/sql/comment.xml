@@ -15,55 +15,53 @@
 		where id = #{id}
 	</delete>
 	
-	<sql id="selectColumn">
-		c.id as id,
-		c.targetId as targetId,
-		c.commentType as type,
-		c.displayId as displayId,
-		c.writerId as "writer.loginId",
-		c.contents as contents,
-		c.dateCreated as dateCreated
+	<sql id="select">
+		SELECT
+			c.id as id,
+			c.targetId as targetId,
+			c.commentType as type,
+			c.displayId as displayId,
+			c.writerId as "writer.loginId",
+			c.contents as contents,
+			c.dateCreated as dateCreated
+		FROM
+			comment c
 	</sql>
 	
 	<select id="findAllByTargetIdAndType" resultType="Comment">
-		SELECT
-			<include refid="selectColumn" />
-		FROM comment c
-		where c.targetId = #{targetId} and
-			c.commentType = #{type}
-		order by c.id desc
+		<include refid="select"/>
+		WHERE
+			c.targetId = #{targetId}
+			AND c.commentType = #{type}
+		ORDER BY c.id DESC
 	</select>
 	
 	<select id="findByDisplayIdAndTargetIdAndType" resultType="Comment">
-		SELECT
-			<include refid="selectColumn" />
-		FROM comment c
-		where c.displayId = #{displayId} and 
-			c.targetId = #{targetId} and
-			c.commentType = #{type}
+		<include refid="select"/>
+		WHERE 
+			c.displayId = #{displayId}
+			AND c.targetId = #{targetId}
+			AND	c.commentType = #{type}
 	</select>
 	
 	<select id="findLastByBlogIdAndCommentType" resultType="Comment">
-		SELECT
-			<include refid="selectColumn" />
-		FROM comment c
-		join post p on p.id = c.targetId
-		join category ca on ca.id = p.categoryId
-		join blogs b on b.id = ca.blogId
-		where ca.blogId = #{blogId} and
-			c.commentType = #{type}
-		order by c.id desc
-		limit 1
+		<include refid="select"/>
+		JOIN
+			post p ON p.id = c.targetId
+		JOIN
+			category ca on ca.id = p.categoryId
+		JOIN
+			blogs b on b.id = ca.blogId
+		WHERE 
+			ca.blogId = #{blogId} 
+			AND c.commentType = #{type}
+		ORDER BY c.id DESC
+		LIMIT 1
 	</select>
 	
 	<select id="findLast" resultType="Comment">
-		SELECT
-			<include refid="selectColumn" />
-		FROM comment c
-		join post p on p.id = c.targetId
-		join category ca on ca.id = p.categoryId
-		join blogs b on b.id = ca.blogId
-		order by c.id desc
-		limit 1
+		<include refid="select"/>
+		ORDER BY c.id DESC
+		LIMIT 1
 	</select>
 </mapper>
