@@ -15,125 +15,101 @@
 		where id = #{id}
 	</delete>
 	
-	<sql id="defaultSelect">
-		p.id as id,
-		c.id as "category.displayId", 
-		c.title as "category.title",
-		p.displayId as displayId,
-		p.title as title, 
-		p.contents as contents, 
-		p.dateCreated as dateCreated		
+	<sql id="select">
+		SELECT
+			p.id as id,
+			c.id as "category.displayId", 
+			c.title as "category.title",
+			p.displayId as displayId,
+			p.title as title, 
+			p.contents as contents, 
+			p.dateCreated as dateCreated
+		FROM 
+			post p
+		JOIN 
+			post_metadata pm on pm.postId = p.id
+		JOIN 
+			category c on c.id = p.categoryId
 	</sql>
 	
 	<select id="findLastPostByBlogId" resultType="Post">
-		SELECT 
-			<include refid="defaultSelect" />
-		FROM post p
-		join category c on c.id = p.categoryId
-		join blogs b on b.id = c.blogId
-		where c.blogId = #{blogId}
-		order by p.id desc
-		limit 1
+		<include refid="select" />
+		WHERE 
+			c.blogId = #{blogId}
+		ORDER BY p.id DESC
+		LIMIT 1
 	</select>
 	
-	
 	<select id="findByCategoryIdAndDisplayId" resultType="Post">
-		SELECT
-			<include refid="defaultSelect" />
-		FROM post p
-		join category c on c.id = p.categoryId
-		where p.categoryId = #{categoryId} and p.displayId = #{displayId}
+		<include refid="select" />
+		WHERE 
+			p.categoryId = #{categoryId}
+			AND p.displayId = #{displayId}
 	</select>
 	
 	<select id="findAllByCategoryId" resultType="Post">
-		SELECT
-			<include refid="defaultSelect" />
-		FROM post p
-		join category c on c.id = p.categoryId
-		where p.categoryId = #{categoryId}
-		order by p.id desc
+		<include refid="select" />
+		WHERE 
+			p.categoryId = #{categoryId}
+		ORDER BY p.id DESC
 	</select>
 	
 	<select id="findLastByCategoryId" resultType="Post">
-		SELECT
-			<include refid="defaultSelect" />
-		FROM post p
-		join category c on c.id = p.categoryId
-		where p.categoryId = #{categoryId}
-		order by p.displayId desc
-		limit 1
+		<include refid="select" />
+		WHERE 
+			p.categoryId = #{categoryId}
+		ORDER BY p.displayId DESC
+		LIMIT 1
 	</select>
 	
 	<select id="findAllByBlogIdAndPostMetadataParams" resultType="Post">
-		SELECT
-			<include refid="defaultSelect" />
-		FROM post p
-		join category c on c.id = p.categoryId
-		join blogs b on b.id = c.blogId
-		join post_metadata pm on pm.postId = p.id
-		where c.blogId = #{blogId}
-			and pm.isPublic = #{isPublic}
-		order by p.id desc
+		<include refid="select"/>
+		WHERE
+			pm.isPublic = #{isPublic}
+			AND c.blogId = #{blogId}
+		ORDER BY p.id DESC
 	</select>
 	
 	<select id="findAllByBlogId" resultType="Post">
-		SELECT
-			<include refid="defaultSelect" />
-		FROM post p
-		join category c on c.id = p.categoryId
-		join blogs b on b.id = c.blogId
-		where c.blogId = #{blogId}
-		order by p.id desc
+		<include refid="select"/>
+		WHERE
+			c.blogId = #{blogId}
+		ORDER BY p.id DESC
 	</select>
 	
 	<select id="findByBlogIdAndDisplayId" resultType="Post">
-		SELECT
-			<include refid="defaultSelect" />
-		FROM post p
-		join category c on c.id = p.categoryId
-		join blogs b on b.id = c.blogId
-		where c.blogId = #{blogId} and
-			p.displayId = #{displayId}
-		order by p.id desc
+		<include refid="select"/>
+		WHERE 
+			c.blogId = #{blogId}
+			AND p.displayId = #{displayId}
+		ORDER BY p.id DESC
 	</select>
 	
 	<select id="findLastByBlogId" resultType="Post">
-		SELECT
-			<include refid="defaultSelect" />
-		FROM post p
-		join category c on c.id = p.categoryId
-		join blogs b on b.id = c.blogId
-		where c.blogId = #{blogId}
-		order by p.id desc
-		limit 1
+		<include refid="select"/>
+		WHERE 
+			c.blogId = #{blogId}
+		ORDER BY p.id DESC
+		LIMIT 1
 	</select>
 	
 	<select id="findLast" resultType="Post">
-		SELECT
-			<include refid="defaultSelect" />
-		FROM post p
-		join category c on c.id = p.categoryId
-		order by p.id desc
-		limit 1
+		<include refid="select" />
+		ORDER BY p.id DESC
+		LIMIT 1
 	</select>
 	
 	<select id="findById" resultType="Post">
-		SELECT
-			<include refid="defaultSelect" />
-		FROM post p
-		join category c on c.id = p.categoryId
-		where p.id = #{id}
+		<include refid="select"/>
+		WHERE 
+			p.id = #{id}
 	</select>
 	
 	<select id="findAllByQuery" resultType="Post">
-		SELECT
-			<include refid="defaultSelect" />,
-			c.blogId as "category.blog.id"			
-		FROM post p
-		join category c on c.id = p.categoryId
-		join post_metadata pm on pm.postId = p.id
-		where pm.isPublic = 'true'
-			and p.contents LIKE '%'||#{query}||'%'
-		order by p.id desc
+		<include refid="select"/>
+		WHERE 
+			pm.isPublic = 'true'
+			AND p.contents LIKE '%'||#{query}||'%'
+		ORDER BY p.id DESC
 	</select>	
 </mapper>

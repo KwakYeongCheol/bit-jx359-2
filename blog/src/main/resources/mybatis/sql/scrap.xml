@@ -5,19 +5,28 @@
 		values(#{postId}, #{scrappedBlog.id}, #{scrappedPostId}, #{scrappedPostTitle}, #{scrappedPostContents})
 	</insert>
 	
-	<select id="findAllByPostId" resultType="Scrap">
+	<sql id="select">
 		SELECT
-			postId, scrappedBlogId as "scrappedBlog.id", scrappedPostId, scrappedPostTitle, scrappedPostContents
-		FROM scraps
-		where postId = #{postId}
+			postId,
+			scrappedBlogId as "scrappedBlog.id",
+			scrappedPostId,
+			scrappedPostTitle,
+			scrappedPostContents
+		FROM
+			scraps
+	</sql>
+	
+	<select id="findAllByPostId" resultType="Scrap">
+		<include refid="select" />
+		WHERE
+			postId = #{postId}
 	</select>
 	
 	<select id="findByPostIdAndScrappedBlogIdAndScrappedPostId" resultType="Scrap">
-		SELECT
-			postId, scrappedBlogId as "scrappedBlog.id", scrappedPostId, scrappedPostTitle, scrappedPostContents
-		FROM scraps
-		where postId = #{postId}
-			and scrappedBlogId = #{scrappedBlogId}
-			and scrappedPostId = #{scrappedPostId}
+		<include refid="select" />
+		WHERE
+			postId = #{postId}
+			AND scrappedBlogId = #{scrappedBlogId}
+			AND scrappedPostId = #{scrappedPostId}
 	</select>
 </mapper>

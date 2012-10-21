@@ -11,13 +11,17 @@
 			AND displayId = #{displayId}
 	</update>
 	
-	<select id="findLastRevisionByPostId" resultType="PostRevision">
+	<sql id="select">
 		SELECT
 			postId as "post.id",
 			displayId,
 			diff
 		FROM
 			post_revision
+	</sql>
+	
+	<select id="findLastRevisionByPostId" resultType="PostRevision">
+		<include refid="select"/>
 		WHERE
 			postId = #{postId}
 		ORDER BY displayId DESC
@@ -25,23 +29,13 @@
 	</select>
 	
 	<select id="findAllByPostId" resultType="PostRevision">
-		SELECT
-			postId as "post.id",
-			displayId,
-			diff
-		FROM
-			post_revision
+		<include refid="select"/>
 		WHERE
 			postId = #{postId}
 	</select>
 	
 	<select id="findAllByPostAndFromRevisionAndToRevision" resultType="PostRevision">
-		SELECT
-			postId as "post.id",
-			displayId,
-			diff
-		FROM
-			post_revision
+		<include refid="select"/>
 		WHERE
 			postId = #{postId}
 			AND displayId BETWEEN #{fromDisplayId} AND #{toDisplayId}

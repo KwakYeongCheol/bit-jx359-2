@@ -23,36 +23,34 @@
 		limit 1
 	</select>
 	
-	<sql id="defaultSelect">
-		g.id as id, 
-		g.displayId as displayId,
-		g.writer as writer,
-		g.contents as contents, 
-		g.dateCreated as dateCreated
+	<sql id="select">
+		SELECT
+			g.id as id, 
+			g.blogId as "blog.id",
+			g.displayId as displayId,
+			g.writer as writer,
+			g.contents as contents, 
+			g.dateCreated as dateCreated
+		FROM guestbook g
 	</sql>
 	
 	<select id="findAllByBlogId" resultType="Guestbook">
-		SELECT 
-			<include refid="defaultSelect"/>
-		FROM guestbook g
-		where g.blogId = #{blogId}
-		order by g.id desc
+		<include refid="select"/>
+		WHERE
+			g.blogId = #{blogId}
+		ORDER BY g.id DESC
 	</select>
 	
 	<select id="findByBlogIdAndDisplayId" resultType="Guestbook">
-		SELECT 
-			<include refid="defaultSelect"/>
-		FROM guestbook g
-		join blogs b on b.id = g.blogId
-		where g.blogId = #{blogId}
-			and g.displayId = #{displayId}
+		<include refid="select"/>
+		WHERE
+			g.blogId = #{blogId}
+			AND g.displayId = #{displayId}
 	</select>
 	
 	<select id="findLast" resultType="Guestbook">
-		SELECT
-			<include refid="defaultSelect"/>
-		FROM guestbook g
-		order by g.id desc
-		limit 1
+		<include refid="select"/>
+		ORDER BY g.id DESC
+		LIMIT 1
 	</select>
 </mapper>
