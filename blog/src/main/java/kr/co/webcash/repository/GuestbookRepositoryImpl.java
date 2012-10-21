@@ -7,40 +7,40 @@ import java.util.Map;
 import kr.co.webcash.domain.CommentType;
 import kr.co.webcash.domain.Guestbook;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class GuestbookRepositoryImpl implements GuestbookRepository{
 
-	@Autowired SqlMapClientTemplate template;
+	@Autowired private SqlSession sqlSession;
 	@Autowired CommentRepository commentRepository;
 	
 	@Override
 	public void insert(Guestbook guestbook) {
-		template.insert("Guestbook.insert",guestbook);
+		sqlSession.insert("Guestbook.insert",guestbook);
 	}
 	
 	@Override
 	public void update(Guestbook guestbook) {
-		template.update("Guestbook.update", guestbook);
+		sqlSession.update("Guestbook.update", guestbook);
 	}
 	@Override
 	public void delete(Guestbook guestbook) {
-		template.delete("Guestbook.delete", guestbook);
+		sqlSession.delete("Guestbook.delete", guestbook);
 	}
 	
 	@Override
 	public Guestbook findLastGuestbookByBlogId(String blogId) {
-		Guestbook guestbook = (Guestbook) template.queryForObject("Guestbook.findLastGuestbookByBlogId", blogId);
+		Guestbook guestbook = (Guestbook) sqlSession.selectOne("Guestbook.findLastGuestbookByBlogId", blogId);
 		addComments(guestbook);
 		
 		return guestbook;
 	}
 	@Override
 	public List<Guestbook> findAllByBlogId(String blogId) {
-		List<Guestbook> guestbookList = template.queryForList("Guestbook.findAllByBlogId", blogId);
+		List<Guestbook> guestbookList = sqlSession.selectList("Guestbook.findAllByBlogId", blogId);
 		addComments(guestbookList);
 		
 		return guestbookList;
@@ -51,7 +51,7 @@ public class GuestbookRepositoryImpl implements GuestbookRepository{
 		param.put("blogId", blogId);
 		param.put("displayId", displayId);
 		
-		Guestbook guestbook = (Guestbook)template.queryForObject("Guestbook.findByBlogIdAndDisplayId", param);
+		Guestbook guestbook = (Guestbook)sqlSession.selectOne("Guestbook.findByBlogIdAndDisplayId", param);
 		addComments(guestbook);
 		
 		return guestbook;
@@ -59,7 +59,7 @@ public class GuestbookRepositoryImpl implements GuestbookRepository{
 	
 	@Override
 	public Guestbook findLast() {
-		Guestbook guestbook = (Guestbook) template.queryForObject("Guestbook.findLast");
+		Guestbook guestbook = (Guestbook) sqlSession.selectOne("Guestbook.findLast");
 		
 		addComments(guestbook);
 		return guestbook;

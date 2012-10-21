@@ -1,0 +1,14 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Trackback">
+	<insert id="insert" parameterType="Trackback">
+		insert into trackback (postId, blogId, url, blogName, title, excerpt, dateCreated) 
+		values(#{postId}, #{blogId}, #{url}, #{blogName}, #{title}, #{excerpt}, #{dateCreated})
+	</insert>
+
+	<select id="findAllByPostId" resultType="Trackback">
+		SELECT
+			postId, blogId, url, blogName, title, excerpt, dateCreated
+		FROM trackback
+		where postId = #{postId}
+	</select>
+</mapper>

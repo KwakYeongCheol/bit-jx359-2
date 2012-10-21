@@ -6,19 +6,19 @@ import java.util.Map;
 
 import kr.co.webcash.domain.Scrap;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class ScrapRepositoryImpl implements ScrapRepository{
-	@Autowired private SqlMapClientTemplate template;
+	@Autowired private SqlSession sqlSession;
 	
 	@Autowired private BlogRepository blogRepository;
 	
 	@Override
 	public List<Scrap> findAllByPostId(long postId) {
-		List<Scrap> scrapList = template.queryForList("Scrap.findAllByPostId", postId);
+		List<Scrap> scrapList = sqlSession.selectList("Scrap.findAllByPostId", postId);
 		
 		addMoreInfo(scrapList);
 		
@@ -39,7 +39,7 @@ public class ScrapRepositoryImpl implements ScrapRepository{
 
 	@Override
 	public void insert(Scrap scrap) {
-		template.insert("Scrap.insert", scrap);
+		sqlSession.insert("Scrap.insert", scrap);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class ScrapRepositoryImpl implements ScrapRepository{
 		params.put("scrappedBlogId", targetBlogId);
 		params.put("scrappedPostId", targetPostDisplayId);
 		
-		Scrap scrap = (Scrap) template.queryForObject("Scrap.findByPostIdAndScrappedBlogIdAndScrappedPostId", params);
+		Scrap scrap = (Scrap) sqlSession.selectOne("Scrap.findByPostIdAndScrappedBlogIdAndScrappedPostId", params);
 		addMoreInfo(scrap);
 		
 		return scrap;

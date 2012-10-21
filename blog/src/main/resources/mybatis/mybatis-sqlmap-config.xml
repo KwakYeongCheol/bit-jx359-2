@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="Blog" type="kr.co.webcash.domain.Blog"/>
+		<typeAlias alias="Category" type="kr.co.webcash.domain.Category"/>
+		<typeAlias alias="Comment" type="kr.co.webcash.domain.Comment"/>
+		<typeAlias alias="Favorite" type="kr.co.webcash.domain.Favorite"/>
+		<typeAlias alias="Guestbook" type="kr.co.webcash.domain.Guestbook"/>
+		<typeAlias alias="Post" type="kr.co.webcash.domain.post.Post"/>
+		<typeAlias alias="PostMetadata" type="kr.co.webcash.domain.post.PostMetadata"/>
+		<typeAlias alias="PostRevision" type="kr.co.webcash.domain.PostRevision"/>
+		<typeAlias alias="Scrap" type="kr.co.webcash.domain.Scrap"/>
+		<typeAlias alias="Trackback" type="kr.co.webcash.domain.Trackback"/>
+		<typeAlias alias="User" type="kr.co.webcash.domain.User" />
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="mybatis/sql/blog.xml" />
+		<mapper resource="mybatis/sql/category.xml" />
+		<mapper resource="mybatis/sql/comment.xml" />
+		<mapper resource="mybatis/sql/favorite.xml" />
+		<mapper resource="mybatis/sql/guestbook.xml" />
+		<mapper resource="mybatis/sql/post.xml" />
+		<mapper resource="mybatis/sql/post_metadata.xml" />
+		<mapper resource="mybatis/sql/post_revision.xml" />
+		<mapper resource="mybatis/sql/scrap.xml" />
+		<mapper resource="mybatis/sql/trackback.xml" />
+		<mapper resource="mybatis/sql/user.xml" />
+	</mappers>
+</configuration>

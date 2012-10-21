@@ -7,28 +7,28 @@ import java.util.Map;
 import kr.co.webcash.domain.Comment;
 import kr.co.webcash.domain.CommentType;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class CommentRepositoryImp implements CommentRepository {
 
-	@Autowired SqlMapClientTemplate template;
+	@Autowired SqlSession sqlSession;
 	
 	@Override
 	public void save(Comment comment) {
-		template.insert("Comment.insert",comment);
+		sqlSession.insert("Comment.insert",comment);
 	}
 	
 	@Override
 	public void delete(Comment comment) {		
-		template.delete("Comment.delete",comment);
+		sqlSession.delete("Comment.delete",comment);
 	}
 	
 	@Override
 	public void update(Comment comment) {
-		template.update("Comment.update",comment);
+		sqlSession.update("Comment.update",comment);
 	}
 
 	@Override
@@ -37,25 +37,16 @@ public class CommentRepositoryImp implements CommentRepository {
 		params.put("targetId", targetId);
 		params.put("type", type.toString());
 		
-		return template.queryForList("Comment.findAllByTargetIdAndType", params);
+		return sqlSession.selectList("Comment.findAllByTargetIdAndType", params);
 	}
 
-//	@Override
-//	public Comment findLastByTargetIdAndType(long targetId, String type) {
-//		Map<String, Object> params = new HashMap<String, Object>();
-//		params.put("targetId", targetId);
-//		params.put("type", type.toString());
-//		
-//		return  (Comment) template.queryForObject("Comment.findLastByTargetIdAndType", params);
-//	}
-	
 	@Override
 	public Comment findLastByBlogIdAndCommentType(String blogId, CommentType type) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("blogId", blogId);
 		params.put("type", type.toString());
 		
-		return (Comment) template.queryForObject("Comment.findLastByBlogIdAndCommentType", params);
+		return (Comment) sqlSession.selectOne("Comment.findLastByBlogIdAndCommentType", params);
 	}
 
 
@@ -66,12 +57,12 @@ public class CommentRepositoryImp implements CommentRepository {
 		params.put("targetId", targetId);
 		params.put("type", type);
 		
-		return (Comment) template.queryForObject("Comment.findByDisplayIdAndTargetIdAndType",params);
+		return (Comment) sqlSession.selectOne("Comment.findByDisplayIdAndTargetIdAndType",params);
 	}
 
 	@Override
 	public Comment findLast() {
-		return (Comment) template.queryForObject("Comment.findLast");
+		return (Comment) sqlSession.selectOne("Comment.findLast");
 	}
 
 }
