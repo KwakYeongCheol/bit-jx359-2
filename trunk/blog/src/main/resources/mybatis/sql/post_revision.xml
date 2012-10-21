@@ -1,0 +1,50 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PostRevision">
+	<insert id="insert" parameterType="PostRevision">
+		INSERT INTO post_revision (postId, displayId, diff)
+		VALUES (#{post.id}, #{displayId}, #{diff})
+	</insert>
+	
+	<update id="update" parameterType="PostRevision">
+		UPDATE post_revision SET diff = #{diff} 
+		WHERE postId = #{post.id}
+			AND displayId = #{displayId}
+	</update>
+	
+	<select id="findLastRevisionByPostId" resultType="PostRevision">
+		SELECT
+			postId as "post.id",
+			displayId,
+			diff
+		FROM
+			post_revision
+		WHERE
+			postId = #{postId}
+		ORDER BY displayId DESC
+		limit 1
+	</select>
+	
+	<select id="findAllByPostId" resultType="PostRevision">
+		SELECT
+			postId as "post.id",
+			displayId,
+			diff
+		FROM
+			post_revision
+		WHERE
+			postId = #{postId}
+	</select>
+	
+	<select id="findAllByPostAndFromRevisionAndToRevision" resultType="PostRevision">
+		SELECT
+			postId as "post.id",
+			displayId,
+			diff
+		FROM
+			post_revision
+		WHERE
+			postId = #{postId}
+			AND displayId BETWEEN #{fromDisplayId} AND #{toDisplayId}
+		ORDER BY displayId DESC
+	</select>
+</mapper>

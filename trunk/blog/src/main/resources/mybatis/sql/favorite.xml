@@ -1,0 +1,20 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Favorite">
+	<delete id="delete" parameterType="Favorite">
+		delete from favorites f
+		where f.loginId = #{loginId} and f.blogId = #{blog.id}
+	</delete>
+	
+	<insert id="insert" parameterType="Favorite">
+		insert into favorites (loginId, blogId)
+		values(#{loginId}, #{blog.id})
+	</insert>
+
+	<select id="findAllByLoginId" resultType="Favorite">
+		SELECT 
+			f.loginId as "loginId", b.id as "blog.id", b.title as "blog.title"
+		FROM favorites f
+		join blogs b on b.id = f.blogId
+		where f.loginId = #{loginId}
+	</select>
+</mapper>

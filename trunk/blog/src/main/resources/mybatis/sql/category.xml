@@ -1,0 +1,66 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Category">
+	<insert id="insert" parameterType="Category">
+		insert into category (id, title, blogId, displayId) 
+		values(#{id}, #{title},  #{blog.id}, #{displayId})
+	</insert>
+	
+	<update id="update" parameterType="Category">
+		update category set title = #{title}
+		where id = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="Category">
+		delete from category
+		where id = #{id}
+	</delete>
+	
+	<sql id="defaultSelect">
+		c.id as id, 
+		c.blogId as "blog.id", 
+		c.displayId as displayId,
+		c.title as title
+	</sql>
+	
+	<select id="findAllByBlogId" resultType="Category">
+		SELECT 
+			<include refid="defaultSelect"/>
+		FROM category c
+		join blogs b on b.id = c.blogId
+		where c.blogId = #{blogId}
+		order by c.id desc
+	</select>
+	
+	<select id="findLast" resultType="Category">
+		SELECT 
+			<include refid="defaultSelect"/>
+		FROM category c
+		order by c.id desc
+		limit 1
+	</select>
+	
+	<select id="findLastPostByBlogId" resultType="Category">
+		SELECT 
+			<include refid="defaultSelect"/>
+		FROM category c
+		join blogs b on b.id = c.blogId
+		where c.blogId = #{blogId}
+		order by c.id desc
+		limit 1
+	</select>
+	
+	<select id="findByBlogIdAndDisplayId" resultType="Category">
+		SELECT 
+			<include refid="defaultSelect"/>
+		FROM category c
+		join blogs b on b.id = c.blogId
+		where c.blogId = #{blogId}
+			and c.displayId = #{displayId}
+	</select>
+	
+	<select id="findAllCountByIdAndBlogId" resultType="Long">
+		SELECT count(*)
+		FROM category
+		where blogId = #{blogId}
+	</select>
+</mapper>

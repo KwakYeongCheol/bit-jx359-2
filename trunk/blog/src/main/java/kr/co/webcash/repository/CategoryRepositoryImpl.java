@@ -6,36 +6,38 @@ import java.util.Map;
 
 import kr.co.webcash.domain.Category;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class CategoryRepositoryImpl implements CategoryRepository{
-	@Autowired SqlMapClientTemplate template;
+	
+	@Autowired SqlSession sqlSession;
+	
 	@Override
 	public void insert(Category category) {
-		template.insert("Category.insert", category);
+		sqlSession.insert("Category.insert", category);
 	}
 
 	@Override
 	public List<Category> findAllByBlogId(String blogId) {
-		return template.queryForList("Category.findAllByBlogId", blogId);
+		return sqlSession.selectList("Category.findAllByBlogId", blogId);
 	}
 
 	@Override
 	public Category findLastPostByBlogId(String blogId) {
-		return (Category) template.queryForObject("Category.findLastPostByBlogId", blogId);
+		return (Category) sqlSession.selectOne("Category.findLastPostByBlogId", blogId);
 	}
 
 	@Override
 	public void update(Category category) {
-		template.update("Category.update",category);
+		sqlSession.update("Category.update",category);
 	}
 
 	@Override
 	public void delete(Category category) {
-		template.delete("Category.delete", category);
+		sqlSession.delete("Category.delete", category);
 	}
 
 	@Override
@@ -43,17 +45,17 @@ public class CategoryRepositoryImpl implements CategoryRepository{
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("blogId", blogId);
 		params.put("displayId", displayId);
-		return (Category) template.queryForObject("Category.findByBlogIdAndDisplayId", params);
+		return (Category) sqlSession.selectOne("Category.findByBlogIdAndDisplayId", params);
 	}
 
 	@Override
 	public long findAllCountByBlogId(String blogId) {
-		return (Long) template.queryForObject("Category.findAllCountByIdAndBlogId", blogId);
+		return (Long) sqlSession.selectOne("Category.findAllCountByIdAndBlogId", blogId);
 	}
 
 	@Override
 	public Category findLast() {
-		return (Category) template.queryForObject("Category.findLast");
+		return (Category) sqlSession.selectOne("Category.findLast");
 	}
 
 }

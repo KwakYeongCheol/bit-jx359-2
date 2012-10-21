@@ -7,13 +7,13 @@ import java.util.Map;
 import kr.co.webcash.domain.CommentType;
 import kr.co.webcash.domain.post.Post;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class PostRepositoryImpl implements PostRepository {
-	@Autowired private SqlMapClientTemplate template;
+	@Autowired private SqlSession sqlSession;
 	@Autowired private CommentRepository commentRepository;
 	@Autowired private ScrapRepository scrapRepository;
 	@Autowired private TrackbackRepository trackbackRepository;
@@ -52,23 +52,23 @@ public class PostRepositoryImpl implements PostRepository {
 
 	@Override
 	public void insert(Post post) {
-		template.insert("Post.insert", post);
+		sqlSession.insert("Post.insert", post);
 	}
 	
 	@Override
 	public void update(Post post) {
-		template.update("Post.update", post);
+		sqlSession.update("Post.update", post);
 		
 	}
 	
 	@Override
 	public void delete(Post post) {
-		template.delete("Post.delete", post);
+		sqlSession.delete("Post.delete", post);
 	}
 	
 	@Override
 	public Post findLastPostByBlogId(String blogId) {
-		Post post = (Post) template.queryForObject("Post.findLastPostByBlogId", blogId);
+		Post post = (Post) sqlSession.selectOne("Post.findLastPostByBlogId", blogId);
 		addMoreInfo(post);
 		return post;
 	}
@@ -78,7 +78,7 @@ public class PostRepositoryImpl implements PostRepository {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("categoryId", categoryId);
 		param.put("displayId", displayId);
-		Post post = (Post) template.queryForObject("Post.findByCategoryIdAndDisplayId", param );
+		Post post = (Post) sqlSession.selectOne("Post.findByCategoryIdAndDisplayId", param );
 		addMoreInfo(post);
 		
 		return post;
@@ -86,7 +86,7 @@ public class PostRepositoryImpl implements PostRepository {
 	
 	@Override
 	public List<Post> findAllByCategoryId(long categoryId) {
-		List<Post> postList = template.queryForList("Post.findAllByCategoryId", categoryId);
+		List<Post> postList = sqlSession.selectList("Post.findAllByCategoryId", categoryId);
 		
 		addMoreInfo(postList);
 		return postList;
@@ -95,7 +95,7 @@ public class PostRepositoryImpl implements PostRepository {
 	@Override
 	public List<Post> findAllByBlogIdAndPostMetadataParams(String blogId, Map postMetadataParams) {
 		postMetadataParams.put("blogId", blogId);
-		List<Post> postList = template.queryForList("Post.findAllByBlogIdAndPostMetadataParams", postMetadataParams);
+		List<Post> postList = sqlSession.selectList("Post.findAllByBlogIdAndPostMetadataParams", postMetadataParams);
 		
 		addMoreInfo(postList);
 		return postList;
@@ -103,7 +103,7 @@ public class PostRepositoryImpl implements PostRepository {
 	
 	@Override
 	public List<Post> findAllByBlogId(String blogId) {
-		List<Post> postList = template.queryForList("Post.findAllByBlogId", blogId);
+		List<Post> postList = sqlSession.selectList("Post.findAllByBlogId", blogId);
 		
 		addMoreInfo(postList);
 		return postList;
@@ -111,7 +111,7 @@ public class PostRepositoryImpl implements PostRepository {
 	
 	@Override
 	public Post findLastByCategoryId(long categoryId) {
-		Post post = (Post) template.queryForObject("Post.findLastByCategoryId", categoryId);
+		Post post = (Post) sqlSession.selectOne("Post.findLastByCategoryId", categoryId);
 		addMoreInfo(post);
 		
 		return post;
@@ -120,10 +120,10 @@ public class PostRepositoryImpl implements PostRepository {
 
 	@Override
 	public Post findByBlogIdAndDisplayId(String blogId, long displayId) {
-		Map params = new HashMap();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("blogId", blogId);
 		params.put("displayId", displayId);
-		Post post = (Post) template.queryForObject("Post.findByBlogIdAndDisplayId", params);
+		Post post = (Post) sqlSession.selectOne("Post.findByBlogIdAndDisplayId", params);
 		
 		addMoreInfo(post);
 		return post;
@@ -131,7 +131,7 @@ public class PostRepositoryImpl implements PostRepository {
 
 	@Override
 	public Post findLastByBlogId(String blogId) {
-		Post post = (Post) template.queryForObject("Post.findLastByBlogId", blogId);
+		Post post = (Post) sqlSession.selectOne("Post.findLastByBlogId", blogId);
 		addMoreInfo(post);
 		
 		return post;
@@ -139,7 +139,7 @@ public class PostRepositoryImpl implements PostRepository {
 
 	@Override
 	public Post findLast() {
-		Post post = (Post) template.queryForObject("Post.findLast");
+		Post post = (Post) sqlSession.selectOne("Post.findLast");
 		
 		addMoreInfo(post);
 		return post;
@@ -147,7 +147,7 @@ public class PostRepositoryImpl implements PostRepository {
 
 	@Override
 	public List<Post> findAllByQuery(String query) {
-		List<Post> postList = template.queryForList("Post.findAllByQuery", query);
+		List<Post> postList = sqlSession.selectList("Post.findAllByQuery", query);
 		
 		addMoreInfo(postList);
 		return postList;
@@ -155,7 +155,7 @@ public class PostRepositoryImpl implements PostRepository {
 
 	@Override
 	public Post findById(long id) {
-		Post post = (Post) template.queryForObject("Post.findById", id);
+		Post post = (Post) sqlSession.selectOne("Post.findById", id);
 		
 		addMoreInfo(post);
 		return post;

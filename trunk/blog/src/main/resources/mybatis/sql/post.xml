@@ -1,22 +1,18 @@
-<!DOCTYPE sqlMap
-    PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
-    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
-<sqlMap namespace="Post">
-	<typeAlias alias="Post" type="kr.co.webcash.domain.post.Post"/>
-		
-	<insert id="insert" parameterClass="Post">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Post">
+	<insert id="insert" parameterType="Post">
 		insert into post (id, categoryId, displayId, title, contents, dateCreated) 
-		values(#id#, #category.id#, #displayId#, #title#, #contents#, #dateCreated#)
+		values(#{id}, #{category.id}, #{displayId}, #{title}, #{contents}, #{dateCreated})
 	</insert>
 	
-	<update id="update" parameterClass="Post">
-		update post set categoryId = #category.id#, title = #title#, contents = #contents# 
-		where id = #id#
+	<update id="update" parameterType="Post">
+		update post set categoryId = #{category.id}, title = #{title}, contents = #{contents} 
+		where id = #{id}
 	</update>
 	
-	<delete id="delete" parameterClass="Post">
+	<delete id="delete" parameterType="Post">
 		delete from post
-		where id = #id#
+		where id = #{id}
 	</delete>
 	
 	<sql id="defaultSelect">
@@ -29,90 +25,90 @@
 		p.dateCreated as dateCreated		
 	</sql>
 	
-	<select id="findLastPostByBlogId" resultClass="Post">
+	<select id="findLastPostByBlogId" resultType="Post">
 		SELECT 
 			<include refid="defaultSelect" />
 		FROM post p
 		join category c on c.id = p.categoryId
 		join blogs b on b.id = c.blogId
-		where c.blogId = #blogId#
+		where c.blogId = #{blogId}
 		order by p.id desc
 		limit 1
 	</select>
 	
 	
-	<select id="findByCategoryIdAndDisplayId" resultClass="Post">
+	<select id="findByCategoryIdAndDisplayId" resultType="Post">
 		SELECT
 			<include refid="defaultSelect" />
 		FROM post p
 		join category c on c.id = p.categoryId
-		where p.categoryId = #categoryId# and p.displayId = #displayId#
+		where p.categoryId = #{categoryId} and p.displayId = #{displayId}
 	</select>
 	
-	<select id="findAllByCategoryId" resultClass="Post">
+	<select id="findAllByCategoryId" resultType="Post">
 		SELECT
 			<include refid="defaultSelect" />
 		FROM post p
 		join category c on c.id = p.categoryId
-		where p.categoryId = #categoryId#
+		where p.categoryId = #{categoryId}
 		order by p.id desc
 	</select>
 	
-	<select id="findLastByCategoryId" resultClass="Post">
+	<select id="findLastByCategoryId" resultType="Post">
 		SELECT
 			<include refid="defaultSelect" />
 		FROM post p
 		join category c on c.id = p.categoryId
-		where p.categoryId = #categoryId#
+		where p.categoryId = #{categoryId}
 		order by p.displayId desc
 		limit 1
 	</select>
 	
-	<select id="findAllByBlogIdAndPostMetadataParams" resultClass="Post">
+	<select id="findAllByBlogIdAndPostMetadataParams" resultType="Post">
 		SELECT
 			<include refid="defaultSelect" />
 		FROM post p
 		join category c on c.id = p.categoryId
 		join blogs b on b.id = c.blogId
 		join post_metadata pm on pm.postId = p.id
-		where c.blogId = #blogId#
-			and pm.isPublic = #isPublic#
+		where c.blogId = #{blogId}
+			and pm.isPublic = #{isPublic}
 		order by p.id desc
 	</select>
 	
-	<select id="findAllByBlogId" resultClass="Post">
+	<select id="findAllByBlogId" resultType="Post">
 		SELECT
 			<include refid="defaultSelect" />
 		FROM post p
 		join category c on c.id = p.categoryId
 		join blogs b on b.id = c.blogId
-		where c.blogId = #blogId#
+		where c.blogId = #{blogId}
 		order by p.id desc
 	</select>
 	
-	<select id="findByBlogIdAndDisplayId" resultClass="Post">
+	<select id="findByBlogIdAndDisplayId" resultType="Post">
 		SELECT
 			<include refid="defaultSelect" />
 		FROM post p
 		join category c on c.id = p.categoryId
 		join blogs b on b.id = c.blogId
-		where c.blogId = #blogId# and
-			p.displayId = #displayId#
+		where c.blogId = #{blogId} and
+			p.displayId = #{displayId}
 		order by p.id desc
 	</select>
 	
-	<select id="findLastByBlogId" resultClass="Post">
+	<select id="findLastByBlogId" resultType="Post">
 		SELECT
 			<include refid="defaultSelect" />
 		FROM post p
 		join category c on c.id = p.categoryId
 		join blogs b on b.id = c.blogId
-		where c.blogId = #blogId#
+		where c.blogId = #{blogId}
 		order by p.id desc
 		limit 1
 	</select>
 	
-	<select id="findLast" resultClass="Post">
+	<select id="findLast" resultType="Post">
 		SELECT
 			<include refid="defaultSelect" />
 		FROM post p
@@ -121,15 +117,15 @@
 		limit 1
 	</select>
 	
-	<select id="findById" resultClass="Post">
+	<select id="findById" resultType="Post">
 		SELECT
 			<include refid="defaultSelect" />
 		FROM post p
 		join category c on c.id = p.categoryId
-		where p.id = #id#
+		where p.id = #{id}
 	</select>
 	
-	<select id="findAllByQuery" resultClass="Post">
+	<select id="findAllByQuery" resultType="Post">
 		SELECT
 			<include refid="defaultSelect" />,
 			c.blogId as "category.blog.id"			
@@ -137,7 +133,7 @@
 		join category c on c.id = p.categoryId
 		join post_metadata pm on pm.postId = p.id
 		where pm.isPublic = 'true'
-			and p.contents LIKE '%'||#query#||'%'
+			and p.contents LIKE '%'||#{query}||'%'
 		order by p.id desc
 	</select>	
-</sqlMap>
+</mapper>

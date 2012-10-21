@@ -1,0 +1,30 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Blog">
+	<insert id="create" parameterType="Blog">
+		insert into blogs (id, title, owner,dateCreated) 
+		values(#{id}, #{title}, #{owner}, #{dateCreated})
+	</insert>
+	
+	<update id="update" parameterType="Blog">
+		update blogs set
+			title = #{title}
+		where id = #{id}
+	</update>
+	
+	<select id="findAllByUserLoginId" resultType="Blog">
+		SELECT id, title, owner, dateCreated
+		FROM blogs
+		WHERE owner = #{loginId}
+	</select>
+	
+	<select id="findAll" resultType="Blog">
+		SELECT id, title, owner, dateCreated
+		FROM blogs
+	</select>
+	
+	<select id="findById" resultType="Blog">
+		SELECT id, title, owner, dateCreated
+		FROM blogs
+		WHERE id = #{id}
+	</select>
+</mapper>

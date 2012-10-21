@@ -1,0 +1,58 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Guestbook">
+	<insert id="insert" parameterType="Guestbook">
+		insert into guestbook (id, blogId, displayId, writer, contents, dateCreated) 
+		values(#{id}, #{blog.id}, #{displayId}, #{writer}, #{contents}, #{dateCreated})
+	</insert>
+	
+	<update id="update" parameterType="Guestbook">
+		update guestbook set contents = #{contents}
+		where id = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="Guestbook">
+		delete from guestbook
+		where id = #{id}
+	</delete>
+	
+	<select id="findLastGuestbookByBlogId" resultType="Guestbook">
+		select id
+		from guestbook
+		where blogId = #{blogId}
+		order by id desc
+		limit 1
+	</select>
+	
+	<sql id="defaultSelect">
+		g.id as id, 
+		g.displayId as displayId,
+		g.writer as writer,
+		g.contents as contents, 
+		g.dateCreated as dateCreated
+	</sql>
+	
+	<select id="findAllByBlogId" resultType="Guestbook">
+		SELECT 
+			<include refid="defaultSelect"/>
+		FROM guestbook g
+		where g.blogId = #{blogId}
+		order by g.id desc
+	</select>
+	
+	<select id="findByBlogIdAndDisplayId" resultType="Guestbook">
+		SELECT 
+			<include refid="defaultSelect"/>
+		FROM guestbook g
+		join blogs b on b.id = g.blogId
+		where g.blogId = #{blogId}
+			and g.displayId = #{displayId}
+	</select>
+	
+	<select id="findLast" resultType="Guestbook">
+		SELECT
+			<include refid="defaultSelect"/>
+		FROM guestbook g
+		order by g.id desc
+		limit 1
+	</select>
+</mapper>
