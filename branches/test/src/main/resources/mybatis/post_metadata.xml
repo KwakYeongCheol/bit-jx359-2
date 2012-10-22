@@ -1,0 +1,26 @@
+<!DOCTYPE sqlMap
+    PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="PostMetadata">
+	<typeAlias alias="PostMetadata" type="kr.co.webcash.domain.post.PostMetadata"/>
+	
+	<insert id="insert" parameterClass="PostMetadata">
+		INSERT INTO post_metadata (postId, isPublic, canComment, canScrap, canTrackback)
+		VALUES (#post.id#, #isPublic#, #canComment#, #canScrap#, #canTrackback#)
+	</insert>
+	
+	<select id="findByPostId" resultClass="PostMetadata">
+		SELECT
+			postId,
+			isPublic,
+			canComment,
+			canScrap,
+			canTrackback
+		FROM
+			post_metadata
+		WHERE
+			postId = #postId#
+	</select>
+	
+	
+</sqlMap>

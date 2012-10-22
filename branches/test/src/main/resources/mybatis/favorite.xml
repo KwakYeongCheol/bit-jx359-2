@@ -1,0 +1,24 @@
+<!DOCTYPE sqlMap
+    PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Favorite">
+	<typeAlias alias="Favorite" type="kr.co.webcash.domain.Favorite"/>
+	
+	<delete id="delete" parameterClass="Favorite">
+		delete from favorites f
+		where f.loginId = #loginId# and f.blogId = #blog.id#
+	</delete>
+	
+	<insert id="insert" parameterClass="Favorite">
+		insert into favorites (loginId, blogId)
+		values(#loginId#, #blog.id#)
+	</insert>
+
+	<select id="findAllByLoginId" resultClass="Favorite">
+		SELECT 
+			f.loginId as "loginId", b.id as "blog.id", b.title as "blog.title"
+		FROM favorites f
+		join blogs b on b.id = f.blogId
+		where f.loginId = #loginId#
+	</select>
+</sqlMap>

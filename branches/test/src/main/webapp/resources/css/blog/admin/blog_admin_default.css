@@ -1,0 +1,89 @@
+
+a {
+	color: #09c;
+	font-size: 13px;
+	text-decoration: none;
+	font-weight: 600;
+	font-family: verdana, arial, helvetica, sans-serif;
+}
+
+a:link {
+	color: #09c;
+}
+
+a:visited {
+	color: #07a;
+}
+
+a:hover {
+	background-color: #eee;
+}
+
+#blog{
+	margin:0 auto 0;
+}
+
+#blog #blogHeader{
+	margin: 30px 0px 10px 0px;
+	padding: 40px 0px 10px 20px;
+	height: 40px;
+	border-style: solid;
+	border-color: black;
+	border-width: 1px 0px;
+	line-height: 11px;
+	background-color: #23658b;
+	color:#FFF;
+}
+
+#blog #blogHeader #blogTitle {
+	font-size: 30px;
+}
+
+#blog #blogMenu{
+	
+}
+
+#blog #blogMenu ul{
+	list-style-type: none;
+}
+
+#blog #blogMenu ul li{
+	display: inline;
+	font-size:12px;
+	text-decoration: none;
+}
+
+#blog #blogContents #blogCategory {
+	float: left;
+	top: 200px;
+	left: 20px;
+	width: 172px;
+	padding: 10px;
+	background-color: #eee;
+	border: 1px dashed #999;
+	line-height: 17px;
+	/* Again, the ugly brilliant hack. */
+	voice-family: "\"}\"";
+	voice-family: inherit;
+	width: 150px;
+}
+
+#blog #blogContents #blogArticles {
+	margin: 0px 50px 50px 200px;
+	padding: 10px;
+	background-color: #23658b;
+	color: #FFF;
+}
+
+#blog #blogContents #blogArticles .blogArticle {
+	background-color: #fff;
+	color: #000;
+	border-collapse: collapse;
+	margin: 10px 10px 30px 10px;
+	padding: 15px;;
+	font-size: 1.1em;
+}
+
+#blog #blogContents #blogArticles .blogArticle a{
+	font-size: 1.1em;
+}

@@ -1,0 +1,18 @@
+<!DOCTYPE sqlMap
+    PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Trackback">
+	<typeAlias alias="Trackback" type="kr.co.webcash.domain.Trackback"/>
+		
+	<insert id="insert" parameterClass="Trackback">
+		insert into trackback (postId, blogId, url, blogName, title, excerpt, dateCreated) 
+		values(#postId#, #blogId#, #url#, #blogName#, #title#, #excerpt#, #dateCreated#)
+	</insert>
+
+	<select id="findAllByPostId" resultClass="Trackback">
+		SELECT
+			postId, blogId, url, blogName, title, excerpt, dateCreated
+		FROM trackback
+		where postId = #postId#
+	</select>
+</sqlMap>

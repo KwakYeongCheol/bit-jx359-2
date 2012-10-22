@@ -1,0 +1,70 @@
+<!DOCTYPE sqlMap
+    PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Category">
+	<typeAlias alias="Category" type="kr.co.webcash.domain.Category"/>
+		
+	<insert id="insert" parameterClass="Category">
+		insert into category (id, title, blogId, displayId) 
+		values(#id#, #title#,  #blog.id#, #displayId#)
+	</insert>
+	
+	<update id="update" parameterClass="Category">
+		update category set title = #title#
+		where id = #id#
+	</update>
+	
+	<delete id="delete" parameterClass="Category">
+		delete from category
+		where id = #id#
+	</delete>
+	
+	<sql id="defaultSelect">
+		c.id as id, 
+		c.blogId as "blog.id", 
+		c.displayId as displayId,
+		c.title as title
+	</sql>
+	
+	<select id="findAllByBlogId" resultClass="Category">
+		SELECT 
+			<include refid="defaultSelect"/>
+		FROM category c
+		join blogs b on b.id = c.blogId
+		where c.blogId = #blogId#
+		order by c.id desc
+	</select>
+	
+	<select id="findLast" resultClass="Category">
+		SELECT 
+			<include refid="defaultSelect"/>
+		FROM category c
+		order by c.id desc
+		limit 1
+	</select>
+	
+	<select id="findLastPostByBlogId" resultClass="Category">
+		SELECT 
+			<include refid="defaultSelect"/>
+		FROM category c
+		join blogs b on b.id = c.blogId
+		where c.blogId = #blogId#
+		order by c.id desc
+		limit 1
+	</select>
+	
+	<select id="findByBlogIdAndDisplayId" resultClass="Category">
+		SELECT 
+			<include refid="defaultSelect"/>
+		FROM category c
+		join blogs b on b.id = c.blogId
+		where c.blogId = #blogId#
+			and c.displayId = #displayId#
+	</select>
+	
+	<select id="findAllCountByIdAndBlogId" resultClass="Long">
+		SELECT count(*)
+		FROM category
+		where blogId = #blogId#
+	</select>
+</sqlMap>

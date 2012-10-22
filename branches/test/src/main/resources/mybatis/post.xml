@@ -1,0 +1,135 @@
+<!DOCTYPE sqlMap
+    PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Post">
+	<typeAlias alias="Post" type="kr.co.webcash.domain.post.Post"/>
+		
+	<insert id="insert" parameterClass="Post">
+		insert into post (id, categoryId, displayId, title, contents, dateCreated) 
+		values(#id#, #category.id#, #displayId#, #title#, #contents#, #dateCreated#)
+	</insert>
+	
+	<update id="update" parameterClass="Post">
+		update post set categoryId = #category.id#, title = #title#, contents = #contents# 
+		where id = #id#
+	</update>
+	
+	<delete id="delete" parameterClass="Post">
+		delete from post
+		where id = #id#
+	</delete>
+	
+	<sql id="defaultSelect">
+		p.id as id,
+		c.id as "category.displayId", 
+		c.title as "category.title",
+		p.displayId as displayId,
+		p.title as title, 
+		p.contents as contents, 
+		p.dateCreated as dateCreated		
+	</sql>
+	
+	<select id="findLastPostByBlogId" resultClass="Post">
+		SELECT 
+			<include refid="defaultSelect" />
+		FROM post p
+		join category c on c.id = p.categoryId
+		join blogs b on b.id = c.blogId
+		where c.blogId = #blogId#
+		order by p.id desc
+		limit 1
+	</select>
+	
+	
+	<select id="findByCategoryIdAndDisplayId" resultClass="Post">
+		SELECT
+			<include refid="defaultSelect" />
+		FROM post p
+		join category c on c.id = p.categoryId
+		where p.categoryId = #categoryId# and p.displayId = #displayId#
+	</select>
+	
+	<select id="findAllByCategoryId" resultClass="Post">
+		SELECT
+			<include refid="defaultSelect" />
+		FROM post p
+		join category c on c.id = p.categoryId
+		where p.categoryId = #categoryId#
+		order by p.id desc
+	</select>
+	
+	<select id="findLastByCategoryId" resultClass="Post">
+		SELECT
+			<include refid="defaultSelect" />
+		FROM post p
+		join category c on c.id = p.categoryId
+		where p.categoryId = #categoryId#
+		order by p.displayId desc
+		limit 1
+	</select>
+	
+	<select id="findAllByBlogIdAndPostMetadataParams" resultClass="Post">
+		SELECT
+			<include refid="defaultSelect" />
+		FROM post p
+		join category c on c.id = p.categoryId
+		join blogs b on b.id = c.blogId
+		join post_metadata pm on pm.postId = p.id
+		where c.blogId = #blogId#
+			and pm.isPublic = #isPublic#
+		order by p.id desc
+	</select>
+	
+	<select id="findAllByBlogId" resultClass="Post">
+		SELECT
+			<include refid="defaultSelect" />
+		FROM post p
+		join category c on c.id = p.categoryId
+		join blogs b on b.id = c.blogId
+		where c.blogId = #blogId#
+		order by p.id desc
+	</select>
+	
+	<select id="findByBlogIdAndDisplayId" resultClass="Post">
+		SELECT
+			<include refid="defaultSelect" />
+		FROM post p
+		join category c on c.id = p.categoryId
+		join blogs b on b.id = c.blogId
+		where c.blogId = #blogId# and
+			p.displayId = #displayId#
+		order by p.id desc
+	</select>
+	
+	<select id="findLastByBlogId" resultClass="Post">
+		SELECT
+			<include refid="defaultSelect" />
+		FROM post p
+		join category c on c.id = p.categoryId
+		join blogs b on b.id = c.blogId
+		where c.blogId = #blogId#
+		order by p.id desc
+		limit 1
+	</select>
+	
+	<select id="findLast" resultClass="Post">
+		SELECT
+			<include refid="defaultSelect" />
+		FROM post p
+		join category c on c.id = p.categoryId
+		order by p.id desc
+		limit 1
+	</select>
+	
+	<select id="findAllByQuery" resultClass="Post">
+		SELECT
+			<include refid="defaultSelect" />,
+			c.blogId as "category.blog.id"			
+		FROM post p
+		join category c on c.id = p.categoryId
+		join post_metadata pm on pm.postId = p.id
+		where pm.isPublic = 'true'
+			and p.contents LIKE '%'||#query#||'%'
+		order by p.id desc
+	</select>	
+</sqlMap>
