@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>jQuery</title>
+	<link rel="stylesheet" href="../css/default.css">
+	<link rel="stylesheet" href="../css/register.css">
+</head>
+<body>
+<div id="wrap">
+	<header>
+		<div class="title"><a href="#">JINBO</a></div>
+		
+		<div class="searchBox">
+			<form action="#" method="get">
+				<input type="text" name="search" placeholder="search" />
+				<input type="submit" value="Search" />
+			</form>
+		</div>
+		
+		<!-- Logout -->
+		<div class="registerBox">
+			<input type="button" value="회원가입" />
+		</div>
+		
+		<div class="loginBox">
+			<form action="" method="post">
+				<input type="text" name="loginId" placeholder="sample@gmail.com"/> 
+				<input type="password" name="password" placeholder="password" />
+				<input type="submit" value="Log In" />
+			</form>
+		</div>
+		
+		<!-- Login -->
+		<!--
+		<nav class="nav">
+			<div class="nav-title">곽영철</div>
+			<ul class="nav-menu">
+				<li><a href="#">계정설정</a></li>
+				<hr />
+				<li><a href="#">로그아웃</a></li>
+			</ul>
+		</nav>
+		
+		<nav class="nav">
+			<div class="nav-title">바로가기</div>
+			<ul class="nav-menu">
+				<li><a href="#">곽군의 블로그</a></li>
+				<li><a href="#">연습용 블로그</a></li>
+				<hr />
+				<li><a href="#">이웃 블로그 1</a></li>
+				<li><a href="#">이웃 블로그 2</a></li>
+				<li><a href="#">이웃 블로그 3</a></li>
+				<hr />
+				<li><a href="#">이웃 블로그 설정</a></li>
+			</ul>
+		</nav>
+		-->
+	</header>
+	
+	<section>
+		<div>
+			<form id="registerForm" action="#" method="post">
+				<legend>회원가입</legend>
+				<div class="group">
+					<div class="groupTitle">기본정보</div>
+					<div class="groupContents">
+						<div class="row">
+							<div class="label">성 : </div>
+							<input class="input" type="text" id="lastName" name="lastName" placeholder="홍" autofocus />
+						</div>
+						<div class="row">
+							<div class="label">이름 : </div>
+							<input class="input" type="text" id="firstName" name="firstName" placeholder="길동"/>
+						</div>
+						<div class="row">
+							<div class="label">이메일 주소 : </div>
+							<input class="input" type="text" id="loginId" name="loginId" placeholder="sample@gmail.com"/>
+						</div>
+						<div class="row">
+							<div class="label">비밀번호 (8자리 이상) : </div>
+							<input class="input" type="password" id="password" name="password" placeholder="password" />
+						</div>
+						<div class="row">
+							<div class="label">비밀번호 확인 : </div>
+							<input class="input" type="password" id="passwordConfirm" name="passwordConfirm" placeholder="password confirm" />
+						</div>
+					</div>					
+				</div>		
+				
+				<div class="group">
+					<div class="groupTitle">추가정보</div>
+					<div class="groupContents">
+						<div class="row">
+							<div class="label">성별 : </div>
+							<input class="radio" type="radio" name="sex" value="m" checked />남 <input type="radio" name="sex" value="f" />여
+						</div>
+						<div class="row">
+							<div class="label">생년월일 : </div>
+							<select name="year">
+								<option value="2012">2012</option>
+								<option value="2011">2011</option>
+							</select>
+							년 
+							<select name="month">
+								<option value="10">10</option>
+								<option value="9">9</option>
+							</select>
+							월 
+							<select name="day">
+								<option value="20">20</option>
+								<option value="21">21</option>
+							</select>
+							일
+						</div>
+					</div>					
+				</div>
+				
+				<div class="submit">
+					<input type="submit" value="Register" />
+				</div>	
+			</form>
+		</div>
+	</section>
+		
+	<footer>
+		서울시 영등포구 여의도동 사서함 123-122 번지
+	</footer>
+</div>	
+<script src="../js/jquery-1.8.2.js"></script>
+<script>
+$(document).ready(function(){
+	$(".nav-title").mouseover(function(){
+		console.log($(this).html());
+		var navMenu= $(this).next();
+		navMenu.slideDown();
+		
+
+		$(this).parent().mouseleave(function(){
+			navMenu.slideUp();
+			$(this).unbind("mouseleave");
+		});
+	});
+});
+</script>
+</body>
+</html>

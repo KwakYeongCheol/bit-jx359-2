@@ -1,0 +1,86 @@
+#registerForm{
+	padding: 50px;
+}
+
+#registerForm legend{
+	padding: 0px 0px 30px 0px;
+	font-size: 25px;
+}
+
+#registerForm .group{
+	margin-bottom: 30px;
+}
+
+#registerForm .group .groupTitle{
+	display: inline;
+	margin-left: 20px;
+	padding: 10px;
+	font-size: 20px;
+	border: 1px solid;
+	color: #000;
+	background-color: #DDD;
+}
+
+#registerForm .group .groupContents{
+	margin-top: -15px;
+	padding-top: 40px;
+	border: 1px solid;
+	background-color: #DDD;
+}
+
+
+#registerForm .row{
+	padding: 5px 5px 5px 20px;
+	height: 30px;
+}
+
+#registerForm .label{
+	margin-right: 5px;
+	width: 200px;
+	font-size: 15px;
+	text-align: right;
+	float: left;
+}
+
+#registerForm .input{
+	padding-left: 5px;
+	width: 200px;
+	height: 20px;
+	font-size: 15px;
+}
+
+#registerForm select{
+	margin-left: 5px;
+	width: 80px;
+	height: 30px;
+	font-size: 20px;
+}
+
+#registerForm .submit{
+	text-align: center;
+	margin: 0px;
+}
+
+#registerForm .submit input{
+	width: 400px;
+	height: 40px;
+	font-size: 25px;
+	border: 1px solid;
+}
+
+.complete{
+	margin: 50px;
+}
+
+.complete strong{
+	font-size: 20px;
+}
+
+.nextStep{
+	padding-top: 40px;
+}
+
+.nextStep input{
+	width: 200px;
+	font-size: 20px;
+}
