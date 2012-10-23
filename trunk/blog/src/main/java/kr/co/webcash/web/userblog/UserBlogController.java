@@ -48,7 +48,7 @@ public class UserBlogController {
 		return "/userblog/post/view";
 	}
 	
-	@RequestMapping("/{postId}/{revisionId}")
+	@RequestMapping("/{postId}/revision/{revisionId}")
 	public String getRevisionContents(@PathVariable String blogId, @PathVariable long postId, @PathVariable long revisionId, Model model){
 		Post post = postService.findByBlogIdAndDisplayId(blogId, postId);
 		
