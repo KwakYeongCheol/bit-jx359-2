@@ -10,8 +10,12 @@
 		<form:errors cssClass="error" path="password"></form:errors>
 		
 		<div>
-			<form:label cssClass="label" path="name">이름:</form:label>
-			<form:input cssClass="input" path="name" size="20" maxlength="20" /> 
+			<form:label cssClass="label" path="lastName">성:</form:label>
+			<form:input cssClass="input" path="lastName" size="20" maxlength="20" /> 
+		</div>
+		<div>
+			<form:label cssClass="label" path="firstName">이름:</form:label>
+			<form:input cssClass="input" path="firstName" size="20" maxlength="20" /> 
 		</div>
 		<div>
 			<form:label cssClass="label" path="loginId">아이디:</form:label>
@@ -23,6 +27,32 @@
 		<div>
 			<form:label cssClass="label" path="">비밀번호:</form:label>
 			<form:password cssClass="input" path="password" showPassword="false" size="20" maxlength="12" />
+		</div>
+		<div>
+			<label for="label">비밀번호 확인:</label>
+			<input type="password" class="input" name="passwordConfirm" />
+		</div>
+		<div>
+			<form:label cssClass="label" path="sex">성별:</form:label>
+			<form:radiobutton path="sex" value="male" />남 <form:radiobutton path="sex" value="female"/>
+		</div>
+		<div>
+			<label for="label" >생년월일</label>
+			<select name="year">
+				<option value="2012">2012</option>
+				<option value="2013">2013</option>
+			</select>
+			년 
+			<select name="month">
+				<option value="10">10</option>
+				<option value="11">11</option>
+			</select>
+			월
+			<select name="day">
+				<option value="20">20</option>
+				<option value="21">21</option>
+			</select>
+			일
 		</div>
 		<div>
 			<input class="submit" type="submit" value="회원가입" />

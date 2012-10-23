@@ -1,6 +1,10 @@
 package kr.co.webcash.web.user.register;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -27,7 +32,7 @@ import org.springframework.web.bind.support.SessionStatus;
 @Controller
 @SessionAttributes("user")
 @RequestMapping("/user/register")
-public class RegisterController {
+public class UserRegisterController {
 	
 	@Autowired private UserService userService;
 	@Autowired private UserRegisterValidator validator;
@@ -69,16 +74,32 @@ public class RegisterController {
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public String register(@ModelAttribute User user, BindingResult result, Model model, SessionStatus status){
+	public String register(@ModelAttribute User user, @RequestParam String passwordConfirm,
+			@RequestParam int year, @RequestParam int month, @RequestParam int day,
+			BindingResult result, Model model, SessionStatus status){
 		this.validator.validate(user, result);
 		
-		if(!result.hasErrors()){
+		if(result.hasErrors()){
+			return "/user/register/register";
+		}
+		
+		if(!user.getPassword().equals(passwordConfirm)){
+			result.rejectValue("password", "field.confirm.user.password");
+			return "/user/register/register";
+		}
+		
+		String birth = year + "-" + month + "-" + day;
+		try {
+			Date birthday = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN).parse(birth);
+			user.setBirthday(birthday);
+			
 			if(userService.save(user)){
 				status.setComplete();
 				this.loginUserProvider.get().login(user);
 				
 				return "redirect:/user/register/complete";
 			}
+		} catch (ParseException e) {
 		}
 		
 		return "/user/register/register";
@@ -88,3 +109,13 @@ public class RegisterController {
 	public void complete(){
 	}
 }
+
+
+
+
+
+
+
+
+
+

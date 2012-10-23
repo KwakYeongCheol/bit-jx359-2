@@ -11,7 +11,6 @@ import org.springframework.validation.Validator;
 
 @Component
 public class UserRegisterValidator implements Validator{
-	
 	@Autowired private UserService userService;
 
 	@Override
@@ -30,7 +29,6 @@ public class UserRegisterValidator implements Validator{
 				if(userService.findByLoginId(loginId) != null)	errors.rejectValue("loginId", "field.duplicate.user.loginId");
 			}
 			
-			
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "field.required.user.password");
 			
 			String password = user.getPassword(); 
@@ -38,7 +36,5 @@ public class UserRegisterValidator implements Validator{
 				if(password.length() < 8)	errors.rejectValue("password", "field.minlength.user.password");
 			}
 		}
-		
 	}
-
 }
