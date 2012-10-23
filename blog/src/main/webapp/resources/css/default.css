@@ -1,0 +1,111 @@
+body{
+	margin: 0px;
+	background: #DDD;
+}
+
+#wrap{
+	width: 1000px;
+	margin: 0 auto 0;
+}
+
+/* header start*/
+
+header{
+	padding: 10px 0 10px 0;
+	height: 40px;
+	background-color: #0593be;
+	color: #FFF;
+}
+
+header a{
+	color: #FFF;
+	text-decoration: none;
+}
+
+header a:hover{
+	color: #DDD;
+	background-color: #000;
+}
+
+
+.title{
+	width: 100px;
+	height: 50px;
+	font-size: 30px;
+	text-align: center;
+	float: left;
+}
+
+.searchBox{
+	float: left;
+}
+
+.searchBox input{
+	height: 20px;
+}
+
+.loginBox{
+	float: right;
+	line-height: 2;
+}
+
+.loginBox input{
+	height: 20px;
+}
+
+.registerBox{
+	float: right;
+}
+
+.nav{
+	text-align: center;
+	float: right;
+	background: #0593be;
+}
+
+.nav hr{
+	width: 80%;
+}
+
+.nav-title{
+	width: 100px;
+	height: 50px;
+	font-size: 15px;
+	line-height: 3;
+}
+
+.nav-menu{
+	padding: 2px 0 0 0;
+	margin: 0px;
+	font-size: 12px;
+	display: none;
+}
+
+.nav-menu li{
+	width: 100px;
+	height: 20px;
+	list-style: none;
+}
+
+/* header end */
+
+
+
+/* section start */
+section{
+	margin: 20px;
+}
+
+/* section end */
+
+
+
+/* footer start */
+footer{
+	padding: 30px;
+	height: 100px;
+	background-color: #0593be;
+	color: #FFF;
+	font-size: 12px;
+}
+/* footer end */

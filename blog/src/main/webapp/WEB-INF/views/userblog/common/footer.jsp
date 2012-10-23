@@ -3,4 +3,9 @@
 	</div>
 </div>
 
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+	</div>
+	<div id="footer">
+	</div>
+</div>
+</body>
+</html>
