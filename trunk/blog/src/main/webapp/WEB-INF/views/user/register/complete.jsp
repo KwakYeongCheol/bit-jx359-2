@@ -3,14 +3,11 @@
 
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
-<div id="register">
-	<h2>회원가입 성공</h2>
+<div class="complete">
+	<h2>축하합니다!</h2>
+	<strong>${loginUserProvider.loginUser.name }(${loginUserProvider.loginUser.loginId })</strong>님 회원가입이 정상적으로 완료되었습니다.
 	
-	<div>
-		${loginUserProvider.loginUser.name }님 (${loginUserProvider.loginUser.loginId }) 가입을 축하드립니다. <br />
-	</div>
-	
-	<div>
+	<div class="nextStep">
 		<a href="${pageContext.request.contextPath }/">메인 페이지로</a> | 
 		<a href="${pageContext.request.contextPath }/blog/create">블로그 생성하기</a>
 	</div>

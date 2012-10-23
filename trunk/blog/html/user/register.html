@@ -9,7 +9,7 @@
 <body>
 <div id="wrap">
 	<header>
-		<div class="title"><a href="#">JINBO</a></div>
+		<div class="title"><a href="http://localhost:8080/login">JINBO</a></div>
 		
 		<div class="searchBox">
 			<form action="#" method="get">
@@ -19,6 +19,7 @@
 		</div>
 		
 		<!-- Logout -->
+		<!--
 		<div class="registerBox">
 			<input type="button" value="회원가입" />
 		</div>
@@ -30,9 +31,8 @@
 				<input type="submit" value="Log In" />
 			</form>
 		</div>
-		
+		-->
 		<!-- Login -->
-		<!--
 		<nav class="nav">
 			<div class="nav-title">곽영철</div>
 			<ul class="nav-menu">
@@ -55,7 +55,6 @@
 				<li><a href="#">이웃 블로그 설정</a></li>
 			</ul>
 		</nav>
-		-->
 	</header>
 	
 	<section>
@@ -68,10 +67,12 @@
 						<div class="row">
 							<div class="label">성 : </div>
 							<input class="input" type="text" id="lastName" name="lastName" placeholder="홍" autofocus />
+							<span id="loginId.errors" class="error">성을 입력해야합니다.</span>
 						</div>
 						<div class="row">
 							<div class="label">이름 : </div>
 							<input class="input" type="text" id="firstName" name="firstName" placeholder="길동"/>
+							<span id="loginId.errors" class="error">이름을 입력해야 합니다.</span>
 						</div>
 						<div class="row">
 							<div class="label">이메일 주소 : </div>
@@ -80,6 +81,7 @@
 						<div class="row">
 							<div class="label">비밀번호 (8자리 이상) : </div>
 							<input class="input" type="password" id="password" name="password" placeholder="password" />
+							<span id="loginId.errors" class="error">비밀번호는 8자리 이상이어야 합니다.</span>
 						</div>
 						<div class="row">
 							<div class="label">비밀번호 확인 : </div>
