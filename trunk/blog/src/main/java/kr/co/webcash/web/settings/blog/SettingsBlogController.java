@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -64,5 +65,24 @@ public class SettingsBlogController {
 		
 		return "/settings/blog/create";
 	}
-
+	
+	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	public String modifyForm(@RequestParam("id") String blogId, Model model){
+		if(blogService.isAdmin(blogId, loginUser())){
+			model.addAttribute("blog", blogService.findById(blogId));
+			return "/settings/blog/modify";
+		}
+		
+		return "redirect:/settings/blog";
+	}
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String modify(@ModelAttribute Blog blog, Model model, SessionStatus status){
+		if(blogService.isAdmin(blog.getId(), loginUser())){
+			blogService.modify(blog);
+			status.setComplete();
+			return "redirect:/settings/blog";
+		}
+		
+		return "redirect:/settings/blog/modify?id=" + blog.getId();
+	}
 }

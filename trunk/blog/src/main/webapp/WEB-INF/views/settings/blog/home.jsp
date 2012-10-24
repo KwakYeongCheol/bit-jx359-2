@@ -14,7 +14,8 @@
 				<a href="${pageContext.request.contextPath }/${blog.id }">${blog.title }</a> :
 			</div>
 			<div class="value">
-				<a href="${pageContext.request.contextPath }/${blog.id }/admin">관리자 페이지로</a>
+				<a href="${pageContext.request.contextPath }/${blog.id }/admin">관리자 페이지로</a> |
+				<a href="${pageContext.request.contextPath }/settings/blog/modify?id=${blog.id}">정보 수정</a>
 			</div>
 		</div>
 		</c:forEach>

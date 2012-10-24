@@ -1,4 +1,4 @@
-package kr.co.webcash.web.userblog.security;
+package kr.co.webcash.web.security;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.service.BlogService;
 import kr.co.webcash.utils.URLUtils;
-import kr.co.webcash.web.security.LoginUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;

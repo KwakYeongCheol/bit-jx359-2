@@ -33,7 +33,7 @@
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/{blogId}/admin/**"/>
-			<beans:bean class="kr.co.webcash.web.userblog.security.BlogAdminInterceptor" />
+			<beans:bean class="kr.co.webcash.web.security.BlogAdminInterceptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/settings/**"/>
