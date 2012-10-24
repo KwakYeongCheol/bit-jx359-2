@@ -1,0 +1,19 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BlogVisitHistory">
+	<insert id="insert" parameterType="BlogVisitHistory">
+		INSERT INTO blog_visit_history (blogId, visited) 
+		VALUES(#{blog.id}, #{visited})
+	</insert>
+	
+	<select id="countByBlogIdAndFromStartDateToEndDate" resultType="Long">
+		SELECT
+			count(*)
+		FROM
+			blog_visit_history
+		WHERE
+			blogId = #{blogId}
+			AND visited BETWEEN #{startDate} AND #{endDate}
+	</select>
+</mapper>
+
+

@@ -20,4 +20,6 @@ public interface BlogService {
 
 	boolean isAdmin(String blogId, User user);
 
+	void addVisitCount(Blog blog);
+
 }

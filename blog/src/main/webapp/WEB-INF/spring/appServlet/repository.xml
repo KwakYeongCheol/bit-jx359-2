@@ -25,6 +25,7 @@
 
     <jdbc:embedded-database id="dataSource">
 		<jdbc:script location="classpath:sql/schema-user.sql"/>
+		<jdbc:script location="classpath:sql/schema-blog.sql"/>
 		<jdbc:script location="classpath:sql/schema-post.sql"/>
 		<jdbc:script location="classpath:sql/schema-guestbook.sql"/>
 		<jdbc:script location="classpath:sql/schema-category.sql"/>

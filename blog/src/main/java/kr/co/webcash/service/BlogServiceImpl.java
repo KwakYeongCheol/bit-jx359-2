@@ -1,8 +1,10 @@
 package kr.co.webcash.service;
 
+import java.util.Date;
 import java.util.List;
 
 import kr.co.webcash.domain.Blog;
+import kr.co.webcash.domain.BlogVisitHistory;
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.User;
 import kr.co.webcash.repository.BlogRepository;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 public class BlogServiceImpl implements BlogService {
 	
 	@Autowired private BlogRepository blogRepository;
+	@Autowired private BlogVisitHistoryService blogVisitHistoryService;
 	@Autowired private CategoryService categoryService;
 	@Autowired private CategoryRepository categoryRepository;
 	
@@ -76,5 +79,16 @@ public class BlogServiceImpl implements BlogService {
 	@Override
 	public List<Blog> findAll() {
 		return blogRepository.findAll();
+	}
+
+	@Override
+	public void addVisitCount(Blog blog) {
+		BlogVisitHistory blogVisitHistory = new BlogVisitHistory(blog, new Date(System.currentTimeMillis()));
+		blogVisitHistoryService.save(blogVisitHistory);
+		
+		blog.setTodayCount(blogVisitHistoryService.countToday(blog));
+		blog.setTotalCount(blog.getTotalCount() + 1);
+		
+		blogRepository.updateTotalCount(blog);
 	}
 }

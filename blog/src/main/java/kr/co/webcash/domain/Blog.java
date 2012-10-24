@@ -8,6 +8,9 @@ public class Blog {
 	private String owner;
 	private Date dateCreated;
 	
+	private long todayCount;
+	private long totalCount;
+	
 	public Blog(){
 	}
 	
@@ -71,4 +74,8 @@ public class Blog {
 		return true;
 	}
 
+	public long getTodayCount() {					return todayCount;	}
+	public void setTodayCount(long todayCount) {	this.todayCount = todayCount;	}
+	public long getTotalCount() {					return totalCount;	}
+	public void setTotalCount(long totalCount) {	this.totalCount = totalCount;	}
 }

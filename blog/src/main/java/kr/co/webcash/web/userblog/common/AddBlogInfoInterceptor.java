@@ -1,13 +1,17 @@
 package kr.co.webcash.web.userblog.common;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.co.webcash.domain.Blog;
+import kr.co.webcash.domain.BlogVisitHistory;
 import kr.co.webcash.service.BlogService;
+import kr.co.webcash.service.BlogVisitHistoryService;
 import kr.co.webcash.service.CategoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 public class AddBlogInfoInterceptor extends HandlerInterceptorAdapter {
 	
 	@Autowired private BlogService blogService;
+	@Autowired private BlogVisitHistoryService blogVisitHistoryService;
 	@Autowired private CategoryService categoryService;
 	
 	@Override
@@ -24,11 +29,12 @@ public class AddBlogInfoInterceptor extends HandlerInterceptorAdapter {
 			ModelAndView modelAndView) throws Exception {
 		super.postHandle(request, response, handler, modelAndView);
 		
-		String blogId = findBlogIdFromRequestURI(request.getRequestURI(), 
-												request.getContextPath());
+		String blogId = findBlogIdFromRequestURI(request.getRequestURI(), request.getContextPath());
 		
 		Blog blog = blogService.findById(blogId);
 		if(blog != null){
+			blogService.addVisitCount(blog);
+			
 			modelAndView.addObject("blog", blog);
 			modelAndView.addObject("categoryList", categoryService.listByBlogId(blog.getId()));
 			modelAndView.addObject("htmlTitle", blog.getTitle());

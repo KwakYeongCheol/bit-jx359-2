@@ -15,5 +15,7 @@ public interface BlogRepository {
 	void update(Blog blog);
 
 	List<Blog> findAll();
+
+	void updateTotalCount(Blog blog);
 	
 }

@@ -38,4 +38,9 @@ public class BlogRepositoryImpl implements BlogRepository{
 		return sqlSession.selectList("Blog.findAll");
 	}
 
+	@Override
+	public void updateTotalCount(Blog blog) {
+		sqlSession.update("Blog.updateTotalCount", blog);
+	}
+
 }
