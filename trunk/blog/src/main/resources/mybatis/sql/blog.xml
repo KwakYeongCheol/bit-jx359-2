@@ -1,14 +1,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Blog">
 	<insert id="create" parameterType="Blog">
-		insert into blogs (id, title, owner,dateCreated) 
-		values(#{id}, #{title}, #{owner}, #{dateCreated})
+		insert into blogs (id, title, owner,dateCreated, totalCount) 
+		values(#{id}, #{title}, #{owner}, #{dateCreated}, #{totalCount})
 	</insert>
 	
 	<update id="update" parameterType="Blog">
-		update blogs set
+		UPDATE blogs SET
 			title = #{title}
-		where id = #{id}
+		WHERE
+			id = #{id}
+	</update>
+	
+	<update id="updateTotalCount" parameterType="Blog">
+		UPDATE blogs SET
+			totalCount = #{totalCount}
+		WHERE
+			id = #{id}
 	</update>
 	
 	<sql id="select">
@@ -16,7 +24,8 @@
 			id,
 			title,
 			owner,
-			dateCreated
+			dateCreated,
+			totalCount
 		FROM
 			blogs 
 	</sql>

@@ -59,6 +59,7 @@
 						</c:if>
 					</c:if>
 				</c:if>
+				today : ${blog.todayCount } / total : ${blog.totalCount }
 			</div>
 		</div>
 			

@@ -5,6 +5,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="Blog" type="kr.co.webcash.domain.Blog"/>
+		<typeAlias alias="BlogVisitHistory" type="kr.co.webcash.domain.BlogVisitHistory"/>
 		<typeAlias alias="Category" type="kr.co.webcash.domain.Category"/>
 		<typeAlias alias="Comment" type="kr.co.webcash.domain.Comment"/>
 		<typeAlias alias="Favorite" type="kr.co.webcash.domain.Favorite"/>
@@ -19,6 +20,7 @@
 	
 	<mappers>
 		<mapper resource="mybatis/sql/blog.xml" />
+		<mapper resource="mybatis/sql/blog_visit_history.xml" />
 		<mapper resource="mybatis/sql/category.xml" />
 		<mapper resource="mybatis/sql/comment.xml" />
 		<mapper resource="mybatis/sql/favorite.xml" />
