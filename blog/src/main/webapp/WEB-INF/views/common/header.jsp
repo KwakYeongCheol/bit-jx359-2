@@ -7,7 +7,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>${htmlTitle} }</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/default.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/register.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/core-0.0.1.css">
 </head>
 <body>
 <div id="wrap">
@@ -39,7 +39,7 @@
 		<nav class="nav">
 			<div class="nav-title">${loginUserProvider.loginUser.name }님</div>
 			<ul class="nav-menu">
-				<li><a href="${pageContext.request.contextPath }/user/home">계정설정</a></li>
+				<li><a href="${pageContext.request.contextPath }/settings/user">계정설정</a></li>
 				<hr />
 				<li><a href="${pageContext.request.contextPath }/logout">로그아웃</a></li>
 			</ul>
@@ -52,13 +52,13 @@
 				<li><a href="${pageContext.request.contextPath }/${blog.id }">${blog.title }</a></li>
 				</c:forEach>
 				<hr />
-				<li><a href="${pageContext.request.contextPath }/blog">내 블로그 관리</a></li>
+				<li><a href="${pageContext.request.contextPath }/settings/blog">내 블로그 관리</a></li>
 				<hr />
 				<c:forEach items="${loginUserProvider.loginUser.favoriteList }" var="favorite">
 				<li><a href="${pageContext.request.contextPath }/${favorite.blog.id }">${favorite.blog.title }</a></li>
 				</c:forEach>
 				<hr />
-				<li><a href="${pageContext.request.contextPath }/favorite">이웃 블로그 설정</a></li>
+				<li><a href="${pageContext.request.contextPath }/settings/favorite">이웃 블로그 설정</a></li>
 			</ul>
 		</nav>
 		</c:if>

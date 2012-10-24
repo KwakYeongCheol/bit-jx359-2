@@ -36,6 +36,7 @@
 			<beans:bean class="kr.co.webcash.web.userblog.security.BlogAdminInterceptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>
+			<mvc:mapping path="/settings/**"/>
 			<mvc:mapping path="/blog/**"/>
 			<mvc:mapping path="/{blogId}/comment/**"/>
 			<mvc:mapping path="/favorite/**"/>

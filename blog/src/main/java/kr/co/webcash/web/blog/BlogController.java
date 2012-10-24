@@ -1,7 +1,5 @@
 package kr.co.webcash.web.blog;
 
-import java.util.Date;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 
@@ -40,26 +38,6 @@ public class BlogController {
 	public String home(Model model){
 		model.addAttribute("blogList", blogService.findAllByUserLoginId(loginUser().getLoginId()));
 		return "/blog/home";
-	}
-	
-	@RequestMapping("/create")
-	public void create(Model model){
-		model.addAttribute("blog", new Blog());
-	}
-	
-	@RequestMapping(value="/create", method=RequestMethod.POST)
-	public String create(@ModelAttribute("blog") Blog blog, BindingResult result){
-		this.blogValidator.validate(blog, result);
-		if(!result.hasErrors()){
-			blog.setOwner(loginUser().getLoginId());
-			blog.setDateCreated(new Date(System.currentTimeMillis()));
-			
-			blogService.createBlog(blog);
-			this.loginUserProvider.get().addBlog(blog);
-			return "redirect:/" + blog.getId();
-		}
-		
-		return "/blog/create";
 	}
 	
 	@RequestMapping("/settings")
