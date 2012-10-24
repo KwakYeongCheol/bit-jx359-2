@@ -14,7 +14,7 @@
 				<a href="${pageContext.request.contextPath }/${favorite.blog.id }">${favorite.blog.title }</a> :
 			</div>
 			<div class="value">
-				<a href="#">삭제하기</a>
+				<a href="${pageContext.request.contextPath }/settings/favorite/delete?blogId=${favorite.blog.id}">삭제하기</a>
 			</div>
 		</div>
 		</c:forEach>

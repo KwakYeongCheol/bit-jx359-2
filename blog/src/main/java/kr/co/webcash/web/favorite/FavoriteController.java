@@ -27,11 +27,6 @@ public class FavoriteController {
 		return loginUserProvider.get().getLoginUser();
 	}
 	
-	@RequestMapping
-	public String Main(){
-		return "favorite/home";
-	}
-	
 	@RequestMapping("/addAction")
 	public String addAction(@RequestParam String blogId){
 		Blog blog = blogService.findById(blogId);
@@ -43,20 +38,5 @@ public class FavoriteController {
 		this.loginUserProvider.get().addFavorite(favorite);
 		
 		return "redirect:/"+ blogId;
-	}
-	
-	
-	@RequestMapping("/delete")
-	public String delete(@RequestParam String blogId){
-		Blog blog = new Blog();
-		blog.setId(blogId);
-		Favorite favorite = new Favorite();
-		favorite.setLoginId(loginUser().getLoginId());
-		favorite.setBlog(blog);
-		
-		favoriteService.delete(favorite);
-		this.loginUserProvider.get().removeFavorite(favorite);
-		
-		return "redirect:/favorite";
 	}
 }
