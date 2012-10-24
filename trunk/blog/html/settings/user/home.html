@@ -3,13 +3,12 @@
 <head>
 	<meta charset="utf-8" />
 	<title>jQuery</title>
-	<link rel="stylesheet" href="../css/default.css">
-	<link rel="stylesheet" href="../css/register.css">
+	<link rel="stylesheet" href="../../css/core-0.0.1.css">
 </head>
 <body>
 <div id="wrap">
 	<header>
-		<div class="title"><a href="../home.html">JINBO</a></div>
+		<div class="title"><a href="#">JINBO</a></div>
 		
 		<div class="searchBox">
 			<form action="#" method="get">
@@ -31,9 +30,10 @@
 				<input type="submit" value="Log In" />
 			</form>
 		</div>
-		-->
+		-->	
 		
 		<!-- Login -->
+
 		<nav class="nav">
 			<div class="nav-title">곽영철</div>
 			<ul class="nav-menu">
@@ -47,11 +47,10 @@
 			<div class="nav-title">바로가기</div>
 			<ul class="nav-menu">
 				<li><a href="#">곽군의 블로그</a></li>
-				<li><a href="#">연습용 블로그</a></li>
+				<hr />
+				<li><a href="blog/create.html">내 블로그 관리</a></li>
 				<hr />
 				<li><a href="#">이웃 블로그 1</a></li>
-				<li><a href="#">이웃 블로그 2</a></li>
-				<li><a href="#">이웃 블로그 3</a></li>
 				<hr />
 				<li><a href="#">이웃 블로그 설정</a></li>
 			</ul>
@@ -59,35 +58,70 @@
 	</header>
 	
 	<section>
-		<div>
-			<form id="registerForm" action="#" method="post">
-				<legend>블로그 생성</legend>
-				<div class="group">
-					<div class="groupTitle">기본정보</div>
-					<div class="groupContents">
-						<div class="row">
-							<div class="label">블로그 제목 : </div>
-							<input class="input" type="text" id="title" name="title" placeholder="블로그 제목" autofocus />
-						</div>
-						<div class="row">
-							<div class="label">블로그 주소 : </div>
-							http://jinbo.kr/<input class="input" type="text" id="id" name="id" placeholder="블로그 URL"/>
-						</div>
-					</div>					
-				</div>		
-								
-				<div class="submit">
-					<input type="submit" value="블로그 생성하기" />
-				</div>	
-			</form>
+		<div class="menu">
+			<div class="menu-title">설정</div>
+			<hr />
+			<div class="menu-group">
+				<ul>
+					<li><a href="#">개인 정보</a></li>
+					<li><a href="changePassword.html">비밀번호 변경</a></li>
+					<li><a href="withdraw.html">회원 탈퇴</a></li>
+				</ul>				
+			</div>
+			<hr />
+			<div class="menu-group">
+				<ul>
+					<li><a href="../blog/home.html">블로그 목록</a></li>
+					<li><a href="../blog/create.html">블로그 생성하기</a></li>
+				</ul>				
+			</div>
+			<hr />
+			<div class="menu-group">
+				<ul>
+					<li><a href="../favorite/home.html">이웃 목록</a></li>
+				</ul>				
+			</div>
 		</div>
+		<article class="articleB">
+			<div class="group">
+				<div class="groupTitle theme-a">
+					개인정보
+				</div>
+				<div class="groupContents">
+					<div class="row">
+						<div class="key">
+							이름 :
+						</div>
+						<div class="value">
+							곽영철
+						</div>
+					</div>
+					<div class="row">
+						<div class="key">
+							생년월일 : 
+						</div>
+						<div class="value">
+							1987년 08월 30일
+						</div>
+					</div>
+					<div class="row">
+						<div class="key">
+							성별 :
+						</div>
+						<div class="value">
+							남성
+						</div>
+					</div>
+				</div>
+			</div>
+		</article>
 	</section>
 		
 	<footer>
-		서울시 영등포구 여의도동 사서함 123-122 번지
+		Hello~
 	</footer>
 </div>	
-<script src="../js/jquery-1.8.2.js"></script>
+<script src="../../js/jquery-1.8.2.js"></script>
 <script>
 $(document).ready(function(){
 	$(".nav-title").mouseover(function(){
@@ -105,3 +139,27 @@ $(document).ready(function(){
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
