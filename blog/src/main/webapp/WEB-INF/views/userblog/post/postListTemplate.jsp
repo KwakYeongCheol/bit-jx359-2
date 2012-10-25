@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 <div id="blogArticles">
 	<c:forEach items="${postList }" var="post">
 	<div class="blogArticle">
 		<a href="${pageContext.request.contextPath }/${blog.id}/category/${post.category.displayId}">${post.category.title }</a> | 
 		${post.title } | 
-		${post.dateCreated } |
+		<spring:eval expression="post.dateCreated" /> |		
 		공개여부 : ${post.postMetadata.isPublic }
 		<br /><br />
 				
