@@ -4,7 +4,6 @@
 		Hello~
 	</footer>
 </div>	
-<script src="${pageContext.request.contextPath }/resources/js/jquery-1.8.2.js"></script>
 <script>
 $(document).ready(function(){
 	$(".nav-title").mouseover(function(){
