@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Controller
 @SessionAttributes(value = { "categoryList", "post" })
@@ -68,10 +70,9 @@ public class PostController {
 	}
 
 	@RequestMapping(value = "/writeAction", method = RequestMethod.POST)
-	public String writeAction(@ModelAttribute Post post,
-			@RequestParam String trackbackURL, Model model,
-			@PathVariable String blogId,
-			HttpServletRequest request, BindingResult result) {
+	public String writeAction(@PathVariable String blogId, 
+			@ModelAttribute Post post, @RequestParam String trackbackURL, Model model,			
+			HttpServletRequest request, UriComponentsBuilder uriComponentsBuilder, BindingResult result) {
 		this.postValidator.validate(post, result);
 		if (!result.hasErrors()) {
 			post.setCategory(categoryService.findByBlogIdAndDisplayId(blogId, post.getCategory().getDisplayId()));
@@ -84,8 +85,12 @@ public class PostController {
 				Trackback trackback = new Trackback();
 
 				if (trackback != null) {
-					trackback.setUrl(request.getScheme() + "://" + request.getServerName() + ":"
-							+ request.getServerPort() + "/"	+ blogId + "/" + post.getDisplayId());
+					UriComponents components = uriComponentsBuilder.build();
+					
+					StringBuilder urlBuilder = new StringBuilder();
+					urlBuilder.append(components.toUriString()).append("/").append(blogId).append("/").append(post.getDisplayId());
+					
+					trackback.setUrl(urlBuilder.toString());
 					trackback.setTitle(post.getTitle());
 					trackback.setDateCreated(new Date(System.currentTimeMillis()));
 
