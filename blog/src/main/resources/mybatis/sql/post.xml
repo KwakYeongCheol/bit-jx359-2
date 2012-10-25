@@ -47,6 +47,11 @@
 			AND p.displayId = #{displayId}
 	</select>
 	
+	<select id="findAll" resultType="Post">
+		<include refid="select" />
+		ORDER BY p.id DESC
+	</select>
+	
 	<select id="findAllByCategoryId" resultType="Post">
 		<include refid="select" />
 		WHERE 

@@ -29,7 +29,16 @@ public class Post {
 	private List<Comment> commentList;
 	private List<Trackback> trackbackList;
 	
-	public Post(){}	
+	public Post(){}
+	
+	public Post(long id, Category category, long displayId, String title, String contents, Date dateCreated){
+		setId(id);
+		setCategory(category);
+		setDisplayId(displayId);
+		setTitle(title);
+		setContents(contents);
+		setDateCreated(dateCreated);
+	}
 	
 	public long getId() {
 		return id;

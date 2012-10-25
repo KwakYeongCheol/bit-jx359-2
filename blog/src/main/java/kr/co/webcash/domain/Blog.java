@@ -17,6 +17,15 @@ public class Blog {
 	public Blog(String id) {
 		setId(id);
 	}
+	
+	public Blog(String id, String title, String owner, Date dateCreated, long totalCount){
+		setId(id);
+		setTitle(title);
+		setOwner(owner);
+		setDateCreated(dateCreated);
+		setTotalCount(totalCount);
+	}
+	
 	public String getId() {
 		return id;
 	}

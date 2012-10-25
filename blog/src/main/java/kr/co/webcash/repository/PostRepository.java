@@ -10,6 +10,7 @@ public interface PostRepository {
 	void update(Post post);
 	void delete(Post post);
 
+	List<Post> findAll();
 	List<Post> findAllByCategoryId(long categoryId);
 	List<Post> findAllByBlogId(String blogId);
 	List<Post> findAllByBlogIdAndPostMetadataParams(String blogId, Map postMetadataParams);

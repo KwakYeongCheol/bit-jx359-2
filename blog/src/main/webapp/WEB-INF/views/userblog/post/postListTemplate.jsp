@@ -10,7 +10,7 @@
 		<spring:eval expression="post.dateCreated" /> |		
 		공개여부 : ${post.postMetadata.isPublic }
 		<br /><br />
-				
+		
 		${post.contents }
 	</div>
 	
