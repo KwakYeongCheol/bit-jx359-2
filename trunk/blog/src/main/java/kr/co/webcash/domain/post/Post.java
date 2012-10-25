@@ -3,6 +3,8 @@ package kr.co.webcash.domain.post;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Comment;
 import kr.co.webcash.domain.Trackback;
@@ -17,6 +19,8 @@ public class Post {
 	
 	private String title;
 	private String contents;
+	
+	@DateTimeFormat(pattern="yyyy/MM/dd")
 	private Date dateCreated;
 	
 	
