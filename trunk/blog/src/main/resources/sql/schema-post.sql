@@ -1,11 +1,11 @@
 CREATE TABLE post (
-  id bigint NOT NULL,
-  categoryId bigint NOT NULL,
-  displayId bigint NOT NULL,
-  title VARCHAR(50) NOT NULL,
-  contents VARCHAR(512) NOT NULL,
-  dateCreated timestamp,
-  PRIMARY KEY(id)
+	id bigint NOT NULL,
+	categoryId bigint NOT NULL,
+	displayId bigint NOT NULL,
+	title VARCHAR(50) NOT NULL,
+	contents VARCHAR(512) NOT NULL,
+	dateCreated timestamp,
+	PRIMARY KEY(id)
 );
 
 CREATE TABLE scraps (

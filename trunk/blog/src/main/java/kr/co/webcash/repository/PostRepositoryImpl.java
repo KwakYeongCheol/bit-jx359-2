@@ -85,6 +85,15 @@ public class PostRepositoryImpl implements PostRepository {
 	}
 	
 	@Override
+	public List<Post> findAll() {
+		List<Post> postList = sqlSession.selectList("Post.findAll");
+		
+		addMoreInfo(postList);
+		return postList ;
+	}
+
+	
+	@Override
 	public List<Post> findAllByCategoryId(long categoryId) {
 		List<Post> postList = sqlSession.selectList("Post.findAllByCategoryId", categoryId);
 		
@@ -160,5 +169,6 @@ public class PostRepositoryImpl implements PostRepository {
 		addMoreInfo(post);
 		return post;
 	}
+
 }
 
