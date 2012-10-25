@@ -22,7 +22,7 @@ public class UserBlogRssFeedView extends AbstractRssFeedView{
 		
 		feed.setTitle("JINBO");
 		feed.setDescription("Welcome to our JINBO service. JINBO means JINBO IS NOT BLOG");
-		feed.setLink("http://localhost:8080");
+		feed.setLink((String) model.get("serverURI"));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -35,8 +35,13 @@ public class UserBlogRssFeedView extends AbstractRssFeedView{
 			Item item = new Item();
 			
 			item.setTitle(post.getTitle());
-			item.setUri("http://localhost:8080/" + model.get("blogId") + "/" + post.getDisplayId());
-			item.setLink("http://localhost:8080/" + model.get("blogId") + "/" + post.getDisplayId());
+			
+			StringBuilder urlBuilder = new StringBuilder();
+			urlBuilder.append(model.get("serverURI")).append("/")
+				.append(model.get("blogId")).append("/").append(post.getDisplayId());
+			
+			item.setUri(urlBuilder.toString());
+			item.setLink(urlBuilder.toString());
 			
 			itemList.add(item);
 		}
