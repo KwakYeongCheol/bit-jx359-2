@@ -7,6 +7,14 @@ public class Category {
 	private long displayId;
 	private Blog blog;
 	private String title;
+
+	public Category(){}
+	
+	public Category(Blog blog, int displayId, String title) {
+		setBlog(blog);
+		setDisplayId(displayId);
+		setTitle(title);
+	}
 	
 	public long getId() {
 		return id;

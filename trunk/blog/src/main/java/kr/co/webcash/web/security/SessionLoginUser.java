@@ -5,8 +5,8 @@ import java.util.List;
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Favorite;
 import kr.co.webcash.domain.User;
-import kr.co.webcash.service.BlogService;
 import kr.co.webcash.service.FavoriteService;
+import kr.co.webcash.service.blog.BlogService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

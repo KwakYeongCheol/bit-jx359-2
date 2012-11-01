@@ -2,6 +2,7 @@ package kr.co.webcash.service;
 
 import java.util.List;
 
+import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.repository.CategoryRepository;
 import kr.co.webcash.repository.PostRepository;
@@ -13,6 +14,16 @@ import org.springframework.stereotype.Service;
 public class CategoryServiceImpl implements CategoryService {
 	@Autowired private CategoryRepository categoryRepository;
 	@Autowired private PostRepository postRepository;
+	
+	@Override
+	public void saveDefault(Blog blog) {
+		Category category = new Category();
+		category.setBlog(blog);
+		category.setDisplayId(1);
+		category.setTitle("분류없음");
+		
+		this.save(category);
+	}
 	
 	@Override
 	public void save(Category category) {
@@ -70,5 +81,6 @@ public class CategoryServiceImpl implements CategoryService {
 	public Category findByBlogIdAndDisplayId(Category category) {
 		return this.findByBlogIdAndDisplayId(category.getBlog().getId(), category.getDisplayId());
 	}
+
 
 }

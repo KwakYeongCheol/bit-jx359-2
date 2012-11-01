@@ -1,7 +1,7 @@
 package kr.co.webcash.web.userblog.admin;
 
-import kr.co.webcash.service.BlogService;
 import kr.co.webcash.service.PostService;
+import kr.co.webcash.service.blog.BlogService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

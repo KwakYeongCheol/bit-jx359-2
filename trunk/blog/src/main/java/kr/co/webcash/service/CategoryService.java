@@ -2,6 +2,7 @@ package kr.co.webcash.service;
 
 import java.util.List;
 
+import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Category;
 
 public interface CategoryService {
@@ -11,6 +12,7 @@ public interface CategoryService {
 	long findLastDisplayIdByBlogId(String blogId);
 
 	void save(Category category);
+	void saveDefault(Blog blog);
 
 	void update(Category category);
 
@@ -18,5 +20,6 @@ public interface CategoryService {
 
 	Category findByBlogIdAndDisplayId(Category category);
 	Category findByBlogIdAndDisplayId(String blogId, long displayId);
+
 
 }

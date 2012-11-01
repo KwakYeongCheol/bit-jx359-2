@@ -9,8 +9,8 @@ import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Comment;
 import kr.co.webcash.domain.CommentType;
 import kr.co.webcash.domain.User;
-import kr.co.webcash.service.BlogService;
 import kr.co.webcash.service.CommentService;
+import kr.co.webcash.service.blog.BlogService;
 import kr.co.webcash.web.security.LoginUser;
 import kr.co.webcash.web.validator.CommentValidator;
 

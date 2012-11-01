@@ -10,7 +10,7 @@ import java.util.List;
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.post.Post;
-import kr.co.webcash.service.BlogService;
+import kr.co.webcash.service.blog.BlogService;
 
 import org.junit.Before;
 import org.junit.Test;

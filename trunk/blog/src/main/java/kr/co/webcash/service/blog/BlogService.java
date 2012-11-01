@@ -1,4 +1,4 @@
-package kr.co.webcash.service;
+package kr.co.webcash.service.blog;
 
 import java.util.List;
 
