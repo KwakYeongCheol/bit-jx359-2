@@ -3,7 +3,8 @@ CREATE TABLE category (
   blogId VARCHAR(10) NOT NULL,
   displayId bigint NOT NULL,
   title VARCHAR(50) NOT NULL,
-  primary key(id)
+  PRIMARY KEY(id),
+  UNIQUE(blogId, displayId)
 );
 
 insert into category(id, blogId, title, displayId) values(1, '1', '2012년 일기', 1);

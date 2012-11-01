@@ -11,10 +11,10 @@ import kr.co.webcash.domain.Scrap;
 import kr.co.webcash.domain.Trackback;
 import kr.co.webcash.domain.User;
 import kr.co.webcash.domain.post.Post;
-import kr.co.webcash.service.BlogService;
 import kr.co.webcash.service.CategoryService;
 import kr.co.webcash.service.PostService;
 import kr.co.webcash.service.TrackbackService;
+import kr.co.webcash.service.blog.BlogService;
 import kr.co.webcash.web.security.LoginUser;
 import kr.co.webcash.web.validator.PostValidator;
 

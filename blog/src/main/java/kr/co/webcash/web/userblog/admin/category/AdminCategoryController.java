@@ -6,8 +6,8 @@ import javax.inject.Provider;
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.User;
-import kr.co.webcash.service.BlogService;
 import kr.co.webcash.service.CategoryService;
+import kr.co.webcash.service.blog.BlogService;
 import kr.co.webcash.web.security.LoginUser;
 import kr.co.webcash.web.validator.AdminCategoryValidator;
 

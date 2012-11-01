@@ -6,6 +6,7 @@ import kr.co.webcash.domain.Blog;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -15,7 +16,11 @@ public class BlogRepositoryImpl implements BlogRepository{
 	
 	@Override
 	public void create(Blog blog) {
-		sqlSession.insert("Blog.create", blog);
+		try{
+			sqlSession.insert("Blog.create", blog);
+		}catch(DataAccessException e){
+			throw e;
+		}
 	}
 
 	@Override

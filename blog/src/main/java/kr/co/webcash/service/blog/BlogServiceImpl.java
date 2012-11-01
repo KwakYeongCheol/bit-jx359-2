@@ -1,19 +1,20 @@
-package kr.co.webcash.service;
+package kr.co.webcash.service.blog;
 
 import java.util.Date;
 import java.util.List;
 
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.BlogVisitHistory;
-import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.User;
 import kr.co.webcash.repository.BlogRepository;
 import kr.co.webcash.repository.CategoryRepository;
+import kr.co.webcash.service.CategoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
 
-@Service
+@Service("blogServiceCore")
 public class BlogServiceImpl implements BlogService {
 	
 	@Autowired private BlogRepository blogRepository;
@@ -21,15 +22,17 @@ public class BlogServiceImpl implements BlogService {
 	@Autowired private CategoryService categoryService;
 	@Autowired private CategoryRepository categoryRepository;
 	
+	@Autowired PlatformTransactionManager transactionManager;
+	
 	@Override
 	public void createBlog(Blog blog) {
-		blogRepository.create(blog);
-		Category category = new Category();
-		category.setBlog(blog);
-		category.setDisplayId(1);
-		category.setTitle("분류없음");
+		this.save(blog);
 		
-		categoryService.save(category);
+		categoryService.saveDefault(blog);
+	}
+	
+	private void save(Blog blog){
+		blogRepository.create(blog);
 	}
 
 	@Override

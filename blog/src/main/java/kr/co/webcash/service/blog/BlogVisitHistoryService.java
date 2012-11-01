@@ -1,4 +1,4 @@
-package kr.co.webcash.service;
+package kr.co.webcash.service.blog;
 
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.BlogVisitHistory;
