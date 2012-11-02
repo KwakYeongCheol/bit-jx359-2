@@ -87,13 +87,20 @@ public class BlogServiceImpl implements BlogService {
 	}
 
 	@Override
-	public void addVisitCount(Blog blog) {
-		BlogVisitHistory blogVisitHistory = new BlogVisitHistory(blog, new Date(System.currentTimeMillis()));
-		blogVisitHistoryService.save(blogVisitHistory);
+	public void addVisitCount(BlogVisitHistory blogVisitHistory) {
+		Blog blog = blogVisitHistory.getBlog();
 		
-		blog.setTodayCount(blogVisitHistoryService.countToday(blog));
-		blog.setTotalCount(blog.getTotalCount() + 1);
+		long countToday = blogVisitHistoryService.countToday(blog);
+		long totalCount = blog.getTotalCount();
 		
-		blogRepository.updateTotalCount(blog);
+		if(blogVisitHistoryService.isVisitToday(blogVisitHistory)){
+			blog.setTodayCount(countToday);
+			blog.setTotalCount(totalCount);
+		}else{
+			blog.setTodayCount(++countToday);
+			blog.setTotalCount(++totalCount);
+			blogVisitHistoryService.save(blogVisitHistory);
+			blogRepository.updateTotalCount(blog);
+		}
 	}
 }

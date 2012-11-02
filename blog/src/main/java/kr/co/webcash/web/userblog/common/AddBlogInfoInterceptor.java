@@ -33,7 +33,9 @@ public class AddBlogInfoInterceptor extends HandlerInterceptorAdapter {
 		
 		Blog blog = blogService.findById(blogId);
 		if(blog != null){
-			blogService.addVisitCount(blog);
+			blogService.addVisitCount(
+				new BlogVisitHistory(blog, request.getRemoteAddr(), new Date())
+			);
 			
 			modelAndView.addObject("blog", blog);
 			modelAndView.addObject("categoryList", categoryService.listByBlogId(blog.getId()));

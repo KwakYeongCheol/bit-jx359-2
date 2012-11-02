@@ -3,6 +3,7 @@ package kr.co.webcash.service.blog;
 import java.util.List;
 
 import kr.co.webcash.domain.Blog;
+import kr.co.webcash.domain.BlogVisitHistory;
 import kr.co.webcash.domain.User;
 
 public interface BlogService {
@@ -20,6 +21,5 @@ public interface BlogService {
 
 	boolean isAdmin(String blogId, User user);
 
-	void addVisitCount(Blog blog);
-
+	void addVisitCount(BlogVisitHistory blogVisitHistory);
 }
