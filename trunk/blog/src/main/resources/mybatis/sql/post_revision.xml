@@ -28,6 +28,14 @@
 		limit 1
 	</select>
 	
+	<select id="findByPostIdAndDisplayId" resultType="PostRevision">
+		<include refid="select"/>
+		WHERE
+			postId = #{postId}
+			AND displayId = #{displayId}
+	</select>
+	
+	
 	<select id="findAllByPostId" resultType="PostRevision">
 		<include refid="select"/>
 		WHERE

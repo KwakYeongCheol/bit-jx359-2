@@ -7,6 +7,7 @@ import kr.co.webcash.domain.post.Post;
 
 public interface PostRevisionRepository {
 
+	PostRevision findByPostIdAndDisplayId(long postId, long displayId);
 	PostRevision findLastRevisionByPostId(long postId);
 
 	boolean insert(PostRevision postRevision);
@@ -15,5 +16,6 @@ public interface PostRevisionRepository {
 
 	List<PostRevision> findAllByPost(Post post);
 	List<PostRevision> findAllByPostAndFromRevisionAndToRevision(Post post, long fromDisplayId, long toDisplayId);
+
 
 }

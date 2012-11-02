@@ -20,6 +20,15 @@ public class PostRevisionRepositoryImpl implements PostRevisionRepository{
 	public PostRevision findLastRevisionByPostId(long postId) {
 		return (PostRevision) sqlSession.selectOne("PostRevision.findLastRevisionByPostId", postId);
 	}
+	
+	@Override
+	public PostRevision findByPostIdAndDisplayId(long postId, long displayId) {
+		Map<String, Long> params = new HashMap<String, Long>();
+		params.put("postId", postId);
+		params.put("displayId", displayId);
+		
+		return sqlSession.selectOne("PostRevision.findByPostIdAndDisplayId", params);
+	}
 
 	@Override
 	public boolean insert(PostRevision postRevision) {
@@ -47,5 +56,4 @@ public class PostRevisionRepositoryImpl implements PostRevisionRepository{
 		
 		return sqlSession.selectList("PostRevision.findAllByPostAndFromRevisionAndToRevision", params);
 	}
-
 }

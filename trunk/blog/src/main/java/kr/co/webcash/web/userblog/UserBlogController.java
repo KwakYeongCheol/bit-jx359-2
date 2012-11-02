@@ -55,7 +55,16 @@ public class UserBlogController {
 		String contents = postRevisionService.getContents(post, revisionId);
 		
 		model.addAttribute("contents", contents);
-		
+
 		return "/userblog/post/revision";
+	}
+	
+	@RequestMapping("/{postId}/compare/{revisionId}")
+	public String compare(@PathVariable String blogId, @PathVariable long postId, @PathVariable long revisionId, Model model){
+		Post post = postService.findByBlogIdAndDisplayId(blogId, postId);
+		
+		model.addAttribute("contents", postRevisionService.getCompareHtml(post, revisionId));
+		
+		return "/userblog/post/compare";
 	}
 }

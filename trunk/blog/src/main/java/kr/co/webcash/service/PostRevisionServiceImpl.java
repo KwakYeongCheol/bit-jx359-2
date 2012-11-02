@@ -6,6 +6,7 @@ import java.util.List;
 import kr.co.webcash.domain.PostRevision;
 import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.repository.PostRevisionRepository;
+import kr.co.webcash.utils.PostRevisionUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,7 +66,6 @@ public class PostRevisionServiceImpl implements PostRevisionService{
 		}
 		
 		return patchContents(findPost, postRevisionDisplayId, currentRevision.getDisplayId());
-		
 	}
 
 	private String patchContents(Post post, long fromDisplayId, long toDisplayId) {
@@ -79,8 +79,13 @@ public class PostRevisionServiceImpl implements PostRevisionService{
 			Patch patch = DiffUtils.parseUnifiedDiff(patchList);
 			
 			StringBuilder builder = new StringBuilder();
+			
+			boolean start = true;
+			
 			try {
 				for(Object obj : DiffUtils.patch(Arrays.asList(contents.split("\n")), patch)){
+					if(start)		start = false;
+					else			builder.append("\n");
 					builder.append(obj);
 				}
 				
@@ -112,6 +117,19 @@ public class PostRevisionServiceImpl implements PostRevisionService{
 	@Override
 	public List<PostRevision> list(Post post) {
 		return postRevisionRepository.findAllByPost(post);
+	}
+
+	@Override
+	public PostRevision get(long postId, long postRevisionDisplayId) {
+		return postRevisionRepository.findByPostIdAndDisplayId(postId, postRevisionDisplayId);
+	}
+
+	@Override
+	public String getCompareHtml(Post post, long revisionId) {
+		String original = getContents(post, revisionId);
+		String revised = getContents(post, revisionId - 1);
+		
+		return PostRevisionUtils.generateDiffRows(original, revised);
 	}
 
 }

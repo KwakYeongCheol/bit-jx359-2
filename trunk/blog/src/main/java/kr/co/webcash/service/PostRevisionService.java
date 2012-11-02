@@ -16,5 +16,9 @@ public interface PostRevisionService {
 
 	String getContents(Post post, long postRevisionDisplayId);
 
+	PostRevision get(long postId, long postRevisionDisplayId);
+	
 	List<PostRevision> list(Post post);
+
+	String getCompareHtml(Post post, long revisionId);
 }
