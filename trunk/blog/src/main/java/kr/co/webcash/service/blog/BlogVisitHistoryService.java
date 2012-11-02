@@ -7,6 +7,8 @@ public interface BlogVisitHistoryService {
 
 	boolean save(BlogVisitHistory blogVisitHistory);
 
+	boolean isVisitToday(BlogVisitHistory blogVisitHistory);
 	long countToday(Blog blog);
+
 
 }

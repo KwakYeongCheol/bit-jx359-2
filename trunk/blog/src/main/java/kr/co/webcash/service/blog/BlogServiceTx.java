@@ -3,6 +3,7 @@ package kr.co.webcash.service.blog;
 import java.util.List;
 
 import kr.co.webcash.domain.Blog;
+import kr.co.webcash.domain.BlogVisitHistory;
 import kr.co.webcash.domain.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +67,7 @@ public class BlogServiceTx implements BlogService {
 	}
 
 	@Override
-	public void addVisitCount(Blog blog) {
-		this.blogService.addVisitCount(blog);
+	public void addVisitCount(BlogVisitHistory blogVisitHistory) {
+		this.blogService.addVisitCount(blogVisitHistory);
 	}
 }

@@ -23,9 +23,10 @@ public class BlogVisitHistoryServiceImpl implements BlogVisitHistoryService{
 		visitHistoryRepository.insert(blogVisitHistory);
 		return true;
 	}
-
-	@Override
-	public long countToday(Blog blog) {
+	
+	private Map<String, Object> getTodayCondition(){
+		Map<String, Object> params = new HashMap<String, Object>();
+		
 		try{
 			Calendar today = Calendar.getInstance();
 			
@@ -41,15 +42,38 @@ public class BlogVisitHistoryServiceImpl implements BlogVisitHistoryService{
 			StringBuilder endDateBuilder = new StringBuilder();
 			endDateBuilder.append(year).append("-").append(month).append("-").append(day + 1);
 			
-			Map params = new HashMap();
-			params.put("blogId", blog.getId());
 			params.put("startDate", format.parseObject(startDateBuilder.toString()));
 			params.put("endDate", format.parseObject(endDateBuilder.toString()));
+		}catch(Exception e){
+		}
+		
+		return params;
+	}
+
+	@Override
+	public long countToday(Blog blog) {
+		try{
+			Map<String, Object> params = getTodayCondition();
+			params.put("blogId", blog.getId());
 			
 			return visitHistoryRepository.countByBlogIdAndFromStartDateToEndDate(params);
 		}catch(Exception e){
 		}
 		
 		return -1;
+	}
+
+	@Override
+	public boolean isVisitToday(BlogVisitHistory blogVisitHistory) {
+		try{
+			Map<String, Object> params = getTodayCondition();
+			params.put("blogId", blogVisitHistory.getBlog().getId());
+			params.put("connectIPAddress", blogVisitHistory.getConnectIPAddress());
+			
+			if(visitHistoryRepository.findByBlogIdAndConnectIPAddressAndFromStartDateToEndDate(params) != null) 	return true;
+		}catch(Exception e){
+		}
+		
+		return false;
 	}
 }

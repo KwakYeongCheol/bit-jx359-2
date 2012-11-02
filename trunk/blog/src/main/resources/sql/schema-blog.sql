@@ -11,6 +11,7 @@ INSERT INTO blogs(id, title, owner, dateCreated, totalCount) VALUES ('2', 'Is Th
 
 CREATE TABLE blog_visit_history(
 	blogId VARCHAR(10) NOT NULL,
+	connectIPAddress VARCHAR(50) NOT NULL,
 	visited timestamp NOT NULL
 );
 

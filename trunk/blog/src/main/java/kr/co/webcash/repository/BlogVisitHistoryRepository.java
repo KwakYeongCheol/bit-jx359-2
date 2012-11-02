@@ -10,4 +10,6 @@ public interface BlogVisitHistoryRepository {
 
 	long countByBlogIdAndFromStartDateToEndDate(Map params);
 
+	BlogVisitHistory findByBlogIdAndConnectIPAddressAndFromStartDateToEndDate(Map<String, Object> params);
+
 }

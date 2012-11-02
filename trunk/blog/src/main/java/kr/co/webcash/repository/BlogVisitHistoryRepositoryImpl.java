@@ -22,4 +22,9 @@ public class BlogVisitHistoryRepositoryImpl implements BlogVisitHistoryRepositor
 	public long countByBlogIdAndFromStartDateToEndDate(Map params) {
 		return sqlSession.selectOne("BlogVisitHistory.countByBlogIdAndFromStartDateToEndDate", params);
 	}
+
+	@Override
+	public BlogVisitHistory findByBlogIdAndConnectIPAddressAndFromStartDateToEndDate(Map<String, Object> params) {
+		return sqlSession.selectOne("BlogVisitHistory.findByBlogIdAndConnectIPAddressAndFromStartDateToEndDate", params);
+	}
 }
