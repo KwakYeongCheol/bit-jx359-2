@@ -22,14 +22,16 @@ public class BlogServiceTx implements BlogService {
 	@Autowired private PlatformTransactionManager transactionManager;
 	
 	@Override
-	public void createBlog(Blog blog) {
+	public boolean createBlog(Blog blog) {
 		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
 		
 		try{
 			blogService.createBlog(blog);
 			this.transactionManager.commit(txStatus);
+			return true;
 		}catch(RuntimeException e){
 			this.transactionManager.rollback(txStatus);
+			return false;
 		}
 	}
 	

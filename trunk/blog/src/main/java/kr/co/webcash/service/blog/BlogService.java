@@ -7,7 +7,7 @@ import kr.co.webcash.domain.User;
 
 public interface BlogService {
 
-	void createBlog(Blog blog);
+	boolean createBlog(Blog blog);
 
 	List<Blog> findAll();
 	List<Blog> findAllByUserLoginId(String loginId);
