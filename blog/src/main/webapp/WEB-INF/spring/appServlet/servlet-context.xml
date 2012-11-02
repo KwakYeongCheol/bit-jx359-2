@@ -24,26 +24,8 @@
 	
 	<context:component-scan base-package="kr.co.webcash" />
 	
-	<beans:import resource="repository.xml" />
-	
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/{blogId}/**"/>
-			<beans:bean class="kr.co.webcash.web.userblog.common.AddBlogInfoInterceptor" />
-		</mvc:interceptor>
-		<mvc:interceptor>
-			<mvc:mapping path="/{blogId}/admin/**"/>
-			<beans:bean class="kr.co.webcash.web.security.BlogAdminInterceptor" />
-		</mvc:interceptor>
-		<mvc:interceptor>
-			<mvc:mapping path="/settings/**"/>
-			<mvc:mapping path="/blog/**"/>
-			<mvc:mapping path="/{blogId}/comment/**"/>
-			<mvc:mapping path="/favorite/**"/>
-			<mvc:mapping path="/{blogId}/guestbook/**"/>
-			<beans:bean class="kr.co.webcash.web.security.LoginUserInterceptor" />
-		</mvc:interceptor>
-	</mvc:interceptors>
+	<beans:import resource="controllers.xml" />	
+	<beans:import resource="repository.xml" />	
 	
 	<beans:bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<beans:property name="messageConverters">

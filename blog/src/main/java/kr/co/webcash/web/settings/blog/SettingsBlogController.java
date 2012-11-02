@@ -55,12 +55,12 @@ public class SettingsBlogController {
 			blog.setOwner(loginUser().getLoginId());
 			blog.setDateCreated(new Date(System.currentTimeMillis()));
 			
-			blogService.createBlog(blog);
-			
-			status.setComplete();
-			this.loginUserProvider.get().addBlog(blog);
-			
-			return "redirect:/" + blog.getId();
+			if(blogService.createBlog(blog)){
+				status.setComplete();
+				this.loginUserProvider.get().addBlog(blog);
+				
+				return "redirect:/" + blog.getId();
+			}
 		}
 		
 		return "/settings/blog/create";

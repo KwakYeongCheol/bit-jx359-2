@@ -25,10 +25,12 @@ public class BlogServiceImpl implements BlogService {
 	@Autowired PlatformTransactionManager transactionManager;
 	
 	@Override
-	public void createBlog(Blog blog) {
+	public boolean createBlog(Blog blog) {
 		this.save(blog);
 		
 		categoryService.saveDefault(blog);
+		
+		return true;
 	}
 	
 	private void save(Blog blog){
