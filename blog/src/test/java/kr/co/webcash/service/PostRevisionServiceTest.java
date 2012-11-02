@@ -13,6 +13,7 @@ import java.util.Map;
 import kr.co.webcash.domain.PostRevision;
 import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.repository.PostRevisionRepository;
+import kr.co.webcash.utils.PostRevisionUtils;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,9 +32,9 @@ public class PostRevisionServiceTest {
 	
 	@Test
 	public void insertAndPatch(){
-		String firstPostContents = "This is first posting!";
-		String secondPostContents = "Oper";
-		String thirdPostContents = "Hello everyone. My name is YeongCheol Kwak";
+		String firstPostContents = "Gwak\nChul";
+		String secondPostContents = "Kwak\nWho\nhi!";
+		String thirdPostContents = "Kwak\nWhos\nChul\nhi";
 		
 		Post firstPost = new Post();
 		firstPost.setId(1);
@@ -45,7 +46,6 @@ public class PostRevisionServiceTest {
 		PostRevision postRevision = postRevisionService.currentRevision(firstPost);
 		assertThat(postRevisionService.list(firstPost).size(), is(1));
 		assertThat(postRevision.getDisplayId(), is(Long.valueOf(1)));
-		
 		
 		Post secondPost = new Post();
 		secondPost.setId(1);
@@ -65,16 +65,17 @@ public class PostRevisionServiceTest {
 		
 		assertThat(postService.findById(thirdPost.getId()).getContents(), is(thirdPostContents));
 		postRevision = postRevisionService.currentRevision(thirdPost);
-		assertThat(postRevisionService.list(thirdPost).size(), is(3));
+		List<PostRevision> postRevisionList = postRevisionService.list(thirdPost);
+		assertThat(postRevisionList.size(), is(3));
 		assertThat(postRevision.getDisplayId(), is(Long.valueOf(3)));
-		
 		
 		assertThat(postRevisionService.getContents(thirdPost, 1), is(firstPostContents));
 		assertThat(postRevisionService.getContents(thirdPost, 2), is(secondPostContents));
 		assertThat(postRevisionService.getContents(thirdPost, 3), is(thirdPostContents));
+		
+		System.out.println(PostRevisionUtils.generateDiffRows(thirdPostContents, secondPostContents));
 	}
 	
-
 	private void save(Post post){
 		if(this.postService.findById(post.getId()) == null){
 			this.postRevisionService.save(post);
@@ -173,6 +174,12 @@ class MockPostRevisionRepository implements PostRevisionRepository{
 	@Override
 	public List<PostRevision> findAllByPost(Post post) {
 		return repository.get(post.getId());
+	}
+
+	@Override
+	public PostRevision findByPostIdAndDisplayId(long postId, long displayId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

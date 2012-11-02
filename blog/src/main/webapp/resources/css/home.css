@@ -5,3 +5,11 @@
 	border-style: dotted;
 	padding: 20px;
 }
+
+.compare_insert{
+	background:#FFD8D8;
+}
+
+.compare_delete{
+	background: #DDF8CC;
+}
