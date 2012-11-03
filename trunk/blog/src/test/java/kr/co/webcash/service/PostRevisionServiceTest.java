@@ -32,8 +32,8 @@ public class PostRevisionServiceTest {
 	
 	@Test
 	public void insertAndPatch(){
-		String firstPostContents = "Gwak\nChul";
-		String secondPostContents = "Kwak\nWho\nhi!";
+		String firstPostContents = "Gwak\nChul<br />";
+		String secondPostContents = "Kwak\n<p style=\"width:500px;\">Who</p>\nhi!";
 		String thirdPostContents = "Kwak\nWhos\nChul\nhi";
 		
 		Post firstPost = new Post();
