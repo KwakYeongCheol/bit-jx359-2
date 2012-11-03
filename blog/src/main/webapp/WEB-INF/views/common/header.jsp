@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>${htmlTitle} }</title>
+	<title>${htmlTitle} </title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/default.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/core-0.0.1.css">
 	

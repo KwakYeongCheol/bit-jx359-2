@@ -22,15 +22,20 @@ public class PostRevisionUtils {
 		
 		List<DiffRow> rows = generator.generateDiffRows(original, revised);
 		for(DiffRow row : rows){
+			
+			String oldLine = unnormalize(row.getOldLine());
+			String newLine = unnormalize(row.getNewLine());
+			
+			
 			if(row.getTag().equals(Tag.EQUAL)){
-				builder.append(row.getOldLine());
-			}else if(row.getTag().equals(Tag.INSERT)){
-				builder.append("<p class=\"compare_delete\">").append(row.getNewLine()).append("</p>");
+				builder.append(oldLine);
+			} else if(row.getTag().equals(Tag.INSERT)){
+				builder.append("<p class=\"compare_delete\">").append(newLine).append("</p>");
 			}else if(row.getTag().equals(Tag.CHANGE)){
-				builder.append("<p class=\"compare_delete\">").append(row.getNewLine()).append("</p>");
-				builder.append("<p class=\"compare_insert\">").append(row.getOldLine()).append("</p>");
+				builder.append("<p class=\"compare_delete\">").append(newLine).append("</p>");
+				builder.append("<p class=\"compare_insert\">").append(oldLine).append("</p>");
 			}else if(row.getTag().equals(Tag.DELETE)){
-				builder.append("<p class=\"compare_insert\">").append(row.getOldLine()).append("</p>");
+				builder.append("<p class=\"compare_insert\">").append(oldLine).append("</p>");
 			}
 			
 			builder.append("\n");
@@ -38,4 +43,17 @@ public class PostRevisionUtils {
 		
 		return builder.toString();
 	}
+
+	private static String unnormalize(String str) {
+		return makeTab(htmlEntries(str));
+	}
+
+	private static String makeTab(String str) {
+		return str.replace("    ", "\t");
+	}
+
+	private static String htmlEntries(String str) {
+		return str.replace("&lt;", "<").replace("&gt;", ">");
+	}
+	
 }
