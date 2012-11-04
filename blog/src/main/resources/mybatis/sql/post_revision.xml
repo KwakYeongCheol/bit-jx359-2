@@ -40,6 +40,7 @@
 		<include refid="select"/>
 		WHERE
 			postId = #{postId}
+		ORDER BY displayId DESC
 	</select>
 	
 	<select id="findAllByPostAndFromRevisionAndToRevision" resultType="PostRevision">

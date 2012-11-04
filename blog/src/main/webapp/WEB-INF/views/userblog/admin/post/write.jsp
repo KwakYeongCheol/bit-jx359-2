@@ -29,7 +29,7 @@
 			<textarea id="editor" name="contents">
 			<c:if test="${scrap != null }">
 				<p>
-					@@${scrap.scrappedBlog.id }/${scrap.scrappedPostId }##
+					@@${scrap.scrappedBlog.id }/${scrap.scrappedPostId }/${scrap.scrappedPostRevisionId }##
 				</p>
 			</c:if>
 			</textarea>

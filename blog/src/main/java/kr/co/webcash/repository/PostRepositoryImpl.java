@@ -18,6 +18,7 @@ public class PostRepositoryImpl implements PostRepository {
 	@Autowired private ScrapRepository scrapRepository;
 	@Autowired private TrackbackRepository trackbackRepository;
 	@Autowired private PostMetadataRepository postMetadataRepository;
+	@Autowired private PostRevisionRepository postRevisionRepository;
 	
 
 	private void addMoreInfo(List<Post> postList) {
@@ -30,6 +31,7 @@ public class PostRepositoryImpl implements PostRepository {
 		addComments(post);
 		addTrackback(post);
 		addPostMetadata(post);
+		addPostRevisionHistory(post);
 	}
 	
 	private void addComments(Post post) {
@@ -47,6 +49,12 @@ public class PostRepositoryImpl implements PostRepository {
 	private void addPostMetadata(Post post) {
 		if(post != null){
 			post.setPostMetadata(postMetadataRepository.findByPostId(post.getId()));
+		}
+	}
+	
+	private void addPostRevisionHistory(Post post) {
+		if(post != null){
+			post.setPostRevisionList(postRevisionRepository.findAllByPost(post));
 		}
 	}
 
