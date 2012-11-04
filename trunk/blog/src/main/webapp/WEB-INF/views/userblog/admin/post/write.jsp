@@ -53,6 +53,18 @@
 				<label>트랙백 보내기</label>
 				<input type="text" name="trackbackURL" placeholder="http://"/>
 			</div>
+			<div>
+				Tag : <input type="text" id="inputTag" />
+				<input type="button" id="btnInputTag" value="추가" />
+				<div id="tagBox">
+				<c:forEach items="${post.postTagList }" var="tag">
+				<span style="padding:5px;">
+					${tag.value }
+					<input type="hidden" name="tagList" value="${tag.value }" />
+				</span>
+				</c:forEach>
+				</div>
+			</div>
 		</div>
 		<p>
 			<input type="submit" value="글쓰기" />
@@ -71,6 +83,16 @@
 	    toolbar:[
 	    ['Bold','Italic','-','NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','Styles','Format','Font','FontSize']],
 	    skin:'office2003'
+	});
+	
+	$("#btnInputTag").bind('click', function(){
+		var tag = $("#inputTag").val();
+		if(tag.length == 0)	return;
+		
+		$span = $("<span>").attr("style", "padding:5px;").html(tag).appendTo($("#tagBox"));
+		$("<input>").attr("type", "hidden").attr("name", "postTagList").attr("value", tag).appendTo($span);
+		
+		$("#inputTag").val("");
 	});
 </script>
 </body>

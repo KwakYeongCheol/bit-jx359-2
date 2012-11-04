@@ -33,6 +33,11 @@ CREATE TABLE post_revision(
 	PRIMARY KEY(postId, displayId)
 );
 
+CREATE TABLE post_tag(
+	postId bigint NOT NULL,
+	tag_value VARCHAR(100) NOT NULL
+);
+
 
 INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
 	VALUES(1, '첫 번째 포스팅', '안녕하세요. 곽범생입니다. 첫 포스팅하네요 :D<br />한숨대신 함성으로~<br />걱정대신 열정으로~</br /><br />포기대신 죽기 살기로~~<br />', NOW(), 1, 1);

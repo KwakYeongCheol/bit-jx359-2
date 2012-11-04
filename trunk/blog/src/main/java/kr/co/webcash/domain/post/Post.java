@@ -3,12 +3,12 @@ package kr.co.webcash.domain.post;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Comment;
 import kr.co.webcash.domain.PostRevision;
 import kr.co.webcash.domain.Trackback;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class Post {
 	
@@ -26,6 +26,8 @@ public class Post {
 	
 	
 	/* meta data */
+	private List<PostTag> postTagList;
+	
 	private PostMetadata postMetadata;
 	private List<PostRevision> postRevisionList;
 	
@@ -133,7 +135,12 @@ public class Post {
 	public void setPostRevisionList(List<PostRevision> postRevisionList) {
 		this.postRevisionList = postRevisionList;
 	}
-	
-	
-	
+
+	public List<PostTag> getPostTagList() {
+		return postTagList;
+	}
+
+	public void setPostTagList(List<PostTag> postTagList) {
+		this.postTagList = postTagList;
+	}
 }

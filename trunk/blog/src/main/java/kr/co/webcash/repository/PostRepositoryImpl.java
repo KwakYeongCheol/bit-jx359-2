@@ -19,6 +19,7 @@ public class PostRepositoryImpl implements PostRepository {
 	@Autowired private TrackbackRepository trackbackRepository;
 	@Autowired private PostMetadataRepository postMetadataRepository;
 	@Autowired private PostRevisionRepository postRevisionRepository;
+	@Autowired private PostTagRepository postTagRepository;
 	
 
 	private void addMoreInfo(List<Post> postList) {
@@ -28,10 +29,17 @@ public class PostRepositoryImpl implements PostRepository {
 	}
 	
 	private void addMoreInfo(Post post){
+		addPostTag(post);
 		addComments(post);
 		addTrackback(post);
 		addPostMetadata(post);
 		addPostRevisionHistory(post);
+	}
+	
+	private void addPostTag(Post post){
+		if(post != null){
+			post.setPostTagList(postTagRepository.findAllByPostId(post.getId()));
+		}
 	}
 	
 	private void addComments(Post post) {
