@@ -5,8 +5,7 @@ import java.util.Date;
 public class Comment {
 	private long id;
 	private long displayId;
-	private long targetId;
-	private CommentType type;
+	private CommentTarget target;
 	private User writer;
 	private String contents;
 	private Date dateCreated;
@@ -17,17 +16,11 @@ public class Comment {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public long getTargetId() {
-		return targetId;
+	public CommentTarget getTarget() {
+		return target;
 	}
-	public void setTargetId(long targetId) {
-		this.targetId = targetId;
-	}
-	public CommentType getType() {
-		return type;
-	}
-	public void setType(CommentType type) {
-		this.type = type;
+	public void setTarget(CommentTarget target) {
+		this.target = target;
 	}
 	public User getWriter() {
 		return writer;
@@ -51,7 +44,7 @@ public class Comment {
 	
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", targetId=" + targetId + ", type=" + type + ", writer=" + writer
+		return "Comment [id=" + id + ", target=" + target + ", writer=" + writer
 				+ ", contents=" + contents + ", dateCreated=" + dateCreated
 				+ "]";
 	}
@@ -61,8 +54,4 @@ public class Comment {
 	public void setDisplayId(long displayId) {
 		this.displayId = displayId;
 	}
-	
-	
-	
-	
 }

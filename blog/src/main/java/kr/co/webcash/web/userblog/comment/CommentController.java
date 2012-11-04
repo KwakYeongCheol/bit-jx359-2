@@ -7,6 +7,7 @@ import javax.inject.Provider;
 
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Comment;
+import kr.co.webcash.domain.CommentTarget;
 import kr.co.webcash.domain.CommentType;
 import kr.co.webcash.domain.User;
 import kr.co.webcash.service.CommentService;
@@ -51,8 +52,7 @@ public class CommentController {
 		long lastDisplayId = commentService.findLastDisplayIdByBlogIdAndCommentType(blogId, CommentType.valueOf(type));
 		
 		Comment comment = new Comment();
-		comment.setTargetId(targetId);
-		comment.setType(CommentType.valueOf(type));
+		comment.setTarget(new CommentTarget(targetId, CommentType.valueOf(type)));
 		comment.setDisplayId(lastDisplayId + 1);
 		comment.setWriter(loginUser());
 		comment.setContents(contents);
@@ -91,8 +91,8 @@ public class CommentController {
 //					blogId, targetId, type);
 			
 			Comment findComment = commentService.findByTargetIdAndCommentTypeAndDisplayId(
-					comment.getTargetId(), 
-					comment.getType(), 
+					comment.getTarget().getId(), 
+					comment.getTarget().getType(), 
 					comment.getDisplayId());
 			
 			if (findComment.getWriter().getLoginId().equals(loginUser().getLoginId())) {
