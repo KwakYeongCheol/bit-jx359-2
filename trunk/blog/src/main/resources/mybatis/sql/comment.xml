@@ -2,7 +2,7 @@
 <mapper namespace="Comment">
 	<insert id="insert" parameterType="Comment">
 		insert into comment (id, targetId, commentType, displayId, writerId,contents, dateCreated) 
-		values(#{id}, #{targetId}, #{type}, #{displayId}, #{writer.loginId}, #{contents}, #{dateCreated})
+		values(#{id}, #{target.id}, #{target.type}, #{displayId}, #{writer.loginId}, #{contents}, #{dateCreated})
 	</insert>
 	
 	<update id="update" parameterType="Comment">
@@ -18,8 +18,8 @@
 	<sql id="select">
 		SELECT
 			c.id as id,
-			c.targetId as targetId,
-			c.commentType as type,
+			c.targetId as "target.id",
+			c.commentType as "target.type",
 			c.displayId as displayId,
 			c.writerId as "writer.loginId",
 			c.contents as contents,
