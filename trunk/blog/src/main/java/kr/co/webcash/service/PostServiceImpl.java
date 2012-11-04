@@ -137,12 +137,13 @@ public class PostServiceImpl implements PostService {
 			List<String> scrapURLList = PostUtils.getScrapURLFromContents(post.getContents());
 			
 			for(String scrapURL : scrapURLList){
-				Map<String, String> pair = PostUtils.parseToBlogIdAndPostIdPair(scrapURL);
+				Map<String, String> pair = PostUtils.parseToBlogIdAndPostIdAndPostRevisionIdPair(scrapURL);
 				
 				String blogId = pair.get("blogId");
 				String postDisplayId = pair.get("postDisplayId");
+				String postRevisionId = pair.get("postRevisionId");
 				
-				if(!StringUtils.hasLength(blogId) || !StringUtils.hasLength(postDisplayId))
+				if(!StringUtils.hasLength(blogId) || !StringUtils.hasLength(postDisplayId) || !StringUtils.hasLength(postRevisionId))
 					continue;
 				
 				Scrap scrap = scrapRepository.findByPostIdAndTargetBlogIdAndTargetPostId(post.getId(), blogId, postDisplayId);

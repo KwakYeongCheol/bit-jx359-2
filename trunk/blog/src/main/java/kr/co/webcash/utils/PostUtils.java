@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 public class PostUtils {
 	
-	private static final String SCRAP_URL_REGEX = "@@[a-zA-Z0-9]+/[0-9]+##";
+	private static final String SCRAP_URL_REGEX = "@@[a-zA-Z0-9]+/[0-9]+/[0-9]+##";
 	
 	public static List<Map<String, String>> parseToMap(String data){
 		return parseToMap(getScrapURLFromContents(data));
@@ -37,7 +37,7 @@ public class PostUtils {
 		List<Map<String, String>> resultList = new ArrayList<Map<String, String>>();
 		
 		for(String scrapURL : scrapURLList){
-			Map<String, String> map = parseToBlogIdAndPostIdPair(scrapURL);
+			Map<String, String> map = parseToBlogIdAndPostIdAndPostRevisionIdPair(scrapURL);
 			if(map == null)		continue;
 			
 			resultList.add(map);
@@ -46,22 +46,24 @@ public class PostUtils {
 		return resultList;
 	}
 	
-	public static Map<String, String> parseToBlogIdAndPostIdPair(String scrapURL){
+	public static Map<String, String> parseToBlogIdAndPostIdAndPostRevisionIdPair(String scrapURL){
 		String[] arr = scrapURL.split("/");
 		
-		if(arr.length != 2)		return null;
+		if(arr.length != 3)		return null;
 		
 		String prefix = "@@";
 		String suffix = "##";
 		
-		if(!arr[0].contains(prefix)  || !arr[1].contains(suffix))		return null;
+		if(!arr[0].contains(prefix)  || !arr[2].contains(suffix))		return null;
 		
 		String blogId = arr[0].substring(prefix.length());
-		String postDisplayId = arr[1].substring(0, arr[1].length() - suffix.length());
+		String postDisplayId = arr[1];
+		String postRevisionId = arr[2].substring(0, arr[2].length() - suffix.length());
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("blogId", blogId);
 		map.put("postDisplayId", postDisplayId);
+		map.put("postRevisionId", postRevisionId);
 		
 		return map;
 	}

@@ -5,6 +5,7 @@ public class Scrap {
 	private long postId;
 	private Blog scrappedBlog;
 	private long scrappedPostId;
+	private long scrappedPostRevisionId;
 	private String scrappedPostTitle;
 	private String scrappedPostContents;
 	
@@ -43,5 +44,11 @@ public class Scrap {
 		return "Scrap [postId=" + postId + ", scrappedBlog=" + scrappedBlog + ", scrappedPostId="
 				+ scrappedPostId + ", scrappedPostTitle=" + scrappedPostTitle
 				+ ", scrappedPostContents=" + scrappedPostContents + "]";
+	}
+	public long getScrappedPostRevisionId() {
+		return scrappedPostRevisionId;
+	}
+	public void setScrappedPostRevisionId(long scrappedPostRevisionId) {
+		this.scrappedPostRevisionId = scrappedPostRevisionId;
 	}
 }

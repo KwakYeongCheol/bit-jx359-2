@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Comment;
+import kr.co.webcash.domain.PostRevision;
 import kr.co.webcash.domain.Trackback;
 
 public class Post {
@@ -26,6 +27,8 @@ public class Post {
 	
 	/* meta data */
 	private PostMetadata postMetadata;
+	private List<PostRevision> postRevisionList;
+	
 	private List<Comment> commentList;
 	private List<Trackback> trackbackList;
 	
@@ -121,6 +124,14 @@ public class Post {
 				+ ", dateCreated=" + dateCreated + ", postMetadata="
 				+ postMetadata + ", commentList="
 				+ commentList + ", trackbackList=" + trackbackList + "]";
+	}
+
+	public List<PostRevision> getPostRevisionList() {
+		return postRevisionList;
+	}
+
+	public void setPostRevisionList(List<PostRevision> postRevisionList) {
+		this.postRevisionList = postRevisionList;
 	}
 	
 	
