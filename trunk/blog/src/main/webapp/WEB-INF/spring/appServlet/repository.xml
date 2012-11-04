@@ -37,6 +37,7 @@
 		<jdbc:script location="classpath:sql/schema-favorite.sql"/>
 		<jdbc:script location="classpath:sql/schema-comment.sql"/>
 		<jdbc:script location="classpath:sql/schema-trackback.sql"/>
+		<jdbc:script location="classpath:sql/schema-notification.sql"/>
 	</jdbc:embedded-database>
 	
 	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">

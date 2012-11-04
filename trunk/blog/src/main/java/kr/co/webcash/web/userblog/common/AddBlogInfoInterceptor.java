@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.BlogVisitHistory;
 import kr.co.webcash.service.CategoryService;
+import kr.co.webcash.service.NotificationService;
 import kr.co.webcash.service.blog.BlogService;
 import kr.co.webcash.service.blog.BlogVisitHistoryService;
 
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 public class AddBlogInfoInterceptor extends HandlerInterceptorAdapter {
 	
 	@Autowired private BlogService blogService;
+	@Autowired private NotificationService notificationService;
 	@Autowired private BlogVisitHistoryService blogVisitHistoryService;
 	@Autowired private CategoryService categoryService;
 	
@@ -37,6 +39,7 @@ public class AddBlogInfoInterceptor extends HandlerInterceptorAdapter {
 				new BlogVisitHistory(blog, request.getRemoteAddr(), new Date())
 			);
 			
+			modelAndView.addObject("notificationList", notificationService.listByBlog(blog));
 			modelAndView.addObject("blog", blog);
 			modelAndView.addObject("categoryList", categoryService.listByBlogId(blog.getId()));
 			modelAndView.addObject("htmlTitle", blog.getTitle());

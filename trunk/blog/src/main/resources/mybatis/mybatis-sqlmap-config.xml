@@ -16,6 +16,7 @@
 		<typeAlias alias="Scrap" type="kr.co.webcash.domain.Scrap"/>
 		<typeAlias alias="Trackback" type="kr.co.webcash.domain.Trackback"/>
 		<typeAlias alias="User" type="kr.co.webcash.domain.User" />
+		<typeAlias alias="Notification" type="kr.co.webcash.domain.Notification" />
 	</typeAliases>
 	
 	<mappers>
@@ -31,5 +32,6 @@
 		<mapper resource="mybatis/sql/scrap.xml" />
 		<mapper resource="mybatis/sql/trackback.xml" />
 		<mapper resource="mybatis/sql/user.xml" />
+		<mapper resource="mybatis/sql/notification.xml" />
 	</mappers>
 </configuration>

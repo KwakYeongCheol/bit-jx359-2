@@ -2,6 +2,7 @@ package kr.co.webcash.service;
 
 import kr.co.webcash.domain.Comment;
 import kr.co.webcash.domain.CommentType;
+import kr.co.webcash.domain.User;
 
 public interface CommentService {
 	void save(Comment comment);
@@ -17,5 +18,6 @@ public interface CommentService {
 	
 //	Comment findByTargetIdAndCommentType(long targetId, CommentType type);
 	Comment findByTargetIdAndCommentTypeAndDisplayId(long targetId,	CommentType type, long displayId);
+	void sendNotification(User loginUser, String blogId, long targetDisplayId, CommentType commentType);
 	
 }
