@@ -1,0 +1,33 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Notification">
+	<insert id="insert" parameterType="Notification">
+		INSERT INTO notification 
+			(id, blogId, contents, uri, dateCreated) 
+		VALUES
+			(#{id}, #{blog.id},  #{contents}, #{uri}, #{dateCreated})
+	</insert>
+	
+	<sql id="select">
+		SELECT
+			id, 
+			blogId as "blog.id",
+			contents,
+			uri,
+			dateCreated
+		FROM
+			notification
+	</sql>
+	
+	<select id="findLast" resultType="Notification">
+		<include refid="select" />
+		ORDER BY id desc
+		LIMIT 1
+	</select>
+
+	<select id="findAllByBlogId" resultType="Notification">
+		<include refid="select" />
+		WHERE
+			blogId = #{blogId}
+		ORDER BY dateCreated desc
+	</select>
+</mapper>

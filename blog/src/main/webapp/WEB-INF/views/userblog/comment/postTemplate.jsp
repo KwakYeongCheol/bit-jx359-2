@@ -37,10 +37,10 @@
 			${comment.writer.loginId } | ${comment.dateCreated } <br />
 			${comment.contents } 
 			<c:if test="${loginUserProvider.loginUser.loginId == comment.writer.loginId  }">
-			<a href="${pageContext.request.contextPath }/${blog.id }/comment/modify?displayId=${comment.displayId}&targetId=${comment.targetId}&type=post">수정</a>
+			<a href="${pageContext.request.contextPath }/${blog.id }/comment/modify?displayId=${comment.displayId}&targetId=${comment.target.id}&type=post">수정</a>
 			</c:if>
 			<c:if test="${loginUserProvider.loginUser.loginId == comment.writer.loginId || loginUserProvider.loginUser.loginId == blog.owner }">
-			<a href="${pageContext.request.contextPath }/${blog.id}/comment/delete?displayId=${comment.displayId}&targetId=${comment.targetId}&type=post">삭제</a>
+			<a href="${pageContext.request.contextPath }/${blog.id}/comment/delete?displayId=${comment.displayId}&targetId=${comment.target.id}&type=post">삭제</a>
 			</c:if>
 		</div>
 		</c:forEach>

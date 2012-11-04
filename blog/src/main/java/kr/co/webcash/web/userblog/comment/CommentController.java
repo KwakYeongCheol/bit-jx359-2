@@ -48,17 +48,20 @@ public class CommentController {
 			@RequestParam String type,
 			@RequestParam String contents) {
 		
-		long targetId = commentService.getTargetIdByBlogIdAndCommentTypeAndDisplayId(blogId, CommentType.valueOf(type), targetDisplayId);
-		long lastDisplayId = commentService.findLastDisplayIdByBlogIdAndCommentType(blogId, CommentType.valueOf(type));
+		CommentType commentType = CommentType.valueOf(type);
+		
+		long targetId = commentService.getTargetIdByBlogIdAndCommentTypeAndDisplayId(blogId, commentType, targetDisplayId);
+		long lastDisplayId = commentService.findLastDisplayIdByBlogIdAndCommentType(blogId, commentType);
 		
 		Comment comment = new Comment();
-		comment.setTarget(new CommentTarget(targetId, CommentType.valueOf(type)));
+		comment.setTarget(new CommentTarget(targetId, commentType));
 		comment.setDisplayId(lastDisplayId + 1);
 		comment.setWriter(loginUser());
 		comment.setContents(contents);
 		comment.setDateCreated(new Date(System.currentTimeMillis()));
 
 		commentService.save(comment);
+		commentService.sendNotification(loginUser(), blogId, targetDisplayId, commentType);
 
 		if (type.toString().equals("guestbook")) {
 			return "redirect:/" + blogId + "/guestbook";

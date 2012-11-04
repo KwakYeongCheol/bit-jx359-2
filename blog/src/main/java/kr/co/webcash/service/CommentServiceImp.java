@@ -1,8 +1,11 @@
 package kr.co.webcash.service;
 
+import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Comment;
 import kr.co.webcash.domain.CommentType;
 import kr.co.webcash.domain.Guestbook;
+import kr.co.webcash.domain.Notification;
+import kr.co.webcash.domain.User;
 import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.repository.CommentRepository;
 import kr.co.webcash.repository.GuestbookRepository;
@@ -17,6 +20,8 @@ public class CommentServiceImp implements CommentService{
 	@Autowired CommentRepository commentRepository;
 	@Autowired PostService postService;
 	@Autowired GuestbookService guestbookService;
+	
+	@Autowired private NotificationService notificationService;
 
 	@Override
 	public void save(Comment comment) {
@@ -86,6 +91,28 @@ public class CommentServiceImp implements CommentService{
 	@Override
 	public Comment findByTargetIdAndCommentTypeAndDisplayId(long targetId, CommentType type, long displayId) {
 		return commentRepository.findByDisplayIdAndTargetIdAndType(displayId, targetId, type.toString());
+	}
+
+	@Override
+	public void sendNotification(User loginUser, String blogId, long targetDisplayId, CommentType commentType) {
+		Notification notification = new Notification();
+		notification.setBlog(new Blog(blogId));
+		
+		switch(commentType){
+		case post:
+			notification.setUri("/" + blogId + "/" + targetDisplayId);
+			break;
+		case guestbook:
+			notification.setUri("/" + blogId + "/guestbook/" + targetDisplayId);
+			break;
+		}
+		
+		StringBuilder message = new StringBuilder();
+		message.append(loginUser.getName()).append("님이 댓글을 남겼습니다.");
+		
+		notification.setContents(message.toString());
+		
+		notificationService.sendNotification(notification);
 	}
 	
 }

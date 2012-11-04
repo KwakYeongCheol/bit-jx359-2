@@ -82,3 +82,12 @@
 					<a href="${pageContext.request.contextPath }/${blog.id}/category/${category.displayId}">${category.title }</a><br />
 				</c:forEach>
 			</div>
+			
+			<div id="blogNotification">
+				<c:forEach items="${notificationList }" var="notification">
+					<a href="${pageContext.request.contextPath }${notification.uri }">
+						${notification.contents } | ${notification.dateCreated }
+					</a>
+					<br />
+				</c:forEach>
+			</div>
