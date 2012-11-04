@@ -12,6 +12,7 @@
 		<typeAlias alias="Guestbook" type="kr.co.webcash.domain.Guestbook"/>
 		<typeAlias alias="Post" type="kr.co.webcash.domain.post.Post"/>
 		<typeAlias alias="PostMetadata" type="kr.co.webcash.domain.post.PostMetadata"/>
+		<typeAlias alias="PostTag" type="kr.co.webcash.domain.post.PostTag"/>
 		<typeAlias alias="PostRevision" type="kr.co.webcash.domain.PostRevision"/>
 		<typeAlias alias="Scrap" type="kr.co.webcash.domain.Scrap"/>
 		<typeAlias alias="Trackback" type="kr.co.webcash.domain.Trackback"/>
@@ -28,6 +29,7 @@
 		<mapper resource="mybatis/sql/guestbook.xml" />
 		<mapper resource="mybatis/sql/post.xml" />
 		<mapper resource="mybatis/sql/post_metadata.xml" />
+		<mapper resource="mybatis/sql/post_tag.xml" />
 		<mapper resource="mybatis/sql/post_revision.xml" />
 		<mapper resource="mybatis/sql/scrap.xml" />
 		<mapper resource="mybatis/sql/trackback.xml" />

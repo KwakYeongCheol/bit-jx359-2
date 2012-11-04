@@ -1,0 +1,19 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PostTag">	
+	<insert id="insert" parameterType="PostTag">
+		INSERT INTO post_tag 
+			(postId, tag_value)
+		VALUES 
+			(#{post.id}, #{value})
+	</insert>
+	
+	<select id="findAllByPostId" resultType="PostTag">
+		SELECT
+			postId as "post.id",
+			tag_value as value
+		FROM
+			post_tag
+		WHERE
+			postId = #{postId}
+	</select>
+</mapper>

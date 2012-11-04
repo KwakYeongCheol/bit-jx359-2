@@ -13,6 +13,11 @@
 		<br /><br />
 		
 		${post.contents }
+		<br />
+		Tag : 
+		<c:forEach items="${post.postTagList }" var="postTag">
+		<span style="margin:5px;">${postTag.value }</span>
+		</c:forEach>
 	</div>
 	
 	<c:if test="${post.postMetadata.canScrap }">

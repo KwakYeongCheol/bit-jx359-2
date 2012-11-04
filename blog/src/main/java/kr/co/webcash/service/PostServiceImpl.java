@@ -9,6 +9,7 @@ import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Scrap;
 import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.domain.post.PostMetadata;
+import kr.co.webcash.domain.post.PostTag;
 import kr.co.webcash.repository.CategoryRepository;
 import kr.co.webcash.repository.PostMetadataRepository;
 import kr.co.webcash.repository.PostRepository;
@@ -27,17 +28,20 @@ public class PostServiceImpl implements PostService {
 	private PostRevisionService postRevisionService;
 	private ScrapRepository scrapRepository;
 	private CategoryRepository categoryRepository;
+	private PostTagService postTagService;
 	
 	@Autowired
 	public void setDependencies(PostRepository postRepository, 
 			PostMetadataRepository postMetadataRepository,
 			PostRevisionService postRevisionService,
+			PostTagService postTagService,
 			ScrapRepository scrapRepository, 
 			CategoryRepository categoryRepository){
 		
 		this.postRepository = postRepository;
 		this.postMetadataRepository = postMetadataRepository;
 		this.postRevisionService = postRevisionService;
+		this.postTagService = postTagService;
 		this.scrapRepository = scrapRepository;
 		this.categoryRepository = categoryRepository;
 	}
@@ -55,6 +59,7 @@ public class PostServiceImpl implements PostService {
 		postRepository.insert(post);
 		postRevisionService.save(post);
 		
+		insertTag(post);
 		insertPostMetadata(post);
 		insertScrap(post);
 	}
@@ -68,6 +73,17 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public void delete(Post post) {
 		postRepository.delete(post);
+	}
+	
+	private void insertTag(Post post){
+		List<PostTag> postTagList = post.getPostTagList();
+		
+		if(postTagList == null || postTagList.isEmpty())	return;
+		
+		for(PostTag postTag : postTagList){
+			postTag.setPost(post);
+			postTagService.save(postTag);
+		}
 	}
 	
 	private void insertPostMetadata(Post post){
