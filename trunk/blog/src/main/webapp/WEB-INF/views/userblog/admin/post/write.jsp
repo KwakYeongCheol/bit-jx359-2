@@ -4,8 +4,8 @@
 
 <html>
 <head>
-<script type="text/javascript" src="${pageContext.request.contextPath }/resources/ckeditor/ckeditor.js"></script>
 <jsp:include page="/WEB-INF/views/userblog/admin/common/header.jsp" />
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/ckeditor/ckeditor.js"></script>
 </head>
 <body>
 <div id="blogArticles">	
@@ -65,13 +65,13 @@
 				</c:forEach>
 				</div>
 			</div>
+			<div id="attach">
+				<input type="button" id="btnImageUploader" value="사진 첨부" />
+			</div>
 		</div>
 		<p>
 			<input type="submit" value="글쓰기" />
 		</p>
-		
-
-		
 	</form:form>
 </div>
 <script type="text/javascript">
@@ -94,6 +94,23 @@
 		
 		$("#inputTag").val("");
 	});
+</script>
+<script>
+	$("#btnImageUploader").bind('click', function(){
+		window.open("${pageContext.request.contextPath }/${blog.id }/admin/post/imageuploader", "이미지 업로더");
+		return false;
+	});
+	
+	function imageUploaderCallback(result){
+		for(var i = 0; i < result.length; i++){
+			var img = "<img src=\"" + result[i] + "\" />";
+			
+			var editor = CKEDITOR.instances.editor;
+			
+			var data = editor.getData();
+			editor.setData(data + img);
+		}
+	}
 </script>
 </body>
 </html>

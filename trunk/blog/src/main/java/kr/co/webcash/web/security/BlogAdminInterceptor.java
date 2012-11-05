@@ -48,6 +48,8 @@ public class BlogAdminInterceptor extends HandlerInterceptorAdapter{
 			ModelAndView modelAndView) throws Exception {
 		super.postHandle(request, response, handler, modelAndView);
 		
+		if(modelAndView == null)	return;
+		
 		List<String> cssList = new ArrayList<String>();
 		cssList.add("css/blog/admin/blog_admin_default.css");
 		modelAndView.getModel().put("cssList", cssList);
