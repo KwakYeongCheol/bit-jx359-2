@@ -1,11 +1,13 @@
 package kr.co.webcash.service;
-
+ 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Category;
+import kr.co.webcash.domain.Page;
 import kr.co.webcash.domain.Scrap;
 import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.domain.post.PostMetadata;
@@ -201,5 +203,65 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public List<Post> search(String query) {
 		return postRepository.findAllByQuery(query);
+	}
+
+	@Override
+	public Page getPage(String blogId, int pageNum) {
+		Page page = new Page();
+		
+		page.setCurrentPage(pageNum);
+		page.setCount(postRepository.total(blogId));
+		page.setStartPage((page.getCurrentPage() - 1) * page.getPageSize() + 1);
+		page.setEndPage(page.getCurrentPage() * page.getPageSize());
+		page.setPageGroupCount(page.getCount()/(page.getPageSize() * page.getPageGroupSize()) + (page.getCount()%(page.getPageSize() * page.getPageGroupSize()) == 0 ? 0 : 1));
+		page.setNumPageGroup((int)Math.ceil((double)page.getCurrentPage()/page.getPageGroupSize()));
+		
+		return page;
+	}
+
+	@Override
+	public List<Post> listAllByPage(Page page, String blogId) {
+		ArrayList<Post> postList;
+		Map params = new HashMap();
+		params.put("isPublic", "true");
+		
+		if(page.getCount() > 0 ){
+			postList= (ArrayList) postRepository.select(page.getStartPage()-1,page.getPageSize(),blogId,params);	
+		}else{
+			postList = new ArrayList<Post>();
+		}
+		
+		convertFromScrapTagToScrapContents(postList);
+		
+		return postList;
+	}
+
+	@Override
+	public Page getPagePublic(String blogId, int pageNum) {
+		Page page = new Page();
+		
+		page.setCurrentPage(pageNum);
+		page.setCount(postRepository.totalByisPublic(blogId));
+		page.setStartPage((page.getCurrentPage() - 1) * page.getPageSize() + 1);
+		page.setEndPage(page.getCurrentPage() * page.getPageSize());
+		page.setPageGroupCount(page.getCount()/(page.getPageSize() * page.getPageGroupSize()) + (page.getCount()%(page.getPageSize() * page.getPageGroupSize()) == 0 ? 0 : 1));
+		page.setNumPageGroup((int)Math.ceil((double)page.getCurrentPage()/page.getPageGroupSize()));
+		
+		return page;
+	}
+
+	@Override
+	public List<Post> listPublicByPage(Page page, String blogId) {
+		ArrayList<Post> postList;
+		Map params = new HashMap();
+		params.put("isPublic", "true");
+		
+		if(page.getCount() > 0 ){
+			postList= (ArrayList) postRepository.selectByisPublic(page.getStartPage()-1,page.getPageSize(),blogId, params);	
+		}else{
+			postList = new ArrayList<Post>();
+		}
+		
+		return postList;
 	}
 }

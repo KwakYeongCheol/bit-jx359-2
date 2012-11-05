@@ -1,5 +1,6 @@
 package kr.co.webcash.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,4 +26,11 @@ public interface PostRepository {
 //	Post findLastByBlogIdAndCategoryId(String blogId, long categoryId);
 	Post findLast();
 	Post findById(long id);
+	int total(String blogId);
+	
+	List<Post> select(int startRow, int endRow, String blogId, Map postMetadataParams);
+	
+	int totalByisPublic(String blogId);
+	
+	List<Post> selectByisPublic(int startRow, int endRow, String blogId, Map postMetadataParams);
 }

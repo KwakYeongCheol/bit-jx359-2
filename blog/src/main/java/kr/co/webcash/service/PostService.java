@@ -1,7 +1,9 @@
 package kr.co.webcash.service;
 
 import java.util.List;
+import java.util.Map;
 
+import kr.co.webcash.domain.Page;
 import kr.co.webcash.domain.post.Post;
 
 public interface PostService {
@@ -19,4 +21,13 @@ public interface PostService {
 	List<Post> listAll(String blogId);
 	
 	List<Post> search(String query);
+	
+	Page getPage(String blogId, int pageNum);
+	
+	List<Post> listAllByPage(Page page, String blogId);
+	
+	Page getPagePublic(String blogId, int pageNum);
+	
+	List<Post> listPublicByPage(Page page, String blogId);
+	
 }

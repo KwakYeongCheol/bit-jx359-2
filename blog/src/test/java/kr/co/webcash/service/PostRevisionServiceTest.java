@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.webcash.domain.Page;
 import kr.co.webcash.domain.PostRevision;
 import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.repository.PostRevisionRepository;
@@ -181,7 +182,6 @@ class MockPostRevisionRepository implements PostRevisionRepository{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 }
 
 class MockPostService implements PostService{
@@ -236,6 +236,29 @@ class MockPostService implements PostService{
 
 	@Override
 	public List<Post> search(String query) {
+		return null;
+	}
+
+	@Override
+	public Page getPage(String blogId, int pageNum) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Post> listAllByPage(Page page, String blogId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page getPagePublic(String blogId, int pageNum) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Post> listPublicByPage(Page page, String blogId) {
 		return null;
 	}
 }
