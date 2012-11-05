@@ -7,6 +7,7 @@ import java.util.Map;
 import kr.co.webcash.domain.CommentType;
 import kr.co.webcash.domain.post.Post;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -184,6 +185,34 @@ public class PostRepositoryImpl implements PostRepository {
 		
 		addMoreInfo(post);
 		return post;
+	}
+
+	@Override
+	public int total(String blogId) {
+		int count = sqlSession.selectOne("Post.total", blogId);
+		return count;
+	}
+
+	@Override
+	public List<Post> select(int startRow, int endRow, String blogId, Map postMetadataParams) {
+		RowBounds rowBounds = new RowBounds(startRow,endRow);
+		List<Post> postList = sqlSession.selectList("Post.select",blogId, rowBounds);
+		addMoreInfo(postList);
+		return postList;
+	}
+
+	@Override
+	public int totalByisPublic(String blogId) {
+		int count = sqlSession.selectOne("Post.totalByisPublic", blogId);
+		return count;
+	}
+
+	@Override
+	public List<Post> selectByisPublic(int startRow, int endRow, String blogId, Map postMetadataParams) {
+		RowBounds rowBounds = new RowBounds(startRow,endRow);
+		List<Post> postList = sqlSession.selectList("Post.selectByisPublic",blogId, rowBounds);
+		addMoreInfo(postList);
+		return postList;
 	}
 
 }

@@ -117,4 +117,50 @@
 			AND p.contents LIKE '%'||#{query}||'%'
 		ORDER BY p.id DESC
 	</select>	
+	
+	<select id="total" resultType="Integer">
+		SELECT COUNT(*)
+		FROM 
+			post p
+		JOIN 
+			category c on c.id = p.categoryId
+		WHERE 
+			c.blogId = #{blogId}
+	</select>
+	
+	<select id="totalByisPublic" resultType="Integer">
+		SELECT COUNT(*)
+		FROM 
+			post p
+		JOIN 
+			category c on c.id = p.categoryId
+		JOIN 
+			post_metadata pm on pm.postId = p.id
+		WHERE 
+			c.blogId = #{blogId}
+			AND pm.isPublic = 'true'
+	</select>
+	
+	<select id="select" resultType="Post">
+		SELECT *
+		FROM 
+			post p
+		JOIN 
+			category c on c.id = p.categoryId
+		WHERE 
+			c.blogId = #{blogId}
+	</select>
+	
+	<select id="selectByisPublic" resultType="Post">
+		SELECT *
+		FROM 
+			post p
+		JOIN 
+			category c on c.id = p.categoryId
+		JOIN 
+			post_metadata pm on pm.postId = p.id
+		WHERE 
+			c.blogId = #{blogId}
+			AND pm.isPublic = 'true'
+	</select>
 </mapper>
