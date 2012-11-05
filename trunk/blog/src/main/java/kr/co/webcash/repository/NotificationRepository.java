@@ -10,4 +10,6 @@ public interface NotificationRepository {
 	public Notification findLast();
 	
 	public List<Notification> findAllByBlogId(String blogId);
+
+	public List<Notification> findAllByBlogIdAndPage(String blogId, int pageNumber,	int pageSize);
 }
