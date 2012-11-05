@@ -32,4 +32,10 @@ public class NotificationServiceImpl implements NotificationService {
 		return notificationRepository.findAllByBlogId(blog.getId());
 	}
 
+	@Override
+	public List<Notification> listByBlog(Blog blog, int pageNumber) {
+		int pageSize = 10;
+		return notificationRepository.findAllByBlogIdAndPage(blog.getId(), pageNumber, pageSize);
+	}
+
 }

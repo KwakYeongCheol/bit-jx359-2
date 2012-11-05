@@ -11,4 +11,6 @@ public interface NotificationService {
 
 	List<Notification> listByBlog(Blog blog);
 
+	List<Notification> listByBlog(Blog blog, int pageNumber);
+
 }
