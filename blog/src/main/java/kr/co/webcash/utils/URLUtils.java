@@ -21,4 +21,20 @@ public class URLUtils {
 		else					return requestURL.substring(beginIndex, endIndex);
 	}
 
+	public static String make(String scheme, String serverName, int serverPort, String contextPath) {
+		StringBuilder builder = new StringBuilder();
+		builder.append(scheme).append("://").append(serverName).append(":").append(serverPort).append("/").append(contextPath);
+		
+		return builder.toString();
+	}
+	
+	public static String make(String scheme, String serverName, int serverPort, String contextPath, String... paths){
+		StringBuilder builder = new StringBuilder(make(scheme, serverName, serverPort, contextPath));
+		
+		for(String path : paths){
+			builder.append(path).append("/");
+		}
+		
+		return builder.toString();
+	}
 }
