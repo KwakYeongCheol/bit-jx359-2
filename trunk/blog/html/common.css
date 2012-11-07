@@ -1,9 +1,53 @@
 body{
-
+	margin:0px;
+	padding:0px;
 }
 
-#wrap{
-	width: 1000px;
+.wrap{
+	border: 1px solid #F00;
+}
+
+.title{
+	width: 1500px;
 	height: 50px;
+}
+
+.article{
+	width: 1500px;
+	height: 950px;
+}
+
+.contents{
+	content: "";
+	background-color:#00F;
+	width: 780px;
+	height: 500px;
+	padding: 0px;
+	margin: 10px;
+	border: 1px solid #FF0;
+}
+
+.category{
+	width: 200px;
+	height: 220px;
+	background-color:#0F0;
+	float:left;
+	margin:30px;
+}
+
+.category-title{
+	border: 2px solid;
+}
+
+.post{
+	width: 100px;
+	height: 30px;
 	background-color:#F00;
+	margin: 30px;
+}
+
+.post:hover{
+	background-color: #FFF;
+	cursor: hand;
+	cursor: pointer;
 }
