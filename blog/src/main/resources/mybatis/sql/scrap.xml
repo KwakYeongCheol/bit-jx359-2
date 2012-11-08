@@ -1,15 +1,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Scrap">
 	<insert id="insert" parameterType="Scrap">
-		insert into scraps (postId, scrappedBlogId, scrappedPostId, scrappedPostTitle, scrappedPostContents)
-		values(#{postId}, #{scrappedBlog.id}, #{scrappedPostId}, #{scrappedPostTitle}, #{scrappedPostContents})
+		insert into scraps (postId, scrappedBlogId, scrappedPostDisplayId, scrappedPostRevisionId, scrappedPostTitle, scrappedPostContents)
+		values(#{postId}, #{scrappedBlog.id}, #{scrappedPostDisplayId}, #{scrappedPostRevisionId}, #{scrappedPostTitle}, #{scrappedPostContents})
 	</insert>
 	
 	<sql id="select">
 		SELECT
 			postId,
 			scrappedBlogId as "scrappedBlog.id",
-			scrappedPostId,
+			scrappedPostDisplayId,
+			scrappedPostRevisionId,
 			scrappedPostTitle,
 			scrappedPostContents
 		FROM
@@ -22,11 +23,11 @@
 			postId = #{postId}
 	</select>
 	
-	<select id="findByPostIdAndScrappedBlogIdAndScrappedPostId" resultType="Scrap">
+	<select id="findByPostIdAndScrappedBlogIdAndScrappedPostDisplayId" resultType="Scrap">
 		<include refid="select" />
 		WHERE
 			postId = #{postId}
 			AND scrappedBlogId = #{scrappedBlogId}
-			AND scrappedPostId = #{scrappedPostId}
+			AND scrappedPostDisplayId = #{scrappedPostDisplayId}
 	</select>
 </mapper>

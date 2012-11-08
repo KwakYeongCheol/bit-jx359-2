@@ -4,9 +4,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.util.List;
-import java.util.Map;
 
-import kr.co.webcash.utils.PostUtils;
+import kr.co.webcash.domain.Scrap;
 
 import org.junit.Test;
 
@@ -14,56 +13,48 @@ public class PostServiceTest {
 	
 	@Test
 	public void successCase(){
-		List<String> scrapURLList = PostUtils.getScrapURLFromContents("Hello? @@kwakyc87/123/1## I'm posted this blog :D");
+		List<Scrap> scrapList = Scrap.convert("Hello? @@kwakyc87/123/1## I'm posted this blog :D");
 		
-		assertThat(scrapURLList.size(), is(1));
-		assertThat(scrapURLList.get(0), is("@@kwakyc87/123/1##"));
+		assertThat(scrapList.size(), is(1));
+		Scrap scrap = scrapList.get(0);
+		assertThat(scrap.getScrappedBlog().getId(), is("kwakyc87"));
+		assertThat(scrap.getScrappedPostDisplayId(), is(Long.valueOf("123")));
+		assertThat(scrap.getScrappedPostRevisionId(), is(Long.valueOf("1")));
 		
-		scrapURLList = PostUtils.getScrapURLFromContents("Well, this is long Example maybe. @@kwakyc87/1/1## is great post to me. Sometimes, people told me," +
+		scrapList = Scrap.convert("Well, this is long Example maybe. @@kwakyc87/1/1## is great post to me. Sometimes, people told me," +
 				"@kwakyc87/1## how are you doing? @@kwakyc87/2/## " +
 				"hahaha But. It's fail because I expected @@ ('two at') but He have wrong spelling. and '/##'!!" +
 				"so I told him, 'Hey! you have wrong spelling! @@kwakyc87/1## ! haha " +
 				"but It's duplicate Import '@@kwakyc87/1##. So I expected only 1 '@@kwakyc87/1##.");
-		
-		assertThat(scrapURLList.size(), is(1));
-		assertThat(scrapURLList.get(0), is("@@kwakyc87/1/1##"));
+	
+		assertThat(scrapList.size(), is(1));
+		scrap = scrapList.get(0);
+		assertThat(scrap.getScrappedBlog().getId(), is("kwakyc87"));
+		assertThat(scrap.getScrappedPostDisplayId(), is(Long.valueOf("1")));
+		assertThat(scrap.getScrappedPostRevisionId(), is(Long.valueOf("1")));
+		assertThat(scrap.getTag(), is("@@kwakyc87/1/1##"));
 	}
 	
 	@Test
 	public void similarCase(){
-		List<String> scrapURLList = PostUtils.getScrapURLFromContents("Hello, @@fail/fail## It's failcase :(");
-		assertThat(scrapURLList.size(), is(0));
+		List<Scrap> scrapList = Scrap.convert("Hello, @@fail/fail## It's failcase :(");
+		assertThat(scrapList.size(), is(0));
 
-		scrapURLList = PostUtils.getScrapURLFromContents("Hello, @@123fail/1/1## It's not failcase :(");
-		assertThat(scrapURLList.size(), is(1));
-
-		scrapURLList = PostUtils.getScrapURLFromContents("Hello, @@fail_/1/1## It's failcase, too :(");
-		assertThat(scrapURLList.size(), is(0));
-
-		scrapURLList = PostUtils.getScrapURLFromContents("Hello, @@fail-/1/1## It's failcase, too :(");
-		assertThat(scrapURLList.size(), is(0));
-		
-		scrapURLList = PostUtils.getScrapURLFromContents("How about this? @@## or @@kwakyc87##");
-		assertThat(scrapURLList.size(), is(0));
-		
-		scrapURLList = PostUtils.getScrapURLFromContents("and.. @@@kwakyc87/1/1##23###. Can you find this?");
-		assertThat(scrapURLList.size(), is(1));
-		assertThat(scrapURLList.get(0), is("@@kwakyc87/1/1##"));
-	}
-	
-	@Test
-	public void parseToBlogIdAndPostDisplayId(){
-		List<String> scrapURLList = PostUtils.getScrapURLFromContents("Hello? @@kwakyc87/123/1## I'm posted this blog :D");
-		
-		List<Map<String, String>> scrapList = PostUtils.parseToMap(scrapURLList);
-		
+		scrapList = Scrap.convert("Hello, @@123fail/1/1## It's not failcase :(");
 		assertThat(scrapList.size(), is(1));
+
+		scrapList = Scrap.convert("Hello, @@fail_/1/1## It's failcase, too :(");
+		assertThat(scrapList.size(), is(0));
+
+		scrapList = Scrap.convert("Hello, @@fail-/1/1## It's failcase, too :(");
+		assertThat(scrapList.size(), is(0));
 		
-		Map<String, String> scrap = scrapList.get(0);
+		scrapList = Scrap.convert("How about this? @@## or @@kwakyc87##");
+		assertThat(scrapList.size(), is(0));
 		
-		assertThat(scrap.get("blogId"), is("kwakyc87"));
-		assertThat(scrap.get("postDisplayId"), is("123"));
-		assertThat(scrap.get("postRevisionId"), is("1"));
+		scrapList = Scrap.convert("and.. @@@2/1/1##23###. Can you find this?");
+		assertThat(scrapList.size(), is(1));
+		assertThat(scrapList.get(0).getTag(), is("@@2/1/1##"));
 	}
 }
 

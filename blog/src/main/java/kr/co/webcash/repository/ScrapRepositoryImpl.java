@@ -43,13 +43,13 @@ public class ScrapRepositoryImpl implements ScrapRepository{
 	}
 
 	@Override
-	public Scrap findByPostIdAndTargetBlogIdAndTargetPostId(long postId, String targetBlogId, String targetPostDisplayId) {
+	public Scrap findByPostIdAndTargetBlogIdAndTargetPostDisplayId(long postId, String targetBlogId, long targetPostDisplayId) {
 		Map params = new HashMap();
 		params.put("postId", postId);
 		params.put("scrappedBlogId", targetBlogId);
-		params.put("scrappedPostId", targetPostDisplayId);
+		params.put("scrappedPostDisplayId", targetPostDisplayId);
 		
-		Scrap scrap = (Scrap) sqlSession.selectOne("Scrap.findByPostIdAndScrappedBlogIdAndScrappedPostId", params);
+		Scrap scrap = (Scrap) sqlSession.selectOne("Scrap.findByPostIdAndScrappedBlogIdAndScrappedPostDisplayId", params);
 		addMoreInfo(scrap);
 		
 		return scrap;
