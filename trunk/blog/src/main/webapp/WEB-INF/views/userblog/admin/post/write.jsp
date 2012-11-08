@@ -13,9 +13,7 @@
 		<p>
 			<form:label path="category.displayId">카테고리</form:label>
 			<form:select path="category.displayId">
-				<c:forEach items="${categoryList }" var="category">
-					<form:option value="${category.displayId }">${category.title }</form:option>
-				</c:forEach>
+				<form:options items="${categoryList }" itemLabel="title" itemValue="displayId" />
 			</form:select>
 		</p>
 		<p>
@@ -26,13 +24,7 @@
 		<p>
 			<form:errors cssClass="errors" path="contents"></form:errors>
 			<form:label cssClass="label" path="contents">Contents</form:label>
-			<textarea id="editor" name="contents">
-			<c:if test="${scrap != null }">
-				<p>
-					@@${scrap.scrappedBlog.id }/${scrap.scrappedPostId }/${scrap.scrappedPostRevisionId }##
-				</p>
-			</c:if>
-			</textarea>
+			<form:textarea path="contents" id="editor" />
 		</p>
 		<div>
 			<h3>설정 정보</h3>
@@ -44,10 +36,6 @@
 				<form:checkbox path="postMetadata.canComment" />댓글허용 <br />
 				<form:checkbox path="postMetadata.canTrackback" />트랙백 허용<br />
 				<form:checkbox path="postMetadata.canScrap" />스크랩 허용<br />
-			</div>
-			<div>
-			</div>
-			<div>
 			</div>
 			<div>
 				<label>트랙백 보내기</label>

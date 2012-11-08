@@ -48,7 +48,19 @@ public class Scrap {
 	public long getScrappedPostRevisionId() {
 		return scrappedPostRevisionId;
 	}
+	
 	public void setScrappedPostRevisionId(long scrappedPostRevisionId) {
 		this.scrappedPostRevisionId = scrappedPostRevisionId;
+	}
+	
+	public String getTag() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("@@")
+			.append(getScrappedBlog().getId()).append("/")
+			.append(getScrappedPostId()).append("/")
+			.append(getScrappedPostRevisionId()).append("##");
+		
+		return builder.toString();
 	}
 }

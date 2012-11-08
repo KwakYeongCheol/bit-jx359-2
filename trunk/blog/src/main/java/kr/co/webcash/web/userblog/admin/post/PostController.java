@@ -64,9 +64,13 @@ public class PostController {
 
 	@RequestMapping(value = "/scrap")
 	public String scrap(@ModelAttribute Scrap scrap, @PathVariable String blogId, Model model) {
-		model.addAttribute("scrap", scrap);
+		Post post = new Post();
+		post.setContents(scrap.getTag());
 		
-		return this.write(blogId, model);
+		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
+		model.addAttribute("post", post);
+		
+		return "/userblog/admin/post/write";
 	}
 
 	@RequestMapping(value = "/writeAction", method = RequestMethod.POST)
