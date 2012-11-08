@@ -119,7 +119,8 @@
 	</select>	
 	
 	<select id="total" resultType="Integer">
-		SELECT COUNT(*)
+		SELECT 
+			COUNT(*)
 		FROM 
 			post p
 		JOIN 
@@ -129,7 +130,8 @@
 	</select>
 	
 	<select id="totalByisPublic" resultType="Integer">
-		SELECT COUNT(*)
+		SELECT 
+			COUNT(*)
 		FROM 
 			post p
 		JOIN 
@@ -142,25 +144,17 @@
 	</select>
 	
 	<select id="select" resultType="Post">
-		SELECT *
-		FROM 
-			post p
-		JOIN 
-			category c on c.id = p.categoryId
+		<include refid="select" />
 		WHERE 
 			c.blogId = #{blogId}
+		ORDER BY p.id DESC
 	</select>
 	
 	<select id="selectByisPublic" resultType="Post">
-		SELECT *
-		FROM 
-			post p
-		JOIN 
-			category c on c.id = p.categoryId
-		JOIN 
-			post_metadata pm on pm.postId = p.id
+		<include refid="select" />
 		WHERE 
 			c.blogId = #{blogId}
 			AND pm.isPublic = 'true'
+		ORDER BY p.id DESC
 	</select>
 </mapper>

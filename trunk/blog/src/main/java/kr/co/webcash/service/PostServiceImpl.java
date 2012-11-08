@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Page;
 import kr.co.webcash.domain.Scrap;
@@ -16,11 +15,9 @@ import kr.co.webcash.repository.CategoryRepository;
 import kr.co.webcash.repository.PostMetadataRepository;
 import kr.co.webcash.repository.PostRepository;
 import kr.co.webcash.repository.ScrapRepository;
-import kr.co.webcash.utils.PostUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -96,23 +93,14 @@ public class PostServiceImpl implements PostService {
 	}
 	
 	private void insertScrap(Post post) {
-		List<Map<String, String>> scrapURLList = PostUtils.parseToMap(post.getContents());
+		List<Scrap> scrapList = Scrap.convert(post.getContents());
 		
-		for(Map<String, String> blogIdAndPostIdPair : scrapURLList){
-			String blogId = blogIdAndPostIdPair.get("blogId");
-			String postDisplayId = blogIdAndPostIdPair.get("postDisplayId");
-			
-			if(!StringUtils.hasLength(blogId) || !StringUtils.hasLength(postDisplayId))
-				continue;
-			
-			Post targetPost = findByBlogIdAndDisplayId(blogId, Long.valueOf(postDisplayId));
-			if(targetPost == null)		continue;
+		for(Scrap scrap : scrapList){
+			Post targetPost = findByBlogIdAndDisplayId(scrap.getScrappedBlog().getId(), scrap.getScrappedPostDisplayId());
+			if(targetPost == null)	continue;
 			
 			if(targetPost.getPostMetadata().getCanScrap()){
-				Scrap scrap = new Scrap();
 				scrap.setPostId(post.getId());
-				scrap.setScrappedBlog(new Blog(blogId));
-				scrap.setScrappedPostId(targetPost.getDisplayId());
 				scrap.setScrappedPostContents(targetPost.getContents());
 				scrap.setScrappedPostTitle(targetPost.getTitle());
 				
@@ -151,30 +139,22 @@ public class PostServiceImpl implements PostService {
 	private void convertFromScrapTagToScrapContents(List<Post> postList) {
 		for(Post post : postList){
 			StringBuffer buffer = new StringBuffer(post.getContents());
+			List<Scrap> scrapList = Scrap.convert(post.getContents());
 			
-			List<String> scrapURLList = PostUtils.getScrapURLFromContents(post.getContents());
-			
-			for(String scrapURL : scrapURLList){
-				Map<String, String> pair = PostUtils.parseToBlogIdAndPostIdAndPostRevisionIdPair(scrapURL);
+			for(Scrap scrap : scrapList){
+				Scrap findScrap = scrapRepository.findByPostIdAndTargetBlogIdAndTargetPostDisplayId(
+						post.getId(), 
+						scrap.getScrappedBlog().getId(), 
+						scrap.getScrappedPostDisplayId());
 				
-				String blogId = pair.get("blogId");
-				String postDisplayId = pair.get("postDisplayId");
-				String postRevisionId = pair.get("postRevisionId");
-				
-				if(!StringUtils.hasLength(blogId) || !StringUtils.hasLength(postDisplayId) || !StringUtils.hasLength(postRevisionId))
-					continue;
-				
-				Scrap scrap = scrapRepository.findByPostIdAndTargetBlogIdAndTargetPostId(post.getId(), blogId, postDisplayId);
-				
-				if(scrap != null){
+				if(findScrap != null){
 					StringBuffer changeText = new StringBuffer();
 					changeText.append("<div class=\"scrap\">")
-						.append(scrap.getScrappedPostContents())
+						.append(findScrap.getScrappedPostContents())
 						.append("</div>");
 					
-					int startIndex = buffer.indexOf(scrapURL);
-					
-					buffer.replace(startIndex, startIndex + scrapURL.length(), changeText.toString());
+					int startIndex = buffer.indexOf(findScrap.getTag());
+					buffer.replace(startIndex, startIndex + findScrap.getTag().length(), changeText.toString());
 				}
 			}
 			

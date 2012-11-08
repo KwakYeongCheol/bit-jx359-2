@@ -10,6 +10,6 @@ public interface ScrapRepository {
 
 	void insert(Scrap scrap);
 
-	Scrap findByPostIdAndTargetBlogIdAndTargetPostId(long postId, String targetBlogId, String targetPostDisplayId);
+	Scrap findByPostIdAndTargetBlogIdAndTargetPostDisplayId(long postId, String targetBlogId, long targetPostDisplayId);
 
 }

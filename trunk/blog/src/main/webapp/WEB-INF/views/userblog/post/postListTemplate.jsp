@@ -25,7 +25,7 @@
 	<div>
 		<form action="${pageContext.request.contextPath }/${loginUserProvider.blog.id }/admin/post/scrap" method="post">
 			<input type="hidden" name="scrappedBlog.id" value="${blog.id }">
-			<input type="hidden" name="scrappedPostId" value="${post.displayId }">
+			<input type="hidden" name="scrappedPostDisplayId" value="${post.displayId }">
 			<input type="hidden" name="scrappedPostRevisionId" value="${post.postRevisionList.get(0).displayId }">
 			<input type="submit" value="스크랩">
 		</form>
