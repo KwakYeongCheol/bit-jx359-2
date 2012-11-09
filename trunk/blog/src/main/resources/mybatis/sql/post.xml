@@ -30,6 +30,8 @@
 			post_metadata pm on pm.postId = p.id
 		JOIN 
 			category c on c.id = p.categoryId
+		JOIN
+			blogs b on b.id = c.blogId
 	</sql>
 	
 	<select id="findLastPostByBlogId" resultType="Post">

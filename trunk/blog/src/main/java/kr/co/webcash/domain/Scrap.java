@@ -7,9 +7,11 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import kr.co.webcash.domain.post.Post;
+
 
 public class Scrap {
-	private long postId;
+	private Post post;
 	private Blog scrappedBlog;
 	private long scrappedPostDisplayId;
 	private long scrappedPostRevisionId;
@@ -91,15 +93,15 @@ public class Scrap {
 	
 	@Override
 	public String toString() {
-		return "Scrap [postId=" + postId + ", scrappedBlog=" + scrappedBlog
+		return "Scrap [post=" + post + ", scrappedBlog=" + scrappedBlog
 				+ ", scrappedPostDisplayId=" + scrappedPostDisplayId
 				+ ", scrappedPostRevisionId=" + scrappedPostRevisionId
 				+ ", scrappedPostTitle=" + scrappedPostTitle
 				+ ", scrappedPostContents=" + scrappedPostContents + "]";
 	}
 	
-	public long getPostId() {		return postId;	}
-	public void setPostId(long postId) {		this.postId = postId;	}
+	public Post getPost() {		return post;	}
+	public void setPost(Post post) {		this.post = post;	}
 	public String getScrappedPostTitle() {		return scrappedPostTitle;	}
 	public void setScrappedPostTitle(String scrappedPostTitle) {		this.scrappedPostTitle = scrappedPostTitle;	}
 	public String getScrappedPostContents() {		return scrappedPostContents;	}

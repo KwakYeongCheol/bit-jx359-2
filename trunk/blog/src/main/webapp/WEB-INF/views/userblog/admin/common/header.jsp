@@ -9,6 +9,7 @@
 			<div class="menu-group">
 				<ul>
 					<li><a href="${pageContext.request.contextPath }/${blog.id}">블로그 홈</a></li>
+					<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/post/write">글쓰기</a></li>
 				</ul>				
 			</div>
 			<hr />
@@ -16,13 +17,13 @@
 				<ul>
 					<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/category">카테고리 관리</a></li>
 					<li><a href="${pageContext.request.contextPath }/${blog.id}/admin">게시물 관리</a></li>
-					<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/post/write">글쓰기</a></li>
 				</ul>				
 			</div>
 			<hr />
 			<div class="menu-group">
 				<ul>
 					<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/visit_history">방문자 통계</a></li>
+					<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/scrap">스크랩 통계</a></li>
 				</ul>				
 			</div>
 		</div>

@@ -100,7 +100,7 @@ public class PostServiceImpl implements PostService {
 			if(targetPost == null)	continue;
 			
 			if(targetPost.getPostMetadata().getCanScrap()){
-				scrap.setPostId(post.getId());
+				scrap.setPost(post);
 				scrap.setScrappedPostContents(targetPost.getContents());
 				scrap.setScrappedPostTitle(targetPost.getTitle());
 				

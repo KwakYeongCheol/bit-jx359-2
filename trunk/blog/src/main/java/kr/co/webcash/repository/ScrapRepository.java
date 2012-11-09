@@ -12,4 +12,6 @@ public interface ScrapRepository {
 
 	Scrap findByPostIdAndTargetBlogIdAndTargetPostDisplayId(long postId, String targetBlogId, long targetPostDisplayId);
 
+	List<Scrap> findAllByScrappedBlogId(String scrappedBlogId);
+
 }
