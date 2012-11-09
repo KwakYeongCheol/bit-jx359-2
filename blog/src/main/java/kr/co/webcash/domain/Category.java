@@ -1,7 +1,6 @@
 package kr.co.webcash.domain;
 
 public class Category {
-	
 	private long id;
 	
 	private long displayId;
@@ -16,33 +15,19 @@ public class Category {
 		setTitle(title);
 	}
 	
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
+	public String getBlogId() {
+		if(this.blog == null)		return null;
+		return this.blog.getId();
 	}
 	
-	public long getDisplayId() {
-		return displayId;
-	}
-	public void setDisplayId(long displayId) {
-		this.displayId = displayId;
-	}
-	
-	public Blog getBlog() {
-		return blog;
-	}
-	public void setBlog(Blog blog) {
-		this.blog = blog;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	
+	public long getId() {		return id;	}
+	public void setId(long id) {		this.id = id;	}
+	public long getDisplayId() {		return displayId;	}
+	public void setDisplayId(long displayId) {		this.displayId = displayId;	}
+	public Blog getBlog() {		return blog;	}
+	public void setBlog(Blog blog) {		this.blog = blog;	}
+	public String getTitle() {		return title;	}
+	public void setTitle(String title) {		this.title = title;	}
 	
 	@Override
 	public String toString() {

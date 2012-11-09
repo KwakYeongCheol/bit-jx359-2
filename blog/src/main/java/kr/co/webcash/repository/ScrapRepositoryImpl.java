@@ -55,4 +55,9 @@ public class ScrapRepositoryImpl implements ScrapRepository{
 		return scrap;
 	}
 
+	@Override
+	public List<Scrap> findAllByScrappedBlogId(String scrappedBlogId) {
+		return sqlSession.selectList("Scrap.findAllByScrappedBlogId", scrappedBlogId);
+	}
+
 }

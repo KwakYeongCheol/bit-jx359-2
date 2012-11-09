@@ -2,32 +2,48 @@
 <mapper namespace="Scrap">
 	<insert id="insert" parameterType="Scrap">
 		insert into scraps (postId, scrappedBlogId, scrappedPostDisplayId, scrappedPostRevisionId, scrappedPostTitle, scrappedPostContents)
-		values(#{postId}, #{scrappedBlog.id}, #{scrappedPostDisplayId}, #{scrappedPostRevisionId}, #{scrappedPostTitle}, #{scrappedPostContents})
+		values(#{post.id}, #{scrappedBlog.id}, #{scrappedPostDisplayId}, #{scrappedPostRevisionId}, #{scrappedPostTitle}, #{scrappedPostContents})
 	</insert>
 	
 	<sql id="select">
 		SELECT
-			postId,
-			scrappedBlogId as "scrappedBlog.id",
-			scrappedPostDisplayId,
-			scrappedPostRevisionId,
-			scrappedPostTitle,
-			scrappedPostContents
+			s.postId as "post.id",
+				p.displayId as "post.displayId",
+				p.title as "post.title",
+				c.id as "post.category.id",
+				b.id as "post.category.blog.id",				
+			s.scrappedBlogId as "scrappedBlog.id",
+			s.scrappedPostDisplayId as scrappedPostdisplayId,
+			s.scrappedPostRevisionId as scrappedPostRevisionId,
+			s.scrappedPostTitle as scrappedPostTitle,
+			s.scrappedPostContents as scrappedPostContents
 		FROM
-			scraps
+			scraps s
+		JOIN
+			post p on p.id = s.postId
+		JOIN
+			category c on c.id = p.categoryId
+		JOIN
+			blogs b on b.id = c.blogId
 	</sql>
 	
 	<select id="findAllByPostId" resultType="Scrap">
 		<include refid="select" />
 		WHERE
-			postId = #{postId}
+			s.postId = #{postId}
+	</select>
+	
+	<select id="findAllByScrappedBlogId" resultType="Scrap">
+		<include refid="select" />
+		WHERE
+			s.scrappedBlogId = #{scrappedBlogId}
 	</select>
 	
 	<select id="findByPostIdAndScrappedBlogIdAndScrappedPostDisplayId" resultType="Scrap">
 		<include refid="select" />
 		WHERE
-			postId = #{postId}
-			AND scrappedBlogId = #{scrappedBlogId}
-			AND scrappedPostDisplayId = #{scrappedPostDisplayId}
+			s.postId = #{postId}
+			AND s.scrappedBlogId = #{scrappedBlogId}
+			AND s.scrappedPostDisplayId = #{scrappedPostDisplayId}
 	</select>
 </mapper>

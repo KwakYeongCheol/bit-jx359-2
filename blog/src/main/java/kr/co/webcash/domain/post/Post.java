@@ -24,7 +24,6 @@ public class Post {
 	@DateTimeFormat(pattern="yyyy/MM/dd")
 	private Date dateCreated;
 	
-	
 	/* meta data */
 	private List<PostTag> postTagList;
 	
@@ -45,80 +44,11 @@ public class Post {
 		setDateCreated(dateCreated);
 	}
 	
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public String getContents() {
-		return contents;
-	}
-	public void setContents(String contents) {
-		this.contents = contents;
-	}
-
-	public Date getDateCreated() {
-		return dateCreated;
-	}
-
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
-	public List<Comment> getCommentList() {
-		return commentList;
-	}
-
-	public void setCommentList(List<Comment> commentList) {
-		this.commentList = commentList;
-	}
-
-//	public Scrap getScrap() {
-//		return scrap;
-//	}
-//
-//	public void setScrap(Scrap scrap) {
-//		this.scrap = scrap;
-//	}
-	public List<Trackback> getTrackbackList() {
-		return trackbackList;
-	}
-
-	public void setTrackbackList(List<Trackback> trackbackList) {
-		this.trackbackList = trackbackList;
-	}
-
-	public PostMetadata getPostMetadata() {
-		return postMetadata;
-	}
-
-	public void setPostMetadata(PostMetadata postMetadata) {
-		this.postMetadata = postMetadata;
+	public String getBlogId(){
+		if(this.category == null)		return null;
+		return this.category.getBlogId();
 	}
 	
-	public long getDisplayId() {
-		return displayId;
-	}
-
-	public void setDisplayId(long displayId) {
-		this.displayId = displayId;
-	}
-
 	@Override
 	public String toString() {
 		return "Post [id=" + id + ", category=" + category + ", displayId="
@@ -127,20 +57,28 @@ public class Post {
 				+ postMetadata + ", commentList="
 				+ commentList + ", trackbackList=" + trackbackList + "]";
 	}
-
-	public List<PostRevision> getPostRevisionList() {
-		return postRevisionList;
-	}
-
-	public void setPostRevisionList(List<PostRevision> postRevisionList) {
-		this.postRevisionList = postRevisionList;
-	}
-
-	public List<PostTag> getPostTagList() {
-		return postTagList;
-	}
-
-	public void setPostTagList(List<PostTag> postTagList) {
-		this.postTagList = postTagList;
-	}
+	
+	/* getter / setter */
+	public long getId() {		return id;	}
+	public void setId(long id) {		this.id = id;	}
+	public String getTitle() {		return title;	}
+	public void setTitle(String title) {		this.title = title;	}
+	public String getContents() {		return contents;	}
+	public void setContents(String contents) {		this.contents = contents;	}
+	public Date getDateCreated() {		return dateCreated;	}
+	public void setDateCreated(Date dateCreated) {		this.dateCreated = dateCreated;	}
+	public Category getCategory() {		return category;	}
+	public void setCategory(Category category) {		this.category = category;	}
+	public List<Comment> getCommentList() {		return commentList;	}
+	public void setCommentList(List<Comment> commentList) {		this.commentList = commentList;	}
+	public List<Trackback> getTrackbackList() {		return trackbackList;	}
+	public void setTrackbackList(List<Trackback> trackbackList) {		this.trackbackList = trackbackList;	}
+	public PostMetadata getPostMetadata() {		return postMetadata;	}
+	public void setPostMetadata(PostMetadata postMetadata) {		this.postMetadata = postMetadata;	}
+	public long getDisplayId() {		return displayId;	}
+	public void setDisplayId(long displayId) {		this.displayId = displayId;	}
+	public List<PostRevision> getPostRevisionList() {		return postRevisionList;	}
+	public void setPostRevisionList(List<PostRevision> postRevisionList) {		this.postRevisionList = postRevisionList;	}
+	public List<PostTag> getPostTagList() {		return postTagList;	}
+	public void setPostTagList(List<PostTag> postTagList) {		this.postTagList = postTagList;	}
 }
