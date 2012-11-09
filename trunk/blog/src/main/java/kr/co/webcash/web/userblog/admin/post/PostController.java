@@ -50,8 +50,8 @@ public class PostController {
 	}
 
 	@RequestMapping()
-	public String home(@PathVariable String blogId, Model model) {
-		model.addAttribute("postList", postService.listAll(blogId));
+	public String home(@PathVariable String blogId, @RequestParam(defaultValue="1") int pageNumber, Model model) {
+		model.addAttribute("postList", postService.listByBlogIdAndPageNumber(blogId, pageNumber));
 		return "/userblog/admin/home";
 	}
 

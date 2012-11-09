@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/{blogId}/admin")
@@ -17,8 +18,8 @@ public class UserBlogAdminController {
 	@Autowired private PostService postService;
 	
 	@RequestMapping
-	public String main(@PathVariable String blogId, Model model){
-		model.addAttribute("postList", postService.listAll(blogId));
+	public String main(@PathVariable String blogId, @RequestParam(defaultValue="1") int pageNumber, Model model){
+		model.addAttribute("postList", postService.listByBlogIdAndPageNumber(blogId, pageNumber));
 		
 		return "/userblog/admin/home";
 	}

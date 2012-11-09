@@ -1,9 +1,6 @@
 package kr.co.webcash.service;
  
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Page;
@@ -21,30 +18,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PostServiceImpl implements PostService {
-
-	private PostRepository postRepository;
-	private PostMetadataRepository postMetadataRepository;
-	private PostRevisionService postRevisionService;
-	private ScrapRepository scrapRepository;
-	private CategoryRepository categoryRepository;
-	private PostTagService postTagService;
+	@Autowired private PostRepository postRepository;
+	@Autowired private PostMetadataRepository postMetadataRepository;
+	@Autowired private PostRevisionService postRevisionService;
+	@Autowired private ScrapRepository scrapRepository;
+	@Autowired private CategoryRepository categoryRepository;
+	@Autowired private PostTagService postTagService;
 	
-	@Autowired
-	public void setDependencies(PostRepository postRepository, 
-			PostMetadataRepository postMetadataRepository,
-			PostRevisionService postRevisionService,
-			PostTagService postTagService,
-			ScrapRepository scrapRepository, 
-			CategoryRepository categoryRepository){
-		
-		this.postRepository = postRepository;
-		this.postMetadataRepository = postMetadataRepository;
-		this.postRevisionService = postRevisionService;
-		this.postTagService = postTagService;
-		this.scrapRepository = scrapRepository;
-		this.categoryRepository = categoryRepository;
-	}
-
 	@Override
 	public void save(Post post) {
 		Post lastPost = postRepository.findLast();
@@ -53,7 +33,6 @@ public class PostServiceImpl implements PostService {
 		}else{
 			post.setId(lastPost.getId() + 1);
 		}
-
 
 		postRepository.insert(post);
 		postRevisionService.save(post);
@@ -109,59 +88,57 @@ public class PostServiceImpl implements PostService {
 		}
 	}
 	
-	@Override
-	public List<Post> listByBlogIdAndCategoryDisplayId(String blogId, long categoryDisplayId) {
-		Category category = categoryRepository.findByBlogIdAndDisplayId(blogId, categoryDisplayId);
-		
-		return postRepository.findAllByCategoryId(category.getId());
-	}
-
-	@Override
-	public List<Post> listPublic(String blogId) {
-		Map params = new HashMap();
-		params.put("isPublic", "true");
-		List<Post> postList = postRepository.findAllByBlogIdAndPostMetadataParams(blogId, params);
-		
-		convertFromScrapTagToScrapContents(postList);
-		
-		return postList;
-	}
-
-	@Override
-	public List<Post> listAll(String blogId) {
-		List<Post> postList = postRepository.findAllByBlogId(blogId);
-		
-		convertFromScrapTagToScrapContents(postList);
+	private List<Post> wrap(List<Post> postList){
+		for(Post post : postList){
+			wrap(post);
+		}
 		
 		return postList;
 	}
 	
-	private void convertFromScrapTagToScrapContents(List<Post> postList) {
-		for(Post post : postList){
-			StringBuffer buffer = new StringBuffer(post.getContents());
-			List<Scrap> scrapList = Scrap.convert(post.getContents());
+	private Post wrap(Post post){
+		if(post == null)	return null;
+		
+		convertFromScrapTagToScrapContents(post);
+		return post;
+	}
+	
+	private void convertFromScrapTagToScrapContents(Post post){
+		StringBuffer buffer = new StringBuffer(post.getContents());
+		List<Scrap> scrapList = Scrap.convert(post.getContents());
+		
+		for(Scrap scrap : scrapList){
+			Scrap findScrap = scrapRepository.findByPostIdAndTargetBlogIdAndTargetPostDisplayId(
+					post.getId(), 
+					scrap.getScrappedBlog().getId(), 
+					scrap.getScrappedPostDisplayId());
 			
-			for(Scrap scrap : scrapList){
-				Scrap findScrap = scrapRepository.findByPostIdAndTargetBlogIdAndTargetPostDisplayId(
-						post.getId(), 
-						scrap.getScrappedBlog().getId(), 
-						scrap.getScrappedPostDisplayId());
-				
-				if(findScrap != null){
-					StringBuffer changeText = new StringBuffer();
-					changeText.append("<div class=\"scrap\">")
-						.append(findScrap.getScrappedPostContents())
-						.append("</div>");
-					
-					int startIndex = buffer.indexOf(findScrap.getTag());
-					buffer.replace(startIndex, startIndex + findScrap.getTag().length(), changeText.toString());
-				}
+			if(findScrap == null)		continue;
+			
+			StringBuffer changeText = new StringBuffer();
+			changeText.append("<div class=\"scrap\">")
+					.append(findScrap.getScrappedPostContents())
+					.append("</div>");
+			
+			int startIndex = -1;
+			while((startIndex = buffer.indexOf(findScrap.getTag())) != -1){
+				buffer.replace(startIndex, startIndex + findScrap.getTag().length(), changeText.toString());
 			}
-			
-			post.setContents(buffer.toString());
 		}
+		
+		post.setContents(buffer.toString());
+	}
+	
+	@Override
+	public Page getPage(String blogId, int pageNum) {
+		return new Page(pageNum, postRepository.countByBlogId(blogId));
 	}
 
+	@Override
+	public Page getPagePublic(String blogId, int pageNum) {
+		return new Page(pageNum, postRepository.countPublicByBlogId(blogId));
+	}
+	
 	@Override
 	public long findLastDisplayIdByBlogId(String blogId){
 		Post post = postRepository.findLastByBlogId(blogId);
@@ -171,77 +148,48 @@ public class PostServiceImpl implements PostService {
 	}
 	
 	@Override
+	public List<Post> listByBlogIdAndCategoryDisplayId(String blogId, long categoryDisplayId) {
+		Category category = categoryRepository.findByBlogIdAndDisplayId(blogId, categoryDisplayId);
+		return wrap(postRepository.findAllByCategoryId(category.getId()));
+	}
+	
+	@Override
 	public Post findById(long id) {
-		return postRepository.findById(id);
+		return wrap(postRepository.findById(id));
 	}
 
 	@Override
 	public Post findByBlogIdAndDisplayId(String blogId, long displayId) {
-		return postRepository.findByBlogIdAndDisplayId(blogId, displayId);
+		return wrap(postRepository.findByBlogIdAndDisplayId(blogId, displayId));
 	}
 
 	@Override
 	public List<Post> search(String query) {
-		return postRepository.findAllByQuery(query);
+		return wrap(postRepository.findAllByQuery(query));
 	}
 
 	@Override
-	public Page getPage(String blogId, int pageNum) {
-		Page page = new Page();
-		
-		page.setCurrentPage(pageNum);
-		page.setCount(postRepository.total(blogId));
-		page.setStartPage((page.getCurrentPage() - 1) * page.getPageSize() + 1);
-		page.setEndPage(page.getCurrentPage() * page.getPageSize());
-		page.setPageGroupCount(page.getCount()/(page.getPageSize() * page.getPageGroupSize()) + (page.getCount()%(page.getPageSize() * page.getPageGroupSize()) == 0 ? 0 : 1));
-		page.setNumPageGroup((int)Math.ceil((double)page.getCurrentPage()/page.getPageGroupSize()));
-		
-		return page;
+	public List<Post> listByBlogId(String blogId) {
+		return wrap(postRepository.findAllByBlogId(blogId));
+	}
+	
+	@Override
+	public List<Post> listByBlogIdAndPageNumber(String blogId, int pageNumber) {
+		return wrap(listByBlogIdAndPage(blogId, getPage(blogId, pageNumber)));
+	}
+	
+	@Override
+	public List<Post> listByBlogIdAndPage(String blogId, Page page) {
+		return wrap(postRepository.findAllByBlogIdAndPage(blogId, page.getStartPage(), page.getPageSize()));
 	}
 
 	@Override
-	public List<Post> listAllByPage(Page page, String blogId) {
-		ArrayList<Post> postList;
-		Map params = new HashMap();
-		params.put("isPublic", "true");
-		
-		if(page.getCount() > 0 ){
-			postList= (ArrayList) postRepository.select(page.getStartPage()-1,page.getPageSize(),blogId,params);	
-		}else{
-			postList = new ArrayList<Post>();
-		}
-		
-		convertFromScrapTagToScrapContents(postList);
-		
-		return postList;
+	public List<Post> listPublicByBlogIdAndPageNumber(String blogId, int pageNumber) {
+		return wrap(listPublicByBlogIdAndPage(blogId, getPage(blogId, pageNumber)));
 	}
-
+	
 	@Override
-	public Page getPagePublic(String blogId, int pageNum) {
-		Page page = new Page();
-		
-		page.setCurrentPage(pageNum);
-		page.setCount(postRepository.totalByisPublic(blogId));
-		page.setStartPage((page.getCurrentPage() - 1) * page.getPageSize() + 1);
-		page.setEndPage(page.getCurrentPage() * page.getPageSize());
-		page.setPageGroupCount(page.getCount()/(page.getPageSize() * page.getPageGroupSize()) + (page.getCount()%(page.getPageSize() * page.getPageGroupSize()) == 0 ? 0 : 1));
-		page.setNumPageGroup((int)Math.ceil((double)page.getCurrentPage()/page.getPageGroupSize()));
-		
-		return page;
-	}
-
-	@Override
-	public List<Post> listPublicByPage(Page page, String blogId) {
-		ArrayList<Post> postList;
-		Map params = new HashMap();
-		params.put("isPublic", "true");
-		
-		if(page.getCount() > 0 ){
-			postList= (ArrayList) postRepository.selectByisPublic(page.getStartPage()-1,page.getPageSize(),blogId, params);	
-		}else{
-			postList = new ArrayList<Post>();
-		}
-		
-		return postList;
+	public List<Post> listPublicByBlogIdAndPage(String blogId, Page page) {
+		return wrap(postRepository.findAllPublicByBlogIdAndPage(blogId, page.getStartPage(), page.getPageSize()));
 	}
 }

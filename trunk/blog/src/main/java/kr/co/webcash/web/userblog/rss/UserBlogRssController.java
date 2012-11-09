@@ -23,7 +23,7 @@ public class UserBlogRssController {
 		ModelAndView mav = new ModelAndView(new UserBlogRssFeedView());
 		mav.addObject("serverURI", components.toUriString());
 		mav.addObject("blogId", blogId);
-		mav.addObject("postList", postService.listAll(blogId));
+		mav.addObject("postList", postService.listByBlogId(blogId));
 		
 		return mav;
 	}

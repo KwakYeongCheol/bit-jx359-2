@@ -1,8 +1,6 @@
 package kr.co.webcash.web.userblog;
 
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 
@@ -31,27 +29,17 @@ public class UserBlogController {
 	@Inject private Provider<LoginUser> loginUserProvider;
 	
 	@RequestMapping
-	public String main(@PathVariable String blogId, @RequestParam(required=false, defaultValue="1") int pageNum , Model model){
-		List<Post> postList;
-		
+	public String main(@PathVariable String blogId, @RequestParam(defaultValue="1") int pageNum , Model model){
 		if(!blogService.isExist(blogId))	return "redirect:/";
 		
 		LoginUser loginUser = loginUserProvider.get();
-		/*if(loginUser.isLoggedIn() && blogService.isAdmin(blogId, loginUser.getLoginUser())){
-			model.addAttribute("postList", postService.listAll(blogId));
-		}else{
-			model.addAttribute("postList", postService.listPublic(blogId));
-		}*/
-		
 		if(loginUser.isLoggedIn() && blogService.isAdmin(blogId, loginUser.getLoginUser())){
 			Page page = postService.getPage(blogId, pageNum);
-			postList = postService.listAllByPage(page, blogId);
-			model.addAttribute("postList", postList);
+			model.addAttribute("postList", postService.listByBlogIdAndPage(blogId, page));
 			model.addAttribute("page", page);
 		}else{
 			Page page = postService.getPagePublic(blogId, pageNum);
-			postList = postService.listPublicByPage(page, blogId);
-			model.addAttribute("postList", postList);
+			model.addAttribute("postList", postService.listPublicByBlogIdAndPage(blogId, page));
 			model.addAttribute("page", page);
 		}
 		 

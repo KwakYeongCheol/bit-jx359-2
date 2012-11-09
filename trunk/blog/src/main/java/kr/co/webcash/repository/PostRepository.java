@@ -1,6 +1,5 @@
 package kr.co.webcash.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,26 +10,22 @@ public interface PostRepository {
 	void update(Post post);
 	void delete(Post post);
 
-	List<Post> findAll();
-	List<Post> findAllByCategoryId(long categoryId);
-	List<Post> findAllByBlogId(String blogId);
-	List<Post> findAllByBlogIdAndPostMetadataParams(String blogId, Map postMetadataParams);
-	List<Post> findAllByQuery(String query);
+	int countByBlogId(String blogId);
+	int countPublicByBlogId(String blogId);
 	
+	Post findById(long id);
 	Post findLastPostByBlogId(String blogId);
 	Post findByBlogIdAndDisplayId(String blogId, long displayId);
-	
 	Post findByCategoryIdAndDisplayId(long categoryId, long displayId);
 	Post findLastByBlogId(String blogId);
 	Post findLastByCategoryId(long categoryId);
-//	Post findLastByBlogIdAndCategoryId(String blogId, long categoryId);
 	Post findLast();
-	Post findById(long id);
-	int total(String blogId);
 	
-	List<Post> select(int startRow, int endRow, String blogId, Map postMetadataParams);
+	List<Post> findAll();
+	List<Post> findAllByCategoryId(long categoryId);
+	List<Post> findAllByBlogId(String blogId);
+	List<Post> findAllByQuery(String query);
+	List<Post> findAllByBlogIdAndPage(String blogId, int offset, int limit);
+	List<Post> findAllPublicByBlogIdAndPage(String blogId, int offset, int limit);
 	
-	int totalByisPublic(String blogId);
-	
-	List<Post> selectByisPublic(int startRow, int endRow, String blogId, Map postMetadataParams);
 }
