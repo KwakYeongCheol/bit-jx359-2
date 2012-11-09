@@ -7,6 +7,7 @@
 	<c:forEach items="${postList }" var="post">
 	<div class="blogArticle">
 		<a href="${pageContext.request.contextPath }/${blog.id}/category/${post.category.displayId}">${post.category.title }</a> | 
+		${post.displayId } |
 		${post.title } | 
 		<spring:eval expression="post.dateCreated" /> |		
 		공개여부 : ${post.postMetadata.isPublic } | 

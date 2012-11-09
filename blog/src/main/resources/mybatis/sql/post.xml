@@ -15,6 +15,15 @@
 		where id = #{id}
 	</delete>
 	
+	<sql id="join">
+		JOIN 
+			post_metadata pm on pm.postId = p.id
+		JOIN 
+			category c on c.id = p.categoryId
+		JOIN
+			blogs b on b.id = c.blogId
+	</sql>
+	
 	<sql id="select">
 		SELECT
 			p.id as id,
@@ -26,12 +35,15 @@
 			p.dateCreated as dateCreated
 		FROM 
 			post p
-		JOIN 
-			post_metadata pm on pm.postId = p.id
-		JOIN 
-			category c on c.id = p.categoryId
-		JOIN
-			blogs b on b.id = c.blogId
+		<include refid="join"/>
+	</sql>
+	
+	<sql id="count">
+		SELECT
+			count(*)
+		FROM 
+			post p
+		<include refid="join" />
 	</sql>
 	
 	<select id="findLastPostByBlogId" resultType="Post">
@@ -69,18 +81,18 @@
 		LIMIT 1
 	</select>
 	
-	<select id="findAllByBlogIdAndPostMetadataParams" resultType="Post">
-		<include refid="select"/>
-		WHERE
-			pm.isPublic = #{isPublic}
-			AND c.blogId = #{blogId}
-		ORDER BY p.id DESC
-	</select>
-	
 	<select id="findAllByBlogId" resultType="Post">
 		<include refid="select"/>
 		WHERE
 			c.blogId = #{blogId}
+		ORDER BY p.id DESC
+	</select>
+	
+	<select id="findAllPublicByBlogId" resultType="Post">
+		<include refid="select"/>
+		WHERE
+			c.blogId = #{blogId}
+			AND pm.isPublic = 'true'
 		ORDER BY p.id DESC
 	</select>
 	
@@ -120,43 +132,16 @@
 		ORDER BY p.id DESC
 	</select>	
 	
-	<select id="total" resultType="Integer">
-		SELECT 
-			COUNT(*)
-		FROM 
-			post p
-		JOIN 
-			category c on c.id = p.categoryId
+	<select id="countByBlogId" resultType="Integer">
+		<include refid="count"/>
 		WHERE 
 			c.blogId = #{blogId}
 	</select>
 	
-	<select id="totalByisPublic" resultType="Integer">
-		SELECT 
-			COUNT(*)
-		FROM 
-			post p
-		JOIN 
-			category c on c.id = p.categoryId
-		JOIN 
-			post_metadata pm on pm.postId = p.id
+	<select id="countPublicByBlogId" resultType="Integer">
+		<include refid="count"/>
 		WHERE 
 			c.blogId = #{blogId}
 			AND pm.isPublic = 'true'
-	</select>
-	
-	<select id="select" resultType="Post">
-		<include refid="select" />
-		WHERE 
-			c.blogId = #{blogId}
-		ORDER BY p.id DESC
-	</select>
-	
-	<select id="selectByisPublic" resultType="Post">
-		<include refid="select" />
-		WHERE 
-			c.blogId = #{blogId}
-			AND pm.isPublic = 'true'
-		ORDER BY p.id DESC
 	</select>
 </mapper>

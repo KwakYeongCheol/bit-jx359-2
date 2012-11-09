@@ -52,7 +52,7 @@ INSERT INTO POST_REVISION (postId, displayId, diff)
 INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
 	VALUES(2, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 2);
 INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
-	VALUES(2, 'false', 'false', 'false', 'false');
+	VALUES(2, 'true', 'false', 'false', 'false');
 INSERT INTO POST_REVISION (postId, displayId, diff)
 	VALUES(2, 1, '');
 
@@ -66,7 +66,7 @@ INSERT INTO POST_REVISION (postId, displayId, diff)
 INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
 	VALUES(4, '해적 시리즈..  ', '더럽게 안나와 ㅠㅠ ', NOW(), 3, 2);
 INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
-	VALUES(4, 'false', 'true', 'true', 'true');
+	VALUES(4, 'true', 'true', 'true', 'true');
 INSERT INTO POST_REVISION (postId, displayId, diff)
 	VALUES(4, 1, '');
 
@@ -76,3 +76,136 @@ INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
 	VALUES(5, 'true', 'true', 'true', 'true');
 INSERT INTO POST_REVISION (postId, displayId, diff)
 	VALUES(5, 1, '');
+
+INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
+	VALUES(6, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 3);
+INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
+	VALUES(6, 'true', 'false', 'false', 'false');
+INSERT INTO POST_REVISION (postId, displayId, diff)
+	VALUES(6, 1, '');
+
+INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
+	VALUES(7, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 4);
+INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
+	VALUES(7, 'true', 'false', 'false', 'false');
+INSERT INTO POST_REVISION (postId, displayId, diff)
+	VALUES(7, 1, '');
+
+INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
+	VALUES(8, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 5);
+INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
+	VALUES(8, 'true', 'false', 'false', 'false');
+INSERT INTO POST_REVISION (postId, displayId, diff)
+	VALUES(8, 1, '');
+	
+INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
+	VALUES(9, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 6);
+INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
+	VALUES(9, 'true', 'false', 'false', 'false');
+INSERT INTO POST_REVISION (postId, displayId, diff)
+	VALUES(9, 1, '');
+
+INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
+	VALUES(10, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 7);
+INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
+	VALUES(10, 'true', 'false', 'false', 'false');
+INSERT INTO POST_REVISION (postId, displayId, diff)
+	VALUES(10, 1, '');
+	
+INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
+	VALUES(11, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 8);
+INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
+	VALUES(11, 'true', 'false', 'false', 'false');
+INSERT INTO POST_REVISION (postId, displayId, diff)
+	VALUES(11, 1, '');
+	
+INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
+	VALUES(12, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 9);
+INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
+	VALUES(12, 'true', 'false', 'false', 'false');
+INSERT INTO POST_REVISION (postId, displayId, diff)
+	VALUES(12, 1, '');
+	
+INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
+	VALUES(13, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 10);
+INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
+	VALUES(13, 'true', 'false', 'false', 'false');
+INSERT INTO POST_REVISION (postId, displayId, diff)
+	VALUES(13, 1, '');
+	
+INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
+	VALUES(14, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 11);
+INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
+	VALUES(14, 'true', 'false', 'false', 'false');
+INSERT INTO POST_REVISION (postId, displayId, diff)
+	VALUES(14, 1, '');
+	
+INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
+	VALUES(15, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 12);
+INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
+	VALUES(15, 'true', 'false', 'false', 'false');
+INSERT INTO POST_REVISION (postId, displayId, diff)
+	VALUES(15, 1, '');
+	
+	INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
+	VALUES(16, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 13);
+INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
+	VALUES(16, 'true', 'false', 'false', 'false');
+INSERT INTO POST_REVISION (postId, displayId, diff)
+	VALUES(16, 1, '');
+	
+	INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
+	VALUES(17, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 14);
+INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
+	VALUES(17, 'true', 'false', 'false', 'false');
+INSERT INTO POST_REVISION (postId, displayId, diff)
+	VALUES(17, 1, '');
+	
+	INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
+	VALUES(18, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 15);
+INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
+	VALUES(18, 'true', 'false', 'false', 'false');
+INSERT INTO POST_REVISION (postId, displayId, diff)
+	VALUES(18, 1, '');
+	
+	INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
+	VALUES(19, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 16);
+INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
+	VALUES(19, 'true', 'false', 'false', 'false');
+INSERT INTO POST_REVISION (postId, displayId, diff)
+	VALUES(19, 1, '');
+	
+	INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
+	VALUES(20, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 17);
+INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
+	VALUES(20, 'false', 'false', 'false', 'false');
+INSERT INTO POST_REVISION (postId, displayId, diff)
+	VALUES(20, 1, '');
+	
+	INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
+	VALUES(21, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 18);
+INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
+	VALUES(21, 'true', 'false', 'false', 'false');
+INSERT INTO POST_REVISION (postId, displayId, diff)
+	VALUES(21, 1, '');
+	
+	INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
+	VALUES(22, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 19);
+INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
+	VALUES(22, 'false', 'false', 'false', 'false');
+INSERT INTO POST_REVISION (postId, displayId, diff)
+	VALUES(22, 1, '');
+	
+	INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
+	VALUES(23, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 20);
+INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
+	VALUES(23, 'false', 'false', 'false', 'false');
+INSERT INTO POST_REVISION (postId, displayId, diff)
+	VALUES(23, 1, '');
+	
+	INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
+	VALUES(24, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 21);
+INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
+	VALUES(24, 'true', 'false', 'false', 'false');
+INSERT INTO POST_REVISION (postId, displayId, diff)
+	VALUES(24, 1, '');

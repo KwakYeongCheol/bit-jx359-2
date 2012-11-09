@@ -225,16 +225,6 @@ class MockPostService implements PostService{
 	}
 
 	@Override
-	public List<Post> listPublic(String blogId) {
-		return null;
-	}
-
-	@Override
-	public List<Post> listAll(String blogId) {
-		return null;
-	}
-
-	@Override
 	public List<Post> search(String query) {
 		return null;
 	}
@@ -246,21 +236,42 @@ class MockPostService implements PostService{
 	}
 
 	@Override
-	public List<Post> listAllByPage(Page page, String blogId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Page getPagePublic(String blogId, int pageNum) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Post> listPublicByPage(Page page, String blogId) {
+	public List<Post> listPublicByBlogIdAndPageNumber(String blogId,
+			int pageNumber) {
+		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Post> listPublicByBlogIdAndPage(String blogId, Page page) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Post> listByBlogId(String blogId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Post> listByBlogIdAndPageNumber(String blogId, int pageNumber) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Post> listByBlogIdAndPage(String blogId, Page page) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
 
 

@@ -23,7 +23,7 @@ public class URLUtils {
 
 	public static String make(String scheme, String serverName, int serverPort, String contextPath) {
 		StringBuilder builder = new StringBuilder();
-		builder.append(scheme).append("://").append(serverName).append(":").append(serverPort).append("/").append(contextPath);
+		builder.append(scheme).append("://").append(serverName).append(":").append(serverPort).append(contextPath).append("/");
 		
 		return builder.toString();
 	}
