@@ -1,7 +1,7 @@
 package kr.co.webcash.web.validator;
 
 
-import kr.co.webcash.domain.Comment;
+import kr.co.webcash.domain.comment.Comment;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

@@ -15,6 +15,10 @@ public class Category {
 		setTitle(title);
 	}
 	
+	public static Category defaultCategory(Blog blog){
+		return new Category(blog, 1, "분류 없음");
+	}
+	
 	public String getBlogId() {
 		if(this.blog == null)		return null;
 		return this.blog.getId();

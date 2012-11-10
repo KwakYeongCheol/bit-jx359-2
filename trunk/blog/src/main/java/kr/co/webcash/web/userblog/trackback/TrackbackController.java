@@ -2,8 +2,8 @@ package kr.co.webcash.web.userblog.trackback;
 
 import kr.co.webcash.domain.Trackback;
 import kr.co.webcash.domain.post.Post;
-import kr.co.webcash.service.PostService;
 import kr.co.webcash.service.TrackbackService;
+import kr.co.webcash.service.post.PostService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,5 +1,7 @@
 package kr.co.webcash.domain;
 
+import kr.co.webcash.domain.comment.CommentType;
+
 import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

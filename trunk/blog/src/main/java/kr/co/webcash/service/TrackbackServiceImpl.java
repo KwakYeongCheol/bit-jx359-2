@@ -5,6 +5,7 @@ import java.util.List;
 import kr.co.webcash.domain.Trackback;
 import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.repository.TrackbackRepository;
+import kr.co.webcash.service.post.PostService;
 import kr.co.webcash.utils.TrackbackUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;

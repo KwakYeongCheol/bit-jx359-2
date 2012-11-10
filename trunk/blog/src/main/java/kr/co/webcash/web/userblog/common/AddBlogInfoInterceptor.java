@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.BlogVisitHistory;
 import kr.co.webcash.service.CategoryService;
-import kr.co.webcash.service.NotificationService;
 import kr.co.webcash.service.blog.BlogService;
 import kr.co.webcash.service.blog.BlogVisitHistoryService;
+import kr.co.webcash.service.notification.NotificationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
