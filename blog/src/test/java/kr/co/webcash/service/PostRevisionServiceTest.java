@@ -58,7 +58,6 @@ public class PostRevisionServiceTest {
 		assertThat(postRevisionService.list(secondPost).size(), is(2));
 		assertThat(postRevision.getDisplayId(), is(Long.valueOf(2)));
 		
-		
 		Post thirdPost = new Post();
 		thirdPost.setId(1);
 		thirdPost.setContents(thirdPostContents);
@@ -70,9 +69,11 @@ public class PostRevisionServiceTest {
 		assertThat(postRevisionList.size(), is(3));
 		assertThat(postRevision.getDisplayId(), is(Long.valueOf(3)));
 		
-		assertThat(postRevisionService.getContents(thirdPost, 1), is(firstPostContents));
-		assertThat(postRevisionService.getContents(thirdPost, 2), is(secondPostContents));
-		assertThat(postRevisionService.getContents(thirdPost, 3), is(thirdPostContents));
+		Post findPost = postService.findById(thirdPost.getId());
+		findPost.setPostRevisionList(postRevisionService.list(findPost));
+		assertThat(findPost.getContents(1), is(firstPostContents));
+		assertThat(findPost.getContents(2), is(secondPostContents));
+		assertThat(findPost.getContents(3), is(thirdPostContents));
 		
 		System.out.println(PostRevisionUtils.generateDiffRows(thirdPostContents, secondPostContents));
 	}
@@ -118,8 +119,6 @@ class MockPostRevisionRepository implements PostRevisionRepository{
 
 	@Override
 	public boolean insert(PostRevision postRevision) {
-		
-		
 		List<PostRevision> revisionList = repository.get(postRevision.getPost().getId());
 		if(revisionList == null){
 			revisionList = new ArrayList<PostRevision>();
