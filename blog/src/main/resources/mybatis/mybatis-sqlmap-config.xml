@@ -7,17 +7,17 @@
 		<typeAlias alias="Blog" type="kr.co.webcash.domain.Blog"/>
 		<typeAlias alias="BlogVisitHistory" type="kr.co.webcash.domain.BlogVisitHistory"/>
 		<typeAlias alias="Category" type="kr.co.webcash.domain.Category"/>
-		<typeAlias alias="Comment" type="kr.co.webcash.domain.Comment"/>
+		<typeAlias alias="Comment" type="kr.co.webcash.domain.comment.Comment"/>
 		<typeAlias alias="Favorite" type="kr.co.webcash.domain.Favorite"/>
 		<typeAlias alias="Guestbook" type="kr.co.webcash.domain.Guestbook"/>
 		<typeAlias alias="Post" type="kr.co.webcash.domain.post.Post"/>
 		<typeAlias alias="PostMetadata" type="kr.co.webcash.domain.post.PostMetadata"/>
 		<typeAlias alias="PostTag" type="kr.co.webcash.domain.post.PostTag"/>
-		<typeAlias alias="PostRevision" type="kr.co.webcash.domain.PostRevision"/>
+		<typeAlias alias="PostRevision" type="kr.co.webcash.domain.post.PostRevision"/>
 		<typeAlias alias="Scrap" type="kr.co.webcash.domain.Scrap"/>
 		<typeAlias alias="Trackback" type="kr.co.webcash.domain.Trackback"/>
 		<typeAlias alias="User" type="kr.co.webcash.domain.User" />
-		<typeAlias alias="Notification" type="kr.co.webcash.domain.Notification" />
+		<typeAlias alias="Notification" type="kr.co.webcash.domain.notification.Notification" />
 	</typeAliases>
 	
 	<mappers>

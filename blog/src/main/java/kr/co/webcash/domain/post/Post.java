@@ -4,9 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import kr.co.webcash.domain.Category;
-import kr.co.webcash.domain.Comment;
-import kr.co.webcash.domain.PostRevision;
 import kr.co.webcash.domain.Trackback;
+import kr.co.webcash.domain.comment.Comment;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

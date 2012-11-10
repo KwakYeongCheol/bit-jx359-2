@@ -6,12 +6,13 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 
 import kr.co.webcash.domain.Blog;
-import kr.co.webcash.domain.Comment;
-import kr.co.webcash.domain.CommentTarget;
-import kr.co.webcash.domain.CommentType;
 import kr.co.webcash.domain.User;
-import kr.co.webcash.service.CommentService;
+import kr.co.webcash.domain.comment.Comment;
+import kr.co.webcash.domain.comment.CommentTarget;
+import kr.co.webcash.domain.comment.CommentType;
 import kr.co.webcash.service.blog.BlogService;
+import kr.co.webcash.service.comment.CommentService;
+import kr.co.webcash.service.notification.NotificationService;
 import kr.co.webcash.web.security.LoginUser;
 import kr.co.webcash.web.validator.CommentValidator;
 
@@ -30,10 +31,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @SessionAttributes(value = { "post" })
 @RequestMapping("/{blogId}/comment")
 public class CommentController {
-
 	@Autowired private BlogService blogService;
 	@Autowired private CommentService commentService;
 	@Autowired private CommentValidator commentValidator;
+	
+	@Autowired private NotificationService notificationService;
 
 	@Inject private Provider<LoginUser> loginUserProvider;
 
@@ -54,14 +56,14 @@ public class CommentController {
 		long lastDisplayId = commentService.findLastDisplayIdByBlogIdAndCommentType(blogId, commentType);
 		
 		Comment comment = new Comment();
-		comment.setTarget(new CommentTarget(targetId, commentType));
+		comment.setTarget(new CommentTarget(new Blog(blogId), targetId, targetDisplayId, commentType));
 		comment.setDisplayId(lastDisplayId + 1);
 		comment.setWriter(loginUser());
 		comment.setContents(contents);
-		comment.setDateCreated(new Date(System.currentTimeMillis()));
+		comment.setDateCreated(new Date());
 
 		commentService.save(comment);
-		commentService.sendNotification(loginUser(), blogId, targetDisplayId, commentType);
+		notificationService.sendNotification(comment);
 
 		if (type.toString().equals("guestbook")) {
 			return "redirect:/" + blogId + "/guestbook";

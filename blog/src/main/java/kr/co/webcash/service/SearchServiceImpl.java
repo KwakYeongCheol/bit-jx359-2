@@ -1,6 +1,7 @@
 package kr.co.webcash.service;
 
 import kr.co.webcash.domain.Search;
+import kr.co.webcash.service.post.PostService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

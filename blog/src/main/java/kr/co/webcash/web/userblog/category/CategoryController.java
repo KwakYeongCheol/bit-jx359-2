@@ -1,8 +1,8 @@
 package kr.co.webcash.web.userblog.category;
 
 import kr.co.webcash.service.CategoryService;
-import kr.co.webcash.service.PostService;
 import kr.co.webcash.service.blog.BlogService;
+import kr.co.webcash.service.post.PostService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

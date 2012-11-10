@@ -11,9 +11,12 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.webcash.domain.Page;
-import kr.co.webcash.domain.PostRevision;
 import kr.co.webcash.domain.post.Post;
+import kr.co.webcash.domain.post.PostRevision;
 import kr.co.webcash.repository.PostRevisionRepository;
+import kr.co.webcash.service.post.PostRevisionService;
+import kr.co.webcash.service.post.PostRevisionServiceImpl;
+import kr.co.webcash.service.post.PostService;
 import kr.co.webcash.utils.PostRevisionUtils;
 
 import org.junit.Before;

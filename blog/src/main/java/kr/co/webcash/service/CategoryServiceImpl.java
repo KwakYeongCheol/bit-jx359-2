@@ -17,12 +17,7 @@ public class CategoryServiceImpl implements CategoryService {
 	
 	@Override
 	public void saveDefault(Blog blog) {
-		Category category = new Category();
-		category.setBlog(blog);
-		category.setDisplayId(1);
-		category.setTitle("분류없음");
-		
-		this.save(category);
+		this.save(Category.defaultCategory(blog));
 	}
 	
 	@Override

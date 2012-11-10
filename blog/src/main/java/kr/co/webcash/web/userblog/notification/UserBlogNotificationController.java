@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.webcash.domain.Blog;
-import kr.co.webcash.domain.Notification;
-import kr.co.webcash.service.NotificationService;
+import kr.co.webcash.domain.notification.Notification;
+import kr.co.webcash.service.notification.NotificationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

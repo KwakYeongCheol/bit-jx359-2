@@ -1,6 +1,6 @@
 package kr.co.webcash.web.userblog.rss;
 
-import kr.co.webcash.service.PostService;
+import kr.co.webcash.service.post.PostService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

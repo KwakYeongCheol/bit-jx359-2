@@ -1,8 +1,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Comment">
 	<insert id="insert" parameterType="Comment">
-		insert into comment (id, targetId, commentType, displayId, writerId,contents, dateCreated) 
-		values(#{id}, #{target.id}, #{target.type}, #{displayId}, #{writer.loginId}, #{contents}, #{dateCreated})
+		INSERT INTO COMMENT
+			(id, targetBlogId, targetId, targetDisplayId, commentType, displayId, writerId,contents, dateCreated) 
+		VALUES
+			(#{id}, #{target.blog.id}, #{target.id}, #{target.displayId}, #{target.type}, #{displayId}, #{writer.loginId}, #{contents}, #{dateCreated})
 	</insert>
 	
 	<update id="update" parameterType="Comment">
@@ -18,7 +20,9 @@
 	<sql id="select">
 		SELECT
 			c.id as id,
+			c.targetBlogId as "target.blog.id",
 			c.targetId as "target.id",
+			c.targetDisplayId as "target.displayId",
 			c.commentType as "target.type",
 			c.displayId as displayId,
 			c.writerId as "writer.loginId",

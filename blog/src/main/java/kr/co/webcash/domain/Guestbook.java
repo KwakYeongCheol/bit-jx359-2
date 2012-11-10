@@ -3,6 +3,8 @@ package kr.co.webcash.domain;
 import java.util.Date;
 import java.util.List;
 
+import kr.co.webcash.domain.comment.Comment;
+
 public class Guestbook {
 	private long id;
 	private Blog blog;
