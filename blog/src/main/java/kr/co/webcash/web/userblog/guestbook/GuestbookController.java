@@ -1,7 +1,5 @@
 package kr.co.webcash.web.userblog.guestbook;
 
-import java.util.Date;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 
@@ -33,24 +31,25 @@ public class GuestbookController {
 	@Inject private Provider<LoginUser> loginUserProvider;
 	
 	@RequestMapping
-	public String main(@PathVariable String blogId,Model model){	
+	public String main(@PathVariable String blogId, Model model){	
 		model.addAttribute("guestbookList",guestbookService.listByBlogId(blogId));
 		model.addAttribute("guestbook",new Guestbook());
 		return "userblog/guestbook/home";
 	}
 	
+	@RequestMapping("/{guestbookDisplayId}")
+	public String guestbookView(@PathVariable String blogId, @PathVariable long guestbookDisplayId, Model model){
+		model.addAttribute("guestbook", guestbookService.findByBlogIdAndDisplayId(blogId, guestbookDisplayId));
+		return "/userblog/guestbook/view";
+	}
+	
 	@RequestMapping(value="/wirteAction", method=RequestMethod.POST)
 	public String wirteAction(@ModelAttribute Guestbook guestbook, @PathVariable String blogId){
 		if(loginUser() != null){
-			Blog blog = new Blog();
-			blog.setId(blogId);
-		
-			guestbook.setDisplayId(guestbookService.findLastIdByBlogId(blog.getId()) + 1);
-			guestbook.setWriter(loginUser().getLoginId());
-			guestbook.setBlog(blog);
-			guestbook.setDateCreated(new Date(System.currentTimeMillis()));
+			guestbook.setBlog(new Blog(blogId));
+			guestbook.setWriter(loginUser());
 			
-			guestbookService.write(guestbook);
+			guestbookService.save(guestbook);
 		}
 		
 		return "redirect:/" + blogId +"/guestbook";
@@ -61,7 +60,7 @@ public class GuestbookController {
 		Guestbook guestbook = guestbookService.findByBlogIdAndDisplayId(blogId, displayId);
 		
 		if(guestbook != null){
-			if(loginUser().getLoginId().equals(guestbook.getWriter())){
+			if(loginUser().getLoginId().equals(guestbook.getWriter().getLoginId())){
 				model.addAttribute("guestbook", guestbook);
 				return "/userblog/guestbook/modify";
 			}
@@ -75,11 +74,8 @@ public class GuestbookController {
 		Guestbook guestbook = guestbookService.findByBlogIdAndDisplayId(blogId, displayId);
 		
 		if(guestbook != null){
-			if(loginUser().getLoginId().equals(guestbook.getWriter())){
+			if(loginUser().getLoginId().equals(guestbook.getWriter().getLoginId())){
 				modifiedGuestbook.setId(guestbook.getId());
-				
-				System.out.println(modifiedGuestbook);
-				
 				guestbookService.update(modifiedGuestbook);
 			}
 		}
@@ -93,7 +89,7 @@ public class GuestbookController {
 		Guestbook guestbook = guestbookService.findByBlogIdAndDisplayId(blogId, displayId);
 		
 		if(guestbook != null && currentBlog != null){
-			if(loginUser().getLoginId().equals(guestbook.getWriter()) || loginUser().getLoginId().equals(currentBlog.getOwner())){
+			if(loginUser().getLoginId().equals(guestbook.getWriter().getLoginId()) || loginUser().getLoginId().equals(currentBlog.getOwner())){
 				guestbookService.delete(guestbook);
 			}
 		}
