@@ -1,5 +1,6 @@
 package kr.co.webcash.service;
 
+import java.util.Date;
 import java.util.List;
 
 import kr.co.webcash.domain.Guestbook;
@@ -10,11 +11,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GuestbookServiceImpl implements GuestbookService{
-	
 	@Autowired GuestbookRepository guestbookRepository;
 
 	@Override
-	public void write(Guestbook guestbook) {
+	public void save(Guestbook guestbook) {
 		Guestbook lastGuestbook = guestbookRepository.findLast();
 		
 		if(lastGuestbook == null){
@@ -23,15 +23,18 @@ public class GuestbookServiceImpl implements GuestbookService{
 			guestbook.setId(lastGuestbook.getId() + 1);
 		}
 		
+		guestbook.setDisplayId(findLastIdByBlogId(guestbook.getBlog().getId()) + 1);
+		guestbook.setDateCreated(new Date());
+		
 		guestbookRepository.insert(guestbook);
 	}
 
 	@Override
 	public long findLastIdByBlogId(String blogId) {
-		Guestbook visitor = guestbookRepository.findLastGuestbookByBlogId(blogId);
-		if(visitor == null)		return 0;
+		Guestbook guestbook = guestbookRepository.findLastGuestbookByBlogId(blogId);
+		if(guestbook == null)		return 0;
 		
-		return visitor.getId();
+		return guestbook.getId();
 	}
 
 	@Override
@@ -53,5 +56,4 @@ public class GuestbookServiceImpl implements GuestbookService{
 	public void delete(Guestbook guestbook) {
 		guestbookRepository.delete(guestbook);
 	}
-
 }

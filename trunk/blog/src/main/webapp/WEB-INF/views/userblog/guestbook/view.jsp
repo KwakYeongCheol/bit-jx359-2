@@ -4,17 +4,7 @@
 <jsp:include page="/WEB-INF/views/userblog/common/header.jsp" />
 
 <div id="blogArticles">
-	<div style="margin: 20px">
-		<form:form modelAttribute="guestbook" action="${pageContext.request.contextPath }/${blog.id}/guestbook/wirteAction" method="post">
-			<p>
-				<form:input path="contents"/>
-				<input type="submit" value="방명록 작성">			
-			</p>
-		</form:form>
-	</div>
-	
 	<div class="blogArticle">
-		<c:forEach items="${guestbookList }" var="guestbook">
 		<div style="margin: 5px; ">
 			<a href="${pageContext.request.contextPath }/${guestbook.writer.loginId}">${guestbook.writer.loginId }</a> | 
 			${guestbook.dateCreated } <br />
@@ -55,9 +45,6 @@
 			</div>
 			</c:forEach>
 		</div>
-		
-		
-		</c:forEach>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/views/userblog/common/footer.jsp" />
