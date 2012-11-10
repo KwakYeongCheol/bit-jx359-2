@@ -49,6 +49,26 @@ public class Post {
 		return this.category.getBlogId();
 	}
 	
+	public PostRevision getCurrentRevision(){
+		return postRevisionList.get(0);
+	}
+	
+	public String getContents(final long revisionDisplayId){
+		String contents = this.contents;
+		
+		for(PostRevision postRevision : postRevisionList){
+			if(postRevision.getDisplayId() < revisionDisplayId)		return contents;		
+			
+			contents = PostRevision.patch(contents, postRevision.getDiff());
+		}
+		
+		return contents;
+	}
+	
+	public String getCompareContents(final long revisionDisplayId){
+		return PostRevision.compare(getContents(revisionDisplayId), getContents(revisionDisplayId - 1));
+	}
+	
 	@Override
 	public String toString() {
 		return "Post [id=" + id + ", category=" + category + ", displayId="

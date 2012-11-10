@@ -5,11 +5,50 @@ import java.util.LinkedList;
 import java.util.List;
 
 import difflib.DiffRow;
+import difflib.DiffUtils;
+import difflib.Patch;
+import difflib.PatchFailedException;
 import difflib.DiffRow.Tag;
 import difflib.DiffRowGenerator;
 
 public class PostRevisionUtils {
 	
+	public static String patch(String contents, String diff){
+		List<String> patchList = Arrays.asList(diff.split("\n"));
+		Patch patch = DiffUtils.parseUnifiedDiff(patchList);
+		StringBuilder builder = new StringBuilder();
+		
+		boolean start = true;
+		try{
+			for(Object obj : DiffUtils.patch(Arrays.asList(contents.split("\n")), patch)){
+				if(start)		start = false;
+				else			builder.append("\n");
+				builder.append(obj);
+			}
+			
+			return builder.toString();
+		}catch(PatchFailedException e){
+			System.out.println("patch failed : contents = " + contents + ", diff = " + diff);
+			return "";
+		}
+	}
+	
+	public static String generateDiff(String original, String patched){
+		List<String> originalList = Arrays.asList(original.split("\n"));
+		List<String> patchedList = Arrays.asList(patched.split("\n"));
+		
+		final Patch patch = DiffUtils.diff(originalList, patchedList);
+		List<String> unifiedDiff = DiffUtils.generateUnifiedDiff(null, null, originalList, patch, 0);
+		
+		StringBuilder builder = new StringBuilder();
+		for(String line : unifiedDiff){
+			builder.append(line).append("\n");
+		}
+		
+		return builder.toString();
+	}
+	
+	/* Diff Row */
 	private static DiffRowGenerator generator = new DiffRowGenerator.Builder()
 		.columnWidth(Integer.MAX_VALUE)
 		.ignoreWhiteSpaces(true)

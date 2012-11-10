@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/{blogId}")
 public class UserBlogController {
-	
 	@Autowired private PostService postService;
 	@Autowired private PostRevisionService postRevisionService;
 	@Autowired private BlogService blogService;
@@ -48,9 +47,7 @@ public class UserBlogController {
 	
 	@RequestMapping("/{postId}")
 	public String postView(@PathVariable String blogId, @PathVariable long postId, Model model){
-		Post currentPost = postService.findByBlogIdAndDisplayId(blogId, postId);
-		
-		model.addAttribute("post", currentPost);
+		model.addAttribute("post", postService.findByBlogIdAndDisplayId(blogId, postId));
 		
 		return "/userblog/post/view";
 	}
@@ -58,10 +55,7 @@ public class UserBlogController {
 	@RequestMapping("/{postId}/revision/{revisionId}")
 	public String getRevisionContents(@PathVariable String blogId, @PathVariable long postId, @PathVariable long revisionId, Model model){
 		Post post = postService.findByBlogIdAndDisplayId(blogId, postId);
-		
-		String contents = postRevisionService.getContents(post, revisionId);
-		
-		model.addAttribute("contents", contents);
+		model.addAttribute("contents", post.getContents(revisionId));
 
 		return "/userblog/post/revision";
 	}
@@ -69,8 +63,7 @@ public class UserBlogController {
 	@RequestMapping("/{postId}/compare/{revisionId}")
 	public String compare(@PathVariable String blogId, @PathVariable long postId, @PathVariable long revisionId, Model model){
 		Post post = postService.findByBlogIdAndDisplayId(blogId, postId);
-		
-		model.addAttribute("contents", postRevisionService.getCompareHtml(post, revisionId));
+		model.addAttribute("contents", post.getCompareContents(revisionId));
 		
 		return "/userblog/post/compare";
 	}
