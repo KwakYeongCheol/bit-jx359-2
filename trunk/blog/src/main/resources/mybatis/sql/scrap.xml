@@ -1,8 +1,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Scrap">
 	<insert id="insert" parameterType="Scrap">
-		insert into scraps (postId, scrappedBlogId, scrappedPostDisplayId, scrappedPostRevisionId, scrappedPostTitle, scrappedPostContents)
-		values(#{post.id}, #{scrappedBlog.id}, #{scrappedPostDisplayId}, #{scrappedPostRevisionId}, #{scrappedPostTitle}, #{scrappedPostContents})
+		INSERT INTO scraps
+			(postId, targetPostId, targetPostRevisionId)
+		VALUES
+			(#{post.id}, #{target.post.id}, #{target.postRevisionId})
 	</insert>
 	
 	<sql id="select">
@@ -11,12 +13,13 @@
 				p.displayId as "post.displayId",
 				p.title as "post.title",
 				c.id as "post.category.id",
-				b.id as "post.category.blog.id",				
-			s.scrappedBlogId as "scrappedBlog.id",
-			s.scrappedPostDisplayId as scrappedPostdisplayId,
-			s.scrappedPostRevisionId as scrappedPostRevisionId,
-			s.scrappedPostTitle as scrappedPostTitle,
-			s.scrappedPostContents as scrappedPostContents
+				b.id as "post.category.blog.id",
+			s.targetPostId as "target.post.id",
+				tp.displayId as "target.post.displayId",
+				tp.title as "target.post.title",
+				tc.id as "target.post.category.id",
+				tb.id as "target.post.category.blog.id",
+			s.targetPostRevisionId as "target.postRevisionId"
 		FROM
 			scraps s
 		JOIN
@@ -25,6 +28,12 @@
 			category c on c.id = p.categoryId
 		JOIN
 			blogs b on b.id = c.blogId
+		JOIN
+			post tp on tp.id = s.targetPostId
+		JOIN
+			category tc on tc.id = tp.categoryId
+		JOIN
+			blogs tb on tb.id = tc.blogId
 	</sql>
 	
 	<select id="findAllByPostId" resultType="Scrap">
@@ -33,17 +42,20 @@
 			s.postId = #{postId}
 	</select>
 	
-	<select id="findAllByScrappedBlogId" resultType="Scrap">
-		<include refid="select" />
-		WHERE
-			s.scrappedBlogId = #{scrappedBlogId}
-	</select>
 	
-	<select id="findByPostIdAndScrappedBlogIdAndScrappedPostDisplayId" resultType="Scrap">
+	<select id="findByPostIdAndTargetPostIdAndTargetPostRevisionId" resultType="Scrap">
 		<include refid="select" />
 		WHERE
 			s.postId = #{postId}
-			AND s.scrappedBlogId = #{scrappedBlogId}
-			AND s.scrappedPostDisplayId = #{scrappedPostDisplayId}
+			AND s.targetPostId = #{targetPostId}
+			AND s.targetPostRevisionId = #{targetPostRevisionId}
 	</select>
+	
+	<select id="findAllByTargetBlogId" resultType="Scrap">
+		<include refid="select" />
+		WHERE
+			tb.id = #{blogId}
+	</select>
+	
+	
 </mapper>

@@ -17,7 +17,7 @@ public class UserBlogAdminScrapController {
 	
 	@RequestMapping
 	public String home(@PathVariable String blogId, Model model){
-		model.addAttribute("scrapList", scrapService.listAllByScrappedBlog(new Blog(blogId)));
+		model.addAttribute("scrapList", scrapService.listByTargetBlog(new Blog(blogId)));
 		
 		return "/userblog/admin/scrap/home";
 	}

@@ -10,12 +10,9 @@ CREATE TABLE post (
 
 CREATE TABLE scraps (
   postId bigint NOT NULL,
-  scrappedBlogId VARCHAR(10) NOT NULL,
-  scrappedPostDisplayId bigint NOT NULL,
-  scrappedPostRevisionId bigint NOT NULL,
-  scrappedPostTitle VARCHAR(50) NOT NULL,
-  scrappedPostContents VARCHAR(1024) NOT NULL,
-  PRIMARY KEY(postId, scrappedBlogId, scrappedPostDisplayId, scrappedPostRevisionId)
+  targetPostId bigint NOT NULL,
+  targetPostRevisionId bigint NOT NULL,
+  PRIMARY KEY(postId, targetPostId)
 );
 
 CREATE TABLE post_metadata(
@@ -44,8 +41,8 @@ INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
 	VALUES(1, '첫 번째 포스팅', '안녕하세요. 곽범생입니다. 첫 포스팅하네요 :D<br />한숨대신 함성으로~<br />걱정대신 열정으로~</br /><br />포기대신 죽기 살기로~~<br />', NOW(), 1, 1);
 INSERT INTO POST_METADATA (postId, isPublic, canScrap, canTrackback, canComment)
 	VALUES(1, 'true', 'true', 'true', 'true');
-INSERT INTO SCRAPS (postId, scrappedBlogId, scrappedPostDisplayId, scrappedPostRevisionId, scrappedPostTitle, scrappedPostContents)
-	VALUES(1, '2', 1, 1, 'Tiny Farm ', '말하는 피닉스는 안생기나? ');
+INSERT INTO SCRAPS (postId, targetPostId, targetPostRevisionId)
+	VALUES(1, 3, 1);
 INSERT INTO POST_REVISION (postId, displayId, diff)
 	VALUES(1, 1, '');
 

@@ -3,6 +3,7 @@ package kr.co.webcash.domain.post;
 import java.util.Date;
 import java.util.List;
 
+import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Trackback;
 import kr.co.webcash.domain.comment.Comment;
@@ -32,7 +33,9 @@ public class Post {
 	private List<Comment> commentList;
 	private List<Trackback> trackbackList;
 	
-	public Post(){}
+	public Post(){
+		this.category = new Category();
+	}
 	
 	public Post(long id, Category category, long displayId, String title, String contents, Date dateCreated){
 		setId(id);
@@ -44,7 +47,6 @@ public class Post {
 	}
 	
 	public String getBlogId(){
-		if(this.category == null)		return null;
 		return this.category.getBlogId();
 	}
 	
@@ -100,4 +102,8 @@ public class Post {
 	public void setPostRevisionList(List<PostRevision> postRevisionList) {		this.postRevisionList = postRevisionList;	}
 	public List<PostTag> getPostTagList() {		return postTagList;	}
 	public void setPostTagList(List<PostTag> postTagList) {		this.postTagList = postTagList;	}
+
+	public void setBlog(Blog blog) {
+		this.category.setBlog(blog);
+	}
 }
