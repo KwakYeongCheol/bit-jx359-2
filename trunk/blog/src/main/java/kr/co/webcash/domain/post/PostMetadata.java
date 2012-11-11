@@ -16,46 +16,6 @@ public class PostMetadata {
 		this.post = post;
 	}
 
-	public Post getPost() {
-		return post;
-	}
-
-	public void setPost(Post post) {
-		this.post = post;
-	}
-
-	public boolean getIsPublic() {
-		return isPublic;
-	}
-
-	public void setIsPublic(boolean isPublic) {
-		this.isPublic = isPublic;
-	}
-
-	public boolean getCanComment() {
-		return canComment;
-	}
-
-	public void setCanComment(boolean canComment) {
-		this.canComment = canComment;
-	}
-
-	public boolean getCanScrap() {
-		return canScrap;
-	}
-
-	public void setCanScrap(boolean canScrap) {
-		this.canScrap = canScrap;
-	}
-
-	public boolean getCanTrackback() {
-		return canTrackback;
-	}
-
-	public void setCanTrackback(boolean canTrackback) {
-		this.canTrackback = canTrackback;
-	}
-	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -66,4 +26,15 @@ public class PostMetadata {
 		
 		return builder.toString();
 	}
+	
+	public Post getPost() {		return post;	}
+	public void setPost(Post post) {		this.post = post;	}
+	public boolean getIsPublic() {		return isPublic;	}
+	public void setIsPublic(boolean isPublic) {		this.isPublic = isPublic;	}
+	public boolean getCanComment() {		return canComment;	}
+	public void setCanComment(boolean canComment) {		this.canComment = canComment;	}
+	public boolean getCanScrap() {		return canScrap;	}
+	public void setCanScrap(boolean canScrap) {		this.canScrap = canScrap;	}
+	public boolean getCanTrackback() {		return canTrackback;	}
+	public void setCanTrackback(boolean canTrackback) {		this.canTrackback = canTrackback;	}
 }
