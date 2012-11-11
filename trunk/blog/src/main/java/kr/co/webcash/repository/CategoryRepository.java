@@ -10,7 +10,7 @@ public interface CategoryRepository {
 
 	List<Category> findAllByBlogId(String blogId);
 
-	Category findLastPostByBlogId(String blogId);
+	Category findLastByBlogId(String blogId);
 
 	void update(Category category);
 
@@ -18,10 +18,12 @@ public interface CategoryRepository {
 
 //	Category findByIdAndBlogId(long id, String blogId);
 
-	long findAllCountByBlogId(String blogId);
+	long countByBlogId(String blogId);
 
 	Category findByBlogIdAndDisplayId(String blogId, long displayId);
 
 	Category findLast();
+
+	Category findLastByBlogIdAndOrderValue(String blogId);
 	
 }

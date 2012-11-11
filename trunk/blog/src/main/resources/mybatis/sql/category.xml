@@ -1,18 +1,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Category">
 	<insert id="insert" parameterType="Category">
-		insert into category (id, title, blogId, displayId) 
-		values(#{id}, #{title},  #{blog.id}, #{displayId})
+		INSERT INTO category
+			(id, title, blogId, displayId, orderValue) 
+		VALUES
+			(#{id}, #{title},  #{blog.id}, #{displayId}, #{orderValue})
 	</insert>
 	
 	<update id="update" parameterType="Category">
-		update category set title = #{title}
-		where id = #{id}
+		UPDATE category 
+		SET 
+			title = #{title}
+		WHERE
+			id = #{id}
 	</update>
 	
 	<delete id="delete" parameterType="Category">
-		delete from category
-		where id = #{id}
+		DELETE FROM category
+		WHERE
+			id = #{id}
 	</delete>
 	
 	<sql id="select">
@@ -20,15 +26,17 @@
 			c.id as id, 
 			c.blogId as "blog.id", 
 			c.displayId as displayId,
-			c.title as title
-		FROM category c
+			c.title as title,
+			c.orderValue as orderValue
+		FROM
+			category c
 	</sql>
 	
 	<select id="findAllByBlogId" resultType="Category">
 		<include refid="select"/>
 		WHERE
 			c.blogId = #{blogId}
-		ORDER BY c.id DESC
+		ORDER BY c.orderValue
 	</select>
 	
 	<select id="findLast" resultType="Category">
@@ -37,11 +45,19 @@
 		LIMIT 1
 	</select>
 	
-	<select id="findLastPostByBlogId" resultType="Category">
+	<select id="findLastByBlogId" resultType="Category">
 		<include refid="select"/>
 		WHERE
 			c.blogId = #{blogId}
-		ORDER BY c.id DESC
+		ORDER BY c.displayId DESC
+		LIMIT 1
+	</select>
+	
+	<select id="findLastByBlogIdAndOrderValue" resultType="Category">
+		<include refid="select"/>
+		WHERE
+			c.blogId = #{blogId}
+		ORDER BY c.orderValue DESC
 		LIMIT 1
 	</select>
 	
@@ -52,7 +68,7 @@
 			AND c.displayId = #{displayId}
 	</select>
 	
-	<select id="findAllCountByIdAndBlogId" resultType="Long">
+	<select id="countByBlogId" resultType="Long">
 		SELECT
 			count(*)
 		FROM

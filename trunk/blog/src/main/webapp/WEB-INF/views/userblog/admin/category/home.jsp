@@ -8,7 +8,7 @@
 	<div>
 		<c:forEach items="${categoryList }" var="category">
 		<div>
-			${category.title } | 
+			${category.title } (order value : ${category.orderValue }) | 
 			<a href="${pageContext.request.contextPath }/${blog.id}/admin/category/modify?displayId=${category.displayId}">수정</a> |
 			<a href="${pageContext.request.contextPath }/${blog.id}/admin/category/delete?displayId=${category.displayId}">삭제</a><br />
 		</div>
