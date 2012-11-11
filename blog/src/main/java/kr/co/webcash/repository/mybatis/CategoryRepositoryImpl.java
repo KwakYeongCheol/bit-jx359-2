@@ -13,12 +13,21 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class CategoryRepositoryImpl implements CategoryRepository{
-	
-	@Autowired SqlSession sqlSession;
+	@Autowired private SqlSession sqlSession;
 	
 	@Override
 	public void insert(Category category) {
 		sqlSession.insert("Category.insert", category);
+	}
+	
+	@Override
+	public void update(Category category) {
+		sqlSession.update("Category.update",category);
+	}
+	
+	@Override
+	public void delete(Category category) {
+		sqlSession.delete("Category.delete", category);
 	}
 
 	@Override
@@ -27,36 +36,31 @@ public class CategoryRepositoryImpl implements CategoryRepository{
 	}
 
 	@Override
-	public Category findLastPostByBlogId(String blogId) {
-		return (Category) sqlSession.selectOne("Category.findLastPostByBlogId", blogId);
+	public Category findLastByBlogId(String blogId) {
+		return sqlSession.<Category>selectOne("Category.findLastByBlogId", blogId);
 	}
 
-	@Override
-	public void update(Category category) {
-		sqlSession.update("Category.update",category);
-	}
-
-	@Override
-	public void delete(Category category) {
-		sqlSession.delete("Category.delete", category);
-	}
 
 	@Override
 	public Category findByBlogIdAndDisplayId(String blogId, long displayId) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("blogId", blogId);
 		params.put("displayId", displayId);
-		return (Category) sqlSession.selectOne("Category.findByBlogIdAndDisplayId", params);
+		return sqlSession.<Category>selectOne("Category.findByBlogIdAndDisplayId", params);
 	}
 
 	@Override
-	public long findAllCountByBlogId(String blogId) {
-		return (Long) sqlSession.selectOne("Category.findAllCountByIdAndBlogId", blogId);
+	public long countByBlogId(String blogId) {
+		return sqlSession.<Long>selectOne("Category.countByBlogId", blogId);
 	}
 
 	@Override
 	public Category findLast() {
-		return (Category) sqlSession.selectOne("Category.findLast");
+		return sqlSession.<Category>selectOne("Category.findLast");
 	}
 
+	@Override
+	public Category findLastByBlogIdAndOrderValue(String blogId) {
+		return sqlSession.<Category>selectOne("Category.findLastByBlogIdAndOrderValue", blogId);
+	}
 }

@@ -56,11 +56,7 @@ public class AdminCategoryController {
 		this.categoryValidator.validate(category, result);
 		if(!result.hasErrors()){
 			if(loginUser() != null){
-				long lastDisplayId = categoryService.findLastDisplayIdByBlogId(blogId);
-				category.setDisplayId(lastDisplayId + 1);
-				
-				category.setBlog(blogService.findById(blogId));
-				
+				category.setBlog(new Blog(blogId));
 				categoryService.save(category);
 				
 				redirectUrl = "redirect:/" + blogId + "/admin/category";
@@ -83,9 +79,9 @@ public class AdminCategoryController {
 	public String modifyAction(@PathVariable String blogId, @ModelAttribute Category category, BindingResult result){
 		this.categoryValidator.validate(category, result);
 		
-		Category findCategory = categoryService.findByBlogIdAndDisplayId(blogId, category.getDisplayId());
-		
 		if(!result.hasErrors()){
+			Category findCategory = categoryService.findByBlogIdAndDisplayId(blogId, category.getDisplayId());
+			
 			Blog blog = new Blog();
 			blog.setId(blogId);
 			category.setBlog(blog);
