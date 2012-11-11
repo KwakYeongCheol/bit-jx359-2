@@ -9,8 +9,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.webcash.domain.Blog;
-import kr.co.webcash.domain.BlogVisitHistory;
+import kr.co.webcash.domain.blog.Blog;
+import kr.co.webcash.domain.blog.BlogVisitHistory;
 import kr.co.webcash.repository.BlogVisitHistoryRepository;
 
 @Service

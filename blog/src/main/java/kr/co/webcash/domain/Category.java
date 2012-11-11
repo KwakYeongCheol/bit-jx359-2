@@ -1,5 +1,7 @@
 package kr.co.webcash.domain;
 
+import kr.co.webcash.domain.blog.Blog;
+
 public class Category {
 	private static final long DEFAULT_DISPLAY_ID = 1;
 	private static final String DEFAULT_TITLE = "분류 없음";

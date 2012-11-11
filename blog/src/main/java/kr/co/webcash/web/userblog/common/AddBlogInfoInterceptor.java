@@ -8,8 +8,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kr.co.webcash.domain.Blog;
-import kr.co.webcash.domain.BlogVisitHistory;
+import kr.co.webcash.domain.blog.Blog;
+import kr.co.webcash.domain.blog.BlogVisitHistory;
 import kr.co.webcash.service.CategoryService;
 import kr.co.webcash.service.blog.BlogService;
 import kr.co.webcash.service.blog.BlogVisitHistoryService;

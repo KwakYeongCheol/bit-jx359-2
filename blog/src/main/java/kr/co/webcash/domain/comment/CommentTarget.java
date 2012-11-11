@@ -1,6 +1,6 @@
 package kr.co.webcash.domain.comment;
 
-import kr.co.webcash.domain.Blog;
+import kr.co.webcash.domain.blog.Blog;
 
 public class CommentTarget {
 	private Blog blog;

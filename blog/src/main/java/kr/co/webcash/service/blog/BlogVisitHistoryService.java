@@ -1,7 +1,7 @@
 package kr.co.webcash.service.blog;
 
-import kr.co.webcash.domain.Blog;
-import kr.co.webcash.domain.BlogVisitHistory;
+import kr.co.webcash.domain.blog.Blog;
+import kr.co.webcash.domain.blog.BlogVisitHistory;
 
 public interface BlogVisitHistoryService {
 

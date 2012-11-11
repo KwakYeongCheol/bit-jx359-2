@@ -2,9 +2,9 @@ package kr.co.webcash.domain.comment;
 
 import java.util.Date;
 
-import kr.co.webcash.domain.Blog;
-import kr.co.webcash.domain.User;
+import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.domain.notification.Notificable;
+import kr.co.webcash.domain.user.User;
 
 public class Comment implements Notificable{
 	private long id;

@@ -3,9 +3,9 @@ package kr.co.webcash.web.settings.favorite;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Favorite;
-import kr.co.webcash.domain.User;
+import kr.co.webcash.domain.blog.Blog;
+import kr.co.webcash.domain.user.User;
 import kr.co.webcash.service.FavoriteService;
 import kr.co.webcash.web.security.LoginUser;
 

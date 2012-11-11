@@ -1,6 +1,6 @@
 package kr.co.webcash.service;
 
-import kr.co.webcash.domain.User;
+import kr.co.webcash.domain.user.User;
 import kr.co.webcash.repository.UserRepository;
 import kr.co.webcash.utils.EncryptUtils;
 

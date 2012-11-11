@@ -1,4 +1,4 @@
-package kr.co.webcash.domain;
+package kr.co.webcash.domain.post.scrap;
 
 import java.util.ArrayList;
 import java.util.HashSet;

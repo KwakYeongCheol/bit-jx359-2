@@ -2,7 +2,7 @@ package kr.co.webcash.repository;
 
 import java.util.List;
 
-import kr.co.webcash.domain.User;
+import kr.co.webcash.domain.user.User;
 
 public interface UserRepository {
 	

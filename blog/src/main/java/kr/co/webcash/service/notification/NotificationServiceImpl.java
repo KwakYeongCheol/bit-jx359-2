@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.webcash.domain.Blog;
-import kr.co.webcash.domain.User;
+import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.domain.notification.Notificable;
 import kr.co.webcash.domain.notification.Notification;
+import kr.co.webcash.domain.user.User;
 import kr.co.webcash.repository.NotificationRepository;
 
 @Service

@@ -1,5 +1,7 @@
 package kr.co.webcash.domain;
 
+import kr.co.webcash.domain.blog.Blog;
+
 public class Favorite {
 	private String loginId;
 	private Blog blog;

@@ -3,9 +3,9 @@ package kr.co.webcash.domain.post;
 import java.util.Date;
 import java.util.List;
 
-import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Trackback;
+import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.domain.comment.Comment;
 
 import org.springframework.format.annotation.DateTimeFormat;

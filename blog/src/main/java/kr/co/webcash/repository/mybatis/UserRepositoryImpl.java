@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import kr.co.webcash.domain.User;
+import kr.co.webcash.domain.user.User;
 import kr.co.webcash.repository.UserRepository;
 
 import org.apache.ibatis.session.SqlSession;

@@ -7,11 +7,11 @@ import javax.inject.Provider;
 import javax.servlet.http.HttpServletRequest;
 
 import kr.co.webcash.domain.Category;
-import kr.co.webcash.domain.Scrap;
-import kr.co.webcash.domain.ScrapTarget;
 import kr.co.webcash.domain.Trackback;
-import kr.co.webcash.domain.User;
 import kr.co.webcash.domain.post.Post;
+import kr.co.webcash.domain.post.scrap.Scrap;
+import kr.co.webcash.domain.post.scrap.ScrapTarget;
+import kr.co.webcash.domain.user.User;
 import kr.co.webcash.service.CategoryService;
 import kr.co.webcash.service.TrackbackService;
 import kr.co.webcash.service.blog.BlogService;
