@@ -46,13 +46,6 @@ public class Post {
 		setDateCreated(dateCreated);
 	}
 	
-	public String getBlogId(){
-		return this.category.getBlogId();
-	}
-	
-	public PostRevision getCurrentRevision(){
-		return postRevisionList.get(0);
-	}
 	
 	public String getContents(final long revisionDisplayId){
 		String contents = this.contents;
@@ -79,6 +72,18 @@ public class Post {
 				+ commentList + ", trackbackList=" + trackbackList + "]";
 	}
 	
+	
+	/* sub object's getter / setter wrapper */
+	public void setBlog(Blog blog) {		this.category.setBlog(blog);	}
+	public String getBlogId(){		return this.category.getBlogId();	}
+	public PostRevision getCurrentRevision(){		return postRevisionList.get(0);	}
+
+	public boolean getCanTrackback(){		return postMetadata.getCanTrackback();	}
+	public boolean getCanComment(){			return postMetadata.getCanComment();	}
+	public boolean getCanScrap(){			return postMetadata.getCanScrap();		}
+	public boolean getIsPublic(){			return postMetadata.getIsPublic();		}
+	
+	
 	/* getter / setter */
 	public long getId() {		return id;	}
 	public void setId(long id) {		this.id = id;	}
@@ -102,8 +107,4 @@ public class Post {
 	public void setPostRevisionList(List<PostRevision> postRevisionList) {		this.postRevisionList = postRevisionList;	}
 	public List<PostTag> getPostTagList() {		return postTagList;	}
 	public void setPostTagList(List<PostTag> postTagList) {		this.postTagList = postTagList;	}
-
-	public void setBlog(Blog blog) {
-		this.category.setBlog(blog);
-	}
 }

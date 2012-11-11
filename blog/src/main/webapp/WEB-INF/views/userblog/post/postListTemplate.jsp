@@ -10,8 +10,8 @@
 		${post.displayId } |
 		${post.title } | 
 		<spring:eval expression="post.dateCreated" /> |		
-		공개여부 : ${post.postMetadata.isPublic } | 
-		Version : ${post.postRevisionList.get(0).displayId }
+		공개여부 : ${post.isPublic } | 
+		Version : ${post.currentRevision.displayId }
 		<br /><br />
 		
 		${post.contents }
@@ -22,7 +22,7 @@
 		</c:forEach>
 	</div>
 	
-	<c:if test="${post.postMetadata.canScrap }">
+	<c:if test="${post.canScrap }">
 	<div>
 		<form action="${pageContext.request.contextPath }/${loginUserProvider.blog.id }/admin/post/scrap" method="post">
 			<input type="hidden" name="targetBlogId" value="${blog.id }">
@@ -32,7 +32,7 @@
 		</form>
 	</div>
 	</c:if>
-	<c:if test="${loginUserProvider.loggedIn }">
+	<c:if test="${loginUserProvider.loggedIn && post.canComment }">
 	<div>
 		<form action="${pageContext.request.contextPath }/${blog.id}/comment/writeAction" method="post">
 			<input type="hidden" name="targetDisplayId" value="${post.displayId }" />
