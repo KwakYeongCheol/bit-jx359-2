@@ -9,9 +9,8 @@ public interface ScrapRepository {
 	List<Scrap> findAllByPostId(long postId);
 
 	void insert(Scrap scrap);
+	
+	Scrap findByPostIdAndTargetPostIdAndTargetPostRevisionId(long postId, long targetPostId, long targetPostRevisionId);
 
-	Scrap findByPostIdAndTargetBlogIdAndTargetPostDisplayId(long postId, String targetBlogId, long targetPostDisplayId);
-
-	List<Scrap> findAllByScrappedBlogId(String scrappedBlogId);
-
+	List<Scrap> findAllByTargetBlogId(String blogId);
 }

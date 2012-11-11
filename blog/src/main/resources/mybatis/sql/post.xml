@@ -27,8 +27,9 @@
 	<sql id="select">
 		SELECT
 			p.id as id,
-			c.id as "category.displayId", 
-			c.title as "category.title",
+				c.id as "category.displayId", 
+				c.title as "category.title",
+					b.id as "category.blog.id",
 			p.displayId as displayId,
 			p.title as title, 
 			p.contents as contents, 

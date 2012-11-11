@@ -19,47 +19,30 @@ public class ScrapRepositoryImpl implements ScrapRepository{
 	@Autowired private BlogRepository blogRepository;
 	
 	@Override
-	public List<Scrap> findAllByPostId(long postId) {
-		List<Scrap> scrapList = sqlSession.selectList("Scrap.findAllByPostId", postId);
-		
-		addMoreInfo(scrapList);
-		
-		return scrapList;
-	}
-	
-	private void addMoreInfo(List<Scrap> scrapList){
-		for(Scrap scrap : scrapList){
-			addMoreInfo(scrap);
-		}
-	}
-	
-	private void addMoreInfo(Scrap scrap){
-		if(scrap != null){
-			scrap.setScrappedBlog(blogRepository.findById(scrap.getScrappedBlog().getId()));
-		}
-	}
-
-	@Override
 	public void insert(Scrap scrap) {
 		sqlSession.insert("Scrap.insert", scrap);
 	}
 
 	@Override
-	public Scrap findByPostIdAndTargetBlogIdAndTargetPostDisplayId(long postId, String targetBlogId, long targetPostDisplayId) {
-		Map params = new HashMap();
+	public Scrap findByPostIdAndTargetPostIdAndTargetPostRevisionId(long postId, long targetPostId, long targetPostRevisionId) {
+		Map<String, Long> params = new HashMap<String, Long>();
 		params.put("postId", postId);
-		params.put("scrappedBlogId", targetBlogId);
-		params.put("scrappedPostDisplayId", targetPostDisplayId);
+		params.put("targetPostId", targetPostId);
+		params.put("targetPostRevisionId", targetPostRevisionId);
 		
-		Scrap scrap = (Scrap) sqlSession.selectOne("Scrap.findByPostIdAndScrappedBlogIdAndScrappedPostDisplayId", params);
-		addMoreInfo(scrap);
-		
-		return scrap;
+		return sqlSession.<Scrap>selectOne("Scrap.findByPostIdAndTargetPostIdAndTargetPostRevisionId", params);
 	}
 
 	@Override
-	public List<Scrap> findAllByScrappedBlogId(String scrappedBlogId) {
-		return sqlSession.selectList("Scrap.findAllByScrappedBlogId", scrappedBlogId);
+	public List<Scrap> findAllByPostId(long postId) {
+		List<Scrap> scrapList = sqlSession.selectList("Scrap.findAllByPostId", postId);
+		
+		return scrapList;
+	}
+	
+	@Override
+	public List<Scrap> findAllByTargetBlogId(String blogId) {
+		return sqlSession.<Scrap>selectList("Scrap.findAllByTargetBlogId", blogId);
 	}
 
 }

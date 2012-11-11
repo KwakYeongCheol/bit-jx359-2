@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Scrap;
+import kr.co.webcash.domain.ScrapTarget;
 import kr.co.webcash.domain.Trackback;
 import kr.co.webcash.domain.User;
 import kr.co.webcash.domain.post.Post;
@@ -63,7 +64,18 @@ public class PostController {
 	}
 
 	@RequestMapping(value = "/scrap")
-	public String scrap(@ModelAttribute Scrap scrap, @PathVariable String blogId, Model model) {
+	public String scrap(@PathVariable String blogId, 
+			@RequestParam String targetBlogId, @RequestParam long targetPostDisplayId, @RequestParam long targetPostRevisionId,
+			Model model) {
+		
+		Scrap scrap = new Scrap();
+//		scrap.setTargetBlog(new Blog(targetBlogId));
+//		scrap.setTargetPostDisplayId(targetPostDisplayId);
+//		scrap.setTargetPostRevisionId(targetPostRevisionId);
+		
+		Post targetPost = postService.findByBlogIdAndDisplayId(targetBlogId, targetPostDisplayId);
+		scrap.setTarget(new ScrapTarget(targetPost, targetPostRevisionId));
+		
 		Post post = new Post();
 		post.setContents(scrap.getTag());
 		

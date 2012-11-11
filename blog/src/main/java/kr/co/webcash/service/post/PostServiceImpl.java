@@ -4,26 +4,27 @@ import java.util.List;
 
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Page;
-import kr.co.webcash.domain.Scrap;
 import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.domain.post.PostMetadata;
-import kr.co.webcash.domain.post.PostTag;
 import kr.co.webcash.repository.CategoryRepository;
 import kr.co.webcash.repository.PostMetadataRepository;
 import kr.co.webcash.repository.PostRepository;
-import kr.co.webcash.repository.ScrapRepository;
+import kr.co.webcash.service.ScrapService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PostServiceImpl implements PostService {
-	@Autowired private PostRepository postRepository;
-	@Autowired private PostMetadataRepository postMetadataRepository;
 	@Autowired private PostRevisionService postRevisionService;
-	@Autowired private ScrapRepository scrapRepository;
-	@Autowired private CategoryRepository categoryRepository;
 	@Autowired private PostTagService postTagService;
+	
+	@Autowired private ScrapService scrapService;
+	
+	@Autowired private PostRepository postRepository;
+	
+	@Autowired private PostMetadataRepository postMetadataRepository;
+	@Autowired private CategoryRepository categoryRepository;
 	
 	@Override
 	public void save(Post post) {
@@ -35,11 +36,11 @@ public class PostServiceImpl implements PostService {
 		}
 
 		postRepository.insert(post);
+		insertPostMetadata(post);
 		postRevisionService.save(post);
 		
-		insertTag(post);
-		insertPostMetadata(post);
-		insertScrap(post);
+		postTagService.save(post);
+		scrapService.save(post);
 	}
 
 	@Override
@@ -53,39 +54,11 @@ public class PostServiceImpl implements PostService {
 		postRepository.delete(post);
 	}
 	
-	private void insertTag(Post post){
-		List<PostTag> postTagList = post.getPostTagList();
-		
-		if(postTagList == null || postTagList.isEmpty())	return;
-		
-		for(PostTag postTag : postTagList){
-			postTag.setPost(post);
-			postTagService.save(postTag);
-		}
-	}
-	
 	private void insertPostMetadata(Post post){
 		PostMetadata metadata = post.getPostMetadata();
 		metadata.setPost(post);
 		
 		postMetadataRepository.insert(metadata);
-	}
-	
-	private void insertScrap(Post post) {
-		List<Scrap> scrapList = Scrap.convert(post.getContents());
-		
-		for(Scrap scrap : scrapList){
-			Post targetPost = findByBlogIdAndDisplayId(scrap.getScrappedBlog().getId(), scrap.getScrappedPostDisplayId());
-			if(targetPost == null)	continue;
-			
-			if(targetPost.getPostMetadata().getCanScrap()){
-				scrap.setPost(post);
-				scrap.setScrappedPostContents(targetPost.getContents());
-				scrap.setScrappedPostTitle(targetPost.getTitle());
-				
-				scrapRepository.insert(scrap);
-			}
-		}
 	}
 	
 	private List<Post> wrap(List<Post> postList){
@@ -104,29 +77,7 @@ public class PostServiceImpl implements PostService {
 	}
 	
 	private void convertFromScrapTagToScrapContents(Post post){
-		StringBuffer buffer = new StringBuffer(post.getContents());
-		List<Scrap> scrapList = Scrap.convert(post.getContents());
-		
-		for(Scrap scrap : scrapList){
-			Scrap findScrap = scrapRepository.findByPostIdAndTargetBlogIdAndTargetPostDisplayId(
-					post.getId(), 
-					scrap.getScrappedBlog().getId(), 
-					scrap.getScrappedPostDisplayId());
-			
-			if(findScrap == null)		continue;
-			
-			StringBuffer changeText = new StringBuffer();
-			changeText.append("<div class=\"scrap\">")
-					.append(findScrap.getScrappedPostContents())
-					.append("</div>");
-			
-			int startIndex = -1;
-			while((startIndex = buffer.indexOf(findScrap.getTag())) != -1){
-				buffer.replace(startIndex, startIndex + findScrap.getTag().length(), changeText.toString());
-			}
-		}
-		
-		post.setContents(buffer.toString());
+		scrapService.convertFromScrapTagToScrapContents(post);
 	}
 	
 	@Override

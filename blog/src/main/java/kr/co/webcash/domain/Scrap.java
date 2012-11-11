@@ -12,12 +12,7 @@ import kr.co.webcash.domain.post.Post;
 
 public class Scrap {
 	private Post post;
-	private Blog scrappedBlog;
-	private long scrappedPostDisplayId;
-	private long scrappedPostRevisionId;
-	private String scrappedPostTitle;
-	private String scrappedPostContents;
-	
+	private ScrapTarget target;
 	
 	private static final String PREFIX = "@@";
 	private static final String BLOG_ID = "[a-zA-Z0-9]+";
@@ -28,6 +23,10 @@ public class Scrap {
 	private static final String URL_REGEX =	PREFIX 
 			+ BLOG_ID + "/" + POST_DISPLAY_ID + "/" + POST_REVISION_ID 
 			+ SUFFIX;
+	
+	public Scrap(){
+		this.target = new ScrapTarget();
+	}
 	
 	public static List<Scrap> convert(String data){
 		return convert(getScrapURLListFromData(data));
@@ -56,9 +55,10 @@ public class Scrap {
 			long postRevisionId = Long.valueOf(arr[2].substring(0, arr[length - 1].length() - SUFFIX.length()));
 			
 			Scrap scrap = new Scrap();
-			scrap.setScrappedBlog(new Blog(blogId));
-			scrap.setScrappedPostDisplayId(postDisplayId);
-			scrap.setScrappedPostRevisionId(postRevisionId);
+			scrap.setTarget(new ScrapTarget(blogId,  postDisplayId, postRevisionId));
+//			scrap.target.setBlog(new Blog(blogId));
+//			scrap.target.setPostDisplayId(postDisplayId);
+			scrap.target.setPostRevisionId(postRevisionId);
 			return scrap;
 		}catch(Exception e){
 			System.out.println(scrapURL + " can not parse to SCRAP. please check your syntax.");
@@ -84,32 +84,40 @@ public class Scrap {
 		StringBuilder builder = new StringBuilder();
 
 		builder.append("@@")
-			.append(getScrappedBlog().getId()).append("/")
-			.append(getScrappedPostDisplayId()).append("/")
-			.append(getScrappedPostRevisionId()).append("##");
+			.append(target.getBlogId()).append("/")
+			.append(target.getPostDisplayId()).append("/")
+			.append(target.getPostRevisionId()).append("##");
 		
 		return builder.toString();
 	}
 	
-	@Override
-	public String toString() {
-		return "Scrap [post=" + post + ", scrappedBlog=" + scrappedBlog
-				+ ", scrappedPostDisplayId=" + scrappedPostDisplayId
-				+ ", scrappedPostRevisionId=" + scrappedPostRevisionId
-				+ ", scrappedPostTitle=" + scrappedPostTitle
-				+ ", scrappedPostContents=" + scrappedPostContents + "]";
-	}
-	
 	public Post getPost() {		return post;	}
 	public void setPost(Post post) {		this.post = post;	}
-	public String getScrappedPostTitle() {		return scrappedPostTitle;	}
-	public void setScrappedPostTitle(String scrappedPostTitle) {		this.scrappedPostTitle = scrappedPostTitle;	}
-	public String getScrappedPostContents() {		return scrappedPostContents;	}
-	public void setScrappedPostContents(String scrappedPostContents) {		this.scrappedPostContents = scrappedPostContents;	}
-	public Blog getScrappedBlog() {		return scrappedBlog;	}
-	public void setScrappedBlog(Blog scrappedBlog) {		this.scrappedBlog = scrappedBlog;	}
-	public long getScrappedPostRevisionId() {		return scrappedPostRevisionId;	}
-	public void setScrappedPostRevisionId(long scrappedPostRevisionId) {		this.scrappedPostRevisionId = scrappedPostRevisionId;	}
-	public long getScrappedPostDisplayId() {		return scrappedPostDisplayId;	}
-	public void setScrappedPostDisplayId(long scrappedPostDisplayId) {		this.scrappedPostDisplayId = scrappedPostDisplayId;	}
+	public ScrapTarget getTarget() {		return target;	}
+	public void setTarget(ScrapTarget target) {		this.target = target;	}
+
+	public String getTargetBlogId() {
+		return target.getBlogId();
+	}
+
+	public long getTargetPostDisplayId() {
+		return target.getPostDisplayId();
+	}
+	
+	public String getTargetPostTitle(){
+		return target.getPostTitle();
+	}
+
+	public String getTargetPostContents() {
+		return target.getPostContents();
+	}
+
+	public long getTargetPostRevisionId() {
+		return target.getPostRevisionId();
+	}
+	
+	@Override
+	public String toString() {
+		return "Scrap [post=" + post + ", target=" + target + "]";
+	}
 }

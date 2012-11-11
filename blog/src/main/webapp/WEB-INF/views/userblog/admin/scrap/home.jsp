@@ -7,7 +7,7 @@
 	<br /><br />
 	<div>
 		<c:forEach items="${scrapList }" var="scrap">
-			<a href="${pageContext.request.contextPath}/${scrap.scrappedBlog.id }/${scrap.scrappedPostDisplayId }">${scrap.scrappedPostTitle }</a> &lt;---
+			<a href="${pageContext.request.contextPath}/${scrap.targetBlogId }/${scrap.targetPostDisplayId }">${scrap.targetPostTitle }</a> &lt;---
 			<a href="${pageContext.request.contextPath}/${scrap.post.blogId }/${scrap.post.displayId }">${scrap.post.title }</a>			
 			<hr />
 		</c:forEach>
