@@ -3,6 +3,8 @@ package kr.co.webcash.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.co.webcash.domain.blog.Blog;
+
 import org.junit.Test;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;

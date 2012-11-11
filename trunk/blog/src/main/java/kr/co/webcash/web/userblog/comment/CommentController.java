@@ -5,11 +5,11 @@ import java.util.Date;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-import kr.co.webcash.domain.Blog;
-import kr.co.webcash.domain.User;
+import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.domain.comment.Comment;
 import kr.co.webcash.domain.comment.CommentTarget;
 import kr.co.webcash.domain.comment.CommentType;
+import kr.co.webcash.domain.user.User;
 import kr.co.webcash.service.blog.BlogService;
 import kr.co.webcash.service.comment.CommentService;
 import kr.co.webcash.service.notification.NotificationService;

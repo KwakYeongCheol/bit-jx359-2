@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.servlet.http.HttpSession;
 
-import kr.co.webcash.domain.User;
+import kr.co.webcash.domain.user.User;
 import kr.co.webcash.service.UserService;
 import kr.co.webcash.web.security.LoginUser;
 import kr.co.webcash.web.validator.UserRegisterValidator;

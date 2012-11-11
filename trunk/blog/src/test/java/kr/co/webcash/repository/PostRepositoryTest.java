@@ -7,8 +7,8 @@ import static org.junit.Assert.assertThat;
 import java.util.Date;
 import java.util.List;
 
-import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Category;
+import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.service.blog.BlogService;
 

@@ -1,4 +1,4 @@
-package kr.co.webcash.domain;
+package kr.co.webcash.domain.blog;
 
 import java.util.Date;
 

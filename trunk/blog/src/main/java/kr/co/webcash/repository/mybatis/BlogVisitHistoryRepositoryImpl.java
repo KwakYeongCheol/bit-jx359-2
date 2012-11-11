@@ -2,7 +2,7 @@ package kr.co.webcash.repository.mybatis;
 
 import java.util.Map;
 
-import kr.co.webcash.domain.BlogVisitHistory;
+import kr.co.webcash.domain.blog.BlogVisitHistory;
 import kr.co.webcash.repository.BlogVisitHistoryRepository;
 
 import org.apache.ibatis.session.SqlSession;

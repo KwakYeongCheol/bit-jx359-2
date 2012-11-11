@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import kr.co.webcash.domain.Blog;
+import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.domain.notification.Notification;
 import kr.co.webcash.service.notification.NotificationService;
 

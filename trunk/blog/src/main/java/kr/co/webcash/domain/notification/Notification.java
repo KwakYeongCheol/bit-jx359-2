@@ -2,7 +2,7 @@ package kr.co.webcash.domain.notification;
 
 import java.util.Date;
 
-import kr.co.webcash.domain.Blog;
+import kr.co.webcash.domain.blog.Blog;
 
 public class Notification {
 	

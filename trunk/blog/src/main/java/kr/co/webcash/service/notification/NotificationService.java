@@ -2,7 +2,7 @@ package kr.co.webcash.service.notification;
 
 import java.util.List;
 
-import kr.co.webcash.domain.Blog;
+import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.domain.notification.Notificable;
 import kr.co.webcash.domain.notification.Notification;
 

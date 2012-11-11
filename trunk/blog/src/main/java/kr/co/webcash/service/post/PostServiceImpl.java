@@ -9,7 +9,7 @@ import kr.co.webcash.domain.post.PostMetadata;
 import kr.co.webcash.repository.CategoryRepository;
 import kr.co.webcash.repository.PostMetadataRepository;
 import kr.co.webcash.repository.PostRepository;
-import kr.co.webcash.service.ScrapService;
+import kr.co.webcash.service.post.scrap.ScrapService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -2,7 +2,7 @@ package kr.co.webcash.repository.mybatis;
 
 import java.util.List;
 
-import kr.co.webcash.domain.Blog;
+import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.repository.BlogRepository;
 
 import org.apache.ibatis.session.SqlSession;

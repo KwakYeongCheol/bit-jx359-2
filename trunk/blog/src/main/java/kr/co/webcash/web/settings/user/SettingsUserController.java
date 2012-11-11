@@ -3,7 +3,7 @@ package kr.co.webcash.web.settings.user;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-import kr.co.webcash.domain.User;
+import kr.co.webcash.domain.user.User;
 import kr.co.webcash.service.UserService;
 import kr.co.webcash.web.security.LoginUser;
 

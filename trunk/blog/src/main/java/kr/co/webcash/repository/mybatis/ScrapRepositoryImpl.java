@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import kr.co.webcash.domain.Scrap;
+import kr.co.webcash.domain.post.scrap.Scrap;
 import kr.co.webcash.repository.BlogRepository;
 import kr.co.webcash.repository.ScrapRepository;
 

@@ -2,8 +2,8 @@ package kr.co.webcash.service;
 
 import java.util.List;
 
-import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Category;
+import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.repository.CategoryRepository;
 import kr.co.webcash.repository.PostRepository;

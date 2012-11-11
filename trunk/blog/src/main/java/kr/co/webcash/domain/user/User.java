@@ -1,8 +1,11 @@
-package kr.co.webcash.domain;
+package kr.co.webcash.domain.user;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import kr.co.webcash.domain.Favorite;
+import kr.co.webcash.domain.blog.Blog;
 
 public class User {
 	private String loginId;

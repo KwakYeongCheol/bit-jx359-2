@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 import java.sql.Date;
 import java.util.List;
 
-import kr.co.webcash.domain.Blog;
+import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.service.blog.BlogService;
 
 import org.junit.Test;

@@ -2,9 +2,9 @@ package kr.co.webcash.web.security;
 
 import java.util.List;
 
-import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Favorite;
-import kr.co.webcash.domain.User;
+import kr.co.webcash.domain.blog.Blog;
+import kr.co.webcash.domain.user.User;
 
 public interface LoginUser {
 	public boolean isLoggedIn();

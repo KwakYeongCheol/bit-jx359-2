@@ -1,7 +1,7 @@
 package kr.co.webcash.web.userblog.admin.scrap;
 
-import kr.co.webcash.domain.Blog;
-import kr.co.webcash.service.ScrapService;
+import kr.co.webcash.domain.blog.Blog;
+import kr.co.webcash.service.post.scrap.ScrapService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

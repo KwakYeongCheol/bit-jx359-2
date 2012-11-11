@@ -2,7 +2,7 @@ package kr.co.webcash.repository;
 
 import java.util.List;
 
-import kr.co.webcash.domain.Scrap;
+import kr.co.webcash.domain.post.scrap.Scrap;
 
 public interface ScrapRepository {
 

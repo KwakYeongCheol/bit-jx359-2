@@ -3,9 +3,9 @@ package kr.co.webcash.web.userblog.guestbook;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Guestbook;
-import kr.co.webcash.domain.User;
+import kr.co.webcash.domain.blog.Blog;
+import kr.co.webcash.domain.user.User;
 import kr.co.webcash.service.GuestbookService;
 import kr.co.webcash.service.blog.BlogService;
 import kr.co.webcash.web.security.LoginUser;

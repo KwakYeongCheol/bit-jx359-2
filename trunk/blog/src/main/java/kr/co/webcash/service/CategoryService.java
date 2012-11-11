@@ -2,8 +2,8 @@ package kr.co.webcash.service;
 
 import java.util.List;
 
-import kr.co.webcash.domain.Blog;
 import kr.co.webcash.domain.Category;
+import kr.co.webcash.domain.blog.Blog;
 
 public interface CategoryService {
 

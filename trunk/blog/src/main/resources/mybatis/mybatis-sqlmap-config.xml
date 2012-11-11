@@ -4,8 +4,9 @@
     "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="Blog" type="kr.co.webcash.domain.Blog"/>
-		<typeAlias alias="BlogVisitHistory" type="kr.co.webcash.domain.BlogVisitHistory"/>
+		<typeAlias alias="Blog" type="kr.co.webcash.domain.blog.Blog"/>
+		<typeAlias alias="BlogVisitHistory" type="kr.co.webcash.domain.blog.BlogVisitHistory"/>
+		
 		<typeAlias alias="Category" type="kr.co.webcash.domain.Category"/>
 		<typeAlias alias="Comment" type="kr.co.webcash.domain.comment.Comment"/>
 		<typeAlias alias="Favorite" type="kr.co.webcash.domain.Favorite"/>
@@ -14,9 +15,9 @@
 		<typeAlias alias="PostMetadata" type="kr.co.webcash.domain.post.PostMetadata"/>
 		<typeAlias alias="PostTag" type="kr.co.webcash.domain.post.PostTag"/>
 		<typeAlias alias="PostRevision" type="kr.co.webcash.domain.post.PostRevision"/>
-		<typeAlias alias="Scrap" type="kr.co.webcash.domain.Scrap"/>
+		<typeAlias alias="Scrap" type="kr.co.webcash.domain.post.scrap.Scrap"/>
 		<typeAlias alias="Trackback" type="kr.co.webcash.domain.Trackback"/>
-		<typeAlias alias="User" type="kr.co.webcash.domain.User" />
+		<typeAlias alias="User" type="kr.co.webcash.domain.user.User" />
 		<typeAlias alias="Notification" type="kr.co.webcash.domain.notification.Notification" />
 	</typeAliases>
 	

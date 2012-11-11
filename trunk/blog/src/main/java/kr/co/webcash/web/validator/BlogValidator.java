@@ -1,6 +1,6 @@
 package kr.co.webcash.web.validator;
 
-import kr.co.webcash.domain.Blog;
+import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.service.blog.BlogService;
 
 import org.springframework.beans.factory.annotation.Autowired;

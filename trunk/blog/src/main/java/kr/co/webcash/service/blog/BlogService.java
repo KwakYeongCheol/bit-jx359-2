@@ -2,9 +2,9 @@ package kr.co.webcash.service.blog;
 
 import java.util.List;
 
-import kr.co.webcash.domain.Blog;
-import kr.co.webcash.domain.BlogVisitHistory;
-import kr.co.webcash.domain.User;
+import kr.co.webcash.domain.blog.Blog;
+import kr.co.webcash.domain.blog.BlogVisitHistory;
+import kr.co.webcash.domain.user.User;
 
 public interface BlogService {
 

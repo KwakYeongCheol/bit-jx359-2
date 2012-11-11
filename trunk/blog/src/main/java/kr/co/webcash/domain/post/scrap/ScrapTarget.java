@@ -1,5 +1,6 @@
-package kr.co.webcash.domain;
+package kr.co.webcash.domain.post.scrap;
 
+import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.domain.post.Post;
 
 
