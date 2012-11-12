@@ -1,6 +1,9 @@
 package kr.co.webcash.domain;
 
+import java.util.List;
+
 import kr.co.webcash.domain.blog.Blog;
+import kr.co.webcash.domain.post.Post;
 
 public class Category {
 	private static final long DEFAULT_DISPLAY_ID = 1;
@@ -14,6 +17,7 @@ public class Category {
 	private String title;
 	private long orderValue;
 
+	private List<Post> postList;
 	public Category(){}
 	
 	public Category(Blog blog, long displayId, String title) {
@@ -57,5 +61,7 @@ public class Category {
 	public void setTitle(String title) {		this.title = title;	}
 	public long getOrderValue() {		return orderValue;	}
 	public void setOrderValue(long orderValue) {		this.orderValue = orderValue;	}
+	public List<Post> getPostList() { return postList; }
+	public void setPostList(List<Post> postList) {	this.postList = postList;	}
 
 }

@@ -8,6 +8,7 @@ import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.domain.user.User;
 import kr.co.webcash.service.GuestbookService;
 import kr.co.webcash.service.blog.BlogService;
+import kr.co.webcash.service.notification.NotificationService;
 import kr.co.webcash.web.security.LoginUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class GuestbookController {
 	
 	@Autowired private BlogService blogService;
 	@Autowired private GuestbookService guestbookService;
-	
+	@Autowired private NotificationService notificationService;
 	@Inject private Provider<LoginUser> loginUserProvider;
 	
 	@RequestMapping
@@ -50,6 +51,7 @@ public class GuestbookController {
 			guestbook.setWriter(loginUser());
 			
 			guestbookService.save(guestbook);
+			notificationService.sendNotification(guestbook);
 		}
 		
 		return "redirect:/" + blogId +"/guestbook";
