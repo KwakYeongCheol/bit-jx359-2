@@ -5,9 +5,11 @@ import java.util.List;
 
 import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.domain.comment.Comment;
+import kr.co.webcash.domain.notification.Notificable;
 import kr.co.webcash.domain.user.User;
+import kr.co.webcash.service.notification.NotificationService;
 
-public class Guestbook {
+public class Guestbook implements Notificable{
 	private long id;
 	private Blog blog;
 	private long displayId;
@@ -17,6 +19,24 @@ public class Guestbook {
 	
 	/* attach */
 	private List<Comment> commentList;
+	
+
+	@Override
+	public Blog getNotificationBlog() {
+		return blog;
+	}
+
+
+	@Override
+	public String getNotificationURI() {
+		return "/"+blog.getId()+"/guestbook/"+displayId;
+	}
+
+
+	@Override
+	public String getNotificationContents() {
+		return writer.getName()+"님이 새 방명록을 남기셨습니다.";
+	}
 	
 	@Override
 	public String toString() {
@@ -41,4 +61,6 @@ public class Guestbook {
 	public void setCommentList(List<Comment> commentList) {		this.commentList = commentList;	}
 	public long getDisplayId() {		return displayId;	}
 	public void setDisplayId(long displayId) {		this.displayId = displayId;	}
+
+
 }
