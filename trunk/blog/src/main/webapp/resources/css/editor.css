@@ -1,0 +1,76 @@
+@charset "utf-8";
+/* 반드시 들어가야 하는 스타일 시작 */
+
+/* reset */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,textarea,blockquote,th,td,input,select,textarea,button{margin:0;padding:0;}
+fieldset,img{border:0 none;}
+dl,ul,ol,menu,li {list-style:none;}
+blockquote, q {quotes: none;}
+blockquote:before, blockquote:after,q:before, q:after {content: '';content: none;}
+
+/* 본문 공통 */
+input,select,textarea,button {vertical-align:middle;}
+button {border:0 none;background-color:transparent;cursor:pointer;}
+body,th,td,input,select,textarea,button,h1,h2,h3,h4,h5,h6 {font:12px '돋움',dotum,Tahoma,AppleGothic,Sans-serif;}
+a {color:#7d7d7d;text-decoration:none;}
+a:active, a:hover {text-decoration:underline;}
+address,caption,cite,code,dfn,em,var {font-style:normal;font-weight:normal;}
+hr {display:none;}
+
+.f_l {float:left;}
+.f_r {float:right;}
+.hidden {overflow:hidden;position:absolute;left:-9999in;width:0;height:0;font-size:0;line-height:0;text-indent:-9999em;}
+.screen_hide {font-size:0;line-height:0;visibility:hidden;}
+.check {float:left;width:13px;height:13px;}
+
+/* 버튼 */
+.btn {overflow:hidden;cursor:pointer; border:1px solid #000; font-size:15px;margin-right: 5px; padding: 5px; width:80px;}
+
+.btn:hover{
+	background-color: #FFF;
+}
+
+.editor{
+	width: 700px;
+	border: 1px solid #0F0;
+	padding: 10 20 10 20;
+}
+
+@media all and (min-width: 1000px){
+	.editor{
+		width: 1000px;
+	}
+}
+
+
+.editor .editor_menu{
+	margin-bottom: 15px;
+}
+
+.editor .editor_editor{
+	background-image:url('/resources/images/bg-gray-noise.jpg');
+	padding: 10px;
+}
+
+.editor .editor_row{
+	margin: 10px;
+}
+
+.editor .editor_row_header{
+	text-align: right;
+	width: 100px;
+	margin-right: 10px;
+	display: inline;
+
+}
+
+.editor .editor_row_desc{
+	display: inline;
+}
+
+.editor .tag{
+	font-size: 11px;
+	margin-right: 10px;
+	cursor: hand;
+}
+

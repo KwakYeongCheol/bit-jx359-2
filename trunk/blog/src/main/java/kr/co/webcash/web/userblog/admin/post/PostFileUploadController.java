@@ -11,6 +11,7 @@ import kr.co.webcash.utils.ImageUploadUtils;
 import kr.co.webcash.utils.URLUtils;
 import kr.co.webcash.web.security.LoginUser;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,24 +40,40 @@ public class PostFileUploadController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-		MultipartFile multipartFile = multipartRequest.getFile("image");
+		MultipartFile multipartFile = multipartRequest.getFile("file");
+		
 		
 		if(multipartFile != null && !multipartFile.isEmpty()){
+			String fileType = multipartFile.getContentType();
+			
+			if(!isImage(fileType)){
+				return result;
+			}
+			
 			try{
 				String fileName = imageUploadUtils.uploadImageFromMultipartFile(multipartFile, "tmp");
 				
 				String imageUrl = URLUtils.make(
 						request.getScheme(), request.getServerName(), request.getServerPort(), request.getContextPath(),
 						"resources", "images", "tmp", fileName);
-				
-				result.put("success", true);
-				result.put("url", imageUrl);
+
+				result.put("filelink", imageUrl);
 			}catch(Exception e){
 				result.put("success", false);
-				result.put("message", "File upload failed.");
 			}
 		}
 		
 		return result;
+	}
+
+
+	private boolean isImage(String fileType) {
+		String[] imageTypes = {"image/png","image/jpg", "image/gif", "image/gif", "image/jpeg", "image/pjpeg" };
+		
+		for(String imageType : imageTypes){
+			if(imageType.equals(fileType))	return true;
+		}
+		
+		return false;
 	}
 }

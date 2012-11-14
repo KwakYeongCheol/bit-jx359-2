@@ -2,15 +2,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<html>
-<head>
-<script type="text/javascript" src="${pageContext.request.contextPath }/resources/ckeditor/ckeditor.js"></script>
 <jsp:include page="/WEB-INF/views/userblog/admin/common/header.jsp" />
-</head>
-<body>
-
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/adapter/redactor/redactor.css" />
 <div id="blogArticles">
-	<form:form modelAttribute="post" action="${pageContext.request.contextPath }/${blog.id }/admin/post/modifyAction" method="POST">
+	<form:form modelAttribute="post" action="${pageContext.request.contextPath }/${blog.id }/admin/post/save" method="POST">
 		
 		<input type="hidden" name="displayId" value="${post.displayId }" />
 		<div>
@@ -31,7 +26,7 @@
 		<div>
 			<form:errors cssClass="errors" path="contents"></form:errors>
 			<form:label cssClass="label" path="contents">Contents</form:label>
-			<form:textarea path="contents" />
+			<form:textarea path="contents" id="editor"/>
 		</div>
 		<div>
 			<input type="submit" value="수정" />
@@ -39,15 +34,11 @@
 	</form:form>
 </div>
 
-<script type="text/javascript">
-	CKEDITOR.replace('contents',{
-		enterMode:'2',
-	    shiftEnterMode:'3',
-		width:'100%',
-	    height:'150',
-	    toolbar:[
-	    ['Bold','Italic','-','NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','Styles','Format','Font','FontSize']],
-	    skin:'office2003'
+<script src="${pageContext.request.contextPath }/resources/adapter/redactor/redactor.js"></script>
+<script>
+	$("#editor").redactor({
+		minHeight: 500,
+		imageUpload:'${pageContext.request.contextPath}/${blog.id}/admin/post/imageupload'
 	});
 </script>
 
