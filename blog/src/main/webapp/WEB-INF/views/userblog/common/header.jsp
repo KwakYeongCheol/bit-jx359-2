@@ -12,7 +12,6 @@
 	</c:forEach>
 	<script src="${pageContext.request.contextPath }/resources/js/jquery-1.8.2.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/userblog.js"></script>
-	<script src="${pageContext.request.contextPath }/resources/js/dnd-0.0.1.js"></script>
 </head>
 
 <body>
