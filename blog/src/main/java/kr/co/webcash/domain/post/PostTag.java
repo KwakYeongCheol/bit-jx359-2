@@ -26,6 +26,6 @@ public class PostTag {
 	
 	@Override
 	public String toString() {
-		return "post ID : " + post.getId() + ", post Display ID: " + post.getDisplayId() + ", value : " + getValue();
+		return "post ID : " + post + ", value : " + getValue();
 	}
 }

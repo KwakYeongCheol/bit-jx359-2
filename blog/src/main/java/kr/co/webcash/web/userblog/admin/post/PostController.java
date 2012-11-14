@@ -6,7 +6,6 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.servlet.http.HttpServletRequest;
 
-import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Trackback;
 import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.domain.post.scrap.Scrap;
@@ -85,14 +84,18 @@ public class PostController {
 		return "/userblog/admin/post/write";
 	}
 
-	@RequestMapping(value = "/writeAction", method = RequestMethod.POST)
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String writeAction(@PathVariable String blogId, 
-			@ModelAttribute Post post, @RequestParam String trackbackURL, Model model,			
+			@ModelAttribute Post post, @RequestParam(required=false) String trackbackURL, Model model,			
 			HttpServletRequest request, UriComponentsBuilder uriComponentsBuilder, BindingResult result) {
 		this.postValidator.validate(post, result);
 		if (!result.hasErrors()) {
+			
+			if(post.getDisplayId() == 0){
+				post.setDisplayId(postService.findLastDisplayIdByBlogId(blogId) + 1);
+			}
+			
 			post.setCategory(categoryService.findByBlogIdAndDisplayId(blogId, post.getCategory().getDisplayId()));
-			post.setDisplayId(postService.findLastDisplayIdByBlogId(blogId) + 1);
 			post.setDateCreated(new Date(System.currentTimeMillis()));
 			
 			postService.save(post);
@@ -114,15 +117,6 @@ public class PostController {
 						/*
 						 * TODO  Trackback Log 구현해야함
 						 */
-						// Trackback myTrackback = new Trackback();
-						// myTrackback.setBlogId(post.getBlog().getId());
-						// myTrackback.setPostId(post.getId());
-						// myTrackback.setUrl(trackbackURL);
-						// myTrackback.setTitle("Trackback title");
-						// myTrackback.setDateCreated(new
-						// Date(System.currentTimeMillis()));
-						//
-						// trackbackService.add(myTrackback);
 					}
 				}
 			}
@@ -139,20 +133,20 @@ public class PostController {
 		model.addAttribute("post", post);
 		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
 
-		return "/userblog/admin/post/modify";
+		return "/userblog/admin/post/write";
 	}
 
-	@RequestMapping(value = "/modifyAction", method = RequestMethod.POST)
-	public String modifyAction(@PathVariable String blogId,	@ModelAttribute Post post, BindingResult result) {
-		this.postValidator.validate(post, result);
-		if (!result.hasErrors()) {
-			Category category = categoryService.findByBlogIdAndDisplayId(blogId, post.getCategory().getDisplayId());
-			post.setCategory(category);
-			postService.update(post);
-			return "redirect:/" + blogId + "/admin";
-		}
-		return "/userblog/admin/post/modify";
-	}
+//	@RequestMapping(value = "/modifyAction", method = RequestMethod.POST)
+//	public String modifyAction(@PathVariable String blogId,	@ModelAttribute Post post, BindingResult result) {
+//		this.postValidator.validate(post, result);
+//		if (!result.hasErrors()) {
+//			Category category = categoryService.findByBlogIdAndDisplayId(blogId, post.getCategory().getDisplayId());
+//			post.setCategory(category);
+//			postService.update(post);
+//			return "redirect:/" + blogId + "/admin";
+//		}
+//		return "/userblog/admin/post/modify";
+//	}
 
 	@RequestMapping("/delete")
 	public String delete(@PathVariable String blogId, @RequestParam long displayId) {

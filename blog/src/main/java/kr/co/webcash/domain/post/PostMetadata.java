@@ -10,9 +10,14 @@ public class PostMetadata {
 	private boolean canTrackback;
 	
 	public PostMetadata(){
+		setIsPublic(true);
+		setCanComment(true);
+		setCanScrap(true);
+		setCanTrackback(true);
 	}
 	
 	public PostMetadata(Post post){
+		this();
 		this.post = post;
 	}
 

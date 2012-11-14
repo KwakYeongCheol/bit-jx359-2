@@ -35,6 +35,7 @@ public class Post {
 	
 	public Post(){
 		this.category = new Category();
+		this.postMetadata = new PostMetadata(this);
 	}
 	
 	public Post(long id, Category category, long displayId, String title, String contents, Date dateCreated){
@@ -63,16 +64,17 @@ public class Post {
 		return PostRevision.compare(getContents(revisionDisplayId), getContents(revisionDisplayId - 1));
 	}
 	
+	
 	@Override
 	public String toString() {
 		return "Post [id=" + id + ", category=" + category + ", displayId="
 				+ displayId + ", title=" + title + ", contents=" + contents
-				+ ", dateCreated=" + dateCreated + ", postMetadata="
-				+ postMetadata + ", commentList="
+				+ ", dateCreated=" + dateCreated + ", postTagList="
+				+ postTagList + ", postMetadata=" + postMetadata
+				+ ", postRevisionList=" + postRevisionList + ", commentList="
 				+ commentList + ", trackbackList=" + trackbackList + "]";
 	}
-	
-	
+
 	/* sub object's getter / setter wrapper */
 	public void setBlog(Blog blog) {		this.category.setBlog(blog);	}
 	public String getBlogId(){		return this.category.getBlogId();	}

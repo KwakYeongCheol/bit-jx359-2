@@ -28,6 +28,15 @@ public class PostServiceImpl implements PostService {
 	
 	@Override
 	public void save(Post post) {
+		Post findPost = postRepository.findByBlogIdAndDisplayId(post.getBlogId(), post.getDisplayId());
+		if(findPost == null){
+			insert(post);
+		}else{
+			update(post);
+		}
+	}
+	
+	private void insert(Post post){
 		Post lastPost = postRepository.findLast();
 		if(lastPost == null){
 			post.setId(1);
