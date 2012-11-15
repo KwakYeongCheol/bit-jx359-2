@@ -28,4 +28,5 @@ public interface PostService {
 	
 	List<Post> listPublicByBlogIdAndPageNumber(String blogId, int pageNumber);
 	List<Post> listPublicByBlogIdAndPage(String blogId, Page page);
+	List<Post> listByBlogIdAndPageNumberAndPageSize(String blogId, int pageNumber, int pageSize);
 }
