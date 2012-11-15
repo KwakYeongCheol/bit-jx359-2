@@ -55,7 +55,7 @@ public class PostFileUploadController {
 				
 				String imageUrl = URLUtils.make(
 						request.getScheme(), request.getServerName(), request.getServerPort(), request.getContextPath(),
-						"resources", "images", "tmp", fileName);
+						"resources", "upload", "tmp", fileName);
 
 				result.put("filelink", imageUrl);
 			}catch(Exception e){
