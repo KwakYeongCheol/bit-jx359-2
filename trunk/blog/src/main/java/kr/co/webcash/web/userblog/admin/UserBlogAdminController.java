@@ -19,7 +19,7 @@ public class UserBlogAdminController {
 	
 	@RequestMapping
 	public String main(@PathVariable String blogId, @RequestParam(defaultValue="1") int pageNumber, Model model){
-		model.addAttribute("postList", postService.listByBlogIdAndPageNumber(blogId, pageNumber));
+		model.addAttribute("postList", postService.listByBlogIdAndPageNumberAndPageSize(blogId, pageNumber, 5));
 		
 		return "/userblog/admin/home";
 	}

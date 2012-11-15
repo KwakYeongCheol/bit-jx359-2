@@ -99,6 +99,11 @@ public class PostServiceImpl implements PostService {
 		return new Page(pageNum, postRepository.countPublicByBlogId(blogId));
 	}
 	
+	public Page getPage(String blogId, int pageNum, int pageSize){
+		return new Page(pageNum, postRepository.countPublicByBlogId(blogId), pageSize);
+	}
+	
+	
 	@Override
 	public long findLastDisplayIdByBlogId(String blogId){
 		Post post = postRepository.findLastByBlogId(blogId);
@@ -136,6 +141,12 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public List<Post> listByBlogIdAndPageNumber(String blogId, int pageNumber) {
 		return wrap(listByBlogIdAndPage(blogId, getPage(blogId, pageNumber)));
+	}
+	
+	
+	@Override
+	public List<Post> listByBlogIdAndPageNumberAndPageSize(String blogId, int pageNumber, int pageSize) {
+		return listPublicByBlogIdAndPage(blogId, getPage(blogId, pageNumber, pageSize));
 	}
 	
 	@Override

@@ -14,6 +14,10 @@ public class Page {
 		this(currentPage, totalCount, 10, 10);
 	}
 	
+	public Page(int currentPage, int totalCount, int pageSize){
+		this(currentPage, totalCount, pageSize, 10);
+	}	
+	
 	public Page(int currentPage, int totalCount, int pageSize, int pageGroupSize){
 		this.currentPage = currentPage;
 		this.count = totalCount;
