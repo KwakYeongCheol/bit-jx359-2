@@ -21,6 +21,15 @@
 			id = #{id}
 	</delete>
 	
+	<select id="countByBlogId" resultType="Integer">
+		SELECT
+			count(*)
+		FROM
+			guestbook
+		WHERE
+			blogId = #{blogId}
+	</select>
+	
 	<select id="findLastGuestbookByBlogId" resultType="Guestbook">
 		SELECT
 			id
@@ -37,10 +46,13 @@
 			g.blogId as "blog.id",
 			g.displayId as displayId,
 			g.writerId as "writer.loginId",
+				u.name as "writer.name",
 			g.contents as contents, 
 			g.dateCreated as dateCreated
 		FROM 
 			guestbook g
+		JOIN
+			users u on u.id = g.writerId
 	</sql>
 	
 	<select id="findAllByBlogId" resultType="Guestbook">

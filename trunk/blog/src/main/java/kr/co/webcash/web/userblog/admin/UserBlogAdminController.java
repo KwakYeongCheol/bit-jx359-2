@@ -1,5 +1,6 @@
 package kr.co.webcash.web.userblog.admin;
 
+import kr.co.webcash.service.GuestbookService;
 import kr.co.webcash.service.blog.BlogService;
 import kr.co.webcash.service.post.PostService;
 
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/{blogId}/admin")
@@ -16,10 +16,12 @@ public class UserBlogAdminController {
 	
 	@Autowired private BlogService blogService;
 	@Autowired private PostService postService;
+	@Autowired private GuestbookService guestbookService;
 	
 	@RequestMapping
-	public String main(@PathVariable String blogId, @RequestParam(defaultValue="1") int pageNumber, Model model){
-		model.addAttribute("postList", postService.listByBlogIdAndPageNumberAndPageSize(blogId, pageNumber, 5));
+	public String main(@PathVariable String blogId, Model model){
+		model.addAttribute("postList", postService.listByBlogIdAndPageNumberAndPageSize(blogId, 1, 5));
+		model.addAttribute("guestbookList", guestbookService.listByBlogIdAndPageNumberAndPageSize(blogId, 1, 5));
 		
 		return "/userblog/admin/home";
 	}

@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.servlet.http.HttpServletRequest;
 
+import kr.co.webcash.domain.Page;
 import kr.co.webcash.domain.Trackback;
 import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.domain.post.scrap.Scrap;
@@ -50,8 +51,12 @@ public class PostController {
 	}
 
 	@RequestMapping()
-	public String home(@PathVariable String blogId, @RequestParam(defaultValue="1") int pageNumber, Model model) {
-		model.addAttribute("postList", postService.listByBlogIdAndPageNumber(blogId, pageNumber));
+	public String home(@PathVariable String blogId, @RequestParam(defaultValue="1") int pageNumber, @RequestParam(defaultValue="10") int pageSize, Model model) {
+		Page page = postService.getPage(blogId, pageNumber);
+		
+		model.addAttribute("postList", postService.listByBlogIdAndPage(blogId, page));
+		model.addAttribute("page", page);
+		
 		return "/userblog/admin/post/home";
 	}
 

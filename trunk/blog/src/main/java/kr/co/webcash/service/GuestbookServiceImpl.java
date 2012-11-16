@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import kr.co.webcash.domain.Guestbook;
+import kr.co.webcash.domain.Page;
 import kr.co.webcash.repository.GuestbookRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,12 @@ public class GuestbookServiceImpl implements GuestbookService{
 	public List<Guestbook> listByBlogId(String blogId) {
 		return guestbookRepository.findAllByBlogId(blogId);
 	}
+	
+	@Override
+	public List<Guestbook> listByBlogIdAndPageNumberAndPageSize(String blogId, int pageNumber, int pageSize) {
+		return guestbookRepository.findAllByBlogIdAndPageNumberAndPageSize(blogId, pageNumber, pageSize);
+	}
+
 
 	@Override
 	public Guestbook findByBlogIdAndDisplayId(String blogId, long displayId) {
@@ -55,5 +62,15 @@ public class GuestbookServiceImpl implements GuestbookService{
 	@Override
 	public void delete(Guestbook guestbook) {
 		guestbookRepository.delete(guestbook);
+	}
+
+	@Override
+	public List<Guestbook> listByBlogIdAndPage(String blogId, Page page) {
+		return guestbookRepository.findAllByBlogIdAndPage(blogId, page);
+	}
+
+	@Override
+	public int countByBlogId(String blogId) {
+		return guestbookRepository.countByBlogId(blogId);
 	}
 }

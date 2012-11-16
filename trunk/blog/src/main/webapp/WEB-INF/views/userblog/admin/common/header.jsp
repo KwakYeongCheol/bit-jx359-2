@@ -81,6 +81,7 @@
 				<ul>
 					<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/category">카테고리 관리</a></li>
 					<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/post">게시물 관리</a></li>
+					<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/guestbook">방명록 관리</a></li>
 				</ul>				
 			</div>
 			<hr />

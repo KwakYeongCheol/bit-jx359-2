@@ -7,45 +7,35 @@
 
 <div class="group">
 	<div class="groupTitle theme-a">
-		글 목록
+		방명록 목록
 	</div>
 	<div class="groupContents">
 		<table class="table">
 			<thead>
 				<tr>
-					<th>카테고리</th>
-					<th>제목</th>
-					<th>버전</th>
+					<th>번호</th>
+					<th>내용</th>
+					<th>삭제</th>
+					<th>작성자</th>
 					<th>작성일</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${postList }" var="post">
+				<c:forEach items="${guestbookList }" var="guestbook">
 				<tr>
-					<td>${post.category.title }</td>
+					<td>${guestbook.displayId }</td>
 					<td>
-						${post.title }
-						<span style="margin-left:20px;">
-							<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/modify?displayId=${post.displayId}">수정</a> | 
-							<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/delete?displayId=${post.displayId}">삭제</a>
-						</span>
+						<a href="${pageContext.request.contextPath }/${blog.id}/guestbook?displayId=${guestbook.displayId}">${guestbook.contents }</a>
 					</td>
+					<td><a href="${pageContext.request.contextPath }/${blog.id}/guestbook/delete?displayId=${guestbook.displayId}">삭제</a></td>
 					<td>
-						<a href="${pageContext.request.contextPath }/${blog.id}/${post.displayId}/revision/${post.currentRevision.displayId}">${post.currentRevision.displayId }</a>
+						${guestbook.writer.name }
 					</td>
-					<td><spring:eval expression="post.dateCreated" /></td>
+					<td><spring:eval expression="guestbook.dateCreated" /></td>
 				</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		
-		<c:if test="${page.count > 0 }">
-		<div class="page">
-			<ul>
-				<li></li>
-			</ul>
-		</div>
-		</c:if>
 		
 		<c:if test="${page.count > 0}">
 		<div class="page">
@@ -57,10 +47,10 @@
 				<c:set var="endPage" value="${pageCount}" />
 			</c:if>
 			<c:if test="${page.numPageGroup > 1}">
-				<li><a href="${pageContext.request.contextPath }/${blog.id }/admin/post?pageNumber=${(page.numPageGroup-2)*page.pageGroupSize+1 }">[이전]</a></li>
+				<li><a href="${pageContext.request.contextPath }/${blog.id }/admin/guestbook?pageNumber=${(page.numPageGroup-2)*page.pageGroupSize+1 }">[이전]</a></li>
 			</c:if>
 			<c:forEach var="i" begin="${startPage }" end="${endPage }">
-				<li><a href="${pageContext.request.contextPath }/${blog.id }/admin/post?pageNumber=${i}">[
+				<li><a href="${pageContext.request.contextPath }/${blog.id }/admin/guestbook?pageNumber=${i}">[
 					<font color="#000000" /> <c:if test="${page.currentPage == i}">
 						<font color="#bbbbbb" />
 					</c:if> ${i} </font>]
@@ -68,40 +58,14 @@
 			</c:forEach>
 
 			<c:if test="${page.numPageGroup < page.pageGroupCount}">
-				<li><a href="${pageContext.request.contextPath }/${blog.id }/admin/post?pageNumber=${page.numPageGroup*page.pageGroupSize+1}">[다음]</a></li>
+				<li><a href="${pageContext.request.contextPath }/${blog.id }/admin/guestbook?pageNumber=${page.numPageGroup*page.pageGroupSize+1}">[다음]</a></li>
 			</c:if>
 			</ul>
 		</div>
 		</c:if>
-		
 	</div>
+	
+	
 
 </div>
 <jsp:include page="/WEB-INF/views/userblog/admin/common/footer.jsp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
