@@ -376,6 +376,15 @@ section {
 /* section end */
 
 
+.compare_insert{
+	background-color: #79fb7b;
+}
+
+.compare_delete{
+	background-color: #f18383;
+}
+
+
 
 /* footer start */
 footer{
