@@ -16,22 +16,44 @@
 					<th>카테고리</th>
 					<th>제목</th>
 					<th>버전</th>
+					<th>비교</th>
 					<th>작성일</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${postList }" var="post">
 				<tr>
-					<td>${post.category.title }</td>
 					<td>
-						${post.title }
+						<a href="${pageContext.request.contextPath }/${blog.id}/category/${post.category.displayId}">
+							${post.category.title }
+						</a>
+					</td>
+					<td>
+						<a href="${pageContext.request.contextPath }/${blog.id}/${post.displayId}">
+							${post.title }
+						</a>
 						<span style="margin-left:20px;">
 							<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/modify?displayId=${post.displayId}">수정</a> | 
 							<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/delete?displayId=${post.displayId}">삭제</a>
 						</span>
 					</td>
 					<td>
-						<a href="${pageContext.request.contextPath }/${blog.id}/${post.displayId}/revision/${post.currentRevision.displayId}">${post.currentRevision.displayId }</a>
+						<input type="hidden" value="${post.displayId }" />
+						<select class="revision">
+							<option value="current">${post.currentRevision.displayId }</option>
+							<c:forEach items="${post.postRevisionList }" var="revision">
+							<option value="${revision.displayId }">${revision.displayId }</option>
+							</c:forEach>
+						</select>
+					</td>
+					<td>
+						<input type="hidden" value="${post.displayId }" />
+						<select class="compare">
+							<option value="current">${post.currentRevision.displayId }</option>
+							<c:forEach items="${post.postRevisionList }" var="revision">
+							<option value="${revision.displayId }">${revision.displayId }</option>
+							</c:forEach>
+						</select>
 					</td>
 					<td><spring:eval expression="post.dateCreated" /></td>
 				</tr>
@@ -77,6 +99,23 @@
 	</div>
 
 </div>
+
+<script>
+	$(".revision").bind("change", function(){
+		var value = $(this).val();
+		var postDisplayId = $(this).prev().val();
+		
+		window.open("${pageContext.request.contextPath}/${blog.id}/" + postDisplayId + "/revision/" + value);
+	});
+	
+	$(".compare").bind("change", function(){
+		var value = $(this).val();
+		var postDisplayId = $(this).prev().val();
+		
+		window.open("${pageContext.request.contextPath}/${blog.id}/" + postDisplayId + "/compare/" + value);
+	});
+</script>
+
 <jsp:include page="/WEB-INF/views/userblog/admin/common/footer.jsp" />
 
 
