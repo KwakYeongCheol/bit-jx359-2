@@ -1,43 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <jsp:include page="/WEB-INF/views/userblog/admin/common/header.jsp" />
 
-<div id="blogArticles">
-	글 목록
+
+<div class="infoBox">
+	<div class="infoBoxTitle">
+		글 목록<span style="float:right;font-size:10px;"><a href="${pageContext.request.contextPath }/${blog.id}/admin/post">더보기</a></span>
+	</div>
+	<div class="infoBoxContents">
+	<hr />
+	<table>
 	<c:forEach items="${postList }" var="post">
-	<div class="blogArticle">
-		<a href="${pageContext.request.contextPath }/${blog.id}/category/${post.category.id}">${post.category.title }</a> | 
-		${post.title } | 
-		${post.dateCreated } | 
-		<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/modify?displayId=${post.displayId}">수정</a> |
-		<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/delete?displayId=${post.displayId}">삭제</a><br /><br />
-		
-		<br /><br />
-		
-		${post.contents }
-	</div>
-	<div>
-		<c:forEach items="${post.commentList }" var="comment">
-		<div>
-			${comment.writer.loginId } | ${comment.dateCreated } <br />
-			${comment.contents } 
-			<c:if test="${loginUserProvider.loginUser.loginId == comment.writer.loginId  }">
-			<a href="${pageContext.request.contextPath }/${blog.id }/comment/modify?displayId=${comment.displayId}&targetId=${comment.target.id}&type=post">수정</a>
-			</c:if>
-			<c:if test="${loginUserProvider.loginUser.loginId == comment.writer.loginId || loginUserProvider.loginUser.loginId == blog.owner }">
-			<a href="${pageContext.request.contextPath }/${blog.id}/comment/delete?displayId=${comment.displayId}&targetId=${comment.target.id}&type=post">삭제</a>
-			</c:if>
-		</div>
-		</c:forEach>
-	</div>
-	<div>
-		<c:forEach items="${post.trackbackList }" var="trackback">
-		<div>
-			<a href="${trackback.url }">${trackback.title }</a> | ${trackback.dateCreated } <br />
-		</div>
-		</c:forEach>
-	</div>
+		<tr>
+			<th class="txt"><a href="${pageContext.request.contextPath }/${blog.id}/${post.displayId}">${post.title }</a></th>
+			<td class="date"><fmt:formatDate pattern="yy-MM-dd" value="${post.dateCreated }" /></td>
+		</tr>
 	</c:forEach>
+	</table>
+	<hr />
+	</div>
+</div>
+
+<div class="infoBox">	
+	<div class="infoBoxTitle">
+		최근 목록<span style="float:right;font-size:10px;"><a href="${pageContext.request.contextPath }/${blog.id}/admin/guestbook">더보기</a></span>
+	</div>
+	<div class="infoBoxContents">
+	<hr />
+	<table>
+	<c:forEach items="${guestbookList }" var="guestbook">
+		<tr>
+			<th class="txt"><a href="${pageContext.request.contextPath }/${blog.id}/guestbook/${guestbook.displayId}">${guestbook.contents }</a></th>
+			<td class="date"><fmt:formatDate pattern="yy-MM-dd" value="${guestbook.dateCreated }" /></td>
+		</tr>
+	</c:forEach>
+	</table>
+	<hr />
+	</div>
 </div>
 
 <jsp:include page="/WEB-INF/views/userblog/admin/common/footer.jsp" />

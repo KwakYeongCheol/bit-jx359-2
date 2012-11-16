@@ -347,7 +347,7 @@ article a{
 }
 
 .table td:nth-child(1){
-	width:10%;
+	width:15%;
 }
 
 .table tr:nth-child(even){

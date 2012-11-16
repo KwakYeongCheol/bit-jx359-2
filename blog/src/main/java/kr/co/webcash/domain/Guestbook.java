@@ -7,7 +7,8 @@ import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.domain.comment.Comment;
 import kr.co.webcash.domain.notification.Notificable;
 import kr.co.webcash.domain.user.User;
-import kr.co.webcash.service.notification.NotificationService;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class Guestbook implements Notificable{
 	private long id;
@@ -15,6 +16,8 @@ public class Guestbook implements Notificable{
 	private long displayId;
 	private User writer;
 	private String contents;
+	
+	@DateTimeFormat(pattern="yyyy/MM/dd HH:mm:ss")
 	private Date dateCreated;
 	
 	/* attach */
