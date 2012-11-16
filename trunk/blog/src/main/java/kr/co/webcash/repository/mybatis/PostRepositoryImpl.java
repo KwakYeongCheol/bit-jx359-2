@@ -113,6 +113,12 @@ public class PostRepositoryImpl implements PostRepository {
 		return wrap(sqlSession.<Post>selectList("Post.findAllByCategoryId", categoryId));
 	}
 	
+
+	@Override
+	public List<Post> findAllByCategoryIdAndOffsetAndLimit(long categoryId, int offset, int limit) {
+		return wrap(sqlSession.<Post>selectList("Post.findAllByCategoryId", categoryId, new RowBounds(offset, limit)));
+	}
+	
 	
 	@Override
 	public Post findLastByCategoryId(long categoryId) {

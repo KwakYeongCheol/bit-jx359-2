@@ -23,6 +23,7 @@ public interface PostRepository {
 	
 	List<Post> findAll();
 	List<Post> findAllByCategoryId(long categoryId);
+	List<Post> findAllByCategoryIdAndOffsetAndLimit(long categoryId, int offset, int limit);
 	List<Post> findAllByBlogId(String blogId);
 	List<Post> findAllByQuery(String query);
 	List<Post> findAllByBlogIdAndPage(String blogId, int offset, int limit);
