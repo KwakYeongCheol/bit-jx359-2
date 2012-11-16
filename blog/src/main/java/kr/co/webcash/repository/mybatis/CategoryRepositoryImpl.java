@@ -30,7 +30,7 @@ public class CategoryRepositoryImpl implements CategoryRepository{
 	}
 	
 	private void addPostList(Category category) {
-		category.setPostList(postRepository.findAllByCategoryId(category.getId()));
+		category.setPostList(postRepository.findAllByCategoryIdAndOffsetAndLimit(category.getId(), 0, 10));
 	}
 	
 	@Override
