@@ -163,4 +163,9 @@ public class PostServiceImpl implements PostService {
 	public List<Post> tempListByBlogId(String blogId) {
 		return postRepository.findAllTempByBlogId(blogId);
 	}
+
+	@Override
+	public int countByCategory(Category category) {
+		return postRepository.countByCategoryId(category.getId());
+	}
 }

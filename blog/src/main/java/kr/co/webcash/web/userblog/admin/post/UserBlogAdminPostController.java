@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.servlet.http.HttpServletRequest;
 
+import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Page;
 import kr.co.webcash.domain.Trackback;
 import kr.co.webcash.domain.post.Post;
@@ -35,7 +36,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Controller
 @SessionAttributes(value = { "categoryList", "post" })
 @RequestMapping("/{blogId}/admin/post")
-public class PostController {
+public class UserBlogAdminPostController {
 
 	@Autowired	private PostService postService;
 	@Autowired 	private BlogService blogService;
@@ -54,7 +55,23 @@ public class PostController {
 	public String home(@PathVariable String blogId, @RequestParam(defaultValue="1") int pageNumber, @RequestParam(defaultValue="10") int pageSize, Model model) {
 		Page page = postService.getPage(blogId, pageNumber);
 		
+		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
 		model.addAttribute("postList", postService.listByBlogIdAndPage(blogId, page));
+		model.addAttribute("page", page);
+		
+		return "/userblog/admin/post/home";
+	}
+	
+	@RequestMapping("/category/{categoryDisplayId}")
+	public String homeCategoryFilter(@PathVariable String blogId, @PathVariable long categoryDisplayId, 
+			@RequestParam(defaultValue="1") int pageNumber, @RequestParam(defaultValue="10") int pageSize, Model model){
+		
+		Category findCategory = categoryService.findByBlogIdAndDisplayId(blogId, categoryDisplayId);
+		
+		Page page = new Page(pageNumber, postService.countByCategory(findCategory));
+		
+		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
+		model.addAttribute("postList", postService.listByBlogIdAndCategoryDisplayId(blogId, categoryDisplayId));
 		model.addAttribute("page", page);
 		
 		return "/userblog/admin/post/home";

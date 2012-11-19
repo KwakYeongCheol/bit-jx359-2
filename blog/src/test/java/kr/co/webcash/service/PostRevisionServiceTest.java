@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Page;
 import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.domain.post.PostRevision;
@@ -285,6 +286,12 @@ class MockPostService implements PostService{
 	public List<Post> tempListByBlogId(String blogId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int countByCategory(Category category) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

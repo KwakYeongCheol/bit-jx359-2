@@ -1,9 +1,6 @@
 package kr.co.webcash.web.userblog.common;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Enumeration;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +38,7 @@ public class AddBlogInfoInterceptor extends HandlerInterceptorAdapter {
 				new BlogVisitHistory(blog, request.getRemoteAddr(), new Date())
 			);
 			
+			modelAndView.addObject("pageURI", request.getRequestURI());
 			modelAndView.addObject("notificationList", notificationService.listByBlog(blog));
 			modelAndView.addObject("blog", blog);
 			modelAndView.addObject("categoryList", categoryService.listByBlogId(blog.getId()));
