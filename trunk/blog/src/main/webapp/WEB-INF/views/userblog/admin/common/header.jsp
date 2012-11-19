@@ -13,7 +13,6 @@
 <div id="wrap">
 	<header>
 		<div class="title"><a href="${pageContext.request.contextPath }/">${blog.title }</a></div>
-		
 		<div class="searchBox">
 			<form action="${pageContext.request.contextPath }/search" method="get">
 				<input type="text" name="query" placeholder="search" />

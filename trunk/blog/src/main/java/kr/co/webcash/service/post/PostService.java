@@ -2,6 +2,7 @@ package kr.co.webcash.service.post;
 
 import java.util.List;
 
+import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Page;
 import kr.co.webcash.domain.post.Post;
 
@@ -11,6 +12,8 @@ public interface PostService {
 	void delete(Post post);
 
 	long findLastDisplayIdByBlogId(String blogId);
+	
+	int countByCategory(Category category);
 	
 	Post findById(long id);
 	Post findByBlogIdAndDisplayId(String blogId, long displayId);

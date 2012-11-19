@@ -13,6 +13,8 @@ public interface PostRepository {
 	int countByBlogId(String blogId);
 	int countPublicByBlogId(String blogId);
 	
+	int countByCategoryId(long categoryId);
+	
 	Post findById(long id);
 	Post findLastPostByBlogId(String blogId);
 	Post findByBlogIdAndDisplayId(String blogId, long displayId);

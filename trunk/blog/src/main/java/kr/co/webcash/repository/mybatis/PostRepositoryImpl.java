@@ -180,4 +180,9 @@ public class PostRepositoryImpl implements PostRepository {
 	public List<Post> findAllTempByBlogId(String blogId) {
 		return sqlSession.<Post>selectList("Post.findAllTempByBlogId", blogId);
 	}
+
+	@Override
+	public int countByCategoryId(long categoryId) {
+		return sqlSession.<Integer>selectOne("Post.countByCategoryId", categoryId);
+	}
 }

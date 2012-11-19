@@ -152,4 +152,10 @@
 			c.blogId = #{blogId}
 			AND pm.isPublic = 'true'
 	</select>
+	
+	<select id="countByCategoryId" resultType="Integer">
+		<include refid="count"/>
+		WHERE 
+			c.id = #{categoryId}
+	</select>
 </mapper>
