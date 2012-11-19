@@ -8,6 +8,7 @@ import kr.co.webcash.domain.comment.Comment;
 import kr.co.webcash.domain.comment.CommentType;
 import kr.co.webcash.repository.CommentRepository;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -40,6 +41,12 @@ public class CommentRepositoryImp implements CommentRepository {
 		
 		return sqlSession.selectList("Comment.findAllByTargetIdAndType", params);
 	}
+	
+	@Override
+	public List<Comment> findAllByBlogIdAndPageNumberAndPageSize(String blogId, int pageNumber, int pageSize) {
+			return sqlSession.<Comment>selectList("Comment.findAllByBlogId", blogId, new RowBounds((pageNumber-1) * pageSize, pageSize));
+	}
+
 
 	@Override
 	public Comment findLastByBlogIdAndCommentType(String blogId, CommentType type) {
@@ -66,4 +73,8 @@ public class CommentRepositoryImp implements CommentRepository {
 		return (Comment) sqlSession.selectOne("Comment.findLast");
 	}
 
+	@Override
+	public int countByBlogId(String blogId) {
+		return sqlSession.<Integer>selectOne("Comment.countByBlogId", blogId);
+	}
 }

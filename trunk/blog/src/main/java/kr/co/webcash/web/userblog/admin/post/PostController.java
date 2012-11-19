@@ -143,23 +143,14 @@ public class PostController {
 		return "/userblog/admin/post/write";
 	}
 
-//	@RequestMapping(value = "/modifyAction", method = RequestMethod.POST)
-//	public String modifyAction(@PathVariable String blogId,	@ModelAttribute Post post, BindingResult result) {
-//		this.postValidator.validate(post, result);
-//		if (!result.hasErrors()) {
-//			Category category = categoryService.findByBlogIdAndDisplayId(blogId, post.getCategory().getDisplayId());
-//			post.setCategory(category);
-//			postService.update(post);
-//			return "redirect:/" + blogId + "/admin";
-//		}
-//		return "/userblog/admin/post/modify";
-//	}
-
 	@RequestMapping("/delete")
-	public String delete(@PathVariable String blogId, @RequestParam long displayId) {
+	public String delete(@PathVariable String blogId, @RequestParam long displayId, @RequestParam(required=false) String redirectURI) {
 		Post post = postService.findByBlogIdAndDisplayId(blogId, displayId);
-		
 		postService.delete(post);
+		
+		if(redirectURI != null){
+			return "redirect:" + redirectURI;
+		}
 
 		return "redirect:/" + blogId + "/admin";
 	}

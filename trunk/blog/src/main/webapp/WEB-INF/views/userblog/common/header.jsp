@@ -5,11 +5,8 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>${htmlTitle }</title>
+	<title>${blog.title }</title>
 	<link href="${pageContext.request.contextPath }/resources/css/userblog/userblog.css" rel="stylesheet" type="text/css" media="screen" />
-	<c:forEach items="${cssList}" var="css">
-	<link href="${pageContext.request.contextPath }/resources/${css}" rel="stylesheet" type="text/css" media="screen" />
-	</c:forEach>
 	<script src="${pageContext.request.contextPath }/resources/js/jquery-1.8.2.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/userblog.js"></script>
 </head>

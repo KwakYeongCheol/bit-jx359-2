@@ -4,11 +4,10 @@
 
 <jsp:include page="/WEB-INF/views/userblog/admin/common/header.jsp" />
 
-<c:set var="currentURI" value="${pageContext.request.contextPath }/${blog.id }/admin/guestbook" />
 
 <div class="group">
 	<div class="groupTitle theme-a">
-		방명록 목록
+		댓글 목록
 	</div>
 	<div class="groupContents">
 		<table class="table">
@@ -22,26 +21,21 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${guestbookList }" var="guestbook">
+				<c:forEach items="${commentList }" var="comment">
 				<tr>
-					<td>${guestbook.displayId }</td>
+					<td>${comment.displayId }</td>
 					<td>
-						<a href="${pageContext.request.contextPath }/${blog.id}/guestbook?displayId=${guestbook.displayId}">${guestbook.contents }</a>
+						<a href="${pageContext.request.contextPath}${comment.targetUri }">
+							${comment.contents }
+						</a>
 					</td>
-					<td><a href="${pageContext.request.contextPath }/${blog.id}/guestbook/delete?displayId=${guestbook.displayId}&redirectURI=${currentURI}">삭제</a></td>
+					<td><a href="${pageContext.request.contextPath }/${blog.id}/comment/delete?displayId=${comment.displayId}&targetId=${comment.targetDisplayId}&type=${comment.targetType}">삭제</a></td>
 					<td>
-						${guestbook.writer.name }
+						${comment.writer.name }
 					</td>
-					<td><spring:eval expression="guestbook.dateCreated" /></td>
+					<td><spring:eval expression="comment.dateCreated" /></td>
 				</tr>
 				</c:forEach>
-				<c:if test="${guestbookList.isEmpty() }">
-				<tr>
-					<td colspan="5" style="text-align: center;">
-						방명록이 존재하지 않습니다.
-					</td>
-				</tr>
-				</c:if>
 			</tbody>
 		</table>
 		

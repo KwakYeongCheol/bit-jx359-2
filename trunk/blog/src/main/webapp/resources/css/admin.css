@@ -43,7 +43,6 @@ header{
 }
 
 .title{
-	width: 100px;
 	height: 50px;
 	font-size: 30px;
 	text-align: center;
@@ -52,6 +51,7 @@ header{
 
 .searchBox{
 	float: left;
+	margin-left: 20px;
 }
 
 .searchBox input{

@@ -141,7 +141,7 @@ public class PostServiceImpl implements PostService {
 	
 	@Override
 	public List<Post> listByBlogIdAndPageNumberAndPageSize(String blogId, int pageNumber, int pageSize) {
-		return listPublicByBlogIdAndPage(blogId, getPage(blogId, pageNumber, pageSize));
+		return listByBlogIdAndPage(blogId, getPage(blogId, pageNumber, pageSize));
 	}
 	
 	@Override

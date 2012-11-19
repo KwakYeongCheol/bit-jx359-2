@@ -44,14 +44,6 @@ public class AddBlogInfoInterceptor extends HandlerInterceptorAdapter {
 			modelAndView.addObject("notificationList", notificationService.listByBlog(blog));
 			modelAndView.addObject("blog", blog);
 			modelAndView.addObject("categoryList", categoryService.listByBlogId(blog.getId()));
-			modelAndView.addObject("htmlTitle", blog.getTitle());
-			
-			if(modelAndView.getModel().get("cssList") == null){
-				List<String> cssList = new ArrayList<String>();
-				cssList.add("css/blog/blog_default.css");
-				
-				modelAndView.addObject("cssList", cssList);
-			}
 		}
 	}
 
