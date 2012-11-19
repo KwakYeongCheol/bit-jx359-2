@@ -11,16 +11,19 @@
 	<script src="${pageContext.request.contextPath }/resources/js/jquery-1.8.2.js"></script>
 </head>
 <body>
-	<form:form modelAttribute="post" action="${pageContext.request.contextPath }/${blog.id }/admin/post/save" method="POST">
+	<form:form modelAttribute="post" id="writeForm" action="${pageContext.request.contextPath }/${blog.id }/admin/post/save" method="POST">
 	<form:hidden path="displayId" value="${post.displayId } "/>
 	<div class="editor">
 		<div class="editor_menu">
-			<input class="btn" type="submit" value="글쓰기" />
+			<input class="btn" id="btnWrite" type="buttun" value="글쓰기" />
 			<input class="btn" type="button" value="미리보기" />
-			<input class="btn" type="button" value="임시저장" />
+			<input class="btn" id="btnWriteTemp" type="button" value="임시저장" />
+			
 			<select style="width: 45%;float:right;font-size:20px;">
-				<option>### 임시 저장중인 글 ### -- 오른쪽 보내봐</option>
-				<option>[2012:10:11 23:22:22] 오른쪽 보내봐 123123123123123</option>
+				<option>### 임시 저장중인 글 ### --</option>
+				<c:forEach items="${tempPostList }" var="temp">
+				<option>[${temp.dateCreated }] ${temp.title }</option>
+				</c:forEach>
 			</select>
 		</div>
 		<div class="editor_group" style="margin-bottom:10px;">
@@ -33,7 +36,7 @@
 						공개여부 : 
 					</div>
 					<div class="editor_row_desc">
-						<form:radiobutton path="postMetadata.isPublic" value="true" checked="checked" /> 공개 &nbsp;&nbsp;
+						<form:radiobutton path="postMetadata.isPublic" value="true"/> 공개 &nbsp;&nbsp;
 						<form:radiobutton path="postMetadata.isPublic" value="false"/> 비공개
 					</div>
 				</div>
@@ -42,9 +45,9 @@
 						권한 : 
 					</div>
 					<div class="editor_row_desc">
-						<form:checkbox path="postMetadata.canScrap" checked="checked" />스크랩 허용 | 
-						<form:checkbox path="postMetadata.canTrackback" checked="checked" />트랙백 허용 | 
-						<form:checkbox path="postMetadata.canComment" checked="checked" /> 댓글 허용
+						<form:checkbox path="postMetadata.canScrap" />스크랩 허용 | 
+						<form:checkbox path="postMetadata.canTrackback" />트랙백 허용 | 
+						<form:checkbox path="postMetadata.canComment" /> 댓글 허용
 					</div>
 				</div>
 				<div class="editor_row">
@@ -137,6 +140,16 @@ $(document).ready(function(){
 		
 			$("#inputTag").val('');
 		}
+	});
+	
+	$("#btnWrite").bind("click", function(){
+		$("<input>").attr("type", "hidden").attr("name", "postMetadata.isTemp").attr("value", "false").appendTo("#writeForm");
+		$("#writeForm").submit();
+	});
+	
+	$("#btnWriteTemp").bind("click", function(){
+		$("<input>").attr("type", "hidden").attr("name", "postMetadata.isTemp").attr("value", "true").appendTo("#writeForm");
+		$("#writeForm").submit();
 	});
 });
 </script>

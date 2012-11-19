@@ -5,7 +5,6 @@ import java.util.List;
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Page;
 import kr.co.webcash.domain.post.Post;
-import kr.co.webcash.domain.post.PostMetadata;
 import kr.co.webcash.repository.CategoryRepository;
 import kr.co.webcash.repository.PostMetadataRepository;
 import kr.co.webcash.repository.PostRepository;
@@ -45,7 +44,8 @@ public class PostServiceImpl implements PostService {
 		}
 
 		postRepository.insert(post);
-		insertPostMetadata(post);
+		post.getPostMetadata().setPost(post);
+		postMetadataRepository.insert(post.getPostMetadata());
 		postRevisionService.save(post);
 		
 		postTagService.save(post);
@@ -54,20 +54,15 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public void update(Post post) {
-		postRevisionService.save(post);
 		postRepository.update(post);
+		post.getPostMetadata().setPost(post);
+		postMetadataRepository.update(post.getPostMetadata());
+		postRevisionService.save(post);
 	}
 	
 	@Override
 	public void delete(Post post) {
 		postRepository.delete(post);
-	}
-	
-	private void insertPostMetadata(Post post){
-		PostMetadata metadata = post.getPostMetadata();
-		metadata.setPost(post);
-		
-		postMetadataRepository.insert(metadata);
 	}
 	
 	private List<Post> wrap(List<Post> postList){
@@ -162,5 +157,10 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public List<Post> listPublicByBlogIdAndPage(String blogId, Page page) {
 		return wrap(postRepository.findAllPublicByBlogIdAndPage(blogId, page.getStartPage(), page.getPageSize()));
+	}
+
+	@Override
+	public List<Post> tempListByBlogId(String blogId) {
+		return postRepository.findAllTempByBlogId(blogId);
 	}
 }

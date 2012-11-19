@@ -5,12 +5,14 @@ public class PostMetadata {
 	private Post post;
 	
 	private boolean isPublic;
+	private boolean isTemp;
 	private boolean canComment;
 	private boolean canScrap;
 	private boolean canTrackback;
 	
 	public PostMetadata(){
 		setIsPublic(true);
+		setIsTemp(false);
 		setCanComment(true);
 		setCanScrap(true);
 		setCanTrackback(true);
@@ -25,6 +27,7 @@ public class PostMetadata {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("[ isPublic : ").append(getIsPublic())
+			.append(", isTemp : ").append(getIsTemp())
 			.append(", canComment : ").append(getCanComment())
 			.append(", canScrap : ").append(getCanScrap())
 			.append(", canTrackback : ").append(getCanTrackback()).append(" ]");
@@ -42,4 +45,6 @@ public class PostMetadata {
 	public void setCanScrap(boolean canScrap) {		this.canScrap = canScrap;	}
 	public boolean getCanTrackback() {		return canTrackback;	}
 	public void setCanTrackback(boolean canTrackback) {		this.canTrackback = canTrackback;	}
+	public boolean getIsTemp() {		return isTemp;	}
+	public void setIsTemp(boolean isTemp) {		this.isTemp = isTemp;	}
 }

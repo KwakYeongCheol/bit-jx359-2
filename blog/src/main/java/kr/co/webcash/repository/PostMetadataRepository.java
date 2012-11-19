@@ -8,4 +8,6 @@ public interface PostMetadataRepository {
 
 	void insert(PostMetadata metadata);
 
+	void update(PostMetadata postMetadata);
+
 }

@@ -15,6 +15,7 @@
 				<tr>
 					<th>카테고리</th>
 					<th>제목</th>
+					<th>설정정보</th>
 					<th>버전</th>
 					<th>비교</th>
 					<th>작성일</th>
@@ -36,6 +37,26 @@
 							<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/modify?displayId=${post.displayId}">수정</a> | 
 							<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/delete?displayId=${post.displayId}">삭제</a>
 						</span>
+					</td>
+					<td>
+						<c:if test="${post.isTemp }">
+						[임시]&nbsp;&nbsp;
+						</c:if>
+						<c:if test="${post.isPublic }">
+						[공개]&nbsp;&nbsp;
+						</c:if>
+						<c:if test="${!post.isPublic }">
+						[비공개]&nbsp;&nbsp;
+						</c:if>
+						<c:if test="${post.canTrackback }">
+						[트랙백]&nbsp;&nbsp;
+						</c:if>
+						<c:if test="${post.canScrap }">
+						[스크랩]&nbsp;&nbsp;
+						</c:if>
+						<c:if test="${post.canComment }">
+						[댓글]&nbsp;&nbsp;
+						</c:if>
 					</td>
 					<td>
 						<input type="hidden" value="${post.displayId }" />
@@ -117,6 +138,7 @@
 </script>
 
 <jsp:include page="/WEB-INF/views/userblog/admin/common/footer.jsp" />
+
 
 
 

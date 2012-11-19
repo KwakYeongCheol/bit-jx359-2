@@ -22,5 +22,9 @@ public class PostMetadataRepositoryImpl implements PostMetadataRepository{
 		return (PostMetadata) sqlSession.selectOne("PostMetadata.findByPostId", postId);
 	}
 
+	@Override
+	public void update(PostMetadata postMetadata) {
+		sqlSession.update("PostMetadata.update", postMetadata);
+	}
 
 }
