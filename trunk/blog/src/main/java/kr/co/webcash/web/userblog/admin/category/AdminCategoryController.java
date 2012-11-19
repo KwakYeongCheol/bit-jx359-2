@@ -41,15 +41,11 @@ public class AdminCategoryController {
 	@RequestMapping
 	public String home(@PathVariable String blogId, Model model){
 		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
+		model.addAttribute("category", new Category());
 		return "/userblog/admin/category/home";
 	}
 
-	@RequestMapping("/add")
-	public String add(Model model){
-		model.addAttribute("category", new Category());
-		return "/userblog/admin/category/add";
-	}
-	@RequestMapping(value="/addAction", method=RequestMethod.POST)
+	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String addAciton(@ModelAttribute Category category,  BindingResult result , @PathVariable String blogId){
 		String redirectUrl = "redirect:/";
 		
@@ -63,7 +59,7 @@ public class AdminCategoryController {
 				return redirectUrl;
 			}
 		}
-		return "/userblog/admin/category/add";
+		return "/userblog/admin/category/home";
 	}
 	
 	@RequestMapping("/modify")
