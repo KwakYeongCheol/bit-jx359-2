@@ -281,6 +281,12 @@ class MockPostService implements PostService{
 		return null;
 	}
 
+	@Override
+	public List<Post> tempListByBlogId(String blogId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
 
 

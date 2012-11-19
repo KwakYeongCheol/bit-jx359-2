@@ -29,4 +29,5 @@ public interface PostRepository {
 	List<Post> findAllByBlogIdAndPage(String blogId, int offset, int limit);
 	List<Post> findAllPublicByBlogIdAndPage(String blogId, int offset, int limit);
 	
+	List<Post> findAllTempByBlogId(String blogId);
 }

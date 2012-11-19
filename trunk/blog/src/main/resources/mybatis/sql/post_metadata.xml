@@ -1,14 +1,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="PostMetadata">	
 	<insert id="insert" parameterType="PostMetadata">
-		INSERT INTO post_metadata (postId, isPublic, canComment, canScrap, canTrackback)
-		VALUES (#{post.id}, #{isPublic}, #{canComment}, #{canScrap}, #{canTrackback})
+		INSERT INTO post_metadata (postId, isPublic, isTemp, canComment, canScrap, canTrackback)
+		VALUES (#{post.id}, #{isPublic}, #{isTemp}, #{canComment}, #{canScrap}, #{canTrackback})
 	</insert>
+	
+	<update id="update" parameterType="PostMetadata">
+		UPDATE
+			post_metadata
+		SET
+			isPublic = #{isPublic},
+			isTemp = #{isTemp},
+			canComment = #{canComment},
+			canScrap = #{canScrap},
+			canTrackback = #{canTrackback}
+		WHERE
+			postId = #{post.id}
+	</update>
 	
 	<select id="findByPostId" resultType="PostMetadata">
 		SELECT
 			postId,
 			isPublic,
+			isTemp,
 			canComment,
 			canScrap,
 			canTrackback

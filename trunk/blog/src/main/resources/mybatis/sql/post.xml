@@ -131,7 +131,14 @@
 			pm.isPublic = 'true'
 			AND p.contents LIKE '%'||#{query}||'%'
 		ORDER BY p.id DESC
-	</select>	
+	</select>
+		
+	<select id="findAllTempByBlogId" resultType="Post">
+		<include refid="select"/>
+		WHERE
+			c.blogId = #{blogId}
+			AND pm.isTemp = 'true'	
+	</select>
 	
 	<select id="countByBlogId" resultType="Integer">
 		<include refid="count"/>

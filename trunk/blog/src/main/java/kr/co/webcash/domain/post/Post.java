@@ -84,6 +84,7 @@ public class Post {
 	public boolean getCanComment(){			return postMetadata.getCanComment();	}
 	public boolean getCanScrap(){			return postMetadata.getCanScrap();		}
 	public boolean getIsPublic(){			return postMetadata.getIsPublic();		}
+	public boolean getIsTemp(){				return postMetadata.getIsTemp();		}
 	
 	
 	/* getter / setter */

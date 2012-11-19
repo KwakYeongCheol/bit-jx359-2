@@ -24,7 +24,7 @@
 
 <div class="infoBox">	
 	<div class="infoBoxTitle">
-		최근 목록<span style="float:right;font-size:10px;"><a href="${pageContext.request.contextPath }/${blog.id}/admin/guestbook">더보기</a></span>
+		최근 방명록<span style="float:right;font-size:10px;"><a href="${pageContext.request.contextPath }/${blog.id}/admin/guestbook">더보기</a></span>
 	</div>
 	<div class="infoBoxContents">
 	<hr />
@@ -32,7 +32,7 @@
 	<c:forEach items="${guestbookList }" var="guestbook">
 		<tr>
 			<th class="txt"><a href="${pageContext.request.contextPath }/${blog.id}/guestbook/${guestbook.displayId}">${guestbook.contents }</a></th>
-			<td class="date"><fmt:formatDate pattern="yy-MM-dd" value="${guestbook.dateCreated }" /></td>
+			<td class="name">${guestbook.writer.name }</td>
 		</tr>
 	</c:forEach>
 	</table>

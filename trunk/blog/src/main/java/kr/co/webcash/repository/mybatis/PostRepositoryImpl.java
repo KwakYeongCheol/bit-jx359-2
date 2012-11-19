@@ -175,4 +175,9 @@ public class PostRepositoryImpl implements PostRepository {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		return wrap(sqlSession.<Post>selectList("Post.findAllPublicByBlogId", blogId, rowBounds));
 	}
+
+	@Override
+	public List<Post> findAllTempByBlogId(String blogId) {
+		return sqlSession.<Post>selectList("Post.findAllTempByBlogId", blogId);
+	}
 }

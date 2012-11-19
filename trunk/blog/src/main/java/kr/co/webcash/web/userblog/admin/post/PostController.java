@@ -59,14 +59,7 @@ public class PostController {
 		
 		return "/userblog/admin/post/home";
 	}
-
-	@RequestMapping("/write")
-	public String write(@PathVariable String blogId, Model model) {
-		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
-		model.addAttribute("post", new Post());
-		return "/userblog/admin/post/write";
-	}
-
+	
 	@RequestMapping(value = "/scrap")
 	public String scrap(@PathVariable String blogId, 
 			@RequestParam String targetBlogId, @RequestParam long targetPostDisplayId, @RequestParam long targetPostRevisionId,
@@ -86,6 +79,25 @@ public class PostController {
 		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
 		model.addAttribute("post", post);
 		
+		return "/userblog/admin/post/write";
+	}
+
+	@RequestMapping("/write")
+	public String write(@PathVariable String blogId, Model model) {
+		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
+		model.addAttribute("tempPostList", postService.tempListByBlogId(blogId));
+		model.addAttribute("post", new Post());
+		return "/userblog/admin/post/write";
+	}
+	
+	@RequestMapping("/modify")
+	public String modify(@PathVariable String blogId, @RequestParam long displayId, Model model) {
+		Post post = postService.findByBlogIdAndDisplayId(blogId, displayId);
+
+		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
+		model.addAttribute("tempPostList", postService.tempListByBlogId(blogId));
+		model.addAttribute("post", post);
+
 		return "/userblog/admin/post/write";
 	}
 
@@ -128,16 +140,6 @@ public class PostController {
 
 			return "redirect:/" + blogId + "/admin";
 		}
-		return "/userblog/admin/post/write";
-	}
-
-	@RequestMapping("/modify")
-	public String modify(@PathVariable String blogId, @RequestParam long displayId, Model model) {
-		Post post = postService.findByBlogIdAndDisplayId(blogId, displayId);
-
-		model.addAttribute("post", post);
-		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
-
 		return "/userblog/admin/post/write";
 	}
 
