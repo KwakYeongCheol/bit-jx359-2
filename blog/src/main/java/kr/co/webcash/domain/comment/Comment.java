@@ -6,12 +6,16 @@ import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.domain.notification.Notificable;
 import kr.co.webcash.domain.user.User;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Comment implements Notificable{
 	private long id;
 	private long displayId;
 	private CommentTarget target;
 	private User writer;
 	private String contents;
+	
+	@DateTimeFormat(pattern="yyyy/MM/dd HH:mm:ss")
 	private Date dateCreated;
 	
 	
@@ -39,6 +43,12 @@ public class Comment implements Notificable{
 				+ "]";
 	}
 	
+	public String getTargetUri(){		return target.getUri();	}
+	public long getTargetDisplayId(){	return target.getDisplayId();	}
+	public CommentType getTargetType(){		return target.getType();		}
+	
+	
+	/* getter / setter */
 	public long getId() {		return id;	}
 	public void setId(long id) {		this.id = id;	}
 	public CommentTarget getTarget() {		return target;	}

@@ -5,14 +5,14 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>${htmlTitle} </title>
+	<title>${blog.title} </title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/admin.css">	
 	<script src="${pageContext.request.contextPath }/resources/js/jquery-1.8.2.js"></script>
 </head>
 <body>
 <div id="wrap">
 	<header>
-		<div class="title"><a href="${pageContext.request.contextPath }/">JINBO</a></div>
+		<div class="title"><a href="${pageContext.request.contextPath }/">${blog.title }</a></div>
 		
 		<div class="searchBox">
 			<form action="${pageContext.request.contextPath }/search" method="get">
@@ -68,7 +68,7 @@
 	
 <c:forEach items="${loginUserProvider.blogList }" var="blog">
 <div class="menu">
-			<div class="menu-title">관리자페이지</div>
+			<div class="menu-title"><a href="${pageContext.request.contextPath }/${blog.id}/admin">관리자페이지</a></div>
 			<hr />
 			<div class="menu-group">
 				<ul>
@@ -82,6 +82,7 @@
 					<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/category">카테고리 관리</a></li>
 					<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/post">게시물 관리</a></li>
 					<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/guestbook">방명록 관리</a></li>
+					<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/comment">댓글 관리</a></li>
 				</ul>				
 			</div>
 			<hr />

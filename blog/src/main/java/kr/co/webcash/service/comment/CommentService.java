@@ -1,5 +1,8 @@
 package kr.co.webcash.service.comment;
 
+import java.util.List;
+
+import kr.co.webcash.domain.Page;
 import kr.co.webcash.domain.comment.Comment;
 import kr.co.webcash.domain.comment.CommentType;
 
@@ -17,4 +20,8 @@ public interface CommentService {
 	
 //	Comment findByTargetIdAndCommentType(long targetId, CommentType type);
 	Comment findByTargetIdAndCommentTypeAndDisplayId(long targetId,	CommentType type, long displayId);
+	List<Comment> listByBlogIdAndPageNumberAndPageSize(String blogId, int pageNumber, int pageSize);
+	
+	int countByBlogId(String blogId);
+	List<Comment> listByBlogIdAndPage(String blogId, Page page);
 }

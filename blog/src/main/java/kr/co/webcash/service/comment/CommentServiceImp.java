@@ -1,6 +1,9 @@
 package kr.co.webcash.service.comment;
 
+import java.util.List;
+
 import kr.co.webcash.domain.Guestbook;
+import kr.co.webcash.domain.Page;
 import kr.co.webcash.domain.comment.Comment;
 import kr.co.webcash.domain.comment.CommentType;
 import kr.co.webcash.domain.post.Post;
@@ -68,5 +71,20 @@ public class CommentServiceImp implements CommentService{
 	@Override
 	public Comment findByTargetIdAndCommentTypeAndDisplayId(long targetId, CommentType type, long displayId) {
 		return commentRepository.findByDisplayIdAndTargetIdAndType(displayId, targetId, type.toString());
+	}
+
+	@Override
+	public List<Comment> listByBlogIdAndPageNumberAndPageSize(String blogId, int pageNumber, int pageSize) {
+		return commentRepository.findAllByBlogIdAndPageNumberAndPageSize(blogId, pageNumber, pageSize);
+	}
+
+	@Override
+	public int countByBlogId(String blogId) {
+		return commentRepository.countByBlogId(blogId);
+	}
+
+	@Override
+	public List<Comment> listByBlogIdAndPage(String blogId, Page page) {
+		return commentRepository.findAllByBlogIdAndPageNumberAndPageSize(blogId, page.getCurrentPage(), page.getPageSize());
 	}
 }

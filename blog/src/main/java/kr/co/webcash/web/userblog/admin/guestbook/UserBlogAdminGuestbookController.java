@@ -20,11 +20,11 @@ public class UserBlogAdminGuestbookController {
 	@Autowired private GuestbookService guestbookService;
 	
 	@RequestMapping
-	public String home(@PathVariable String blogId, @RequestParam(defaultValue="1") int pageNumber, @RequestParam(defaultValue="10") int pageSize, Model model){
+	public String home(@PathVariable String blogId, 
+			@RequestParam(defaultValue="1") int pageNumber, @RequestParam(defaultValue="10") int pageSize, 
+			Model model){
 		Page page = new Page(pageNumber, guestbookService.countByBlogId(blogId), pageSize);
-		List<Guestbook> listByBlogIdAndPage = guestbookService.listByBlogIdAndPage(blogId, page);
-		
-		model.addAttribute("guestbookList", listByBlogIdAndPage);
+		model.addAttribute("guestbookList", guestbookService.listByBlogIdAndPage(blogId, page));
 		model.addAttribute("page", page);
 		
 		return "/userblog/admin/guestbook/home";

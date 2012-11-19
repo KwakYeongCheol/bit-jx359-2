@@ -86,7 +86,7 @@ public class GuestbookController {
 	}
 	
 	@RequestMapping("/delete")
-	public String delete(@RequestParam long displayId, @PathVariable String blogId){
+	public String delete(@PathVariable String blogId, @RequestParam long displayId, @RequestParam(required=false) String redirectURI){
 		Blog currentBlog = blogService.findById(blogId);
 		Guestbook guestbook = guestbookService.findByBlogIdAndDisplayId(blogId, displayId);
 		
@@ -95,6 +95,11 @@ public class GuestbookController {
 				guestbookService.delete(guestbook);
 			}
 		}
+		
+		if(redirectURI != null){
+			return "redirect:" + redirectURI;
+		}
+		
 		return "redirect:/" + blogId +"/guestbook";
 	}
 	

@@ -26,11 +26,23 @@
 			c.commentType as "target.type",
 			c.displayId as displayId,
 			c.writerId as "writer.loginId",
+				u.name as "writer.name",
 			c.contents as contents,
 			c.dateCreated as dateCreated
 		FROM
 			comment c
+		JOIN
+			users u on u.id = c.writerId
 	</sql>
+	
+	<select id="countByBlogId" resultType="Integer">
+		SELECT
+			count (*)
+		FROM
+			comment c
+		WHERE
+			c.targetBlogId = #{blogId}
+	</select>
 	
 	<select id="findAllByTargetIdAndType" resultType="Comment">
 		<include refid="select"/>
@@ -38,6 +50,13 @@
 			c.targetId = #{targetId}
 			AND c.commentType = #{type}
 		ORDER BY c.id DESC
+	</select>
+	
+	<select id="findAllByBlogId" resultType="Comment">
+		<include refid="select"/>
+		WHERE
+			c.targetBlogId = #{blogId}
+		ORDER BY c.dateCreated DESC
 	</select>
 	
 	<select id="findByDisplayIdAndTargetIdAndType" resultType="Comment">

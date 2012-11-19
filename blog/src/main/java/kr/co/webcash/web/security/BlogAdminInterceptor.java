@@ -1,8 +1,5 @@
 package kr.co.webcash.web.security;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +10,6 @@ import kr.co.webcash.service.blog.BlogService;
 import kr.co.webcash.utils.URLUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class BlogAdminInterceptor extends HandlerInterceptorAdapter{
@@ -41,20 +37,6 @@ public class BlogAdminInterceptor extends HandlerInterceptorAdapter{
 		return false;
 	}
 	
-	
-	@Override
-	public void postHandle(HttpServletRequest request,
-			HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
-		super.postHandle(request, response, handler, modelAndView);
-		
-		if(modelAndView == null)	return;
-		
-		List<String> cssList = new ArrayList<String>();
-		cssList.add("css/blog/admin/blog_admin_default.css");
-		modelAndView.getModel().put("cssList", cssList);
-	}
-
 	private boolean isAdmin(String loginId, String blogId){
 		Blog blog = this.blogService.findById(blogId);
 		

@@ -11,6 +11,7 @@ public interface CommentRepository {
 	void delete(Comment comment);
 
 	List<Comment> findAllByTargetIdAndType(long targetId, CommentType type);
+	List<Comment> findAllByBlogIdAndPageNumberAndPageSize(String blogId, int pageNumber, int pageSize);
 
 //	Comment findLastByTargetIdAndType(long targetId, String type);
 
@@ -18,4 +19,7 @@ public interface CommentRepository {
 	
 	Comment findLastByBlogIdAndCommentType(String blogId, CommentType type);
 	Comment findLast();
+
+	int countByBlogId(String blogId);
+	
 }
