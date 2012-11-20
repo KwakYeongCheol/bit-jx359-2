@@ -27,6 +27,15 @@
 			AND connectIPAddress = #{connectIPAddress}
 			AND visited BETWEEN #{startDate} AND #{endDate}
 	</select>
+	
+	<select id="select" resultType="String">
+		SELECT
+			to_char(visited, 'yyyy-MM-dd')
+		FROM
+			blog_visit_history
+		WHERE
+			blogId = #{blogId}
+	</select>
 </mapper>
 
 

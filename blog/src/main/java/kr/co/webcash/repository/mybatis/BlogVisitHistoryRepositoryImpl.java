@@ -1,5 +1,6 @@
 package kr.co.webcash.repository.mybatis;
 
+import java.util.List;
 import java.util.Map;
 
 import kr.co.webcash.domain.blog.BlogVisitHistory;
@@ -27,5 +28,10 @@ public class BlogVisitHistoryRepositoryImpl implements BlogVisitHistoryRepositor
 	@Override
 	public BlogVisitHistory findByBlogIdAndConnectIPAddressAndFromStartDateToEndDate(Map<String, Object> params) {
 		return sqlSession.selectOne("BlogVisitHistory.findByBlogIdAndConnectIPAddressAndFromStartDateToEndDate", params);
+	}
+
+	@Override
+	public List<String> select(String blogId) {
+		return sqlSession.selectList("BlogVisitHistory.select", blogId);
 	}
 }
