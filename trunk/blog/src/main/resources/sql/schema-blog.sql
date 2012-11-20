@@ -15,3 +15,29 @@ CREATE TABLE blog_visit_history(
 	visited timestamp NOT NULL
 );
 
+
+INSERT INTO blog_visit_history(blogId, connectIPAddress, visited)
+VALUES ('1', '1', '2012-11-18');
+
+INSERT INTO blog_visit_history(blogId, connectIPAddress, visited)
+VALUES ('1', '1', '2012-11-18');
+INSERT INTO blog_visit_history(blogId, connectIPAddress, visited)
+VALUES ('1', '1', '2012-11-18');
+INSERT INTO blog_visit_history(blogId, connectIPAddress, visited)
+VALUES ('1', '1', '2012-11-18');
+INSERT INTO blog_visit_history(blogId, connectIPAddress, visited)
+VALUES ('1', '1', '2012-11-18');
+INSERT INTO blog_visit_history(blogId, connectIPAddress, visited)
+VALUES ('1', '1', '2012-11-18');
+INSERT INTO blog_visit_history(blogId, connectIPAddress, visited)
+VALUES ('1', '1', '2012-11-18');
+
+INSERT INTO blog_visit_history(blogId, connectIPAddress, visited)
+VALUES ('1', '1', '2012-11-17');
+INSERT INTO blog_visit_history(blogId, connectIPAddress, visited)
+VALUES ('1', '1', '2012-11-17');
+INSERT INTO blog_visit_history(blogId, connectIPAddress, visited)
+VALUES ('1', '1', '2012-11-17');
+
+
+
