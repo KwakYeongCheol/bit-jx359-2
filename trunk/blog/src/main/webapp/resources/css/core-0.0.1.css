@@ -1,11 +1,12 @@
 body{
 	margin: 0px;
-	background: #DDD;
+	background-color: #B5A789;  
 	color: #FFF;
+	height: auto;
+/*	background-image: url(../images/qrcmn.jpg); */
 }
 
 #wrap{
-	width: 1000px;
 	margin: 0 auto 0;
 }
 
@@ -26,44 +27,132 @@ input{
 /* header start*/
 
 header{
+	margin: 10px;
 	padding: 10px 0 10px 0;
-	height: 40px;
-	background-color: #0593be;
+	height: 50px;
+	text-decoration: none;
+	background-color: #675C47;
+	border-top-left-radius: 7px; 
+	border-top-right-radius: 7px; 
 }
 
-.title{
-	width: 100px;
-	height: 50px;
-	font-size: 30px;
-	text-align: center;
+.title img{
 	float: left;
+	width: 15%;
+	height: 50px;
+	margin-left: 2%;
 }
+
+.title .blogTitle{
+	float:left;
+	width: 15%;
+	height: 50px;
+	margin-left: 2%;
+	line-height: 3;
+}
+
 
 .searchBox{
+	line-height: 3;	
+	position: absolute;
 	float: left;
+	margin-left: 19%;
+	width: 25%;
 }
 
-.searchBox input{
+.searchBox .search{
+	height:20px;
+	width: 70%;
+	border-radius: 10px;
+	background-color: #FEFDED;
+}
+
+.searchBox .searchBtn , .showAllCateogory{
 	height: 20px;
+	padding: 2px;
+	margin: 0 0 0 5px;
+	width: 20%;
+	height: 23px;
+	border: 1px solid #999;
+	border-radius: 10px;
+	color: #FFF;
+	background-image: url(../images/t_back.jpg); 
+	
+	background-repeat: repeat-x;
+	background-position: center center;
+}
+
+.searchBox .searchBtn:hover{
+	width: 23%;
+	height: 25px;
 }
 
 .loginBox{
-	float: right;
-	line-height: 2;
+	position: absolute;
+	float: left;
+	line-height: 3;
+	margin-left: 50%;
+	width: 40%;
 }
 
-.loginBox input{
-	height: 20px;
+.loginBox .loginId, .loginBox .password{
+	width: 35%;
 }
+
+.loginBox .submitBtn{
+	height: 20px;
+	padding: 2px;
+	margin: 0 0 0 5px;
+	width: 60px;
+	height: 23px;
+	border-radius: 10px;
+	color: #FFF;
+	background-image: url(../images/t_back.jpg); 
+	
+	background-repeat: repeat-x;
+	background-position: center center;
+}
+
+.loginBox .submitBtn:hover{
+	width: 65px;
+	height: 25px;
+}
+
+
 
 .registerBox{
-	float: right;
+	position: absolute;
+	float: left;
+	line-height: 3;
+	margin-left: 89%;
+	width: 8%;
+}
+
+.registerBox .submitBtn{
+	height: 20px;
+	width: 60px;
+	padding: 2px;
+	margin: 0 0 0 5px;
+	height: 23px;
+	border-radius: 10px;
+	color: #FFF;
+	background-image: url(../images/t_back.jpg); 
+	
+	background-repeat: repeat-x;
+	background-position: center center;
+}
+
+.registerBox .submitBtn:hover{
+	width: 65px;
+	height: 25px;
 }
 
 .nav{
 	text-align: center;
+	vertical-align: bottom;
 	float: right;
-	background: #0593be;
+	margin-right: 20px;
+	background: #675C47;
 }
 
 .nav hr{
@@ -71,10 +160,19 @@ header{
 }
 
 .nav-title{
-	width: 100px;
+	text-align: center;
+	padding-left: 20px;
 	height: 50px;
 	font-size: 15px;
 	line-height: 3;
+}
+
+.nav-title li{
+	font-size: 16px;
+}
+
+.nav-title li:hover{
+	font-size: 18px;
 }
 
 .nav-menu{
@@ -82,12 +180,20 @@ header{
 	margin: 0px;
 	font-size: 12px;
 	display: none;
+	background: #675C47;
+	position: absolute;
 }
+
 
 .nav-menu li{
 	width: 100px;
 	height: 20px;
 	list-style: none;
+	z-index: 10;
+}
+
+.nav-menu li:hover{
+	font-size: 13px;
 }
 
 /* header end */
@@ -231,10 +337,13 @@ article .articleTitle{
 
 /* footer start */
 footer{
+	margin: 10px;
 	padding: 30px;
 	height: 100px;
-	background-color: #0593be;
+	background-color: #675C47;
 	color: #FFF;
 	font-size: 12px;
+	border-bottom-right-radius: 7px; 
+	border-bottom-left-radius: 7px; 
 }
 /* footer end */

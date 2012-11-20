@@ -6,7 +6,6 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>${htmlTitle} </title>
-	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/default.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/core-0.0.1.css">
 	
 	<script src="${pageContext.request.contextPath }/resources/js/jquery-1.8.2.js"></script>
@@ -14,26 +13,25 @@
 <body>
 <div id="wrap">
 	<header>
-		<div class="title"><a href="${pageContext.request.contextPath }/">JINBO</a></div>
+		<div class="title"><a href="${pageContext.request.contextPath }/"><img src="${pageContext.request.contextPath }/resources/images/jinbo.png"/></a></div>
 		
 		<div class="searchBox">
 			<form action="${pageContext.request.contextPath }/search" method="get">
-				<input type="text" name="query" placeholder="search" />
-				<input type="submit" value="Search" />
+				<input type="text" name="query" placeholder="search" class="search" />
+				<input type="submit" value="Search" class="searchBtn"/>
 			</form>
 		</div>
 		
 		<c:if test="${!loginUserProvider.loggedIn }">
-		<div class="registerBox">
-			<a href="${pageContext.request.contextPath }/user/register/step01">회원가입</a>
-		</div>
-		
 		<div class="loginBox">
 			<form action="${pageContext.request.contextPath }/loginAction" method="post">
-				<input type="text" name="loginId" placeholder="sample@gmail.com"/> 
-				<input type="password" name="password" placeholder="password" />
-				<input type="submit" value="Log In" />
+				<input type="text" name="loginId" placeholder="sample@gmail.com" class="loginId"/> 
+				<input type="password" name="password" placeholder="password" class="password"/>
+				<input type="submit" value="Log In" class="submitBtn"/>
 			</form>
+		</div>
+		<div class="registerBox">
+			<a href="${pageContext.request.contextPath }/user/register/step01"><input type="submit" value="회원가입" class="submitBtn"/></a>
 		</div>
 		</c:if>
 		
