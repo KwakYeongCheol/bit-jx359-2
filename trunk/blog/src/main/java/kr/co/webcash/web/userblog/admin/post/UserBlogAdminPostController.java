@@ -34,7 +34,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Controller
-@SessionAttributes(value = { "categoryList", "post" })
+@SessionAttributes(value = { "categoryList", "post", "scrap" })
 @RequestMapping("/{blogId}/admin/post")
 public class UserBlogAdminPostController {
 
@@ -81,17 +81,31 @@ public class UserBlogAdminPostController {
 	public String scrap(@PathVariable String blogId, 
 			@RequestParam String targetBlogId, @RequestParam long targetPostDisplayId, @RequestParam long targetPostRevisionId,
 			Model model) {
-		
 		Scrap scrap = new Scrap();
-//		scrap.setTargetBlog(new Blog(targetBlogId));
-//		scrap.setTargetPostDisplayId(targetPostDisplayId);
-//		scrap.setTargetPostRevisionId(targetPostRevisionId);
 		
 		Post targetPost = postService.findByBlogIdAndDisplayId(targetBlogId, targetPostDisplayId);
 		scrap.setTarget(new ScrapTarget(targetPost, targetPostRevisionId));
 		
-		Post post = new Post();
-		post.setContents(scrap.getTag());
+		model.addAttribute("scrap", scrap);
+		model.addAttribute("postList", postService.listByBlogId(blogId));
+		
+		return "/userblog/admin/post/scrap/complete";
+	}
+	
+	@RequestMapping("/addScrap")
+	public String scrapToPostWrite(@PathVariable String blogId, @ModelAttribute Scrap scrap,
+			@RequestParam long postDisplayId,
+			Model model){
+		Post post;
+		if(postDisplayId == 0){
+			post = new Post();
+			post.setContents(scrap.getTag());
+		}else{
+			post = postService.findByBlogIdAndDisplayId(blogId, postDisplayId);
+			if(post == null)		return "/userblog/admin/post/scrap/complete";
+			
+			post.setContents(post.getContents() + "<br />" + scrap.getTag());
+		}
 		
 		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
 		model.addAttribute("post", post);

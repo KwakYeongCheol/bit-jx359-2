@@ -91,33 +91,22 @@ public class Scrap {
 		return builder.toString();
 	}
 	
-	public Post getPost() {		return post;	}
-	public void setPost(Post post) {		this.post = post;	}
-	public ScrapTarget getTarget() {		return target;	}
-	public void setTarget(ScrapTarget target) {		this.target = target;	}
-
-	public String getTargetBlogId() {
-		return target.getBlogId();
-	}
-
-	public long getTargetPostDisplayId() {
-		return target.getPostDisplayId();
-	}
-	
-	public String getTargetPostTitle(){
-		return target.getPostTitle();
-	}
-
-	public String getTargetPostContents() {
-		return target.getPostContents();
-	}
-
-	public long getTargetPostRevisionId() {
-		return target.getPostRevisionId();
-	}
-	
 	@Override
 	public String toString() {
 		return "Scrap [post=" + post + ", target=" + target + "]";
 	}
+	
+	public String getTargetURI(){		return target.getUri();		}
+	
+	public String getTargetBlogId() {		return target.getBlogId();	}
+	public long getTargetPostDisplayId() {		return target.getPostDisplayId();	}
+	public String getTargetPostTitle(){		return target.getPostTitle();	}
+	public String getTargetPostContents() {		return target.getPostContents();	}
+	public long getTargetPostRevisionId() {		return target.getPostRevisionId();	}
+	
+	
+	public Post getPost() {		return post;	}
+	public void setPost(Post post) {		this.post = post;	}
+	public ScrapTarget getTarget() {		return target;	}
+	public void setTarget(ScrapTarget target) {		this.target = target;	}
 }
