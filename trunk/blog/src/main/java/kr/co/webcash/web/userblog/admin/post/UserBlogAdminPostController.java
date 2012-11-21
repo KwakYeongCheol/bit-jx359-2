@@ -169,7 +169,7 @@ public class UserBlogAdminPostController {
 				}
 			}
 
-			return "redirect:/" + blogId + "/admin";
+			return "redirect:/" + blogId;
 		}
 		return "/userblog/admin/post/write";
 	}

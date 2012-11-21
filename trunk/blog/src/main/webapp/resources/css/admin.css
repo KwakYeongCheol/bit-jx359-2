@@ -161,7 +161,36 @@ section .menu ul li{
 	list-style: none;
 }
 
-
+.writeBtn{
+	cursor: pointer;
+}
+.postWrite{
+	margin: 0 0 0 0;
+	width: auto;
+	height: auto;
+	background: #fff;
+	background-color: rgba(0 , 5, 5, .5);
+	position: absolute;
+	border: 2px solid;
+	z-index: 10;
+}
+.postWrite .postWriteCloseBtn{
+	border: 1px solid;
+	cursor: pointer;
+	float: right;
+	font-size: 20px;
+	margin-top: 10px;
+	margin-right: 10px;
+	font-weight: bold;
+	position: relative;
+}
+.postWrite .contents{
+	margin: 30px 0 0 50px;
+	border: 1px solid;
+	float: left;
+	width: auto;
+	height: auto;
+}
 
 /* section end */
 
@@ -261,35 +290,27 @@ article a{
 
 /* row end */
 
-/* dialog */
+/* editor */
 
-.bgDialog{
-	position:absolute;
-	top:0;
-	left:0;
-	width:100%;
-	min-width: 1000px;
-	height:100%;
-	min-height: 700px;
-	background: #000;
-	opacity:0.3;
+.postEditor{
+	float: left;
+	position: absolute;
+	margin: -800px 0 auto 100px;
+	padding: 50px;
+	width: 70%;
+	height: auto;
+	background-color: rgba(27 , 103, 107, .7);
+	border: 2px solid;
+	z-index: 30;
+}
+.postBackground{
+	position: absolute;
+	margin: -650px 0 auto 0;
+	width: 100%;
+	height: 1000%;
 	z-index: 10;
 }
-
-.dialog{
-	position: absolute;
-	left:10%;
-	top:10%;
-	margin: auto;
-	background: #FFF;
-	width:80%;
-	min-width: 800px;
-	height:80%;
-	min-height: 550px;
-	z-index: 20;
-}
-
-/* dialog end */
+/* editor end */
 
 /* infoBox start*/
 .infoBox{

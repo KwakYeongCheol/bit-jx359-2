@@ -14,8 +14,9 @@ public class Comment implements Notificable{
 	private CommentTarget target;
 	private User writer;
 	private String contents;
-	
-	@DateTimeFormat(pattern="yyyy/MM/dd HH:mm:ss")
+
+	@DateTimeFormat(iso= DateTimeFormat.ISO.NONE)
+
 	private Date dateCreated;
 	
 	
