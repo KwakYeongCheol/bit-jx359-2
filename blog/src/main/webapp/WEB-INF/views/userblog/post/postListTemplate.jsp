@@ -4,7 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <section id="categoryBox">
-	<input type="button" class="showAllCateogory" value="모아보기" />
+	<input type="button" class="showAllCateogory" value="모아보기"/>
 	<div class="clear"></div>
 	<div class="category category-all">
 		<div class="cateogryTitle">모든 글</div>
@@ -15,6 +15,7 @@
 		</div>
 	</div>
 	<c:forEach items="${categoryList }" var="category">
+	<c:set var="page" value="${page }"></c:set>
 		<div class="category">
 			<div class="cateogryTitle">${category.title }</div>
 			<div class="post">
@@ -22,7 +23,8 @@
 					<div class="postBox">
 						<input type="hidden" name="postDisplayId"
 							value="${post.displayId }" class="postDisplayId" />
-						<div class="postTitle">${post.title }</div>
+						<div class="postTitle">${post.title }  
+						<div class="postDate"><spring:eval expression="post.dateCreated" /></div></div>
 						<div class="postContents"></div>
 					</div>
 				</c:forEach>
@@ -32,7 +34,11 @@
 </section>
 
 <section id="categoryActiveBox">
-	<input type="button" class="writeBtn" value="글쓰기" />
+	<c:if test="${loginUserProvider.loggedIn }">
+		<c:if test="${loginUserProvider.loginUser.loginId == blog.owner }">
+			<input type="button" class="openEditor" value="글쓰기" />
+		</c:if>
+	</c:if>	
 	<div class="search_categoryBox">
 		<form action="#" method="get">
 			<input type="text" name="search" placeholder="search"
@@ -50,12 +56,14 @@
 				<c:forEach items="${postList }" var="post">
 					<div class="postBox">
 						<input type="hidden" name="postDisplayId" value="${post.displayId }" class="postDisplayId" />
-						<div class="postTitle">${post.title }</div>
+						<div class="postTitle">${post.title }
+						<div class="postDate"><spring:eval expression="post.dateCreated" /></div></div>
 						<div class="postContents"></div>
 					</div>
 				</c:forEach>
 			</div>
 		</div>
+	</div>
 		<c:if test="${page.count > 0}">
 			<c:set var="pageCount"
 				value="${page.count / page.pageSize + ( page.count % page.pageSize == 0 ? 0 : 1)}" />
@@ -83,12 +91,12 @@
 					href="${pageContext.request.contextPath }/${blog.id }?pageNum=${page.numPageGroup*page.pageGroupSize+1}">[다음]</a>
 			</c:if>
 		</c:if>
-	</div>
 </section>
 <script>
 
 function categoryClick(){
-	console.log("category click");
+	$("#categoryBox").css("width", "30%");
+	$("#categoryActiveBox").show();
 	var active = $(".category-active");
 	$.each(active, function(){
 		if(!$(this).hasClass("category-all")){
@@ -107,34 +115,35 @@ function categoryClick(){
 	
 	if($(this).hasClass("category-all")){
 		$("#categoryActiveBox .category-all").show();
+		$("#categoryBox .category .postDate").hide();
 	}else{
 		$(this).unbind('click')
 			.removeClass("category")
 			.addClass("category-active")
 			.appendTo("#categoryActiveBox");
-
 		$.each($(this).children(), function(){
 			if($(this).hasClass("post")){
+				$(this).find(".postDate").show();
 				$(this).find(".postTitle").unbind('click');
 				$(this).find(".postTitle").bind('click', addContents);
 			}
+			$("#categoryBox .category .postDate").hide();
 		});
 	}
 }
 
 function addContents(){
-		console.log("addContents()");
 		var displayId = $(this).prev().attr("value");
 		var $title = $(this);
-		var $contents = $(this).next();
+		var $postContents = $(this).next();
 		$.ajax({
 			url : '${pageContext.request.contextPath }/${blog.id }/userblog/post?postDisplayId='+ displayId,
 			type : 'GET',
 			success : function(result) {
 				if (result != null) {
-						$contents.append(result);
-						$contents.hide();
-						$contents.toggle();
+						$postContents.append(result);
+						$postContents.hide();
+						$postContents.toggle();
 				}
 			},
 			error : function(result) {
@@ -143,19 +152,56 @@ function addContents(){
 		}, 'json');
 		$(this).unbind('click');
 		$(this).bind('click',function(){
+			$(this).next().slideDown();
 			$(this).next().toggle();
 		});
 }
 
+function openEditor(){
+	console.log("openEditor");
+	var postBackground = $("<div>").addClass("postBackground").appendTo($("body"));
+	var postEditor = $("<div>").addClass("postEditor").appendTo($("body"));
+	var editor = $("<div>").addClass("editor").appendTo(postEditor);
+	$.ajax({
+		url : '${pageContext.request.contextPath }/${blog.id }/admin/post/write',
+		type : 'GET',
+		success : function(result){
+			if(result != null){
+				editor.append(result);
+				$("#editor").fadeIn(500);
+				$("#editor").appendTo(postEditor);
+			}
+		},
+		error : function(result){
+			console.log('error');
+		}
+	}, 'json');
+	
+	$(".postBackground").bind('click', function(){
+		$(this).remove();
+		$(".postEditor").remove();
+	});
+}
 
 $(document).ready(function(){
 	/* 카테고리 event start  */
-	
+	if($(".cateogry-active"))
 	//$(".category-active").bind('click', categoryActiveClick);
 	$(".category").bind('click', categoryClick);
 	
 	/* 카테고리 event end  */
 	$("#categoryActiveBox .category-active .postTitle").bind('click', addContents);
+	$("#categoryBox .category .postDate").hide();
+	
+	$(".showAllCateogory").click(function(){
+		$(".showAllCategory").hide();
+		$("#categoryActiveBox").hide(); 
+		$("#categoryBox").css("width", "80%");
+	});
+	
+	$(".openEditor").bind('click', function(){
+		openEditor();
+	});
 	
 }); 
 	

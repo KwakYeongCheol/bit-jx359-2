@@ -65,7 +65,6 @@
 	</header>
 	
 	<section>
-	
 <c:forEach items="${loginUserProvider.blogList }" var="blog">
 <div class="menu">
 			<div class="menu-title"><a href="${pageContext.request.contextPath }/${blog.id}/admin">관리자페이지</a></div>
@@ -73,7 +72,7 @@
 			<div class="menu-group">
 				<ul>
 					<li><a href="${pageContext.request.contextPath }/${blog.id}">블로그 홈</a></li>
-					<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/post/write">글쓰기</a></li>
+					<li><a class="openEditor">글쓰기</a></li>
 				</ul>				
 			</div>
 			<hr />
@@ -95,3 +94,36 @@
 		</div>
 		</c:forEach>
 		<article class="articleB">
+<script>
+function openEditor(){
+	console.log("openEditor");
+	var postBackground = $("<div>").addClass("postBackground").appendTo($("body"));
+	var postEditor = $("<div>").addClass("postEditor").appendTo($("body"));
+	var editor = $("<div>").addClass("editor").appendTo(postEditor);
+	$.ajax({
+		url : '${pageContext.request.contextPath }/${blog.id }/admin/post/write',
+		type : 'GET',
+		success : function(result){
+			if(result != null){
+				editor.append(result);
+				$("#editor").fadeIn(500);
+				$("#editor").appendTo(postEditor);
+			}
+		},
+		error : function(result){
+			console.log('error');
+		}
+	}, 'json');
+	
+	$(".postBackground").bind('click', function(){
+		$(this).remove();
+		$(".postEditor").remove();
+	});
+}
+
+$(document).ready(function(){
+	$(".openEditor").bind('click', function(){
+		openEditor();
+	});
+});
+</script>		

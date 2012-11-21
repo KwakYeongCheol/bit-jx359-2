@@ -7,7 +7,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>${htmlTitle} </title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/core-0.0.1.css">
-	
 	<script src="${pageContext.request.contextPath }/resources/js/jquery-1.8.2.js"></script>
 </head>
 <body>
