@@ -186,6 +186,10 @@ section {
 .postBox{
 	background-color: #C593BE;
 }
+#categoryBox .post{
+	display: none;
+}
+
 #categoryActiveBox .category .post, #categoryActiveBox .category .postTitle{
 	width: auto;
 	height: auto;
@@ -220,7 +224,7 @@ section {
 	border:1px solid #999;
 	border-radius:10px;
 	color: #FFF;
-	background-image:url("../images/t_back.jpg");
+	background-image:url(../../images/t_back.jpg);
 	background-repeat:repeat-x;
 	background-position:center center;
 	float: left;
@@ -262,7 +266,7 @@ section {
 	border:1px solid #999;
 	border-radius:10px;
 	color: #FFF;
-	background-image:url(../images/t_back.jpg);
+	background-image:url(../../images/t_back.jpg);
 	background-repeat:repeat-x;
 	background-position:center center;
 }
@@ -270,10 +274,10 @@ section {
 	float: left;
 	position: absolute;
 	margin: -600px 0 auto 100px;
-	padding: 100px;
-	width: 70%;
+	padding: 50px;
+	width: 65%;
 	height: auto;
-	background-color: rgba(27 , 103, 107, .7);
+	background-image:url(../../images/wood-texture.jpg);
 	border: 2px solid;
 	z-index: 30;
 }
@@ -284,6 +288,19 @@ section {
 	height: 1000%;
 	z-index: 10;
 }
+
+.btn{
+	padding:2px;
+	margin: 0 0 0 5px;
+	width:90px;
+	height:23px;
+	border-radius:10px;
+	color: #FFF;
+	background-image:url(../../images/t_back.jpg);
+	background-repeat:repeat-x;
+	background-position:center center;
+}
+
 /* 글쓰기영역 end */
 
 /* section end */
