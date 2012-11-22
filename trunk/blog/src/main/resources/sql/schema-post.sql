@@ -162,7 +162,7 @@ INSERT INTO POST_REVISION (postId, displayId, diff)
 	VALUES(15, 1, '');
 	
 	INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
-	VALUES(16, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 13);
+	VALUES(16, 'Its Raining Day.. ', '자바 Java비가 오는 길에 ~ ', NOW(), 2, 13);
 INSERT INTO POST_METADATA (postId, isPublic, isTemp, canScrap, canTrackback, canComment)
 	VALUES(16, 'true', 'false', 'true', 'true', 'true');
 INSERT INTO POST_REVISION (postId, displayId, diff)
@@ -176,7 +176,7 @@ INSERT INTO POST_REVISION (postId, displayId, diff)
 	VALUES(17, 1, '');
 	
 	INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
-	VALUES(18, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 15);
+	VALUES(18, 'Its Raining Day.. ', 'Java 오는 길에 ~ ', NOW(), 2, 15);
 INSERT INTO POST_METADATA (postId, isPublic, isTemp, canScrap, canTrackback, canComment)
 	VALUES(18, 'true', 'false', 'true', 'true', 'true');
 INSERT INTO POST_REVISION (postId, displayId, diff)
@@ -220,7 +220,7 @@ INSERT INTO post_tag (postId, tag_value)
 	VALUES(1, '1박2일');
 	
 	INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
-	VALUES(24, 'Its Raining Day..  임시ㅋzzz', '짧아', NOW(), 2, 21);
+	VALUES(24, 'Its Raining Day..  임시ㅋzzz', '짧아 자바 Java 아이폰 iPhone 안드로이드 슈퍼맨 ㅋㅋㅋ', NOW(), 2, 21);
 INSERT INTO POST_METADATA (postId, isPublic, isTemp, canScrap, canTrackback, canComment)
 	VALUES(24, 'true', 'true', 'true', 'true', 'true');
 INSERT INTO POST_REVISION (postId, displayId, diff)

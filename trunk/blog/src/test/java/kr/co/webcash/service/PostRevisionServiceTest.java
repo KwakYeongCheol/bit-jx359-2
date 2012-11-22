@@ -229,11 +229,6 @@ class MockPostService implements PostService{
 	}
 
 	@Override
-	public List<Post> search(String query) {
-		return null;
-	}
-
-	@Override
 	public Page getPage(String blogId, int pageNum) {
 		// TODO Auto-generated method stub
 		return null;
@@ -316,6 +311,18 @@ class MockPostService implements PostService{
 	@Override
 	public List<Post> listByTagCategoryAndPage(TagCategory tagCategory,
 			Page page) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int countByQuery(String query) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Post> search(String query, Page page) {
 		// TODO Auto-generated method stub
 		return null;
 	}

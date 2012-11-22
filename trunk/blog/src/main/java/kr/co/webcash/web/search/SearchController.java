@@ -1,5 +1,6 @@
 package kr.co.webcash.web.search;
 
+import kr.co.webcash.domain.Page;
 import kr.co.webcash.service.SearchService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +16,16 @@ public class SearchController {
 	
 	@Autowired private SearchService searchService;
 	
-	@RequestMapping
-	public void searchForm(){
+	@RequestMapping()
+	public void search(@RequestParam String query, 
+			@RequestParam(defaultValue="1")	int pageNumber, @RequestParam(defaultValue="10") int pageSize,
+			Model model){
 		
-	}
-
-	@RequestMapping(method=RequestMethod.POST)
-	public void search(@RequestParam String query, Model model){
+		Page page = new Page(pageNumber, searchService.countByQuery(query), pageSize);
+		
 		model.addAttribute("query", query);
-		model.addAttribute("search", searchService.findAllByQuery(query));
+		model.addAttribute("search", searchService.findAllByQueryAndPage(query, page));
+		model.addAttribute("page", page);
 	}
 
 }

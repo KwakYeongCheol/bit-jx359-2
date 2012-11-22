@@ -126,8 +126,8 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<Post> search(String query) {
-		return wrap(postRepository.findAllByQuery(query));
+	public List<Post> search(String query, Page page) {
+		return wrap(postRepository.findAllByQueryAndPage(query, page.getStartPage(), page.getPageSize()));
 	}
 
 	@Override
@@ -193,5 +193,10 @@ public class PostServiceImpl implements PostService {
 	public List<Post> listByTagCategoryAndPage(TagCategory tagCategory, Page page) {
 		List<String> tagList = TagCategoryRepository.findAll(tagCategory);
 		return wrap(postRepository.findAllByTagListAndPage(tagList, page.getStartPage(), page.getPageSize()));
+	}
+
+	@Override
+	public int countByQuery(String query) {
+		return postRepository.countByQuery(query);
 	}
 }

@@ -17,6 +17,7 @@ public interface PostService {
 	int count();
 	int countByCategory(Category category);
 	int countByTagCategory(TagCategory tagCategory);
+	int countByQuery(String query);
 	
 	Post findById(long id);
 	Post findByBlogIdAndDisplayId(String blogId, long displayId);
@@ -24,7 +25,7 @@ public interface PostService {
 	Page getPage(String blogId, int pageNum);
 	Page getPagePublic(String blogId, int pageNum);
 	
-	List<Post> search(String query);
+	List<Post> search(String query, Page page);
 	List<Post> listByPage(Page page);
 	
 	List<Post> listByBlogIdAndCategoryDisplayId(String blogId, long categoryDisplayId);
