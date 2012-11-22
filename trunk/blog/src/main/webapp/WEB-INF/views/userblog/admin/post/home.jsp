@@ -26,6 +26,8 @@
 					<th>버전</th>
 					<th>비교</th>
 					<th>작성일</th>
+					<th>수정</th>
+					<th>삭제</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -40,10 +42,6 @@
 						<a href="${pageContext.request.contextPath }/${blog.id}/${post.displayId}">
 							${post.title }
 						</a>
-						<span style="margin-left:20px;">
-							<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/modify?displayId=${post.displayId}">수정</a> | 
-							<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/delete?displayId=${post.displayId}&redirectURI=${pageURI }">삭제</a>
-						</span>
 					</td>
 					<td>
 						<c:if test="${post.isTemp }">
@@ -84,6 +82,12 @@
 						</select>
 					</td>
 					<td><spring:eval expression="post.dateCreated" /></td>
+					<td>
+						<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/modify?displayId=${post.displayId}">수정</a>
+					</td>
+					<td>
+						<a href="${pageContext.request.contextPath }/${blog.id}/admin/post/delete?displayId=${post.displayId}&redirectURI=${pageURI }">삭제</a>
+					</td>
 				</tr>
 				</c:forEach>
 				<c:if test="${postList.isEmpty() }">

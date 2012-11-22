@@ -5,9 +5,8 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>${blog.title} </title>
-	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/admin.css">	
-	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/core-0.0.1.css">	
+	<title>${blog.title} </title>			
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/admin.css">
 	<script src="${pageContext.request.contextPath }/resources/js/jquery-1.8.2.js"></script>
 </head>
 <body>

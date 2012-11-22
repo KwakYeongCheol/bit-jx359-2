@@ -25,11 +25,12 @@
 	</sql>
 	
 	<sql id="select">
-		SELECT
+		SELECT distinct
 			p.id as id,
 				c.displayId as "category.displayId", 
 				c.title as "category.title",
 					b.id as "category.blog.id",
+					b.title as "category.blog.title",
 			p.displayId as displayId,
 			p.title as title, 
 			p.contents as contents, 
@@ -40,7 +41,7 @@
 	</sql>
 	
 	<sql id="count">
-		SELECT
+		SELECT distinct
 			count(*)
 		FROM 
 			post p
@@ -140,6 +141,19 @@
 			AND pm.isTemp = 'true'	
 	</select>
 	
+	<select id="findAllByTagList" resultType="Post">
+		<include refid="select"/>
+		JOIN
+			post_tag pt on pt.postId = p.id
+		WHERE
+			pm.isPublic = 'true'
+			AND pt.tag_value IN
+			<foreach collection="list" item="item" index="index"
+				open="(" separator="," close=")">
+				#{item}				
+			</foreach>
+	</select>
+	
 	<select id="countByBlogId" resultType="Integer">
 		<include refid="count"/>
 		WHERE 
@@ -157,5 +171,23 @@
 		<include refid="count"/>
 		WHERE 
 			c.id = #{categoryId}
+	</select>
+	
+	<select id="count" resultType="Integer">
+		<include refid="count"/>
+	</select>
+	
+	
+	<select id="countByTagList" resultType="Integer">
+		<include refid="count"/>
+		JOIN
+			post_tag pt on pt.postId = p.id
+		WHERE
+			pm.isPublic = 'true'
+			AND pt.tag_value IN
+			<foreach collection="list" item="item" index="index"
+				open="(" separator="," close=")">
+				#{item}				
+			</foreach>
 	</select>
 </mapper>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Page;
+import kr.co.webcash.domain.TagCategory;
 import kr.co.webcash.domain.post.Post;
 
 public interface PostService {
@@ -13,19 +14,21 @@ public interface PostService {
 
 	long findLastDisplayIdByBlogId(String blogId);
 	
+	int count();
 	int countByCategory(Category category);
+	int countByTagCategory(TagCategory tagCategory);
 	
 	Post findById(long id);
 	Post findByBlogIdAndDisplayId(String blogId, long displayId);
 
-	List<Post> listByBlogIdAndCategoryDisplayId(String blogId, long categoryDisplayId);
-	List<Post> listByBlogId(String blogId);
-	
-	List<Post> search(String query);
-	
 	Page getPage(String blogId, int pageNum);
 	Page getPagePublic(String blogId, int pageNum);
 	
+	List<Post> search(String query);
+	List<Post> listByPage(Page page);
+	
+	List<Post> listByBlogIdAndCategoryDisplayId(String blogId, long categoryDisplayId);
+	List<Post> listByBlogId(String blogId);
 	List<Post> listByBlogIdAndPageNumber(String blogId, int pageNumber);
 	List<Post> listByBlogIdAndPage(String blogId, Page page);
 	
@@ -33,4 +36,5 @@ public interface PostService {
 	List<Post> listPublicByBlogIdAndPage(String blogId, Page page);
 	List<Post> listByBlogIdAndPageNumberAndPageSize(String blogId, int pageNumber, int pageSize);
 	List<Post> tempListByBlogId(String blogId);
+	List<Post> listByTagCategoryAndPage(TagCategory tagCategory, Page page);
 }

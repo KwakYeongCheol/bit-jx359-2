@@ -24,7 +24,7 @@ public class CategoryRepositoryImpl implements CategoryRepository{
 		return categoryList;
 	}
 	public Category wrap(Category category){
-		
+		if(category == null)		return category;
 		addPostList(category);
 		return category;
 	}

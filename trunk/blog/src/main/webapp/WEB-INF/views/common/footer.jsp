@@ -1,9 +1,10 @@
 	</section>
-		
+	
+	<div style="clear:both;"></div>		
 	<footer>
 		Hello~
 	</footer>
-</div>	
+</div>
 <script>
 $(document).ready(function(){
 	$(".nav-title").mouseover(function(){

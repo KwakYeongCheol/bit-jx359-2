@@ -40,6 +40,11 @@ public class Category {
 		return this.blog.getId();
 	}
 	
+	public String getBlogTitle() {
+		if(this.blog == null)		return null;
+		return this.blog.getTitle();
+	}
+	
 	public static long nextOrderValue(long orderValue) {
 		return orderValue + DEFAULT_DISTANCE;
 	}

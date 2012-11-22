@@ -46,6 +46,14 @@ INSERT INTO SCRAPS (postId, targetPostId, targetPostRevisionId)
 	VALUES(1, 3, 1);
 INSERT INTO POST_REVISION (postId, displayId, diff)
 	VALUES(1, 1, '');
+INSERT INTO post_tag (postId, tag_value)
+	VALUES(1, '자바');
+INSERT INTO post_tag (postId, tag_value)
+	VALUES(1, '애플');
+INSERT INTO post_tag (postId, tag_value)
+	VALUES(1, '노트북');
+INSERT INTO post_tag (postId, tag_value)
+	VALUES(1, '제주도');
 
 INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
 	VALUES(2, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 2);
@@ -53,6 +61,8 @@ INSERT INTO POST_METADATA (postId, isPublic, isTemp, canScrap, canTrackback, can
 	VALUES(2, 'true', 'false', 'false', 'false', 'false');
 INSERT INTO POST_REVISION (postId, displayId, diff)
 	VALUES(2, 1, '');
+INSERT INTO post_tag (postId, tag_value)
+	VALUES(2, '자바');
 
 INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
 	VALUES(3, 'Tiny Farm ', '말하는 피닉스는 안생기나? ', NOW(),3, 1);
@@ -60,6 +70,8 @@ INSERT INTO POST_METADATA (postId, isPublic, isTemp, canScrap, canTrackback, can
 	VALUES(3, 'true', 'false', 'true', 'true', 'true');
 INSERT INTO POST_REVISION (postId, displayId, diff)
 	VALUES(3, 1, '');
+INSERT INTO post_tag (postId, tag_value)
+	VALUES(3, '애플');
 
 INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
 	VALUES(4, '해적 시리즈..  ', '더럽게 안나와 ㅠㅠ ', NOW(), 3, 2);
@@ -67,6 +79,8 @@ INSERT INTO POST_METADATA (postId, isPublic, isTemp, canScrap, canTrackback, can
 	VALUES(4, 'true', 'false', 'true', 'true', 'true');
 INSERT INTO POST_REVISION (postId, displayId, diff)
 	VALUES(4, 1, '');
+INSERT INTO post_tag (postId, tag_value)
+	VALUES(4, '안드로이드');
 
 INSERT INTO POST (id,  title, contents, dateCreated, categoryId, displayId)
 	VALUES(5, '전설템 득템  ', '오예 치킨먹자 고고 ', NOW(), 4, 3);
@@ -130,6 +144,8 @@ INSERT INTO POST_METADATA (postId, isPublic, isTemp, canScrap, canTrackback, can
 	VALUES(13, 'true', 'false', 'false', 'false', 'false');
 INSERT INTO POST_REVISION (postId, displayId, diff)
 	VALUES(13, 1, '');
+INSERT INTO post_tag (postId, tag_value)
+	VALUES(13, '제주도');
 	
 INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
 	VALUES(14, 'Its Raining Day.. ', '비가 오는 길에 ~ ', NOW(), 2, 11);
@@ -188,7 +204,7 @@ INSERT INTO POST_REVISION (postId, displayId, diff)
 	VALUES(21, 1, '');
 	
 	INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
-	VALUES(22, 'Its Raining Day..  임시ㅋ', '비가 오는 길에 ~ 임시ㅋ', NOW(), 2, 19);
+	VALUES(22, 'Its Raining Day..  임시ㅋ', '숏', NOW(), 2, 19);
 INSERT INTO POST_METADATA (postId, isPublic, isTemp, canScrap, canTrackback, canComment)
 	VALUES(22, 'true', 'true', 'true', 'true', 'true');
 INSERT INTO POST_REVISION (postId, displayId, diff)
@@ -200,9 +216,11 @@ INSERT INTO POST_METADATA (postId, isPublic, isTemp, canScrap, canTrackback, can
 	VALUES(23, 'true', 'false', 'true', 'true', 'true');
 INSERT INTO POST_REVISION (postId, displayId, diff)
 	VALUES(23, 1, '');
+INSERT INTO post_tag (postId, tag_value)
+	VALUES(1, '1박2일');
 	
 	INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
-	VALUES(24, 'Its Raining Day..  임시ㅋzzz', '비가 오는 길에 ~ 이것도 임시ㅋㅋ', NOW(), 2, 21);
+	VALUES(24, 'Its Raining Day..  임시ㅋzzz', '짧아', NOW(), 2, 21);
 INSERT INTO POST_METADATA (postId, isPublic, isTemp, canScrap, canTrackback, canComment)
 	VALUES(24, 'true', 'true', 'true', 'true', 'true');
 INSERT INTO POST_REVISION (postId, displayId, diff)

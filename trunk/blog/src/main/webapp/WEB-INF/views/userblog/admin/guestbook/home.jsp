@@ -14,9 +14,9 @@
 				<tr>
 					<th>번호</th>
 					<th>내용</th>
-					<th>삭제</th>
 					<th>작성자</th>
 					<th>작성일</th>
+					<th>삭제</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -26,11 +26,11 @@
 					<td>
 						<a href="${pageContext.request.contextPath }/${blog.id}/guestbook?displayId=${guestbook.displayId}">${guestbook.contents }</a>
 					</td>
-					<td><a href="${pageContext.request.contextPath }/${blog.id}/guestbook/delete?displayId=${guestbook.displayId}&redirectURI=${pageURI }">삭제</a></td>
 					<td>
 						${guestbook.writer.name }
 					</td>
 					<td><spring:eval expression="guestbook.dateCreated" /></td>
+					<td><a href="${pageContext.request.contextPath }/${blog.id}/guestbook/delete?displayId=${guestbook.displayId}&redirectURI=${pageURI }">삭제</a></td>
 				</tr>
 				</c:forEach>
 				<c:if test="${guestbookList.isEmpty() }">
