@@ -15,7 +15,7 @@
 	<form:hidden path="displayId" value="${post.displayId } "/>
 	<div class="editor">
 		<div class="editor_menu">
-			<input class="btn" id="btnWrite" type="buttun" value="글쓰기" />
+			<input class="btn" id="btnWrite" type="button" value="글쓰기" />
 			<input class="btn" type="button" value="미리보기" />
 			<input class="btn" id="btnWriteTemp" type="button" value="임시저장" />
 			
@@ -81,8 +81,9 @@
 				</form:select>
 				<form:input path="title" cssStyle="width: 70%; height:25px;" placeholder="제목을 입력하세요." />
 			</div>
-			
-			<form:textarea path="contents" id="redactor_content" />
+			<div class="editor_contents">
+				<form:textarea path="contents" id="redactor_content" />
+			</div>
 		</div>
 	</div>
 	</form:form>

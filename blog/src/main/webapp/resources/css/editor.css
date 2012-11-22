@@ -24,7 +24,7 @@ hr {display:none;}
 .check {float:left;width:13px;height:13px;}
 
 /* 버튼 */
-.btn {overflow:hidden;cursor:pointer; border:1px solid #000; font-size:15px;margin: 5px 5px 10px 0px; padding: 5px; }
+.btn {overflow:hidden; cursor:pointer; border:1px solid #000; font-size:15px; margin: 5px 5px 10px 0px; padding: 5px; }
 
 .btn:hover{
 	background-color: #FFF;
@@ -47,7 +47,8 @@ hr {display:none;}
 }
 
 .editor .editor_editor{
-	background-image:url('images/bg-gray-noise.jpg');
+	background-image:url(../images/bg-gray-noise.jpg);
+	color: #000;
 	padding: 10px;
 }
 
@@ -65,6 +66,10 @@ hr {display:none;}
 
 .editor .editor_row_desc{
 	display: inline;
+}
+
+.editor .editor_contents{
+	color: #000;	
 }
 
 .editor .tag{

@@ -104,7 +104,8 @@ function categoryClick(){
 				.removeClass("category-active")
 				.addClass("category")
 				.bind('click', categoryClick)
-				.appendTo("#categoryBox");
+				.appendTo("#categoryBox")
+				.css("display","inherit");
 			$.each($(this).find(".postContents"), function(){
 				$(this).empty();
 			});
@@ -142,8 +143,8 @@ function addContents(){
 			success : function(result) {
 				if (result != null) {
 						$postContents.append(result);
-						$postContents.hide();
-						$postContents.toggle();
+						$postContents.show();
+						/* $postContents.slideDown(); */
 				}
 			},
 			error : function(result) {
@@ -152,24 +153,20 @@ function addContents(){
 		}, 'json');
 		$(this).unbind('click');
 		$(this).bind('click',function(){
-			$(this).next().slideDown();
 			$(this).next().toggle();
 		});
 }
 
 function openEditor(){
-	console.log("openEditor");
 	var postBackground = $("<div>").addClass("postBackground").appendTo($("body"));
 	var postEditor = $("<div>").addClass("postEditor").appendTo($("body"));
-	var editor = $("<div>").addClass("editor").appendTo(postEditor);
+	var editorBox = $("<div>").addClass("editorBox").appendTo(postEditor);
 	$.ajax({
 		url : '${pageContext.request.contextPath }/${blog.id }/admin/post/write',
 		type : 'GET',
 		success : function(result){
 			if(result != null){
-				editor.append(result);
-				$("#editor").fadeIn(500);
-				$("#editor").appendTo(postEditor);
+				editorBox.append(result);
 			}
 		},
 		error : function(result){
@@ -192,11 +189,11 @@ $(document).ready(function(){
 	/* 카테고리 event end  */
 	$("#categoryActiveBox .category-active .postTitle").bind('click', addContents);
 	$("#categoryBox .category .postDate").hide();
-	
 	$(".showAllCateogory").click(function(){
 		$(".showAllCategory").hide();
 		$("#categoryActiveBox").hide(); 
 		$("#categoryBox").css("width", "80%");
+		$("#categoryBox .post").css("display", "inherit");
 	});
 	
 	$(".openEditor").bind('click', function(){
