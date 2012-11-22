@@ -126,14 +126,6 @@
 			p.id = #{id}
 	</select>
 	
-	<select id="findAllByQuery" resultType="Post">
-		<include refid="select"/>
-		WHERE 
-			pm.isPublic = 'true'
-			AND p.contents LIKE '%'||#{query}||'%'
-		ORDER BY p.id DESC
-	</select>
-		
 	<select id="findAllTempByBlogId" resultType="Post">
 		<include refid="select"/>
 		WHERE
@@ -152,6 +144,7 @@
 				open="(" separator="," close=")">
 				#{item}				
 			</foreach>
+		ORDER BY p.dateCreated DESC
 	</select>
 	
 	<select id="countByBlogId" resultType="Integer">
@@ -189,5 +182,24 @@
 				open="(" separator="," close=")">
 				#{item}				
 			</foreach>
+	</select>
+	
+	<select id="countByQuery" resultType="Integer">
+		<include refid="count"/>
+		LEFT OUTER JOIN
+			post_tag pt on pt.postId = p.id
+		WHERE
+			(p.contents LIKE '%'||#{query}||'%' OR pt.tag_value = #{query})
+			AND pm.isPublic = 'true'
+	</select>
+	
+	<select id="findAllByQuery" resultType="Post">
+		<include refid="select"/>
+		LEFT OUTER JOIN
+			post_tag pt on pt.postId = p.id
+		WHERE
+			(p.contents LIKE '%'||#{query}||'%' OR pt.tag_value = #{query})
+			AND pm.isPublic = 'true'
+		ORDER BY p.id DESC
 	</select>
 </mapper>

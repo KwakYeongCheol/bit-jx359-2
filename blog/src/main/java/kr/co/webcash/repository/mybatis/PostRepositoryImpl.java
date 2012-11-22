@@ -152,8 +152,8 @@ public class PostRepositoryImpl implements PostRepository {
 	}
 
 	@Override
-	public List<Post> findAllByQuery(String query) {
-		return wrap(sqlSession.<Post>selectList("Post.findAllByQuery", query));
+	public List<Post> findAllByQueryAndPage(String query, int offset, int limit) {
+		return wrap(sqlSession.<Post>selectList("Post.findAllByQuery", query, new RowBounds(offset, limit)));
 	}
 
 	@Override
@@ -206,5 +206,10 @@ public class PostRepositoryImpl implements PostRepository {
 	@Override
 	public List<Post> findAllByTagListAndPage(List<String> tagList, int offset, int limit) {
 		return wrap(sqlSession.<Post>selectList("Post.findAllByTagList", tagList, new RowBounds(offset, limit)));
+	}
+
+	@Override
+	public int countByQuery(String query) {
+		return sqlSession.<Integer>selectOne("Post.countByQuery", query);
 	}
 }
