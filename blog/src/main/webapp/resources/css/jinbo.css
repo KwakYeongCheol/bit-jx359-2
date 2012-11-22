@@ -1,3 +1,5 @@
+@CHARSET "UTF-8";
+
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,textarea,blockquote,th,td,input,select,textarea,button{margin:0;padding:0;}
 fieldset,img{border:0 none;}
 dl,ul,ol,menu,li {list-style:none;}
@@ -9,14 +11,15 @@ button {border:0 none;background-color:transparent;cursor:pointer;}
 
 body,th,td,input,select,textarea,button,h1,h2,h3,h4,h5,h6 {font:12px;color:#000;}
 
+
 body{
-	font-size: 13px;
+	margin: 0px;
 	background: #DDD;
 	color: #FFF;
 }
 
 #wrap{
-	min-width: 1000px;
+	width: 1000px;
 	margin: 0 auto 0;
 }
 
@@ -43,6 +46,7 @@ header{
 }
 
 .title{
+	width: 100px;
 	height: 50px;
 	font-size: 30px;
 	text-align: center;
@@ -51,31 +55,10 @@ header{
 
 .searchBox{
 	float: left;
-	margin-left: 20px;
 }
 
 .searchBox input{
 	height: 20px;
-}
-
-.input_box{
-	height: 20px;
-	width: 200px;
-	padding: 0 10px;
-	border-radius: 10px;
-	background-color: #FEFDED;
-}
-
-.btn{
-	padding:2px;
-	margin: 0 0 0 5px;
-	width:90px;
-	height:23px;
-	border-radius:10px;
-	color: #FFF;
-	background-image:url(../images/t_back.jpg);
-	background-repeat:repeat-x;
-	background-position:center center;
 }
 
 .loginBox{
@@ -109,10 +92,13 @@ header{
 }
 
 .nav-menu{
+	position: absolute;
+	z-index: 20;
 	padding: 2px 0 0 0;
 	margin: 0px;
 	font-size: 12px;
 	display: none;
+	background: #0593be;
 }
 
 .nav-menu li{
@@ -120,10 +106,7 @@ header{
 	height: 20px;
 	list-style: none;
 }
-
 /* header end */
-
-
 
 /* section start */
 section{
@@ -132,12 +115,11 @@ section{
 }
 
 section .menu{
-	padding: 50px 10px 30px 20px;
+	padding: 50px 10px 30px 50px;
 	float: left;
 	width: 150px;
 	text-align: right;
 	color: #0593be;
-	background-image: url('../images/bg-gray-noise.jpg');
 }
 
 section .menu a{
@@ -161,43 +143,14 @@ section .menu ul li{
 	list-style: none;
 }
 
-.writeBtn{
-	cursor: pointer;
-}
-.postWrite{
-	margin: 0 0 0 0;
-	width: auto;
-	height: auto;
-	background: #fff;
-	background-color: rgba(0 , 5, 5, .5);
-	position: absolute;
-	border: 2px solid;
-	z-index: 10;
-}
-.postWrite .postWriteCloseBtn{
-	border: 1px solid;
-	cursor: pointer;
-	float: right;
-	font-size: 20px;
-	margin-top: 10px;
-	margin-right: 10px;
-	font-weight: bold;
-	position: relative;
-}
-.postWrite .contents{
-	margin: 30px 0 0 50px;
-	border: 1px solid;
-	float: left;
-	width: auto;
-	height: auto;
-}
+
 
 /* section end */
 
 /* article start */
 article{
-	padding: 30px 50px 20px 20px;
-	color: #000;
+	padding: 30px 50px 50px 50px;
+	background-color: #0593be;
 }
 
 article .articleTitle{
@@ -206,18 +159,14 @@ article .articleTitle{
 }
 
 .articleB{
-	margin-left: 200px;
-}
-
-article a{
-	color: #000;
+	margin-left: 250px;
 }
 
 /* article end */
 
 .theme-a{
-	color: #000;
-	background-color: #DDD;
+	color: #FFF;
+	background-color: #0593be;
 }
 
 .theme-a-reverse{
@@ -232,16 +181,18 @@ article a{
 
 .group .groupTitle{
 	display: inline;
-	margin-left: 10px;
-	padding: 5px;
-	font-size: 15px;
+	margin-left: 20px;
+	padding: 10px;
+	font-size: 20px;
 	border: 2px solid;
+	background-color: #0593be;
 }
 
 .group .groupContents{
 	margin-top: -15px;
-	padding: 40px 10px 20px 10px;
+	padding: 40px 5px 30px 5px;
 	border: 2px solid;
+	width: 90%;
 }
 
 /* group end */
@@ -286,113 +237,132 @@ article a{
 	text-align: center;
 	margin-left: 0px;
 }
-
-
 /* row end */
 
-/* editor */
 
-.postEditor{
-	float: left;
-	position: absolute;
-	margin: -800px 0 auto 100px;
-	padding: 50px;
-	width: 70%;
-	height: auto;
-	background-color: rgba(27 , 103, 107, .7);
-	border: 2px solid;
-	z-index: 30;
+.contentsWrap{
+	width: 700px;
+	float:right;
 }
-.postBackground{
-	position: absolute;
-	margin: -650px 0 auto 0;
-	width: 100%;
-	height: 1000%;
-	z-index: 10;
-}
-/* editor end */
 
-/* infoBox start*/
-.infoBox{
-	width:320px;
-	min-height:150px;
+/* contentsSide start */
+.contentsSide{
+	float:right;
+	width: 180px;
+	height: 700px;
+}
+
+/* contentsSide end */
+
+/* newPostWrap start */
+.newPostWrap{
+	width: 500px;
 	float:left;
-	margin: 10px 30px 30px 10px;
+	color:#000;
 }
 
-.infoBoxTitle{
+.newPostWrap a{
+	color:#000;
+}
+
+.newPostWrap a:hover{
+	color:#999;
+	background-color: #DDD;
+}
+
+.newPostWrap h3{
+	display: inline;
+}
+
+.newPostTitle{
+	height: 30px;
+}
+
+.newPostMenu{
+	display: inline;
+	margin-left: 150px;
+}
+
+.newPostMenu li{
+	display: inline;
+	margin: 0 5px 0 5px;
+}
+
+.newPostList{
+	color:#111;
+	width:95%;
+	font-size: 12px;
+}
+
+.newPostList a{
+	color:#000;
+}
+
+.newPostList a:hover{
+	color:#999;
+	background-color: #DDD;
+}
+
+.newPost{
+	margin: 12px 0 0 20px;
+}
+
+.newPost dt{
 	font-weight: bold;
-	font-size: 15px;
-	margin-bottom: 10px;
+	float:left;
 }
 
-.infoBoxContents{
-	
+.newPost .blogInfo{
+	display:inline;
 }
 
-.txt{
-	width:250px;
-	font-weight: normal;
-	text-align: left;
+.newPost .desc{
+	line-height: 18px;
+	padding-top: 3px;
 }
 
-.date{
-	width:70px;
-	color:#888;
+.newPost .tag{
+	line-height: 17px;
 }
 
-.name{
-	width:70px;
+.newPost .tag a{
+	color:#999;
+	margin-right: 8px;
 }
 
-/* infoBox end*/
+/* newPostWrap end */
 
-
-/* table start */
-.table{
-	text-align: left;
-	width:100%;
-}
-
-.table th{
-
-}
-
-.table tr{
-	margin: 0px;
-	padding: 0px;
-}
-
-.table td{
-	padding: 5px 0 5px 0;
-}
-
-.table td:nth-child(1){
-	width:15%;
-}
-
-.table tr:nth-child(even){
-	background-color: #CCC;
-}
-
-/* table end */
 
 /* page start */
 .page{
 	text-align: center;
+	font-size: 12px;
 }
 
-.page li{
+.page a{
+	color:#000;
+}
+
+.page a:hover{
+	color:#999;
+	font-size: 13px;
+	background-color: #DDD;	
+}
+
+.page ul li{
 	display: inline;
-	list-style: none;
-	margin: 0px;
 }
 
+.page .currentPage{
+	font-weight: bold;
+	font-size: 13px;
+}
 /* page end */
 
 
 /* footer start */
 footer{
+	margin-top: 30px;
 	padding: 30px;
 	height: 100px;
 	background-color: #0593be;

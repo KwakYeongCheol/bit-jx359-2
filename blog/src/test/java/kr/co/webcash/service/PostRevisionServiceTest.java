@@ -12,6 +12,7 @@ import java.util.Map;
 
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Page;
+import kr.co.webcash.domain.TagCategory;
 import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.domain.post.PostRevision;
 import kr.co.webcash.repository.PostRevisionRepository;
@@ -292,6 +293,31 @@ class MockPostService implements PostService{
 	public int countByCategory(Category category) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public int count() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int countByTagCategory(TagCategory tagCategory) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Post> listByPage(Page page) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Post> listByTagCategoryAndPage(TagCategory tagCategory,
+			Page page) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

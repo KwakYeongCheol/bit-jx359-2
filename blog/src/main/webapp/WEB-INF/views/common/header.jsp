@@ -5,14 +5,16 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>${htmlTitle} </title>
-	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/core-0.0.1.css">
+	<title>JINBO </title>
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jinbo.css">
 	<script src="${pageContext.request.contextPath }/resources/js/jquery-1.8.2.js"></script>
 </head>
 <body>
 <div id="wrap">
 	<header>
-		<div class="title"><a href="${pageContext.request.contextPath }/"><img src="${pageContext.request.contextPath }/resources/images/jinbo.png"/></a></div>
+		<div class="title">
+			<a href="${pageContext.request.contextPath }/">JINBO</a>
+		</div>
 		
 		<div class="searchBox">
 			<form action="${pageContext.request.contextPath }/search" method="get">
@@ -24,6 +26,7 @@
 		<c:if test="${!loginUserProvider.loggedIn }">
 		<div class="loginBox">
 			<form action="${pageContext.request.contextPath }/loginAction" method="post">
+				<input type="hidden" name="redirectURI" value="${pageURI }" />
 				<input type="text" name="loginId" placeholder="sample@gmail.com" class="loginId"/> 
 				<input type="password" name="password" placeholder="password" class="password"/>
 				<input type="submit" value="Log In" class="submitBtn"/>
@@ -40,7 +43,7 @@
 			<ul class="nav-menu">
 				<li><a href="${pageContext.request.contextPath }/settings/user">계정설정</a></li>
 				<hr />
-				<li><a href="${pageContext.request.contextPath }/logout">로그아웃</a></li>
+				<li><a href="${pageContext.request.contextPath }/logout?redirectURI=${pageURI}">로그아웃</a></li>
 			</ul>
 		</nav>
 		

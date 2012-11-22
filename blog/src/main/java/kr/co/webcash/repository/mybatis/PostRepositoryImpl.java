@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.webcash.domain.Page;
 import kr.co.webcash.domain.comment.CommentType;
 import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.repository.CommentRepository;
@@ -102,6 +103,12 @@ public class PostRepositoryImpl implements PostRepository {
 	public List<Post> findAll() {
 		return wrap(sqlSession.<Post>selectList("Post.findAll"));
 	}
+	
+	@Override
+	public List<Post> findAllByPage(Page page) {
+		return wrap(sqlSession.<Post>selectList("Post.findAll", null, new RowBounds(page.getStartPage(), page.getPageSize())));
+	}
+
 
 	@Override
 	public List<Post> findAllByBlogId(String blogId) {
@@ -184,5 +191,20 @@ public class PostRepositoryImpl implements PostRepository {
 	@Override
 	public int countByCategoryId(long categoryId) {
 		return sqlSession.<Integer>selectOne("Post.countByCategoryId", categoryId);
+	}
+
+	@Override
+	public int count() {
+		return sqlSession.<Integer>selectOne("Post.count");
+	}
+
+	@Override
+	public int countByTagList(List<String> tagList) {
+		return sqlSession.<Integer>selectOne("Post.countByTagList", tagList);
+	}
+
+	@Override
+	public List<Post> findAllByTagListAndPage(List<String> tagList, int offset, int limit) {
+		return wrap(sqlSession.<Post>selectList("Post.findAllByTagList", tagList, new RowBounds(offset, limit)));
 	}
 }

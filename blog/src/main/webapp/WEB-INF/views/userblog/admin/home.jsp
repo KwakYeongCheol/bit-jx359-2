@@ -3,6 +3,31 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <jsp:include page="/WEB-INF/views/userblog/admin/common/header.jsp" />
 
+<div style="min-height: 190px;">
+	<div class="infoBox">
+		<div class="infoBoxTitle">
+			컨텐츠 정보
+		</div>
+		<div class="infoBoxContents">
+		<hr />
+		<table>
+			<tr>
+				<th class="txt">글</th>
+				<td class="name">${blog.totalPostCount }</td>
+			</tr>
+			<tr>
+				<th class="txt">방명록</th>
+				<td class="name">${blog.totalGuestbookCount }</td>
+			</tr>
+			<tr>
+				<th class="txt">댓글</th>
+				<td class="name">${blog.totalCommentCount }</td>
+			</tr>
+		</table>
+		<hr />
+		</div>
+	</div>
+</div>
 
 <div class="infoBox">
 	<div class="infoBoxTitle">

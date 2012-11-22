@@ -11,6 +11,10 @@ public class Blog {
 	private long todayCount;
 	private long totalCount;
 	
+	private long totalPostCount;
+	private long totalGuestbookCount;
+	private long totalCommentCount;
+	
 	public Blog(){
 	}
 	
@@ -26,35 +30,12 @@ public class Blog {
 		setTotalCount(totalCount);
 	}
 	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public String getOwner() {
-		return owner;
-	}
-	public void setOwner(String owner) {
-		this.owner = owner;
-	}
-	public Date getDateCreated() {
-		return dateCreated;
-	}
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
-	}
 	@Override
 	public String toString() {
 		return "Blog [id=" + id + ", title=" + title + ", owner=" + owner
 				+ ", dateCreated=" + dateCreated + "]";
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -66,6 +47,7 @@ public class Blog {
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)							return true;
@@ -73,7 +55,7 @@ public class Blog {
 		if (getClass() != obj.getClass())			return false;
 		
 		Blog other = (Blog) obj;
-
+		
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -82,9 +64,25 @@ public class Blog {
 		
 		return true;
 	}
+	
+	public String getId() {		return id;	}
+	public void setId(String id) {		this.id = id;	}
+	public String getTitle() {		return title;	}
+	public void setTitle(String title) {		this.title = title;	}
+	public String getOwner() {		return owner;	}
+	public void setOwner(String owner) {		this.owner = owner;	}
+	public Date getDateCreated() {		return dateCreated;	}
+	public void setDateCreated(Date dateCreated) {		this.dateCreated = dateCreated;	}
 
 	public long getTodayCount() {					return todayCount;	}
 	public void setTodayCount(long todayCount) {	this.todayCount = todayCount;	}
 	public long getTotalCount() {					return totalCount;	}
 	public void setTotalCount(long totalCount) {	this.totalCount = totalCount;	}
+	
+	public long getTotalPostCount() {		return totalPostCount;	}
+	public void setTotalPostCount(long totalPostCount) {		this.totalPostCount = totalPostCount;	}
+	public long getTotalGuestbookCount() {		return totalGuestbookCount;	}
+	public void setTotalGuestbookCount(long totalGuestbookCount) {		this.totalGuestbookCount = totalGuestbookCount;	}
+	public long getTotalCommentCount() {		return totalCommentCount;	}
+	public void setTotalCommentCount(long totalCommentCount) {		this.totalCommentCount = totalCommentCount;	}
 }

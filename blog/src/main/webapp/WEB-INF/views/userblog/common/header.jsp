@@ -51,8 +51,8 @@
 				</div>
 
 				<div class="loginBox">
-					<form action="${pageContext.request.contextPath }/loginAction"
-						method="post">
+					<form action="${pageContext.request.contextPath }/loginAction" method="post">
+						<input type="hidden" name="redirectURI" value="${pageURI }" />
 						<input type="text" name="loginId" placeholder="sample@gmail.com" />
 						<input type="password" name="password" placeholder="password" />
 						<input type="submit" value="Log In" />
@@ -67,7 +67,7 @@
 						<li><a
 							href="${pageContext.request.contextPath }/settings/user">계정설정</a></li>
 						<hr />
-						<li><a href="${pageContext.request.contextPath }/logout">로그아웃</a></li>
+						<li><a href="${pageContext.request.contextPath }/logout?redirectURI=${pageURI}">로그아웃</a></li>
 					</ul>
 				</nav>
 

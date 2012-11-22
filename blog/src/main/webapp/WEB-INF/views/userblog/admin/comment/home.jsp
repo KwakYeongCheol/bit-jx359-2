@@ -15,9 +15,9 @@
 				<tr>
 					<th>번호</th>
 					<th>내용</th>
-					<th>삭제</th>
 					<th>작성자</th>
 					<th>작성일</th>
+					<th>삭제</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -29,11 +29,11 @@
 							${comment.contents }
 						</a>
 					</td>
-					<td><a href="${pageContext.request.contextPath }/${blog.id}/comment/delete?displayId=${comment.displayId}&targetId=${comment.targetDisplayId}&type=${comment.targetType}">삭제</a></td>
 					<td>
 						${comment.writer.name }
 					</td>
 					<td><spring:eval expression="comment.dateCreated" /></td>
+					<td><a href="${pageContext.request.contextPath }/${blog.id}/comment/delete?displayId=${comment.displayId}&targetId=${comment.targetDisplayId}&type=${comment.targetType}">삭제</a></td>
 				</tr>
 				</c:forEach>
 			</tbody>

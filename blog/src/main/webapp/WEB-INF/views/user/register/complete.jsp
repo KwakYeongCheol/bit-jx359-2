@@ -9,7 +9,7 @@
 	
 	<div class="nextStep">
 		<a href="${pageContext.request.contextPath }/">메인 페이지로</a> | 
-		<a href="${pageContext.request.contextPath }/blog/create">블로그 생성하기</a>
+		<a href="${pageContext.request.contextPath }/settings/blog/create">블로그 생성하기</a>
 	</div>
 </div>
 

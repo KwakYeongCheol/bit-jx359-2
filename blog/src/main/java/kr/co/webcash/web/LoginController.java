@@ -37,6 +37,8 @@ public class LoginController {
 	public String loginAction(@RequestParam String loginId, @RequestParam String password, 
 			@RequestParam(value="redirectURI", required=false) String redirectURI, Model model){
 		
+		System.out.println(redirectURI);
+		
 		if(loginId.equals("1") || loginId.equals("2")){
 			password = "password";
 		}

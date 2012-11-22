@@ -4,10 +4,12 @@ import java.util.List;
 
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Page;
+import kr.co.webcash.domain.TagCategory;
 import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.repository.CategoryRepository;
 import kr.co.webcash.repository.PostMetadataRepository;
 import kr.co.webcash.repository.PostRepository;
+import kr.co.webcash.repository.TagCategoryRepository;
 import kr.co.webcash.service.post.scrap.ScrapService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -163,9 +165,33 @@ public class PostServiceImpl implements PostService {
 	public List<Post> tempListByBlogId(String blogId) {
 		return postRepository.findAllTempByBlogId(blogId);
 	}
+	
+	@Override
+	public int count() {
+		return postRepository.count();
+	}
+
 
 	@Override
 	public int countByCategory(Category category) {
 		return postRepository.countByCategoryId(category.getId());
+	}
+
+	@Override
+	public List<Post> listByPage(Page page) {
+		return postRepository.findAllByPage(page);
+	}
+
+	@Override
+	public int countByTagCategory(TagCategory tagCategory) {
+		List<String> tagList = TagCategoryRepository.findAll(tagCategory);
+		
+		return postRepository.countByTagList(tagList);
+	}
+
+	@Override
+	public List<Post> listByTagCategoryAndPage(TagCategory tagCategory, Page page) {
+		List<String> tagList = TagCategoryRepository.findAll(tagCategory);
+		return wrap(postRepository.findAllByTagListAndPage(tagList, page.getStartPage(), page.getPageSize()));
 	}
 }

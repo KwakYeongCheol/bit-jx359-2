@@ -78,6 +78,7 @@ public class Post {
 	/* sub object's getter / setter wrapper */
 	public void setBlog(Blog blog) {		this.category.setBlog(blog);	}
 	public String getBlogId(){		return this.category.getBlogId();	}
+	public String getBlogTitle(){	return this.category.getBlogTitle();	}
 	public PostRevision getCurrentRevision(){		return postRevisionList.get(0);	}
 
 	public boolean getCanTrackback(){		return postMetadata.getCanTrackback();	}

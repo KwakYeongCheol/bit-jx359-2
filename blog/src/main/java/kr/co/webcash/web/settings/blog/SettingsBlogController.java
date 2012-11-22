@@ -54,7 +54,6 @@ public class SettingsBlogController {
 		if(!result.hasErrors()){
 			blog.setOwner(loginUser().getLoginId());
 			blog.setDateCreated(new Date(System.currentTimeMillis()));
-			
 			if(blogService.createBlog(blog)){
 				status.setComplete();
 				this.loginUserProvider.get().addBlog(blog);
