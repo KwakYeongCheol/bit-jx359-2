@@ -36,7 +36,7 @@ public class BlogValidator implements Validator{
 				if(!pattern.matcher(blog.getId()).find())	errors.rejectValue("id", "field.validate.blog.id");
 				
 				Blog findBlog = blogService.findById(blog.getId());
-				if(findBlog != null)	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "id", "duplicate.blog.id");
+				if(findBlog != null)	errors.rejectValue("id", "field.duplicate.blog.id");
 			}
 			
 			if(blog.getTitle() != null){
