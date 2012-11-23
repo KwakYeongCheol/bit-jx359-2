@@ -98,15 +98,13 @@ function openEditor(){
 	console.log("openEditor");
 	var postBackground = $("<div>").addClass("postBackground").appendTo($("body"));
 	var postEditor = $("<div>").addClass("postEditor").appendTo($("body"));
-	var editor = $("<div>").addClass("editor").appendTo(postEditor);
+	var editorBox = $("<div>").addClass("editorBox").appendTo(postEditor);
 	$.ajax({
 		url : '${pageContext.request.contextPath }/${blog.id }/admin/post/write',
 		type : 'GET',
 		success : function(result){
 			if(result != null){
-				editor.append(result);
-				$("#editor").fadeIn(500);
-				$("#editor").appendTo(postEditor);
+				editorBox.append(result);
 			}
 		},
 		error : function(result){

@@ -137,7 +137,7 @@ section .menu{
 	width: 150px;
 	text-align: right;
 	color: #0593be;
-	background-image: url('../images/bg-gray-noise.jpg');
+	background-image: url(../images/bg-gray-noise.jpg);
 }
 
 section .menu a{
@@ -164,33 +164,7 @@ section .menu ul li{
 .writeBtn{
 	cursor: pointer;
 }
-.postWrite{
-	margin: 0 0 0 0;
-	width: auto;
-	height: auto;
-	background: #fff;
-	background-color: rgba(0 , 5, 5, .5);
-	position: absolute;
-	border: 2px solid;
-	z-index: 10;
-}
-.postWrite .postWriteCloseBtn{
-	border: 1px solid;
-	cursor: pointer;
-	float: right;
-	font-size: 20px;
-	margin-top: 10px;
-	margin-right: 10px;
-	font-weight: bold;
-	position: relative;
-}
-.postWrite .contents{
-	margin: 30px 0 0 50px;
-	border: 1px solid;
-	float: left;
-	width: auto;
-	height: auto;
-}
+
 
 /* section end */
 
@@ -291,15 +265,17 @@ article a{
 /* row end */
 
 /* editor */
-
+.openEditor{
+	cursor: pointer;
+}
 .postEditor{
 	float: left;
 	position: absolute;
 	margin: -800px 0 auto 100px;
 	padding: 50px;
-	width: 70%;
+	width: 65%;
 	height: auto;
-	background-color: rgba(27 , 103, 107, .7);
+	background-image:url(../images/wood-texture.jpg);
 	border: 2px solid;
 	z-index: 30;
 }
