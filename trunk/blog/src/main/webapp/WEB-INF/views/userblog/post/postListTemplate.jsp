@@ -62,8 +62,6 @@
 					</div>
 				</c:forEach>
 			</div>
-		</div>
-	</div>
 		<c:if test="${page.count > 0}">
 			<c:set var="pageCount"
 				value="${page.count / page.pageSize + ( page.count % page.pageSize == 0 ? 0 : 1)}" />
@@ -91,6 +89,8 @@
 					href="${pageContext.request.contextPath }/${blog.id }?pageNum=${page.numPageGroup*page.pageGroupSize+1}">[다음]</a>
 			</c:if>
 		</c:if>
+		</div>
+	</div>
 </section>
 <script>
 
