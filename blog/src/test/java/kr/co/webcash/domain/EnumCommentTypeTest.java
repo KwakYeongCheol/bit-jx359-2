@@ -15,6 +15,7 @@ public class EnumCommentTypeTest {
 		
 		CommentType type = CommentType.post;
 		assertThat(type.toString(), is("post"));
+		assertThat(type.getValue(), is("글"));
 		
 		
 		
@@ -23,6 +24,7 @@ public class EnumCommentTypeTest {
 		type = CommentType.guestbook;
 		
 		assertThat(type.toString(), is("guestbook"));
+		assertThat(type.getValue(), is("방명록"));
 	}
-
 }
+

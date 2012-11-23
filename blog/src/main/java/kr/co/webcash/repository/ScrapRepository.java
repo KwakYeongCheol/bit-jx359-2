@@ -13,4 +13,6 @@ public interface ScrapRepository {
 	Scrap findByPostIdAndTargetPostIdAndTargetPostRevisionId(long postId, long targetPostId, long targetPostRevisionId);
 
 	List<Scrap> findAllByTargetBlogId(String blogId);
+
+	int countByBlogId(String blogId);
 }

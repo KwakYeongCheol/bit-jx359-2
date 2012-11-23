@@ -23,6 +23,10 @@
 				<th class="txt">댓글</th>
 				<td class="name">${blog.totalCommentCount }</td>
 			</tr>
+			<tr>
+				<th class="txt">스크랩</th>
+				<td class="name">${blog.totalScrapCount }</td>
+			</tr>
 		</table>
 		<hr />
 		</div>

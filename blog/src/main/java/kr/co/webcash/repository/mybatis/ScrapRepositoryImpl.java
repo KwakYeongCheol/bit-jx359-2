@@ -45,4 +45,9 @@ public class ScrapRepositoryImpl implements ScrapRepository{
 		return sqlSession.<Scrap>selectList("Scrap.findAllByTargetBlogId", blogId);
 	}
 
+	@Override
+	public int countByBlogId(String blogId) {
+		return sqlSession.<Integer>selectOne("Scrap.countByBlogId", blogId);
+	}
+
 }
