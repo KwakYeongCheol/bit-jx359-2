@@ -21,7 +21,7 @@ public class Post {
 	private String title;
 	private String contents;
 	
-	@DateTimeFormat(pattern="yyyy/MM/dd HH:mm:ss")
+	@DateTimeFormat(pattern="yyyy/MM/dd HH:mm")
 	private Date dateCreated;
 	
 	/* meta data */

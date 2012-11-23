@@ -4,10 +4,15 @@
 <jsp:include page="/WEB-INF/views/settings/common/header.jsp"></jsp:include>
 
 <div class="group">
-	<div class="groupTitle theme-a">
+	<div class="groupTitle">
 		블로그 목록
 	</div>
 	<div class="groupContents">
+		<c:if test="${loginUserProvider.blogList.isEmpty() }">
+		<div style="text-align: center;">
+			블로그가 존재하지 않습니다.
+		</div>
+		</c:if>
 		<c:forEach items="${loginUserProvider.blogList }" var="blog">
 		<div class="row">
 			<div class="key">
