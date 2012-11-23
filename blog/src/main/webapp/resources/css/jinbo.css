@@ -247,8 +247,7 @@ article .articleTitle{
 
 /* group start */
 .group{
-	margin-bottom: 40px;
-	width:670px;
+	width:650px;
 }
 
 .group .groupTitle{
@@ -264,7 +263,6 @@ article .articleTitle{
 	margin-top: -15px;
 	padding: 40px 5px 30px 5px;
 	border: 2px solid;
-	width: 90%;
 }
 
 /* group end */
@@ -362,9 +360,28 @@ article .articleTitle{
 	width: 20px;
 }
 
+#birthYear, #birthMonth, #birthDay{
+	font-size:20px;
+}
+
 .row .submit{
 	text-align: center;
 	margin-left: 0px;
+}
+
+.row .inputSubmit{
+	width:100%;
+	font-size:20px;
+	height: 40px;
+	text-align: center;
+	margin-left: 0px;
+	border:1px solid #000;
+	border-radius: 10px;
+}
+
+.row .inputSubmit:hover{
+	background-color: #FFF;
+	cursor: hand;
 }
 /* row end */
 

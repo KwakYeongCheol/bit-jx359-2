@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <jsp:include page="/WEB-INF/views/settings/common/header.jsp"></jsp:include>
 
@@ -21,7 +22,7 @@
 				생년월일 : 
 			</div>
 			<div class="value">
-				${loginUserProvider.loginUser.birthday }
+				<spring:eval expression="loginUserProvider.loginUser.birthday" />
 			</div>
 		</div>
 		<div class="row">

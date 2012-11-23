@@ -8,7 +8,7 @@
 		<div class="articleTitle">
 			회원가입
 		</div>
-		<form:form modelAttribute="user" id="registerForm" action="${pageContext.request.contextPath }/user/register/register" method="post">
+		<form:form modelAttribute="user" id="registerForm" action="${pageContext.request.contextPath }/user/register/register" onsubmit="return registerFormCheck();" method="post">
 			<div class="group">
 				<div class="groupTitle">기본정보</div>
 				<div class="groupContents">
@@ -49,7 +49,7 @@
 				</div>					
 			</div>		
 			
-			<div class="group">
+			<div class="group" style="margin-top:40px;">
 				<div class="groupTitle">추가정보</div>
 				<div class="groupContents">
 					<div class="row">
@@ -61,28 +61,22 @@
 					</div>
 					<div class="row">
 						<div class="key">생년월일 : </div>
-						<select name="year">
-							<option value="2012">2012</option>
-							<option value="2011">2011</option>
+						<select id="birthYear" name="year">
+							<option value="-1">연도:</option>
 						</select>
-						년 
-						<select name="month">
-							<option value="10">10</option>
-							<option value="9">9</option>
+						<select id="birthMonth" name="month">
+							<option value="-1">월:</option>
 						</select>
-						월 
-						<select name="day">
-							<option value="20">20</option>
-							<option value="21">21</option>
+						<select id="birthDay" name="day">
+							<option value="-1">일:</option>
 						</select>
-						일
 					</div>
 				</div>					
 			</div>
 			
 			<div class="row">
 				<div class="submit">
-					<input type="submit" value="Register" />
+					<input class="inputSubmit" type="submit" value="Register" />
 				</div>
 			</div>	
 		</form:form>
@@ -90,18 +84,54 @@
 </article>
 
 <script>
+function registerFormCheck(){
+	var birthYear = $("#birthYear").val();
+	var birthMonth = $("#birthMonth").val();
+	var birthDay = $("#birthDay").val();
+	
+	if(birthYear == -1 || birthMonth == -1 || birthDay == -1){
+		alert("생년월일을 선택해주세요.");
+		return false;
+	}		
+
+	return true;
+}
+</script>
+
+<script>
 $(document).ready(function() {
-	$('#loginIdCheck').click(function() {
-		$.getJSON('${pageContext.request.contextPath}/user/register/checkLoginId/' + $('#loginId').val(), function(result) {
-			if (result.duplicated == true) {
-				alert('이미 등록된 로그인 ID입니다. ');
-				$('#loginId').val('');
-			} else {
-				alert('사용할 수 있습니다.');
-			}
-		});
-	});
+	initBirthSelect();	
 });
+
+function initBirthSelect(){
+	initBirthYear();
+	initBirthMonth();
+	initBirthDay();
+}
+
+function initBirthYear(){
+	var date = new Date();
+	var startYear = date.getFullYear();
+	var endYear = 1900;
+	
+	for(var i = startYear; i > endYear; i--){
+		$("<option>").val(i).html(i).appendTo($("#birthYear"));
+	}
+}
+
+function initBirthMonth(){
+	for(var i = 1; i <= 12; i++){
+		$("<option>").val(i).html(i).appendTo($("#birthMonth"));
+	}
+}
+
+function initBirthDay(){
+	for(var i = 1; i <= 31; i++){
+		$("<option>").val(i).html(i).appendTo($("#birthDay"));
+	}
+}
+
+
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
