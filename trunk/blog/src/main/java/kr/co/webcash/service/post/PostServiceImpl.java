@@ -56,10 +56,10 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public void update(Post post) {
+		postRevisionService.save(post);
 		postRepository.update(post);
 		post.getPostMetadata().setPost(post);
 		postMetadataRepository.update(post.getPostMetadata());
-		postRevisionService.save(post);
 	}
 	
 	@Override
