@@ -20,6 +20,10 @@ public class Category {
 	private List<Post> postList;
 	public Category(){}
 	
+	public Category(String title){
+		setTitle(title);
+	}
+	
 	public Category(Blog blog, long displayId, String title) {
 		setBlog(blog);
 		setDisplayId(displayId);
