@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import kr.co.webcash.domain.Favorite;
 import kr.co.webcash.domain.blog.Blog;
 
@@ -17,6 +19,7 @@ public class User {
 	
 	private Sex sex;
 	
+	@DateTimeFormat(pattern="yyyy년 MM월 dd일")
 	private Date birthday;
 	
 	private List<Favorite> favoriteList;
