@@ -64,34 +64,31 @@
 
 /* section start */
 section {
-	margin: 20px;
-	padding: 10px;
+	margin: 1% 0;
+	padding: 1% 0;
 	height: auto;
 }
 
 #categoryBox{
-		border: 1px solid #333;
-	
-	margin: 20px 0 20px 0;
+	margin: 20px 0 0 0;
+	margin-left: 8%;
 	height: auto;
-	width: 30%;
+	width: 22%;
 	float: left;
-	
 }
 
 #categoryActiveBox{
-		border: 1px solid #333;
-		
-	margin:20px;
+	margin:20px 0 0 0;
+	margin-left: 2%;
 	height:auto;
-	width: 60%;
-	float: right;
+	width: 66%;
+	float: left;
 }
 
 #categoryBox .category{
-	margin: 10px;
-	padding: 10px;
-	width: 200px;
+	margin: 1%;
+	padding: 1%;
+	width: 96%;
 	height: auto;
 	float: left;
 	 -webkit-border-radius: 10px;
@@ -146,16 +143,17 @@ section {
 .category{
 	float: left;
 	border: 1px solid #333;
+	width:18% ;
 }
 .cateogryTitle{
 	font-size: 100%; 
 	font-weight: bold;
 	color: #000;
 }
-#categoryActiveBox .category,#categoryActiveBox .category-active{
+#categoryActiveBox .category, #categoryActiveBox .category-active{
 	margin-left: 10px;
 	padding: 10px;
-	width: 80%;
+	width: 95%;
 	height: auto; 
 	 -webkit-border-radius: 10px;
  	 -moz-border-radius: 10px;
@@ -214,23 +212,58 @@ section {
 .postDate{
 	float: right;
 }
-/* 모두보기 버튼 start  */
-.showAllCateogory{
-	padding: 2px;
-	margin: 0 0 0 10px;
-	margin-top: 5px;
-	width:90px;
-	height:23px;
-	border:1px solid #999;
-	border-radius:10px;
-	color: #FFF;
-	background-image:url(../../images/t_back.jpg);
-	background-repeat:repeat-x;
-	background-position:center center;
-	float: left;
+
+/* 모아보기 글쓰기  - Start */
+
+#userblogSelect{
+	width: 8%;
+    float: left;
+    position: fixed;	
+ 	margin: 0; 
+ 	margin-top: 20px;
+}
+
+#userblogSelect .page {
+	background: none repeat scroll 0 0 #202020;
+	background-color: rgba(32, 32, 32, .5);
+    list-style: none;
+    padding: 10px 0;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+#userblogSelect .page li {
+    border-left: 1px rgba(255, 255, 255, 0.3);
+    border-radius: 3px 3px 3px 3px;
+    color: #FFFFFF;
+    display: block;
+    font-family: 'ratio-n7','ratio','Helvetica Neue',Arial,sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    line-height: 1;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+#userblogSelect .page li:active {
+    background-color: #FFFFFF;
+    color: #202020;
+	cursor: pointer;
+}
+
+#userblogSelect .page li:hover, #userblogSelect .page li:focus {
+    color: #F16251;
 }
 /* 모두보기 버튼 end  */
 
+
+#userblogSelect .page .pageHome:active {
+    background-color: transparent;
+}
+/* 모아보기 글쓰기  - End*/
 
 /* 더보기 버튼 start */
 #addpost{
@@ -242,7 +275,7 @@ section {
 
 #addpost a{
 	padding: 2px 5px;
-	text-decoreation: none;
+	text-decoration: none;
 	color: #333;
 	margin: 0 5px;
 }
@@ -253,6 +286,7 @@ section {
 	text-decoration: underline;
 }
 /* 더보기 버튼 end */
+
 
 
 
