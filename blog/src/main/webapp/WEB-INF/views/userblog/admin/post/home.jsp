@@ -92,7 +92,7 @@
 				</c:forEach>
 				<c:if test="${postList.isEmpty() }">
 				<tr>
-					<td colspan="6" style="text-align: center;">
+					<td colspan="8" style="text-align: center;">
 						게시글이 존재하지 않습니다.
 					</td>
 				</tr>

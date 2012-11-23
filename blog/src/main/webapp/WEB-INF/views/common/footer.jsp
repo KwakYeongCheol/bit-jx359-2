@@ -7,16 +7,24 @@
 </div>
 <script>
 $(document).ready(function(){
-	$(".nav-title").mouseover(function(){
-		console.log($(this).html());
-		var navMenu= $(this).next();
-		navMenu.slideDown();
+	$(".nav-title").click(function(){
+		var navTitle = $(this);
+		var navMenu = $(this).next();
 		
-
-		$(this).parent().mouseleave(function(){
-			navMenu.slideUp();
-			$(this).unbind("mouseleave");
+		$.each($(".nav-menu"), function(){
+			if($(this).prev().html() === navTitle.html()){
+				return true;
+			}
+			
+			$(this).slideUp();
 		});
+		
+		var moveToLeft = navMenu.css("width").replace("px", "") - $(this).css("width").replace("px", "");
+		
+		var left = $(this).offset().left - moveToLeft;
+		navMenu.css("left", left + "px");
+		
+		navMenu.slideToggle();
 	});
 });
 </script>

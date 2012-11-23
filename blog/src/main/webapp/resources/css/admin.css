@@ -1,61 +1,6 @@
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,textarea,blockquote,th,td,input,select,textarea,button{margin:0;padding:0;}
-fieldset,img{border:0 none;}
-dl,ul,ol,menu,li {list-style:none;}
-blockquote, q {quotes: none;}
-blockquote:before, blockquote:after,q:before, q:after {content: '';content: none;}
-
-input,select,textarea,button {vertical-align:middle;}
-button {border:0 none;background-color:transparent;cursor:pointer;}
-
-body,th,td,input,select,textarea,button,h1,h2,h3,h4,h5,h6 {font:12px;color:#000;}
-
+/* header start*/
 body{
 	font-size: 13px;
-	background: #DDD;
-	color: #FFF;
-}
-
-#wrap{
-	min-width: 1000px;
-	margin: 0 auto 0;
-}
-
-a{
-	text-decoration: none;
-	color: #FFF;
-}
-
-a:hover{
-	color: #DDD;
-	background-color: #000;
-}
-
-input{
-	height: 20px;
-}
-
-/* header start*/
-
-header{
-	padding: 10px 0 10px 0;
-	height: 40px;
-	background-color: #0593be;
-}
-
-.title{
-	height: 50px;
-	font-size: 30px;
-	text-align: center;
-	float: left;
-}
-
-.searchBox{
-	float: left;
-	margin-left: 20px;
-}
-
-.searchBox input{
-	height: 20px;
 }
 
 .input_box{
@@ -78,87 +23,13 @@ header{
 	background-position:center center;
 }
 
-.loginBox{
-	float: right;
-	line-height: 2;
-}
-
-.loginBox input{
-	height: 20px;
-}
-
-.registerBox{
-	float: right;
-}
-
-.nav{
-	text-align: center;
-	float: right;
-	background: #0593be;
-}
-
-.nav hr{
-	width: 80%;
-}
-
-.nav-title{
-	width: 100px;
-	height: 50px;
-	font-size: 15px;
-	line-height: 3;
-}
-
-.nav-menu{
-	padding: 2px 0 0 0;
-	margin: 0px;
-	font-size: 12px;
-	display: none;
-}
-
-.nav-menu li{
-	width: 100px;
-	height: 20px;
-	list-style: none;
-}
-
 /* header end */
 
 
 
 /* section start */
-section{
-	min-height: 600px;
-	margin: 20px;
-}
-
 section .menu{
-	padding: 50px 10px 30px 20px;
-	float: left;
-	width: 150px;
-	text-align: right;
-	color: #0593be;
 	background-image: url(../images/bg-gray-noise.jpg);
-}
-
-section .menu a{
-	color: #0593be;
-}
-
-section .menu a:hover{
-	color: #FFF;
-}
-
-section .menu .menu-title{
-	font-size: 20px;
-}
-
-section .menu ul{
-	padding-left: 5px;
-}
-
-section .menu ul li{
-	margin: 0px;
-	list-style: none;
 }
 
 .writeBtn{
@@ -169,22 +40,13 @@ section .menu ul li{
 /* section end */
 
 /* article start */
-article{
-	padding: 30px 50px 20px 20px;
-	color: #000;
-}
-
-article .articleTitle{
-	font-size: 25px;
-	padding-bottom: 30px;
-}
-
-.articleB{
-	margin-left: 200px;
-}
 
 article a{
 	color: #000;
+}
+
+.articleB{
+	margin-left:200px;
 }
 
 /* article end */
@@ -201,68 +63,17 @@ article a{
 
 /* group start */
 .group{
-	margin-bottom: 40px;
+	width:950px;
 }
 
 .group .groupTitle{
-	display: inline;
 	margin-left: 10px;
 	padding: 5px;
 	font-size: 15px;
-	border: 2px solid;
-}
-
-.group .groupContents{
-	margin-top: -15px;
-	padding: 40px 10px 20px 10px;
-	border: 2px solid;
 }
 
 /* group end */
 
-/* row start */
-.row{
-	padding: 5px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-
-.row .error{
-	color: #ffd2d2;
-	margin-left: 205px;
-	display: block;
-}
-
-.row .key{
-	margin-right: 5px;
-	width: 200px;
-	text-align: right;
-	float: left;
-}
-
-.row .value{
-	padding-left: 5px;
-}
-
-.row .value input{
-	width: 250px;
-}
-
-.row .value .short{
-	width: 100px;
-}
-
-.row .value .radio{
-	width: 20px;
-}
-
-.row .submit{
-	text-align: center;
-	margin-left: 0px;
-}
-
-
-/* row end */
 
 /* editor */
 .openEditor{
@@ -352,27 +163,3 @@ article a{
 }
 
 /* table end */
-
-/* page start */
-.page{
-	text-align: center;
-}
-
-.page li{
-	display: inline;
-	list-style: none;
-	margin: 0px;
-}
-
-/* page end */
-
-
-/* footer start */
-footer{
-	padding: 30px;
-	height: 100px;
-	background-color: #0593be;
-	color: #FFF;
-	font-size: 12px;
-}
-/* footer end */

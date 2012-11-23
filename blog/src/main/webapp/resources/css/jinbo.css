@@ -19,7 +19,7 @@ body{
 }
 
 #wrap{
-	width: 1000px;
+	min-width: 1000px;
 	margin: 0 auto 0;
 }
 
@@ -40,14 +40,13 @@ input{
 /* header start*/
 
 header{
-	padding: 10px 0 10px 0;
-	height: 40px;
+	height: 50px;
 	background-color: #0593be;
 }
 
 .title{
-	width: 100px;
-	height: 50px;
+	height: 40px;
+	padding: 5px 0 5px 0;
 	font-size: 30px;
 	text-align: center;
 	float: left;
@@ -55,6 +54,7 @@ header{
 
 .searchBox{
 	float: left;
+	margin: 10px 0 5px 30px;
 }
 
 .searchBox input{
@@ -74,10 +74,24 @@ header{
 	float: right;
 }
 
+/* nav start */
+
 .nav{
-	text-align: center;
 	float: right;
-	background: #0593be;
+	background: #026987;
+	margin: 5px;
+	width: 100px;
+	height: 40px;
+	text-align: center;
+	border-radius: 5px;
+}
+
+.nav:hover{
+	background: #0787ad;
+}
+
+.nav-active{
+	
 }
 
 .nav hr{
@@ -85,27 +99,73 @@ header{
 }
 
 .nav-title{
-	width: 100px;
-	height: 50px;
 	font-size: 15px;
 	line-height: 3;
 }
 
 .nav-menu{
 	position: absolute;
-	z-index: 20;
-	padding: 2px 0 0 0;
-	margin: 0px;
+	padding: 5px 0 5px 0;
+	margin: 5px 0 0 0;
 	font-size: 12px;
+	background: #FFF;
+	color:#000;
+	border-radius: 3px;
 	display: none;
-	background: #0593be;
+}
+
+.nav-menu-active{
+	display:block;
+}
+
+.nav-menu a{
+	color:#000;
+}
+
+.nav-menu a:hover{
+	color:#CCC;
+	background-color:#FFF;
 }
 
 .nav-menu li{
 	width: 100px;
 	height: 20px;
 	list-style: none;
+	margin: 5px 0 5px 0;
 }
+
+.nav-menu title{
+	margin-left:0;
+	text-align:center;
+	border:1px solid #F00;
+}
+
+.nav-menu-title{
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.nav-menu-title a{
+	color:#555;
+}
+
+.nav-menu-blog li{
+	width: 250px;
+}
+
+.nav-menu-blog-title{
+	width:180px;
+	margin-right: 10px;
+	text-align: right;
+	float:left;
+}
+
+.nav-menu-blog-admin{
+	width:50px;
+	float:right;
+}
+/* nav end */
+
 /* header end */
 
 /* section start */

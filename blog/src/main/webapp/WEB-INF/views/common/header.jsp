@@ -49,18 +49,21 @@
 		
 		<nav class="nav">
 			<div class="nav-title">바로가기</div>
-			<ul class="nav-menu">
-				<c:forEach items="${loginUserProvider.blogList }" var="blog">
-				<li><a href="${pageContext.request.contextPath }/${blog.id }">${blog.title }</a></li>
-				</c:forEach>
+			<ul class="nav-menu nav-menu-blog">
+				<li class="nav-menu-title"><a href="${pageContext.request.contextPath }/settings/blog">내 블로그 관리</a></li>
 				<hr />
-				<li><a href="${pageContext.request.contextPath }/settings/blog">내 블로그 관리</a></li>
+				<c:forEach items="${loginUserProvider.blogList }" var="blog">
+				<li>
+					<span class="nav-menu-blog-title"><a href="${pageContext.request.contextPath }/${blog.id }">${blog.title }</a></span>	|
+					<span class="nav-menu-blog-admin"><a href="${pageContext.request.contextPath }/${blog.id }/admin">관리자</a></span>					
+				</li>
+				</c:forEach>
+				
+				<li class="nav-menu-title" style="margin-top:20px;"><a href="${pageContext.request.contextPath }/settings/favorite">이웃 블로그 설정</a></li>
 				<hr />
 				<c:forEach items="${loginUserProvider.loginUser.favoriteList }" var="favorite">
 				<li><a href="${pageContext.request.contextPath }/${favorite.blog.id }">${favorite.blog.title }</a></li>
 				</c:forEach>
-				<hr />
-				<li><a href="${pageContext.request.contextPath }/settings/favorite">이웃 블로그 설정</a></li>
 			</ul>
 		</nav>
 		</c:if>
