@@ -14,7 +14,7 @@
 </head>
 
 <body>
-	<header>
+	<header id="top">
 		<div class="menu">
 			<div class="title">
 				<a href="${pageContext.request.contextPath }/${blog.id }" class="blogTitle">${blog.title

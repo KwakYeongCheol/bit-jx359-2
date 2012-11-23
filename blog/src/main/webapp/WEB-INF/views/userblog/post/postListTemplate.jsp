@@ -3,6 +3,27 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
+<div id="userblogSelect" class="">
+	<ul class="page">
+		<li class="showAllCategory">모아보기</li><hr>
+		<li class="pageHome"><a title="Back to top" href="#top">위로</a></li><hr>
+		<li class="writeBtn">글쓰기</li>
+	</ul>
+</div>
+
+<!-- 	
+	<input type="button" class="showAllCategory" value="모아보기"  />
+	<input type="button" class="writeBtn" value="글쓰기" />
+	<div class="search_categoryBox">
+		<form action="#" method="get">
+			<input type="text" name="search" placeholder="search"
+				class="input_box" /> <input type="submit" value="Search"
+				class="btn" />
+		</form>
+	</div>
+	<div class="clear"></div>
+ -->
+
 <section id="categoryBox">
 	<input type="button" class="showAllCateogory" value="모아보기"/>
 	<div class="clear"></div>
@@ -93,7 +114,6 @@
 	</div>
 </section>
 <script>
-
 function categoryClick(){
 	$("#categoryBox").css("width", "30%");
 	$("#categoryActiveBox").show();
@@ -109,11 +129,11 @@ function categoryClick(){
 			$.each($(this).find(".postContents"), function(){
 				$(this).empty();
 			});
-		}else{
+		} else {
 			$(this).hide();
 		}
 	});
-	
+
 	if($(this).hasClass("category-all")){
 		$("#categoryActiveBox .category-all").show();
 		$("#categoryBox .category .postDate").hide();
@@ -131,9 +151,9 @@ function categoryClick(){
 			$("#categoryBox .category .postDate").hide();
 		});
 	}
-}
+};
 
-function addContents(){
+	function addContents() {
 		var displayId = $(this).prev().attr("value");
 		var $title = $(this);
 		var $postContents = $(this).next();
@@ -151,11 +171,13 @@ function addContents(){
 				console.log('error');
 			}
 		}, 'json');
+
+		
 		$(this).unbind('click');
-		$(this).bind('click',function(){
+		$(this).bind('click', function() {
 			$(this).next().toggle();
 		});
-}
+	}
 
 function openEditor(){
 	var postBackground = $("<div>").addClass("postBackground").appendTo($("body"));
@@ -201,6 +223,5 @@ $(document).ready(function(){
 	});
 	
 }); 
-	
-	
+
 </script>

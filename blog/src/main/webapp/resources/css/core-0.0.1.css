@@ -1,9 +1,10 @@
 body{
+	min-width: 850px;
 	margin: 0px;
 	background-color: #B5A789;  
 	color: #FFF;
 	height: auto;
-/*	background-image: url(../images/qrcmn.jpg); */
+	background-image: url(../images/bbb.jpg);  
 }
 
 #wrap{
@@ -27,7 +28,6 @@ input{
 /* header start*/
 
 header{
-	margin: 10px;
 	padding: 10px 0 10px 0;
 	height: 50px;
 	text-decoration: none;
@@ -203,19 +203,26 @@ header{
 /* section start */
 section{
 	min-height: 600px;
-	margin: 20px;
 }
 
 section .menu{
-	padding: 50px 10px 30px 50px;
+	position: fixed;
+	margin: 1%;
+	margin-top: 5%;
+	padding: .5%;
 	float: left;
-	width: 150px;
-	text-align: right;
-	color: #0593be;
+	width: 120px;
+	text-align: left;
+	color: #000;
+	background-color: rgba( 32, 32, 32, .3);
+	font-family: 'ratio-n7','ratio','Helvetica Neue',Arial,sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
 }
 
 section .menu a{
-	color: #0593be;
+	color: #000;
 }
 
 section .menu a:hover{
@@ -224,6 +231,8 @@ section .menu a:hover{
 
 section .menu .menu-title{
 	font-size: 20px;
+	text-align: center;
+	letter-spacing: 20px;
 }
 
 section .menu ul{
@@ -251,18 +260,28 @@ article .articleTitle{
 }
 
 .articleB{
-	margin-left: 250px;
+	margin-left: 30%;
+	float: right;
+	width: 60%;
+	height: 520px;
+	text-align: left;
+	color: #FFF;
+	background-color: rgba( 32, 32, 32, .5);
+	font-family: 'ratio-n7','ratio','Helvetica Neue',Arial,sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
 }
 
 /* article end */
 
 .theme-a{
 	color: #FFF;
-	background-color: #0593be;
+	background-color: #000;
 }
 
 .theme-a-reverse{
-	color: #0593be;
+	color: #000;
 	background-color: #FFF;
 }
 
@@ -277,10 +296,12 @@ article .articleTitle{
 	padding: 10px;
 	font-size: 20px;
 	border: 2px solid;
-	background-color: #0593be;
+	background-color: rgba(32,32,32,1);
+	color: #FFF;
 }
 
 .group .groupContents{
+	color: #FFF;
 	margin-top: -15px;
 	padding: 40px 5px 30px 5px;
 	border: 2px solid;
@@ -288,6 +309,42 @@ article .articleTitle{
 }
 
 /* group end */
+
+/* 방명록 start */
+#blogArticles{
+		border: 3px solid red;
+		
+	margin: 5%;
+	padding: .5%;
+	background-color: rgba(32,32,32,.5);
+	min-height: 500px;
+}
+
+#blogArticles input{
+		border: 2px solid blue;
+	
+	
+}  
+
+#blogArticles .guestBookright{
+	float: right;
+}
+
+.blogArticle{
+		border: 2px solid #79FB7B;
+		
+}
+
+.blogGuestbook{
+		border: 3px solid #FF9900;
+	
+	
+}
+
+.blogGuestBookReply{
+	margin: 0 5%;
+}
+/* 방명록 end */
 
 /* row start */
 .row{
@@ -337,8 +394,8 @@ article .articleTitle{
 
 /* footer start */
 footer{
-	margin: 10px;
-	padding: 30px;
+	padding: 10px 0 10px 0;
+	text-decoration: none;
 	height: 100px;
 	background-color: #675C47;
 	color: #FFF;
