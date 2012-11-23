@@ -13,7 +13,10 @@
 <body>
 <div id="wrap">
 	<header>
-		<div class="title"><a href="${pageContext.request.contextPath }/${blog.id}">${blog.title }</a></div>
+		<div class="title">
+			<a href="${pageContext.request.contextPath }/${blog.id}">${blog.title }</a> &gt; 
+			<a href="${pageContext.request.contextPath }/${blog.id }/admin">관리자</a>
+		</div>
 		<div class="searchBox">
 			<form action="${pageContext.request.contextPath }/search" method="get">
 				<input type="text" name="query" placeholder="search" class="search" />
@@ -37,7 +40,7 @@
 		
 		<c:if test="${loginUserProvider.loggedIn }">
 		<nav class="nav">
-			<div class="nav-title">${loginUserProvider.loginUser.name }님</div>
+			<div class="nav-title">${loginUserProvider.loginUser.name } 님</div>
 			<ul class="nav-menu">
 				<li><a href="${pageContext.request.contextPath }/settings/user">계정설정</a></li>
 				<hr />

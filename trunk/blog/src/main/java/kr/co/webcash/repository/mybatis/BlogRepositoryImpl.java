@@ -7,6 +7,7 @@ import kr.co.webcash.repository.BlogRepository;
 import kr.co.webcash.repository.CommentRepository;
 import kr.co.webcash.repository.GuestbookRepository;
 import kr.co.webcash.repository.PostRepository;
+import kr.co.webcash.repository.ScrapRepository;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class BlogRepositoryImpl implements BlogRepository{
 	@Autowired private PostRepository postRepository;
 	@Autowired private GuestbookRepository guestbookRepository;
 	@Autowired private CommentRepository commentRepository;
+	@Autowired private ScrapRepository scrapRepository;
 	
 	@Override
 	public void create(Blog blog) {
@@ -52,11 +54,13 @@ public class BlogRepositoryImpl implements BlogRepository{
 			addTotalPostCount(blog);
 			addTotalGuestbookCount(blog);
 			addTotalCommentCount(blog);
+			addTotalScrapCount(blog);
 		}
 		
 		return blog;
 	}
 	
+
 	private void addTotalPostCount(Blog blog) {
 		blog.setTotalPostCount(postRepository.countByBlogId(blog.getId()));
 	}
@@ -69,6 +73,10 @@ public class BlogRepositoryImpl implements BlogRepository{
 		blog.setTotalCommentCount(commentRepository.countByBlogId(blog.getId()));
 	}
 
+	private void addTotalScrapCount(Blog blog) {
+		blog.setTotalScrapCount(scrapRepository.countByBlogId(blog.getId()));
+	}
+	
 	@Override
 	public Blog findById(String id) {
 		return wrap(sqlSession.<Blog>selectOne("Blog.findById", id));

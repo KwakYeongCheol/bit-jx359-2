@@ -14,6 +14,7 @@ public class Blog {
 	private long totalPostCount;
 	private long totalGuestbookCount;
 	private long totalCommentCount;
+	private long totalScrapCount;
 	
 	public Blog(){
 	}
@@ -85,4 +86,6 @@ public class Blog {
 	public void setTotalGuestbookCount(long totalGuestbookCount) {		this.totalGuestbookCount = totalGuestbookCount;	}
 	public long getTotalCommentCount() {		return totalCommentCount;	}
 	public void setTotalCommentCount(long totalCommentCount) {		this.totalCommentCount = totalCommentCount;	}
+	public long getTotalScrapCount() {		return totalScrapCount;	}
+	public void setTotalScrapCount(long totalScrapCount) {		this.totalScrapCount = totalScrapCount;	}
 }

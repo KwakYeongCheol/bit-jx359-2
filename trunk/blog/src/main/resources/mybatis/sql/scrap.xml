@@ -36,6 +36,25 @@
 			blogs tb on tb.id = tc.blogId
 	</sql>
 	
+	<sql id="count">
+		SELECT
+			count(*)
+		FROM
+			scraps s
+		JOIN
+			post p on p.id = s.postId
+		JOIN
+			category c on c.id = p.categoryId
+		JOIN
+			blogs b on b.id = c.blogId
+		JOIN
+			post tp on tp.id = s.targetPostId
+		JOIN
+			category tc on tc.id = tp.categoryId
+		JOIN
+			blogs tb on tb.id = tc.blogId
+	</sql>
+	
 	<select id="findAllByPostId" resultType="Scrap">
 		<include refid="select" />
 		WHERE
@@ -56,6 +75,13 @@
 		WHERE
 			tb.id = #{blogId}
 	</select>
+	
+	<select id="countByBlogId" resultType="Integer">
+		<include refid="count" />
+		WHERE
+			tb.id = #{blogId}
+	</select>
+	
 	
 	
 </mapper>

@@ -14,15 +14,15 @@
 			<thead>
 				<tr>
 					<th>
-					<select class="categoryFilter">
+					<select class="categoryFilter" style="font-size:20px;">
 						<option value="label">카테고리</option>
 						<c:forEach items="${categoryList }" var="category">
 						<option value="${category.displayId }">${category.title }</option>
 						</c:forEach>
 					</select>
 					</th>
-					<th>제목</th>
-					<th>설정정보</th>
+					<th style="min-width:300px;">제목</th>
+					<th>상태</th>
 					<th>버전</th>
 					<th>비교</th>
 					<th>작성일</th>
@@ -45,22 +45,13 @@
 					</td>
 					<td>
 						<c:if test="${post.isTemp }">
-						[임시]&nbsp;&nbsp;
+						[임시]
 						</c:if>
-						<c:if test="${post.isPublic }">
+						<c:if test="${!post.isTemp && post.isPublic }">
 						[공개]&nbsp;&nbsp;
 						</c:if>
-						<c:if test="${!post.isPublic }">
+						<c:if test="${!post.isTemp && !post.isPublic }">
 						[비공개]&nbsp;&nbsp;
-						</c:if>
-						<c:if test="${post.canTrackback }">
-						[트랙백]&nbsp;&nbsp;
-						</c:if>
-						<c:if test="${post.canScrap }">
-						[스크랩]&nbsp;&nbsp;
-						</c:if>
-						<c:if test="${post.canComment }">
-						[댓글]&nbsp;&nbsp;
 						</c:if>
 					</td>
 					<td>

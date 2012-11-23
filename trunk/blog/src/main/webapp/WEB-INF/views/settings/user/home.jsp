@@ -29,7 +29,7 @@
 				성별 :
 			</div>
 			<div class="value">
-				${loginUserProvider.loginUser.sex }
+				${loginUserProvider.loginUser.sex.value }
 			</div>
 		</div>
 	</div>
