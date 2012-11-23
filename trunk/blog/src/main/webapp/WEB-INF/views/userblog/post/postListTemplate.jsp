@@ -7,30 +7,19 @@
 	<ul class="page">
 		<li class="showAllCategory">모아보기</li><hr>
 		<li class="pageHome"><a title="Back to top" href="#top">위로</a></li><hr>
-		<li class="writeBtn">글쓰기</li>
+		<c:if test="${loginUserProvider.loggedIn }">
+			<c:if test="${loginUserProvider.loginUser.loginId == blog.owner }">
+				<li class="writeBtn">글쓰기</li>
+			</c:if>
+		</c:if>	
 	</ul>
 </div>
 
-<!-- 	
-	<input type="button" class="showAllCategory" value="모아보기"  />
-	<input type="button" class="writeBtn" value="글쓰기" />
-	<div class="search_categoryBox">
-		<form action="#" method="get">
-			<input type="text" name="search" placeholder="search"
-				class="input_box" /> <input type="submit" value="Search"
-				class="btn" />
-		</form>
-	</div>
-	<div class="clear"></div>
- -->
-
 <section id="categoryBox">
-	<input type="button" class="showAllCateogory" value="모아보기"/>
-	<div class="clear"></div>
 	<div class="category category-all">
-		<div class="cateogryTitle">모든 글</div>
+		<div class="cateogryTitle">${allCategory.title }</div>
 		<div class="post">
-			<c:forEach items="${postList }" var="post">
+			<c:forEach items="${allCategory.postList }" var="post">
 				<div class="postTitle">${post.title }</div>
 			</c:forEach>
 		</div>
@@ -55,11 +44,6 @@
 </section>
 
 <section id="categoryActiveBox">
-	<c:if test="${loginUserProvider.loggedIn }">
-		<c:if test="${loginUserProvider.loginUser.loginId == blog.owner }">
-			<input type="button" class="openEditor" value="글쓰기" />
-		</c:if>
-	</c:if>	
 	<div class="search_categoryBox">
 		<form action="#" method="get">
 			<input type="text" name="search" placeholder="search"
@@ -72,7 +56,7 @@
 	<div class="extensionPost">
 		<c:set var="page" value="${page }"></c:set>
 		<div class="category-active category-all">
-			<div class="cateogryTitle">모든 글</div>
+			<div class="cateogryTitle">${allCategory.title }</div>
 			<div class="post">
 				<c:forEach items="${postList }" var="post">
 					<div class="postBox">
@@ -115,7 +99,8 @@
 </section>
 <script>
 function categoryClick(){
-	$("#categoryBox").css("width", "30%");
+	$("#categoryBox").css("width", "22%");
+	$("#categoryBox .post").css("display", "none");
 	$("#categoryActiveBox").show();
 	var active = $(".category-active");
 	$.each(active, function(){
@@ -124,31 +109,35 @@ function categoryClick(){
 				.removeClass("category-active")
 				.addClass("category")
 				.bind('click', categoryClick)
-				.appendTo("#categoryBox")
-				.css("display","inherit");
+				.appendTo("#categoryBox");
 			$.each($(this).find(".postContents"), function(){
 				$(this).empty();
 			});
 		} else {
 			$(this).hide();
+			$("#categoryBox .post").css("display", "none");
 		}
 	});
 
 	if($(this).hasClass("category-all")){
 		$("#categoryActiveBox .category-all").show();
 		$("#categoryBox .category .postDate").hide();
+		$("#categoryBox .post").css("display", "none");
 	}else{
 		$(this).unbind('click')
 			.removeClass("category")
 			.addClass("category-active")
-			.appendTo("#categoryActiveBox");
+			.appendTo("#categoryActiveBox")
+			$("#categoryActiveBox .post").css("display", "inherit");
 		$.each($(this).children(), function(){
 			if($(this).hasClass("post")){
 				$(this).find(".postDate").show();
 				$(this).find(".postTitle").unbind('click');
 				$(this).find(".postTitle").bind('click', addContents);
+				
 			}
 			$("#categoryBox .category .postDate").hide();
+			$("#categoryBox .post").css("display", "none");
 		});
 	}
 };
@@ -164,7 +153,7 @@ function categoryClick(){
 				if (result != null) {
 						$postContents.append(result);
 						$postContents.show();
-						/* $postContents.slideDown(); */
+						$postContents.slideDown(); 
 				}
 			},
 			error : function(result) {
@@ -205,20 +194,18 @@ function openEditor(){
 $(document).ready(function(){
 	/* 카테고리 event start  */
 	if($(".cateogry-active"))
-	//$(".category-active").bind('click', categoryActiveClick);
 	$(".category").bind('click', categoryClick);
 	
 	/* 카테고리 event end  */
 	$("#categoryActiveBox .category-active .postTitle").bind('click', addContents);
 	$("#categoryBox .category .postDate").hide();
-	$(".showAllCateogory").click(function(){
-		$(".showAllCategory").hide();
+	$(".showAllCategory").click(function(){
 		$("#categoryActiveBox").hide(); 
-		$("#categoryBox").css("width", "80%");
+		$("#categoryBox").css("width", "66%");
 		$("#categoryBox .post").css("display", "inherit");
 	});
 	
-	$(".openEditor").bind('click', function(){
+	$(".writeBtn").bind('click', function(){
 		openEditor();
 	});
 	
