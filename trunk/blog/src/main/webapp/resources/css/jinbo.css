@@ -48,7 +48,7 @@ header{
 	height: 30px;
 	padding: 10px 0 10px 0;
 	margin-left: 20px;
-	font-size: 20px;
+	font-size: 25px;
 	text-align: center;
 	float: left;
 }
@@ -60,20 +60,27 @@ header{
 
 .searchBox input{
 	height: 20px;
-	font-size:15px;
+	font-size:14px;
 }
 
 .loginBox{
 	float: right;
-	line-height: 2;
+	margin: 10px 0 5px 30px;
 }
 
 .loginBox input{
-	height: 20px;
+	height: 25px;
+	font-size:13px;
+}
+
+.loginId, .password{
+	width: 200px;
 }
 
 .registerBox{
 	float: right;
+	margin: 15px 30px 5px 30px;
+	font-size: 16px;
 }
 
 /* nav start */

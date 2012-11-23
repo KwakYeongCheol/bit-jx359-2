@@ -24,16 +24,16 @@
 		</div>
 		
 		<c:if test="${!loginUserProvider.loggedIn }">
+		<div class="registerBox">
+			<a href="${pageContext.request.contextPath }/user/register/step01">회원가입</a>
+		</div>
 		<div class="loginBox">
 			<form action="${pageContext.request.contextPath }/loginAction" method="post">
 				<input type="hidden" name="redirectURI" value="${pageURI }" />
 				<input type="text" name="loginId" placeholder="sample@gmail.com" class="loginId"/> 
 				<input type="password" name="password" placeholder="password" class="password"/>
-				<input type="submit" value="Log In" class="submitBtn"/>
+				<input type="submit" style="font-size:16px;" value="Log In" class="submitBtn"/>
 			</form>
-		</div>
-		<div class="registerBox">
-			<a href="${pageContext.request.contextPath }/user/register/step01"><input type="submit" value="회원가입" class="submitBtn"/></a>
 		</div>
 		</c:if>
 		
