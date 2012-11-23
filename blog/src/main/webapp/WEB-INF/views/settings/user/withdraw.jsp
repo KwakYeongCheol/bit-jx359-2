@@ -4,7 +4,7 @@
 <jsp:include page="/WEB-INF/views/settings/common/header.jsp"></jsp:include>
 
 <div class="group">
-	<div class="groupTitle theme-a">
+	<div class="groupTitle">
 		회원 탈퇴
 	</div>
 	<div class="groupContents">

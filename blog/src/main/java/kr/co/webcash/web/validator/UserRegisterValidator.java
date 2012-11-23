@@ -1,5 +1,7 @@
 package kr.co.webcash.web.validator;
 
+import java.util.regex.Pattern;
+
 import kr.co.webcash.domain.user.User;
 import kr.co.webcash.service.UserService;
 
@@ -27,6 +29,11 @@ public class UserRegisterValidator implements Validator{
 			String loginId = user.getLoginId();
 			if(loginId != null){
 				if(userService.findByLoginId(loginId) != null)	errors.rejectValue("loginId", "field.duplicate.user.loginId");
+				
+				String emailRegex = "[a-zA-Z0-9]+@([a-zA-Z0-9]+[.])+[a-zA-Z0-9]+$";
+				Pattern pattern = Pattern.compile(emailRegex);
+				
+				if(!pattern.matcher(loginId.toLowerCase()).find())	errors.rejectValue("loginId", "field.validate.user.loginId");
 			}
 			
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "field.required.user.password");

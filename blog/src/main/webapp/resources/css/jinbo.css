@@ -112,6 +112,11 @@ header{
 section{
 	min-height: 600px;
 	margin: 20px;
+	color:#000;
+}
+
+section a{
+	color:#1977c9;
 }
 
 section .menu{
@@ -150,12 +155,16 @@ section .menu ul li{
 /* article start */
 article{
 	padding: 30px 50px 50px 50px;
-	background-color: #0593be;
 }
 
 article .articleTitle{
 	font-size: 25px;
 	padding-bottom: 30px;
+}
+
+.articleWrap{
+	margin: 0 auto 0;
+	width:650px;
 }
 
 .articleB{
@@ -177,6 +186,7 @@ article .articleTitle{
 /* group start */
 .group{
 	margin-bottom: 40px;
+	width:670px;
 }
 
 .group .groupTitle{
@@ -185,7 +195,7 @@ article .articleTitle{
 	padding: 10px;
 	font-size: 20px;
 	border: 2px solid;
-	background-color: #0593be;
+	background-color: #DDD;
 }
 
 .group .groupContents{
@@ -262,7 +272,7 @@ article .articleTitle{
 }
 
 .row .error{
-	color: #ffd2d2;
+	color: #F00;
 	margin-left: 205px;
 	display: block;
 }

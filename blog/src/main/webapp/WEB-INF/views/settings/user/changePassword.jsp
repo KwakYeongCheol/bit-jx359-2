@@ -5,7 +5,7 @@
 <jsp:include page="/WEB-INF/views/settings/common/header.jsp"></jsp:include>
 
 <div class="group">
-	<div class="groupTitle theme-a">
+	<div class="groupTitle">
 		비밀번호 변경
 	</div>
 	<div class="groupContents">

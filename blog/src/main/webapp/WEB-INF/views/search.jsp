@@ -8,12 +8,17 @@
 <div class="contentsWrap">
 	<div class="searchBar">
 		<form action="${pageContext.request.contextPath }/search" method="get">
-		<input type="text" class="inputSearch" name="query" value="${query }" /><input class="submitSearch" type="submit" value="검색" />
+		<input type="text" class="inputSearch" name="query" value="${query }" autofocus="autofocus" /><input class="submitSearch" type="submit" value="검색" />
 	</form>
 	</div>
 	<hr />
 	<div class="searchWrap">
 		<div class="searchList">
+			<c:if test="${search.postList.isEmpty() }">
+			<dl class="search">
+				<span style="font-size:15px; font-weight:bold;">${query }</span>에 대한 검색 결과가 없습니다.
+			</dl>
+			</c:if>
 			<c:forEach items="${search.postList }" var="post">
 			<dl class="search">
 				<dt>

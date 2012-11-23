@@ -6,12 +6,13 @@
 <jsp:include page="/WEB-INF/views/settings/common/header.jsp"></jsp:include>
 
 <div class="group">
-	<div class="groupTitle theme-a">
+	<div class="groupTitle">
 		블로그 생성하기
 	</div>
 	<div class="groupContents">
 		<form:form id="registerForm" modelAttribute="blog" action="${pageContext.request.contextPath }/settings/blog/create" method="POST">
 			<div class="row">
+				<form:errors path="title" cssClass="error" />
 				<div class="key">
 					블로그 제목 :
 				</div>
@@ -20,6 +21,7 @@
 				</div>
 			</div>
 			<div class="row">
+				<form:errors path="id" cssClass="error" />
 				<div class="key">
 					블로그 주소 :
 				</div>
