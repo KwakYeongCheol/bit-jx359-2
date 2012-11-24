@@ -47,6 +47,7 @@ article a{
 
 .articleB{
 	margin-left:200px;
+	width:720px;
 }
 
 /* article end */
@@ -74,6 +75,10 @@ article a{
 
 /* group end */
 
+.contentsWrap{
+	width:700px;
+	float:left;
+}
 
 /* editor */
 .openEditor{
@@ -104,7 +109,7 @@ article a{
 	width:320px;
 	min-height:150px;
 	float:left;
-	margin: 10px 30px 30px 10px;
+	margin: 10px 20px 20px 10px;
 }
 
 .infoBoxTitle{
@@ -115,6 +120,10 @@ article a{
 
 .infoBoxContents{
 	
+}
+
+.adminNotificationLine{
+	margin: 5px 0 5px 0;
 }
 
 .txt{

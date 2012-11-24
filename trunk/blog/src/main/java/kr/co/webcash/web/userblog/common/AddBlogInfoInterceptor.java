@@ -2,6 +2,8 @@ package kr.co.webcash.web.userblog.common;
 
 import java.util.Date;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,6 +15,7 @@ import kr.co.webcash.service.blog.BlogService;
 import kr.co.webcash.service.blog.BlogVisitHistoryService;
 import kr.co.webcash.service.notification.NotificationService;
 import kr.co.webcash.service.post.PostService;
+import kr.co.webcash.web.security.LoginUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,6 +28,8 @@ public class AddBlogInfoInterceptor extends HandlerInterceptorAdapter {
 	@Autowired private BlogVisitHistoryService blogVisitHistoryService;
 	@Autowired private CategoryService categoryService;
 	@Autowired private PostService postService;
+	
+	@Inject private Provider<LoginUser> loginUserProvider;
 	
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, 
@@ -41,8 +46,13 @@ public class AddBlogInfoInterceptor extends HandlerInterceptorAdapter {
 				new BlogVisitHistory(blog, request.getRemoteAddr(), new Date())
 			);
 			
+			if(loginUserProvider.get().isLoggedIn() && loginUserProvider.get().isMyBlog(blog.getId())){
+				modelAndView.addObject("notificationList", notificationService.listByBlogIdAndPageNumberAndPageSize(blog.getId(), 1, 10));
+			}else{
+				modelAndView.addObject("notificationList", notificationService.listPublicByBlogAndPage(blog, 1, 10));
+			}
+			
 			modelAndView.addObject("pageURI", request.getRequestURI());
-			modelAndView.addObject("notificationList", notificationService.listByBlog(blog));
 			modelAndView.addObject("blog", blog);
 			modelAndView.addObject("categoryList", categoryService.listByBlogId(blog.getId()));
 			

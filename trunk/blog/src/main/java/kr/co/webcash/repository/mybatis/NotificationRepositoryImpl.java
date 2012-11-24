@@ -20,6 +20,15 @@ public class NotificationRepositoryImpl implements NotificationRepository {
 	}
 	
 	@Override
+	public boolean delete(Notification notification) {
+		if(session.delete("Notification.delete", notification) > 1){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	@Override
 	public Notification findLast() {
 		return session.selectOne("Notification.findLast");
 	}
@@ -33,5 +42,15 @@ public class NotificationRepositoryImpl implements NotificationRepository {
 	public List<Notification> findAllByBlogIdAndPage(String blogId, int pageNumber, int pageSize) {
 		RowBounds rowBounds = new RowBounds((pageNumber-1) * pageSize, pageSize);
 		return session.selectList("Notification.findAllByBlogId", blogId, rowBounds);
+	}
+
+	@Override
+	public List<Notification> findAllPublicByBlogIdAndPage(String blogId, int pageNumber, int pageSize) {
+		return session.selectList("Notification.findAllPublicByBlogId", blogId, new RowBounds((pageNumber-1) * pageSize, pageSize));
+	}
+
+	@Override
+	public int countByBlogId(String blogId) {
+		return session.<Integer>selectOne("Notification.countByBlogId", blogId);
 	}
 }
