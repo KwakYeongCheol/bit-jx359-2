@@ -7,6 +7,13 @@
 			(#{id}, #{blog.id},  #{contents}, #{dateCreated}, #{isPublic})
 	</insert>
 	
+	<delete id="delete" parameterType="Notification">
+		DELETE FROM notification
+		WHERE
+			id = #{id}
+			AND blogId = #{blog.id}
+	</delete>
+	
 	<sql id="select">
 		SELECT
 			id, 
@@ -29,5 +36,22 @@
 		WHERE
 			blogId = #{blogId}
 		ORDER BY dateCreated DESC
+	</select>
+	
+	<select id="findAllPublicByBlogId" resultType="Notification">
+		<include refid="select" />
+		WHERE
+			blogId = #{blogId}
+			and isPublic = 'true'
+		ORDER BY dateCreated DESC
+	</select>
+	
+	<select id="countByBlogId" resultType="Integer">
+		SELECT
+			count(*)
+		FROM
+			notification
+		WHERE
+			blogId = #{blogId}
 	</select>
 </mapper>

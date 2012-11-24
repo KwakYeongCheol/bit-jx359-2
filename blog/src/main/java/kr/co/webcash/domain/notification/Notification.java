@@ -4,18 +4,28 @@ import java.util.Date;
 
 import kr.co.webcash.domain.blog.Blog;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Notification {
 	
 	private long id;
 	private Blog blog;
 	private String uri;
 	private String contents;
+	
+	@DateTimeFormat(pattern="yyyy/MM/dd HH:mm:ss")
 	private Date dateCreated;
 	
 	private boolean isPublic = true;
 	
 	public Notification(){
 		dateCreated = new Date();
+	}
+	
+	public Notification(long id, Blog blog){
+		this();
+		setId(id);
+		setBlog(blog);
 	}
 	
 	public long getId() {		return id;	}

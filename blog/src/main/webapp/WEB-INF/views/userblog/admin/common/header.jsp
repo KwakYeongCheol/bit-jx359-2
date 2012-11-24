@@ -92,6 +92,12 @@
 	<hr />
 	<div class="menu-group">
 		<ul>
+			<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/notification">알림 관리</a>
+		</ul>
+	</div>
+	<hr />
+	<div class="menu-group">
+		<ul>
 			<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/visit_history">방문자 통계</a></li>
 			<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/scrap">스크랩 통계</a></li>
 		</ul>				

@@ -2,15 +2,13 @@ package kr.co.webcash.service.notification;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.domain.notification.Notificable;
 import kr.co.webcash.domain.notification.Notification;
-import kr.co.webcash.domain.post.scrap.Scrap;
-import kr.co.webcash.domain.user.User;
 import kr.co.webcash.repository.NotificationRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class NotificationServiceImpl implements NotificationService {
@@ -47,6 +45,12 @@ public class NotificationServiceImpl implements NotificationService {
 		
 		notificationRepository.insert(notification);
 	}
+	
+	@Override
+	public boolean delete(Notification notification) {
+		return notificationRepository.delete(notification);
+	}
+
 
 	@Override
 	public List<Notification> listByBlog(Blog blog) {
@@ -55,7 +59,22 @@ public class NotificationServiceImpl implements NotificationService {
 
 	@Override
 	public List<Notification> listByBlog(Blog blog, int pageNumber) {
-		int pageSize = 10;
-		return notificationRepository.findAllByBlogIdAndPage(blog.getId(), pageNumber, pageSize);
+		return listByBlogIdAndPageNumberAndPageSize(blog.getId(), pageNumber, 10);
+	}
+	
+	@Override
+	public List<Notification> listByBlogIdAndPageNumberAndPageSize(String blogId, int pageNumber, int pageSize) {
+		return notificationRepository.findAllByBlogIdAndPage(blogId, pageNumber, pageSize);
+	}
+	
+
+	@Override
+	public List<Notification> listPublicByBlogAndPage(Blog blog, int pageNumber, int pageSize) {
+		return notificationRepository.findAllPublicByBlogIdAndPage(blog.getId(), pageNumber, pageSize);
+	}
+
+	@Override
+	public int countByBlogId(String blogId) {
+		return notificationRepository.countByBlogId(blogId);
 	}
 }
