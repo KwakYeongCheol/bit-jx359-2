@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.domain.notification.Notificable;
 import kr.co.webcash.domain.notification.Notification;
+import kr.co.webcash.domain.post.scrap.Scrap;
 import kr.co.webcash.domain.user.User;
 import kr.co.webcash.repository.NotificationRepository;
 
@@ -18,11 +19,16 @@ public class NotificationServiceImpl implements NotificationService {
 
 	@Override
 	public boolean sendNotification(Notificable notificable) {
+		return sendNotification(notificable, true);
+	}
+	
+	@Override
+	public boolean sendNotification(Notificable notificable, boolean isPublic) {
 		Notification notification = new Notification();
 		
 		notification.setBlog(notificable.getNotificationBlog());
-		notification.setUri(notificable.getNotificationURI());
 		notification.setContents(notificable.getNotificationContents());
+		notification.setIsPublic(isPublic);
 		
 		save(notification);
 		
@@ -52,6 +58,4 @@ public class NotificationServiceImpl implements NotificationService {
 		int pageSize = 10;
 		return notificationRepository.findAllByBlogIdAndPage(blog.getId(), pageNumber, pageSize);
 	}
-
-
 }

@@ -13,4 +13,6 @@ public interface ScrapService {
 	void save(Scrap scrap);
 
 	void convertFromScrapTagToScrapContents(Post post);
+
+	void sendNotification(Post post);
 }

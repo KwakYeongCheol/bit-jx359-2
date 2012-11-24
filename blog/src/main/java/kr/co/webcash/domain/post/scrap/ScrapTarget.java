@@ -35,14 +35,18 @@ public class ScrapTarget {
 		return "ScrapTarget [post=" + post + ", postRevisionId="
 				+ postRevisionId + "]";
 	}
-
+	
+	public Blog getBlog() {		return this.post.getBlog();	}
+	
 	public Post getPost() {		return post;	}
 	public void setPost(Post post) {		this.post = post;	}
 	public long getPostRevisionId() {		return postRevisionId;	}
 	public void setPostRevisionId(long postRevisionId) {		this.postRevisionId = postRevisionId;	}
 
 	public String getBlogId() {		return post.getBlogId();	}
+	public String getBlogTitle() {	return post.getBlogTitle();	}
 	public long getPostDisplayId() {		return post.getDisplayId();	}
 	public String getPostContents() {		return post.getContents(this.postRevisionId);	}
 	public String getPostTitle() {		return post.getTitle();	}
+
 }

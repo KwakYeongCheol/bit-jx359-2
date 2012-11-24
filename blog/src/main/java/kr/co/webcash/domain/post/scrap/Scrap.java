@@ -7,10 +7,12 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import kr.co.webcash.domain.blog.Blog;
+import kr.co.webcash.domain.notification.Notificable;
 import kr.co.webcash.domain.post.Post;
 
 
-public class Scrap {
+public class Scrap implements Notificable {
 	private Post post;
 	private ScrapTarget target;
 	
@@ -109,4 +111,32 @@ public class Scrap {
 	public void setPost(Post post) {		this.post = post;	}
 	public ScrapTarget getTarget() {		return target;	}
 	public void setTarget(ScrapTarget target) {		this.target = target;	}
+
+	@Override
+	public Blog getNotificationBlog() {
+		return post.getBlog();
+	}
+
+	@Override
+	public String getNotificationContents() {
+		StringBuilder builder = new StringBuilder();
+		
+		builder
+			.append("<a href=\"").append(post.getURI()).append("\">")
+				.append("[").append(post.getTitle()).append("]")
+			.append("</a>")
+			.append(" 글에서 스크랩 한 ")
+			.append("<a href=\"").append(target.getUri()).append("\">")
+				.append("[").append(target.getBlogTitle()).append(":").append(target.getPostTitle()).append("]")
+			.append("</a>")
+			.append(" 글이 업데이트 되었습니다. ")
+			.append("<a href=\"")
+				.append("/").append(target.getBlogId()).append("/").append(target.getPostDisplayId())
+				.append("/compare/").append(target.getPost().getCurrentRevision().getDisplayId()).append("/").append(target.getPostRevisionId())
+				.append("\">")
+				.append("변경내역 보기")
+			.append("</a>");
+		
+		return builder.toString();
+	}
 }

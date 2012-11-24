@@ -64,6 +64,16 @@ public class Post {
 		return PostRevision.compare(getContents(revisionDisplayId), getContents(revisionDisplayId - 1));
 	}
 	
+	public String getCompareContents(final long fromRevisionDisplayId, final long toRevisionDisplayId){
+		return PostRevision.compare(getContents(fromRevisionDisplayId), getContents(toRevisionDisplayId));
+	}
+	
+	public String getURI(){
+		StringBuilder builder = new StringBuilder();
+		builder.append("/").append(getBlogId()).append("/").append(getDisplayId());
+		return builder.toString();
+	}
+	
 	
 	@Override
 	public String toString() {
@@ -77,6 +87,7 @@ public class Post {
 
 	/* sub object's getter / setter wrapper */
 	public void setBlog(Blog blog) {		this.category.setBlog(blog);	}
+	public Blog getBlog(){				return this.category.getBlog();	}
 	public String getBlogId(){		return this.category.getBlogId();	}
 	public String getBlogTitle(){	return this.category.getBlogTitle();	}
 	public PostRevision getCurrentRevision(){		return postRevisionList.get(0);	}

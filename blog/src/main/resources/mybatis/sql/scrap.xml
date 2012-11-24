@@ -12,13 +12,15 @@
 			s.postId as "post.id",
 				p.displayId as "post.displayId",
 				p.title as "post.title",
-				c.id as "post.category.id",
-				b.id as "post.category.blog.id",
+					c.id as "post.category.id",
+						b.id as "post.category.blog.id",
+						b.title as "post.category.blog.title",
 			s.targetPostId as "target.post.id",
 				tp.displayId as "target.post.displayId",
 				tp.title as "target.post.title",
-				tc.id as "target.post.category.id",
-				tb.id as "target.post.category.blog.id",
+					tc.id as "target.post.category.id",
+						tb.id as "target.post.category.blog.id",
+						tb.title as "target.post.category.blog.title",
 			s.targetPostRevisionId as "target.postRevisionId"
 		FROM
 			scraps s
@@ -74,6 +76,12 @@
 		<include refid="select" />
 		WHERE
 			tb.id = #{blogId}
+	</select>
+	
+	<select id="findAllByTargetPostId" resultType="Scrap">
+		<include refid="select" />
+		WHERE
+			s.targetPostId = #{targetPostId}
 	</select>
 	
 	<select id="countByBlogId" resultType="Integer">

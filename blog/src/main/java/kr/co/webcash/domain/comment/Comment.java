@@ -16,7 +16,6 @@ public class Comment implements Notificable{
 	private String contents;
 
 	@DateTimeFormat(iso= DateTimeFormat.ISO.NONE)
-
 	private Date dateCreated;
 	
 	
@@ -26,14 +25,11 @@ public class Comment implements Notificable{
 	}
 	
 	@Override
-	public String getNotificationURI() {
-		return target.getUri();
-	}
-	
-	@Override
 	public String getNotificationContents() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(writer.getName()).append("님이 댓글을 남겼습니다.");
+		builder.append("<a href=\"").append(target.getUri()).append("\">")
+				.append(writer.getName()).append("님이 ")	.append(getTargetType().getValue()).append("에 댓글을 남겼습니다.")
+				.append("</a>");
 		return builder.toString();
 	}
 	
