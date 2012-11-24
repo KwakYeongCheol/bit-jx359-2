@@ -7,6 +7,7 @@ import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.domain.post.scrap.Scrap;
 import kr.co.webcash.domain.post.scrap.ScrapTarget;
 import kr.co.webcash.repository.ScrapRepository;
+import kr.co.webcash.service.notification.NotificationService;
 import kr.co.webcash.service.post.PostService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 public class ScrapServiceImpl implements ScrapService{
 	
 	@Autowired private PostService postService;
+	@Autowired private NotificationService notificationService;
 	
 	@Autowired private ScrapRepository scrapRepository;
 
@@ -45,6 +47,16 @@ public class ScrapServiceImpl implements ScrapService{
 	public void save(Scrap scrap) {
 		scrapRepository.insert(scrap);
 	}
+	
+	@Override
+	public void sendNotification(Post post) {
+		List<Scrap> scrapList = scrapRepository.findAllByTargetPostId(post.getId());
+		
+		for(Scrap scrap : scrapList){
+			notificationService.sendNotification(scrap, false);
+		}
+	}
+
 
 	@Override
 	public void convertFromScrapTagToScrapContents(Post post) {
@@ -73,5 +85,4 @@ public class ScrapServiceImpl implements ScrapService{
 		
 		post.setContents(buffer.toString());
 	}
-
 }

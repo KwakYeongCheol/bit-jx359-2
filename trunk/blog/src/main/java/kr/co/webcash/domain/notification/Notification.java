@@ -12,38 +12,22 @@ public class Notification {
 	private String contents;
 	private Date dateCreated;
 	
+	private boolean isPublic = true;
+	
 	public Notification(){
 		dateCreated = new Date();
 	}
 	
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public Blog getBlog() {
-		return blog;
-	}
-	public void setBlog(Blog blog) {
-		this.blog = blog;
-	}
-	public String getUri() {
-		return uri;
-	}
-	public void setUri(String uri) {
-		this.uri = uri;
-	}
-	public String getContents() {
-		return contents;
-	}
-	public void setContents(String contents) {
-		this.contents = contents;
-	}
-	public Date getDateCreated() {
-		return dateCreated;
-	}
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
-	}
+	public long getId() {		return id;	}
+	public void setId(long id) {		this.id = id;	}
+	public Blog getBlog() {		return blog;	}
+	public void setBlog(Blog blog) {		this.blog = blog;	}
+	public String getUri() {		return uri;	}
+	public void setUri(String uri) {		this.uri = uri;	}
+	public String getContents() {		return contents;	}
+	public void setContents(String contents) {		this.contents = contents;	}
+	public Date getDateCreated() {		return dateCreated;	}
+	public void setDateCreated(Date dateCreated) {		this.dateCreated = dateCreated;	}
+	public boolean getIsPublic() {		return isPublic;	}
+	public void setIsPublic(boolean isPublic) {		this.isPublic = isPublic;	}
 }

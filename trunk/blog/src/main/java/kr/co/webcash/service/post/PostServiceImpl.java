@@ -60,6 +60,8 @@ public class PostServiceImpl implements PostService {
 		postRepository.update(post);
 		post.getPostMetadata().setPost(post);
 		postMetadataRepository.update(post.getPostMetadata());
+		
+		scrapService.sendNotification(post);
 	}
 	
 	@Override

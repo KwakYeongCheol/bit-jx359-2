@@ -6,8 +6,6 @@ public interface Notificable {
 
 	public Blog getNotificationBlog();
 	
-	public String getNotificationURI();
-	
 	public String getNotificationContents();
 
 }

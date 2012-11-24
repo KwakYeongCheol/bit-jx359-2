@@ -29,16 +29,19 @@ public class Guestbook implements Notificable{
 		return blog;
 	}
 
-
-	@Override
-	public String getNotificationURI() {
-		return "/"+blog.getId()+"/guestbook/"+displayId;
-	}
-
-
 	@Override
 	public String getNotificationContents() {
-		return writer.getName()+"님이 새 방명록을 남기셨습니다.";
+		StringBuilder builder = new StringBuilder();
+		builder.append("<a href=\"").append(getURI()).append("\">")
+			.append(writer.getName()).append(" 님이 새 방명록을 남기셨습니다.")
+			.append("</a>");
+		return builder.toString();
+	}
+	
+	public String getURI(){
+		StringBuilder builder = new StringBuilder();
+		builder.append("/").append(blog.getId()).append("/guestbook/").append(displayId);
+		return builder.toString();
 	}
 	
 	@Override

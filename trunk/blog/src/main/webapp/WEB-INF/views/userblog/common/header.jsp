@@ -104,11 +104,10 @@
 				<nav class="nav2">
 					<div class="nav-notification">[이 블로그에 대한 최근 활동]</div>
 					<ul class="nav-notify-menu">
-
 						<c:forEach items="${notificationList }" var="notification">
-							<li><a
-								href="${pageContext.request.contextPath }${notification.uri }">
-									${notification.contents } | ${notification.dateCreated } </a></li>
+							<li>
+								${notification.contents } | ${notification.dateCreated }
+							</li>
 						</c:forEach>
 					</ul>
 				</nav>

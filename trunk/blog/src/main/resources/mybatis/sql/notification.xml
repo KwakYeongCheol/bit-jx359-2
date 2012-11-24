@@ -2,9 +2,9 @@
 <mapper namespace="Notification">
 	<insert id="insert" parameterType="Notification">
 		INSERT INTO notification 
-			(id, blogId, contents, uri, dateCreated) 
+			(id, blogId, contents, dateCreated, isPublic) 
 		VALUES
-			(#{id}, #{blog.id},  #{contents}, #{uri}, #{dateCreated})
+			(#{id}, #{blog.id},  #{contents}, #{dateCreated}, #{isPublic})
 	</insert>
 	
 	<sql id="select">
@@ -12,15 +12,15 @@
 			id, 
 			blogId as "blog.id",
 			contents,
-			uri,
-			dateCreated
+			dateCreated,
+			isPublic
 		FROM
 			notification
 	</sql>
 	
 	<select id="findLast" resultType="Notification">
 		<include refid="select" />
-		ORDER BY id desc
+		ORDER BY id DESC
 		LIMIT 1
 	</select>
 
@@ -28,6 +28,6 @@
 		<include refid="select" />
 		WHERE
 			blogId = #{blogId}
-		ORDER BY dateCreated desc
+		ORDER BY dateCreated DESC
 	</select>
 </mapper>

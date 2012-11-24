@@ -15,4 +15,6 @@ public interface NotificationService {
 	List<Notification> listByBlog(Blog blog, int pageNumber);
 
 	boolean sendNotification(Notificable notificable);
+	boolean sendNotification(Notificable notificable, boolean isPublic);
+
 }

@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.domain.post.scrap.Scrap;
 import kr.co.webcash.repository.BlogRepository;
+import kr.co.webcash.repository.PostRevisionRepository;
 import kr.co.webcash.repository.ScrapRepository;
 
 import org.apache.ibatis.session.SqlSession;
@@ -17,6 +19,8 @@ public class ScrapRepositoryImpl implements ScrapRepository{
 	@Autowired private SqlSession sqlSession;
 	
 	@Autowired private BlogRepository blogRepository;
+	
+	@Autowired private PostRevisionRepository postRevisionRepository;
 	
 	@Override
 	public void insert(Scrap scrap) {
@@ -48,6 +52,21 @@ public class ScrapRepositoryImpl implements ScrapRepository{
 	@Override
 	public int countByBlogId(String blogId) {
 		return sqlSession.<Integer>selectOne("Scrap.countByBlogId", blogId);
+	}
+	
+	@Override
+	public List<Scrap> findAllByTargetPostId(long targetPostId) {
+		List<Scrap> scrapList = sqlSession.<Scrap>selectList("Scrap.findAllByTargetPostId", targetPostId);
+		
+		for(Scrap scrap : scrapList){
+			addPostRevisionHistory(scrap.getTarget().getPost());
+		}
+		
+		return scrapList;
+	}
+	
+	private void addPostRevisionHistory(Post post) {
+		post.setPostRevisionList(postRevisionRepository.findAllByPost(post));
 	}
 
 }

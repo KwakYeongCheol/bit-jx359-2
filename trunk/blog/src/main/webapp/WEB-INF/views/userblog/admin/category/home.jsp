@@ -12,9 +12,9 @@
 </form:form>
 </div>
 
-<div class="group">
+<div class="group" style="margin-top:40px;">
 	<div class="groupTitle theme-a">
-		카테고리 목록 <a href="${pageContext.request.contextPath }/${blog.id }/admin/category/add">카테고리 추가</a> 
+		카테고리 목록 
 	</div>
 	<div class="groupContents">
 		<c:forEach items="${categoryList }" var="category">
