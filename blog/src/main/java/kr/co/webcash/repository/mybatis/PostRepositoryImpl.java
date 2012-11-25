@@ -155,6 +155,14 @@ public class PostRepositoryImpl implements PostRepository {
 	public List<Post> findAllByQueryAndPage(String query, int offset, int limit) {
 		return wrap(sqlSession.<Post>selectList("Post.findAllByQuery", query, new RowBounds(offset, limit)));
 	}
+	
+	@Override
+	public List<Post> findAllByBlogIdAndQueryAndPage(String blogId, String query, int offset, int limit) {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("blogId", blogId);
+		params.put("query", query);
+		return wrap(sqlSession.<Post>selectList("Post.findAllByBlogIdAndQuery", params, new RowBounds(offset, limit)));
+	}
 
 	@Override
 	public Post findById(long id) {
@@ -211,6 +219,14 @@ public class PostRepositoryImpl implements PostRepository {
 	@Override
 	public int countByQuery(String query) {
 		return sqlSession.<Integer>selectOne("Post.countByQuery", query);
+	}
+	
+	@Override
+	public int countByBlogIdAndQuery(String blogId, String query) {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("blogId", blogId);
+		params.put("query", query);
+		return sqlSession.<Integer>selectOne("Post.countByBlogIdAndQuery", params);
 	}
 
 	@Override

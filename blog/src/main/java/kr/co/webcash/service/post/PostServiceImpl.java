@@ -132,6 +132,11 @@ public class PostServiceImpl implements PostService {
 	public List<Post> search(String query, Page page) {
 		return wrap(postRepository.findAllByQueryAndPage(query, page.getStartPage(), page.getPageSize()));
 	}
+	
+	@Override
+	public List<Post> searchByBlogId(String blogId, String query, Page page) {
+		return wrap(postRepository.findAllByBlogIdAndQueryAndPage(blogId, query, page.getStartPage(), page.getPageSize()));
+	}
 
 	@Override
 	public List<Post> listByBlogId(String blogId) {
@@ -201,6 +206,11 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public int countByQuery(String query) {
 		return postRepository.countByQuery(query);
+	}
+	
+	@Override
+	public int countByBlogIdAndQuery(String blogId, String query) {
+		return postRepository.countByBlogIdAndQuery(blogId, query);
 	}
 
 	@Override

@@ -347,6 +347,18 @@ class MockPostService implements PostService{
 		return null;
 	}
 
+	@Override
+	public int countByBlogIdAndQuery(String blogId, String query) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Post> searchByBlogId(String blogId, String query, Page page) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
 
 
