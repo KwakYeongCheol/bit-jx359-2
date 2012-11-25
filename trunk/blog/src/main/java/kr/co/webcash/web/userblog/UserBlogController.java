@@ -1,9 +1,12 @@
 package kr.co.webcash.web.userblog;
 
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Provider;
 
+import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Page;
 import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.service.blog.BlogService;
@@ -28,21 +31,26 @@ public class UserBlogController {
 	@Inject private Provider<LoginUser> loginUserProvider;
 	
 	@RequestMapping
-	public String main(@PathVariable String blogId, @RequestParam(defaultValue="1") int pageNum , Model model){
+	public String main(@PathVariable String blogId, @RequestParam(defaultValue="1") int pageNumber , Model model){
 		if(!blogService.isExist(blogId))	return "redirect:/";
 		
 		LoginUser loginUser = loginUserProvider.get();
+		
+		Category category = new Category("모든 글");
+		
 		if(loginUser.isLoggedIn() && blogService.isAdmin(blogId, loginUser.getLoginUser())){
-			Page page = postService.getPage(blogId, pageNum);
-			model.addAttribute("postList", postService.listByBlogIdAndPage(blogId, page));
+			Page page = postService.getPage(blogId, pageNumber);
+			category.setPostList(postService.listByBlogIdAndPage(blogId, page));
+			model.addAttribute("pageCategory", category);
 			model.addAttribute("page", page);
 		}else{
-			Page page = postService.getPagePublic(blogId, pageNum);
-			model.addAttribute("postList", postService.listPublicByBlogIdAndPage(blogId, page));
+			Page page = postService.getPagePublic(blogId, pageNumber);
+			category.setPostList(postService.listPublicByBlogIdAndPage(blogId, page));
+			model.addAttribute("pageCategory", category);
 			model.addAttribute("page", page);
 		}
 		 
-		return "/userblog/home";
+		return "/jinbo/home";
 	}
 	
 	@RequestMapping("/{postId}")
