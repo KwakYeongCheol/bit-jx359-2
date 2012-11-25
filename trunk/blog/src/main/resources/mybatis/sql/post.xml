@@ -75,6 +75,14 @@
 		ORDER BY p.id DESC
 	</select>
 	
+	<select id="findAllPublicByCategoryId" resultType="Post">
+		<include refid="select" />
+		WHERE 
+			p.categoryId = #{categoryId}
+			AND pm.isPublic = 'true'
+		ORDER BY p.dateCreated DESC
+	</select>
+	
 	<select id="findLastByCategoryId" resultType="Post">
 		<include refid="select" />
 		WHERE 
@@ -164,6 +172,13 @@
 		<include refid="count"/>
 		WHERE 
 			c.id = #{categoryId}
+	</select>
+	
+	<select id="countPublicByCategoryId" resultType="Integer">
+		<include refid="count"/>
+		WHERE 
+			c.id = #{categoryId}
+			AND pm.isPublic = 'true'
 	</select>
 	
 	<select id="count" resultType="Integer">

@@ -19,6 +19,7 @@ public interface PostRepository {
 	int countPublicByBlogId(String blogId);
 	
 	int countByCategoryId(long categoryId);
+	int countPublicByCategoryId(long categoryId);
 	
 	Post findById(long id);
 	Post findLastPostByBlogId(String blogId);
@@ -35,8 +36,10 @@ public interface PostRepository {
 	List<Post> findAllByBlogId(String blogId);
 	List<Post> findAllByQueryAndPage(String query, int offset, int limit);
 	List<Post> findAllByBlogIdAndPage(String blogId, int offset, int limit);
-	List<Post> findAllPublicByBlogIdAndPage(String blogId, int offset, int limit);
 	
 	List<Post> findAllTempByBlogId(String blogId);
 	List<Post> findAllByTagListAndPage(List<String> tagList, int offset, int limit);
+	
+	List<Post> findAllPublicByBlogIdAndPage(String blogId, int offset, int limit);
+	List<Post> findAllPublicByCategoryIdAndOffsetAndLimit(long id, int startPage, int pageSize);
 }

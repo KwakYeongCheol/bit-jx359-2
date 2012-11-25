@@ -38,6 +38,14 @@
 			</div>
 			<div class="postInfo">
 				<a href="${pageContext.request.contextPath }/${blog.id}/category/${post.category.displayId}">${post.category.title }</a> | <spring:eval expression="post.dateCreated" />
+				
+				<c:if test="${loginUserProvider.loginUser.loginId == blog.owner }">
+				<span style="float:right;">
+					<c:if test="${post.isTemp }">임시</c:if><c:if test="${!post.isTemp && post.isPublic }">공개</c:if><c:if test="${!post.isTemp && !post.isPublic }">비공개</c:if>
+					| <a href="${pageContext.request.contextPath }/${blog.id}/admin/post/modify?displayId=${post.displayId}">수정</a> 
+					| <a href="${pageContext.request.contextPath }/${blog.id}/admin/post/delete?displayId=${post.displayId}&redirectURI=${pageURI }">삭제</a>
+				</span>
+				</c:if>
 			</div>
 			<hr />
 			<div class="postContents">

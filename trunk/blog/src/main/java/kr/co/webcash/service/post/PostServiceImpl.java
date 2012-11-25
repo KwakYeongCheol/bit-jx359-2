@@ -1,5 +1,6 @@
 package kr.co.webcash.service.post;
  
+import java.util.ArrayList;
 import java.util.List;
 
 import kr.co.webcash.domain.Category;
@@ -201,4 +202,48 @@ public class PostServiceImpl implements PostService {
 	public int countByQuery(String query) {
 		return postRepository.countByQuery(query);
 	}
+
+	@Override
+	public int countPublicByCategory(Category findCategory) {
+		return postRepository.countPublicByCategoryId(findCategory.getId());
+	}
+
+	@Override
+	public List<Post> listByBlogIdAndCategoryDisplayIdAndPage(String blogId, long categoryDisplayId, Page page) {
+		Category findCategory = categoryRepository.findByBlogIdAndDisplayId(blogId, categoryDisplayId);
+		if(findCategory == null)	return new ArrayList<Post>();
+		
+		return wrap(postRepository.findAllByCategoryIdAndOffsetAndLimit(findCategory.getId(), page.getStartPage(), page.getPageSize()));
+	}
+
+	@Override
+	public List<Post> listPublicByBlogIdAndCategoryDisplayIdAndPage(String blogId, long displayId, Page page) {
+		Category findCategory = categoryRepository.findByBlogIdAndDisplayId(blogId, displayId);
+		if(findCategory == null)	return new ArrayList<Post>();
+		
+		return wrap(postRepository.findAllPublicByCategoryIdAndOffsetAndLimit(findCategory.getId(), page.getStartPage(), page.getPageSize()));
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

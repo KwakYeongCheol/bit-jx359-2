@@ -327,6 +327,26 @@ class MockPostService implements PostService{
 		return null;
 	}
 
+	@Override
+	public int countPublicByCategory(Category findCategory) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Post> listByBlogIdAndCategoryDisplayIdAndPage(String blogId,
+			long displayId, Page page) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Post> listPublicByBlogIdAndCategoryDisplayIdAndPage(
+			String blogId, long displayId, Page page) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
 
 

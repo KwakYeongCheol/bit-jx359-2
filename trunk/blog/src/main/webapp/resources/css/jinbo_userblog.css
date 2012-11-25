@@ -305,7 +305,7 @@ header{
 .blogMenu .notification li{
 	width: 530px;
 	display: block;
-	color:#000;
+	color:#FFF;
 }
 
 /* blogmenu end */
@@ -548,8 +548,20 @@ section{
 	margin-bottom: 10px;
 }
 
-
 /* post end */
+
+/* notfound start */
+.notfound{
+	float:right;
+	margin: 0 auto 0;
+	padding: 50px 0 0 100px;
+	width: 600px;
+	height: 300px;
+	background-color: #FFF;
+	border-radius: 10px;
+}
+
+/* notfound end */
 
 
 

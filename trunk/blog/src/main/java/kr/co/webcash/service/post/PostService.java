@@ -15,7 +15,10 @@ public interface PostService {
 	long findLastDisplayIdByBlogId(String blogId);
 	
 	int count();
+	
 	int countByCategory(Category category);
+	int countPublicByCategory(Category findCategory);
+	
 	int countByTagCategory(TagCategory tagCategory);
 	int countByQuery(String query);
 	
@@ -36,6 +39,11 @@ public interface PostService {
 	List<Post> listPublicByBlogIdAndPageNumber(String blogId, int pageNumber);
 	List<Post> listPublicByBlogIdAndPage(String blogId, Page page);
 	List<Post> listByBlogIdAndPageNumberAndPageSize(String blogId, int pageNumber, int pageSize);
-	List<Post> tempListByBlogId(String blogId);
 	List<Post> listByTagCategoryAndPage(TagCategory tagCategory, Page page);
+
+	List<Post> listByBlogIdAndCategoryDisplayIdAndPage(String blogId, long displayId, Page page);
+	List<Post> listPublicByBlogIdAndCategoryDisplayIdAndPage(String blogId, long displayId, Page page);
+	
+	List<Post> tempListByBlogId(String blogId);
+	
 }
