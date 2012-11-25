@@ -208,6 +208,16 @@
 			AND pm.isPublic = 'true'
 	</select>
 	
+	<select id="countByBlogIdAndQuery" resultType="Integer">
+		<include refid="count"/>
+		LEFT OUTER JOIN
+			post_tag pt on pt.postId = p.id
+		WHERE
+			(p.contents LIKE '%'||#{query}||'%' OR pt.tag_value = #{query})
+			AND pm.isPublic = 'true'
+			AND c.blogId = #{blogId}
+	</select>
+	
 	<select id="findAllByQuery" resultType="Post">
 		<include refid="select"/>
 		LEFT OUTER JOIN
@@ -215,6 +225,17 @@
 		WHERE
 			(p.contents LIKE '%'||#{query}||'%' OR pt.tag_value = #{query})
 			AND pm.isPublic = 'true'
-		ORDER BY p.id DESC
+		ORDER BY p.dateCreated DESC
+	</select>
+	
+	<select id="findAllByBlogIdAndQuery" resultType="Post">
+		<include refid="select"/>
+		LEFT OUTER JOIN
+			post_tag pt on pt.postId = p.id
+		WHERE
+			(p.contents LIKE '%'||#{query}||'%' OR pt.tag_value = #{query})
+			AND pm.isPublic = 'true'
+			AND c.blogId = #{blogId}
+		ORDER BY p.dateCreated DESC
 	</select>
 </mapper>

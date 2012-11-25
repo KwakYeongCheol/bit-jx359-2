@@ -85,7 +85,7 @@
 			</div>
 			<div class="searchBox">
 				<form action="${pageContext.request.contextPath }/${blog.id}/search" method="get">
-					<input type="text" class="input" placeholder="블로그 내 검색"/>
+					<input type="text" class="input" name="query" placeholder="블로그 내 검색"/>
 					<input type="submit" class="submit" value="검색" />
 				</form>
 			</div>
