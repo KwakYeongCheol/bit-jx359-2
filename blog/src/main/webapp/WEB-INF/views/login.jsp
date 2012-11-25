@@ -1,10 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<jsp:include page="common/header.jsp" />
-
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>JINBO </title>
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jinbo.css">
+	<script src="${pageContext.request.contextPath }/resources/js/jquery-1.8.2.js"></script>
+</head>
+<body>
+<div id="wrap">
+<section>
 <div class="contentsLoginContainer">
 	<div class="contentsLoginWrap">
+		<div class="title">
+			<a href="${pageContext.request.contextPath }/">JINBO</a>
+		</div>
 		<div class="contentsLoginBox">
 			<form action="${pageContext.request.contextPath }/loginAction" method="POST">
 				<c:if test="${redirectURI != null}">
@@ -22,5 +34,7 @@
 		</div>
 	</div>
 </div>
-
-<jsp:include page="common/footer.jsp" />
+</section>
+</div>
+</body>
+</html>

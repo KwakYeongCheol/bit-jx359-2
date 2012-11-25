@@ -550,6 +550,80 @@ section{
 
 /* post end */
 
+/* guestbook wrap start */
+.guestbookWrap{
+	margin: 0 auto 0;
+	padding-top: 30px;
+	width: 700px;
+	float:right;
+	font-size: 15px;
+}
+
+.guestbookInput{
+	margin: 0 auto 0;
+	text-align: center;
+}
+
+.guestbookInput textarea{
+	width: 80%;
+	margin: 0 auto 0;
+	display: block;
+}
+
+.guestbookInput .submit{
+	border:1px solid #000;
+	margin: 5px;
+	width: 400px;
+	height: 20px;
+	font-size: 15px;
+}
+
+.guestbookInput .submit:hover{
+	background-color: #FFF;
+}
+
+.guestbookList{
+	margin-top: 30px;
+}
+
+.guestbook{
+	background-color: #FFF;
+	width: 680px;
+	padding: 10px;
+	border:1px solid #FFF;
+	border-radius: 5px;
+	margin: 5px 0 10px 0;
+}
+
+.guestbook a{
+	color:#888;
+}
+
+.guestbook hr{
+	width: 30%;
+	margin: 5px 0 5px 5px;
+}
+
+.guestbookContents{
+	margin: 20px 0 10px 0;
+}
+
+.guestbookCommentInput{
+	margin: 20px 0;
+}
+
+.guestbookCommentList{
+	font-size: 13px;
+}
+
+.guestbookCommentList .guestbookComment{
+	margin-bottom: 10px;
+}
+
+
+
+/* guestbook wrap end */
+
 /* notfound start */
 .notfound{
 	float:right;

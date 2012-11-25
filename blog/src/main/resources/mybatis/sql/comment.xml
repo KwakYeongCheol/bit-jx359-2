@@ -78,7 +78,7 @@
 		WHERE 
 			ca.blogId = #{blogId} 
 			AND c.commentType = #{type}
-		ORDER BY c.id DESC
+		ORDER BY c.displayId DESC
 		LIMIT 1
 	</select>
 	
