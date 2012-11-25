@@ -111,7 +111,8 @@ public class CommentController {
 
 	@RequestMapping("/delete")
 	public String delete(@PathVariable String blogId, @RequestParam long displayId,
-			@RequestParam long targetId, @RequestParam String type) {
+			@RequestParam long targetId, @RequestParam String type,
+			@RequestParam(required=false) String redirectURI) {
 		Blog currentBlog = blogService.findById(blogId);
 		Comment comment = commentService.findByTargetIdAndCommentTypeAndDisplayId(targetId, CommentType.valueOf(type), displayId);
 
@@ -119,6 +120,8 @@ public class CommentController {
 				|| comment.getWriter().getLoginId().equals(loginUser().getLoginId())) {
 			commentService.delete(comment);
 		}
+		
+		if(redirectURI != null)		return "redirect:" + redirectURI;
 
 		return "redirect:/" + blogId;
 	}
