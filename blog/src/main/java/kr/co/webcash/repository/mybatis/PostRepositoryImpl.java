@@ -212,4 +212,14 @@ public class PostRepositoryImpl implements PostRepository {
 	public int countByQuery(String query) {
 		return sqlSession.<Integer>selectOne("Post.countByQuery", query);
 	}
+
+	@Override
+	public int countPublicByCategoryId(long categoryId) {
+		return sqlSession.<Integer>selectOne("Post.countPublicByCategoryId", categoryId);
+	}
+
+	@Override
+	public List<Post> findAllPublicByCategoryIdAndOffsetAndLimit(long categoryId, int offset, int limit) {
+		return wrap(sqlSession.<Post>selectList("Post.findAllPublicByCategoryId", categoryId, new RowBounds(offset, limit)));
+	}
 }
