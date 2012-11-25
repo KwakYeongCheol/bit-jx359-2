@@ -56,9 +56,9 @@
 	<div class="extensionPost">
 		<c:set var="page" value="${page }"></c:set>
 		<div class="category-active category-all">
-			<div class="cateogryTitle">${allCategory.title }</div>
+			<div class="cateogryTitle">${pageCategory.title }</div>
 			<div class="post">
-				<c:forEach items="${postList }" var="post">
+				<c:forEach items="${pageCategory.postList }" var="post">
 					<div class="postBox">
 						<input type="hidden" name="postDisplayId" value="${post.displayId }" class="postDisplayId" />
 						<div class="postTitle">${post.title }

@@ -50,7 +50,7 @@ public class UserBlogController {
 			model.addAttribute("page", page);
 		}
 		 
-		return "/jinbo/home";
+		return "/userblog/home";
 	}
 	
 	@RequestMapping("/{postId}")
