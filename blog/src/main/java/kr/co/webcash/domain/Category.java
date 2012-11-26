@@ -6,13 +6,14 @@ import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.domain.post.Post;
 
 public class Category {
+	public static final long DEFAULT_ALL_DISPLAY_ID = 9999;
 	private static final long DEFAULT_DISPLAY_ID = 1;
 	private static final String DEFAULT_TITLE = "분류 없음";
 	private static final long DEFAULT_DISTANCE = 100000000;
 	
 	private long id;
 	
-	private long displayId;
+	private long displayId = DEFAULT_ALL_DISPLAY_ID;
 	private Blog blog;
 	private String title;
 	private long orderValue;

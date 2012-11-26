@@ -39,7 +39,7 @@
 				<form action="${pageContext.request.contextPath }/${blog.id}/comment/writeAction" method="post">
 					<input type="hidden" name="targetDisplayId" value="${guestbook.displayId }" />
 					<input type="hidden" name="type" value="guestbook" />
-					<textarea name="contents" rows="3" style="width:100%"></textarea>
+					<textarea name="contents" rows="1" style="width:100%"></textarea>
 					<div style="text-align:center;padding-top:5px;">
 					<input type="submit" class="postActionButton" style="margin:0 auto 0; padding:5px; border:1px solid #000;font-size:13px; width:200px; " value="댓글 작성하기"/>
 					</div>

@@ -1,12 +1,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Post">
 	<insert id="insert" parameterType="Post">
-		insert into post (id, categoryId, displayId, title, contents, dateCreated) 
-		values(#{id}, #{category.id}, #{displayId}, #{title}, #{contents}, #{dateCreated})
+		insert into post (id, categoryId, displayId, title, contents, contentsWithoutTag, dateCreated) 
+		values(#{id}, #{category.id}, #{displayId}, #{title}, #{contents}, #{contentsWithoutTag}, #{dateCreated})
 	</insert>
 	
 	<update id="update" parameterType="Post">
-		update post set categoryId = #{category.id}, title = #{title}, contents = #{contents} 
+		update post set categoryId = #{category.id}, title = #{title}, contents = #{contents}, contentsWithoutTag = #{contentsWithoutTag}
 		where id = #{id}
 	</update>
 	
@@ -34,6 +34,7 @@
 			p.displayId as displayId,
 			p.title as title, 
 			p.contents as contents, 
+			p.contentsWithoutTag as contentsWithoutTag,
 			p.dateCreated as dateCreated
 		FROM 
 			post p
@@ -79,7 +80,7 @@
 		<include refid="select" />
 		WHERE 
 			p.categoryId = #{categoryId}
-			AND pm.isPublic = 'true'
+			AND (pm.isPublic = 'true' OR pm.isPublic = '1')
 		ORDER BY p.dateCreated DESC
 	</select>
 	
@@ -102,7 +103,7 @@
 		<include refid="select"/>
 		WHERE
 			c.blogId = #{blogId}
-			AND pm.isPublic = 'true'
+			AND (pm.isPublic = 'true' OR pm.isPublic = '1')
 		ORDER BY p.id DESC
 	</select>
 	
@@ -165,7 +166,7 @@
 		<include refid="count"/>
 		WHERE 
 			c.blogId = #{blogId}
-			AND pm.isPublic = 'true'
+			AND (pm.isPublic = 'true' OR pm.isPublic = '1')
 	</select>
 	
 	<select id="countByCategoryId" resultType="Integer">
@@ -178,7 +179,7 @@
 		<include refid="count"/>
 		WHERE 
 			c.id = #{categoryId}
-			AND pm.isPublic = 'true'
+			AND (pm.isPublic = 'true' OR pm.isPublic = '1')
 	</select>
 	
 	<select id="count" resultType="Integer">
@@ -188,10 +189,10 @@
 	
 	<select id="countByTagList" resultType="Integer">
 		<include refid="count"/>
-		JOIN
+		LEFT OUTER JOIN
 			post_tag pt on pt.postId = p.id
 		WHERE
-			pm.isPublic = 'true'
+			(pm.isPublic = 'true' OR pm.isPublic = '1')
 			AND pt.tag_value IN
 			<foreach collection="list" item="item" index="index"
 				open="(" separator="," close=")">
@@ -204,8 +205,8 @@
 		LEFT OUTER JOIN
 			post_tag pt on pt.postId = p.id
 		WHERE
-			(p.contents LIKE '%'||#{query}||'%' OR pt.tag_value = #{query})
-			AND pm.isPublic = 'true'
+			(p.contents LIKE '%${value}%' OR pt.tag_value = #{value})
+			AND (pm.isPublic = 'true' OR pm.isPublic = '1')
 	</select>
 	
 	<select id="countByBlogIdAndQuery" resultType="Integer">
@@ -213,7 +214,7 @@
 		LEFT OUTER JOIN
 			post_tag pt on pt.postId = p.id
 		WHERE
-			(p.contents LIKE '%'||#{query}||'%' OR pt.tag_value = #{query})
+			(p.contents LIKE '%${value}%' OR pt.tag_value = #{value})
 			AND pm.isPublic = 'true'
 			AND c.blogId = #{blogId}
 	</select>
@@ -223,8 +224,8 @@
 		LEFT OUTER JOIN
 			post_tag pt on pt.postId = p.id
 		WHERE
-			(p.contents LIKE '%'||#{query}||'%' OR pt.tag_value = #{query})
-			AND pm.isPublic = 'true'
+			(p.contents LIKE '%${value}%' OR pt.tag_value = #{value})
+			AND (pm.isPublic = 'true' OR pm.isPublic = '1')
 		ORDER BY p.dateCreated DESC
 	</select>
 	
@@ -233,7 +234,7 @@
 		LEFT OUTER JOIN
 			post_tag pt on pt.postId = p.id
 		WHERE
-			(p.contents LIKE '%'||#{query}||'%' OR pt.tag_value = #{query})
+			(p.contents LIKE '%${value}%' OR pt.tag_value = #{value})
 			AND pm.isPublic = 'true'
 			AND c.blogId = #{blogId}
 		ORDER BY p.dateCreated DESC

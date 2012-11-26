@@ -25,6 +25,7 @@ public interface PostService {
 	
 	Post findById(long id);
 	Post findByBlogIdAndDisplayId(String blogId, long displayId);
+	Post findByBlogIdAndDisplayIdWithOutWrap(String blogId, long displayId);
 
 	Page getPage(String blogId, int pageNum);
 	Page getPagePublic(String blogId, int pageNum);

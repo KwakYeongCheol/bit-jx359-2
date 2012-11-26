@@ -32,6 +32,8 @@ public class PostServiceImpl implements PostService {
 	public void save(Post post) {
 		Post findPost = postRepository.findByBlogIdAndDisplayId(post.getBlogId(), post.getDisplayId());
 		
+		removeBlank(post);
+		
 		if(post.getIsTemp()){
 			post.getPostMetadata().setIsPublic(false);
 		}
@@ -40,6 +42,28 @@ public class PostServiceImpl implements PostService {
 		}else{
 			update(post);
 		}
+	}
+	
+	private void removeBlank(Post post){
+		StringBuilder builder = new StringBuilder(post.getContents().trim());
+		
+		int fromIndex = -1;
+		while((fromIndex = builder.indexOf("<")) != -1){
+			builder.replace(0, fromIndex, builder.substring(0, fromIndex).trim());
+			int toIndex = builder.indexOf(">", fromIndex);
+			
+			if(toIndex != -1){
+				int nextToIndex = builder.indexOf("<", toIndex);
+				
+				if(nextToIndex != -1){
+					builder.replace(toIndex+1, nextToIndex, builder.substring(toIndex+1, nextToIndex).trim());
+				}
+				
+				builder.replace(fromIndex, toIndex+1, "");
+			}
+		}
+		
+		post.setContentsWithoutTag(builder.toString());
 	}
 	
 	private void insert(Post post){
@@ -130,6 +154,11 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public Post findByBlogIdAndDisplayId(String blogId, long displayId) {
 		return wrap(postRepository.findByBlogIdAndDisplayId(blogId, displayId));
+	}
+	
+	@Override
+	public Post findByBlogIdAndDisplayIdWithOutWrap(String blogId, long displayId) {
+		return postRepository.findByBlogIdAndDisplayId(blogId, displayId);
 	}
 
 	@Override

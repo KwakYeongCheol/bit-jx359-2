@@ -97,7 +97,6 @@
 			<ul>
 				<li><a href="${pageContext.request.contextPath }/${blog.id}">홈</a></li>
 				<li><a href="${pageContext.request.contextPath }/${blog.id}/guestbook">방명록</a></li>
-				<li><a href="${pageContext.request.contextPath }/${blog.id}">모아보기</a></li>
 				
 				<c:if test="${loginUserProvider.loggedIn }">
 					<c:if test="${loginUserProvider.loginUser.loginId == blog.owner }">

@@ -1,5 +1,5 @@
 CREATE TABLE users (
-  id VARCHAR(10) NOT NULL,
+  id VARCHAR(50) NOT NULL,
   password VARCHAR(50)  NOT NULL,
   name VARCHAR(40) NOT NULL,
   firstName VARCHAR(20) NOT NULL,

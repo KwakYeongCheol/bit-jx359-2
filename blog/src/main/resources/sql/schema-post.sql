@@ -3,7 +3,8 @@ CREATE TABLE post (
 	categoryId bigint NOT NULL,
 	displayId bigint NOT NULL,
 	title VARCHAR(50) NOT NULL,
-	contents VARCHAR(512) NOT NULL,
+	contents VARCHAR(10000) NOT NULL,
+	contentsWithoutTag VARCHAR(10000),
 	dateCreated timestamp,
 	PRIMARY KEY(id)
 );
@@ -28,7 +29,7 @@ CREATE TABLE post_metadata(
 CREATE TABLE post_revision(
 	postId bigint NOT NULL,
 	displayId bigint NOT NULL,
-	diff VARCHAR(2048) NOT NULL,
+	diff VARCHAR(10000) NOT NULL,
 	PRIMARY KEY(postId, displayId)
 );
 

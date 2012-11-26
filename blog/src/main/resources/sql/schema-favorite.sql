@@ -1,5 +1,5 @@
 CREATE TABLE favorites (
-  loginId VARCHAR(10) NOT NULL, 
+  loginId VARCHAR(50) NOT NULL, 
   blogId VARCHAR(100) NOT NULL,
  PRIMARY KEY(loginId, blogId)
 );
