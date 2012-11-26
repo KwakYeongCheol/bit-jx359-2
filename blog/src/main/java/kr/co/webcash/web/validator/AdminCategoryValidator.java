@@ -24,7 +24,7 @@ public class AdminCategoryValidator implements Validator{
 			String title = category.getTitle();
 			if(title != null){
 				if(title.length() < 3)		errors.rejectValue("title", "field.minlength.category.title");
-				if(title.length() > 12)		errors.rejectValue("title", "field.maxlength.category.title");
+				if(title.length() > 8)		errors.rejectValue("title", "field.maxlength.category.title");
 			}
 			
 		}
