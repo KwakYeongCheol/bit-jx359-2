@@ -73,12 +73,24 @@ public class ScrapServiceImpl implements ScrapService{
 			if(findScrap == null)		continue;
 			
 			StringBuffer changeText = new StringBuffer();
-			changeText.append("<div class=\"scrap\">")
-					.append(findPost.getContents(scrap.getTargetPostRevisionId()))
-					.append("</div>");
+			changeText.append("<scrap>")
+					.append("<div class=\"ref\">")
+						.append("출처 : ")
+						.append("<a href=\"").append("/" + findPost.getBlogId()).append("\">")
+							.append(findPost.getBlogTitle())
+						.append("</a> > ")
+						.append("<a href=\"").append(findPost.getURI()).append("\">")
+							.append(findPost.getTitle())
+						.append("</a>")
+					.append("</div>")
+					.append("<div class=\"contents\">")
+						.append(findPost.getContents(scrap.getTargetPostRevisionId()))
+					.append("</div>")
+				.append("</scrap>");
 			
-			int startIndex = -1;
-			while((startIndex = buffer.indexOf(findScrap.getTag())) != -1){
+			int startIndex = buffer.indexOf(findScrap.getTag());
+			
+			if(startIndex != -1){
 				buffer.replace(startIndex, startIndex + findScrap.getTag().length(), changeText.toString());
 			}
 		}

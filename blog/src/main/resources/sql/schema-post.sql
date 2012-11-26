@@ -206,7 +206,7 @@ INSERT INTO POST_REVISION (postId, displayId, diff)
 	INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
 	VALUES(22, 'Its Raining Day..  임시ㅋ', '숏', NOW(), 2, 19);
 INSERT INTO POST_METADATA (postId, isPublic, isTemp, canScrap, canTrackback, canComment)
-	VALUES(22, 'true', 'true', 'true', 'true', 'true');
+	VALUES(22, 'false', 'true', 'true', 'true', 'true');
 INSERT INTO POST_REVISION (postId, displayId, diff)
 	VALUES(22, 1, '');
 	
@@ -222,6 +222,6 @@ INSERT INTO post_tag (postId, tag_value)
 	INSERT INTO POST (id, title, contents, dateCreated, categoryId, displayId)
 	VALUES(24, 'Its Raining Day..  임시ㅋzzz', '짧아 자바 Java 아이폰 iPhone 안드로이드 슈퍼맨 ㅋㅋㅋ', NOW(), 2, 21);
 INSERT INTO POST_METADATA (postId, isPublic, isTemp, canScrap, canTrackback, canComment)
-	VALUES(24, 'true', 'true', 'true', 'true', 'true');
+	VALUES(24, 'false', 'true', 'true', 'true', 'true');
 INSERT INTO POST_REVISION (postId, displayId, diff)
 	VALUES(24, 1, '');

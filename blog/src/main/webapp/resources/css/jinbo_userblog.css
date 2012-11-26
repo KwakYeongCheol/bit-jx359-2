@@ -548,6 +548,22 @@ section{
 	margin-bottom: 10px;
 }
 
+.post scrap{
+	margin: 15px 0 15px 0;	
+	display: block;
+}
+
+.post scrap .ref{
+	text-align: right;
+}
+
+.post scrap .contents{
+	width: 680px;
+	padding:10px 0 10px 0;
+	background-color: rgba(186,186,186,0.39);
+	border-radius: 5px;
+}
+
 /* post end */
 
 /* guestbook wrap start */
