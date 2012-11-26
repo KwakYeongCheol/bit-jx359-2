@@ -211,6 +211,11 @@ public class PostServiceImpl implements PostService {
 	public int count() {
 		return postRepository.count();
 	}
+	
+	@Override
+	public int countPublic() {
+		return postRepository.countPublic();
+	}
 
 
 	@Override
@@ -221,6 +226,11 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public List<Post> listByPage(Page page) {
 		return postRepository.findAllByPage(page);
+	}
+	
+	@Override
+	public List<Post> listPublicByPage(Page page) {
+		return postRepository.findAllPublicByPage(page.getStartPage(), page.getPageSize());
 	}
 
 	@Override
@@ -276,6 +286,10 @@ public class PostServiceImpl implements PostService {
 	public int countByBlogId(String blogId) {
 		return postRepository.countByBlogId(blogId);
 	}
+
+	
+
+	
 
 	
 }

@@ -69,6 +69,13 @@
 		ORDER BY p.id DESC
 	</select>
 	
+	<select id="findAllPublic" resultType="Post">
+		<include refid="select" />
+		WHERE
+			(pm.isPublic = 'true' OR pm.isPublic = '1')
+		ORDER BY p.id DESC
+	</select>
+	
 	<select id="findAllByCategoryId" resultType="Post">
 		<include refid="select" />
 		WHERE 
@@ -139,7 +146,7 @@
 		<include refid="select"/>
 		WHERE
 			c.blogId = #{blogId}
-			AND pm.isTemp = 'true'	
+			AND (pm.isTemp = 'true' OR pm.isTemp = '1')	
 	</select>
 	
 	<select id="findAllByTagList" resultType="Post">
@@ -147,7 +154,7 @@
 		JOIN
 			post_tag pt on pt.postId = p.id
 		WHERE
-			pm.isPublic = 'true'
+			(pm.isPublic = 'true' OR pm.isPublic = '1')
 			AND pt.tag_value IN
 			<foreach collection="list" item="item" index="index"
 				open="(" separator="," close=")">
@@ -185,7 +192,12 @@
 	<select id="count" resultType="Integer">
 		<include refid="count"/>
 	</select>
-	
+
+	<select id="countPublic" resultType="Integer">
+		<include refid="count"/>
+		WHERE
+			(pm.isPublic = 'true' OR pm.isPublic = '1')
+	</select>
 	
 	<select id="countByTagList" resultType="Integer">
 		<include refid="count"/>

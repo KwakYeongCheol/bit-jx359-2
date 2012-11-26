@@ -15,6 +15,7 @@ public interface PostService {
 	long findLastDisplayIdByBlogId(String blogId);
 	
 	int count();
+	int countPublic();
 	
 	int countByCategory(Category category);
 	int countByBlogId(String blogId);
@@ -37,6 +38,7 @@ public interface PostService {
 	List<Post> searchByBlogId(String blogId, String query, Page page);
 	
 	List<Post> listByPage(Page page);
+	List<Post> listPublicByPage(Page page);
 	
 	List<Post> listByBlogIdAndCategoryDisplayId(String blogId, long categoryDisplayId);
 	List<Post> listByBlogId(String blogId);

@@ -108,6 +108,11 @@ public class PostRepositoryImpl implements PostRepository {
 	public List<Post> findAllByPage(Page page) {
 		return wrap(sqlSession.<Post>selectList("Post.findAll", null, new RowBounds(page.getStartPage(), page.getPageSize())));
 	}
+	
+	@Override
+	public List<Post> findAllPublicByPage(int offset, int limit) {
+		return wrap(sqlSession.<Post>selectList("Post.findAllPublic", null, new RowBounds(offset, limit)));
+	}
 
 
 	@Override
@@ -206,6 +211,11 @@ public class PostRepositoryImpl implements PostRepository {
 	public int count() {
 		return sqlSession.<Integer>selectOne("Post.count");
 	}
+	
+	@Override
+	public int countPublic() {
+		return sqlSession.<Integer>selectOne("Post.countPublic");
+	}
 
 	@Override
 	public int countByTagList(List<String> tagList) {
@@ -239,4 +249,8 @@ public class PostRepositoryImpl implements PostRepository {
 	public List<Post> findAllPublicByCategoryIdAndOffsetAndLimit(long categoryId, int offset, int limit) {
 		return wrap(sqlSession.<Post>selectList("Post.findAllPublicByCategoryId", categoryId, new RowBounds(offset, limit)));
 	}
+
+	
+
+	
 }

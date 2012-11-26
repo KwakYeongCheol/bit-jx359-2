@@ -21,10 +21,10 @@
 			<input class="btn" type="button" value="미리보기" />
 			<input class="btn" id="btnWriteTemp" type="button" value="임시저장" />
 			
-			<select style="width: 45%;float:right;font-size:20px;">
-				<option>### 임시 저장중인 글 ### --</option>
+			<select id="tempSelect" style="width: 45%;float:right;font-size:20px;">
+				<option value="-1">### 임시 저장중인 글 ### --</option>
 				<c:forEach items="${tempPostList }" var="temp">
-				<option>[<spring:eval expression="temp.dateCreated" />] ${temp.title }</option>
+				<option value="${temp.displayId }">[<spring:eval expression="temp.dateCreated" />] ${temp.title }</option>
 				</c:forEach>
 			</select>
 		</div>
@@ -153,6 +153,16 @@ $(document).ready(function(){
 	$("#btnWriteTemp").bind("click", function(){
 		$("<input>").attr("type", "hidden").attr("name", "postMetadata.isTemp").attr("value", "true").appendTo("#writeForm");
 		$("#writeForm").submit();
+	});
+	
+	$("#tempSelect").change(function(){
+		var value = $(this).val();
+		
+		if(value == -1)	return;
+		else{
+			window.location = "${pageContext.request.contextPath }/${blog.id}/admin/post/modify?displayId=" + value;
+		}
+		
 	});
 });
 </script>
