@@ -2,14 +2,15 @@
 <mapper namespace="Blog">
 	<insert id="create" parameterType="Blog">
 		INSERT INTO blogs
-			(id, title, owner,dateCreated, totalCount) 
+			(id, title, owner, blogTheme, dateCreated, totalCount) 
 		VALUES
-			(#{id}, #{title}, #{owner}, #{dateCreated}, #{totalCount})
+			(#{id}, #{title}, #{owner}, #{blogTheme}, #{dateCreated}, #{totalCount})
 	</insert>
 	
 	<update id="update" parameterType="Blog">
 		UPDATE blogs SET
-			title = #{title}
+			title = #{title}, 
+			blogTheme = #{blogTheme}
 		WHERE
 			id = #{id}
 	</update>
@@ -26,6 +27,7 @@
 			id,
 			title,
 			owner,
+			blogTheme,
 			dateCreated,
 			totalCount
 		FROM

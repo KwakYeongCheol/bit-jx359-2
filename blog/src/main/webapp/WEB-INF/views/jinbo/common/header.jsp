@@ -8,6 +8,14 @@
 	<title>${blog.title } </title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jinbo_userblog.css">
 	<script src="${pageContext.request.contextPath }/resources/js/jquery-1.8.2.js"></script>
+	
+	<!--  user blog theme start -->
+	<style>
+		.jinbo .buttonBox{			background-color: ${blog.blogTheme.backgroundColor};		}
+		.blogHeader{			background-color: ${blog.blogTheme.backgroundColor};		}
+		footer{			background-color: ${blog.blogTheme.backgroundColor};		}
+	</style>
+	<!--  user blog theme end -->
 </head>
 
 <body>
