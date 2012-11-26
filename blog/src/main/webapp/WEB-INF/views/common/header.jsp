@@ -62,7 +62,10 @@
 				<li class="nav-menu-title" style="margin-top:20px;"><a href="${pageContext.request.contextPath }/settings/favorite">이웃 블로그 설정</a></li>
 				<hr />
 				<c:forEach items="${loginUserProvider.loginUser.favoriteList }" var="favorite">
-				<li><a href="${pageContext.request.contextPath }/${favorite.blog.id }">${favorite.blog.title }</a></li>
+				<li>
+					<a href="${pageContext.request.contextPath }/${favorite.blog.id }">${favorite.blog.title }</a>
+					| <a href="${pageContext.request.contextPath }/settings/favorite/delete?blogId=${favorite.blog.id}&redirectURI=${pageURI}">삭제</a>
+				</li>
 				</c:forEach>
 			</ul>
 		</nav>

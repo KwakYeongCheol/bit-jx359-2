@@ -72,7 +72,10 @@
 						<li class="nav-menu-title" style="margin-top:20px;"><a href="${pageContext.request.contextPath }/settings/favorite">이웃 블로그 설정</a></li>
 						<hr />
 						<c:forEach items="${loginUserProvider.loginUser.favoriteList }" var="favorite">
-						<li><a href="${pageContext.request.contextPath }/${favorite.blog.id }">${favorite.blog.title }</a></li>
+						<li>
+							<a href="${pageContext.request.contextPath }/${favorite.blog.id }">${favorite.blog.title }</a>
+							| <a href="${pageContext.request.contextPath }/settings/favorite/delete?blogId=${favorite.blog.id}&redirectURI=${pageURI}">삭제</a>
+						</li>
 						</c:forEach>				
 					</ul>
 				</nav>
@@ -118,13 +121,14 @@
 			<nav class="notification">
 				<div class="notification-nav-title">최근 알림 #</div>
 				<ul>
+					<c:if test="${notificationList.isEmpty() }">
+					<li>최근 알림이 없습니다.</li>
+					</c:if>
 					<c:forEach items="${notificationList }" var="notification">
 					<li>
 						${notification.contents } | <span style="color:#CCC;">${notification.dateCreated }</span>
 					</li>
 					</c:forEach>
-					<hr />
-					<li><a href="${pageContext.request.contextPath }/${blog.id}/notification" style="color:#FFF;">더 많은 알림글 보기</a></li>
 				</ul>
 			</nav>
 		</div>

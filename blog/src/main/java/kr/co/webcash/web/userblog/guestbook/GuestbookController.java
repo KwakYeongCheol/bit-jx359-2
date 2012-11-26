@@ -41,7 +41,8 @@ public class GuestbookController {
 	
 	@RequestMapping("/{guestbookDisplayId}")
 	public String guestbookView(@PathVariable String blogId, @PathVariable long guestbookDisplayId, Model model){
-		model.addAttribute("guestbook", guestbookService.findByBlogIdAndDisplayId(blogId, guestbookDisplayId));
+		model.addAttribute("guestbook",new Guestbook());
+		model.addAttribute("findGuestbook", guestbookService.findByBlogIdAndDisplayId(blogId, guestbookDisplayId));
 		return "/jinbo/guestbook/view";
 	}
 	

@@ -31,7 +31,7 @@ public class SettingsFavoriteController {
 	}
 	
 	@RequestMapping("/delete")
-	public String delete(@RequestParam String blogId){
+	public String delete(@RequestParam String blogId, @RequestParam(required=false) String redirectURI){
 		Blog blog = new Blog();
 		blog.setId(blogId);
 		
@@ -41,6 +41,8 @@ public class SettingsFavoriteController {
 		
 		favoriteService.delete(favorite);
 		this.loginUserProvider.get().removeFavorite(favorite);
+		
+		if(redirectURI != null)		return "redirect:" + redirectURI;
 		
 		return "redirect:/settings/favorite";
 	}

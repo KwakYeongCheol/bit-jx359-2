@@ -19,15 +19,15 @@
 		<!-- guestbook start -->
 		<div class="guestbook">
 			<div class="guestbookTitle">
-				${guestbook.writer.name } 님 
-				| <span class="date"><spring:eval expression="guestbook.dateCreated"/></span>
-				<c:if test="${loginUserProvider.loginUser.loginId == blog.owner || loginUserProvider.loginUser.loginId == guestbook.writer.loginId }">
-				| <a href="${pageContext.request.contextPath }/${blog.id}/guestbook/delete?displayId=${guestbook.displayId}&redirectURI=${pageURI}" >삭제</a>
+				${findGuestbook.writer.name } 님 
+				| <span class="date"><spring:eval expression="findGuestbook.dateCreated"/></span>
+				<c:if test="${loginUserProvider.loginUser.loginId == blog.owner || loginUserProvider.loginUser.loginId == findGuestbook.writer.loginId }">
+				| <a href="${pageContext.request.contextPath }/${blog.id}/guestbook/delete?displayId=${findGuestbook.displayId}&redirectURI=${pageURI}" >삭제</a>
 				</c:if>
 			</div>
 			<hr />
 			<div class="guestbookContents">
-				${guestbook.contents }
+				${findGuestbook.contents }
 			</div>
 			<hr />
 			<div class="guestbookCommentInput">
@@ -36,7 +36,7 @@
 				</c:if>
 				<c:if test="${loginUserProvider.loggedIn }">
 				<form action="${pageContext.request.contextPath }/${blog.id}/comment/writeAction" method="post">
-					<input type="hidden" name="targetDisplayId" value="${guestbook.displayId }" />
+					<input type="hidden" name="targetDisplayId" value="${findGuestbook.displayId }" />
 					<input type="hidden" name="type" value="guestbook" />
 					<textarea name="contents" rows="1" style="width:100%"></textarea>
 					<div style="text-align:center;padding-top:5px;">
@@ -46,7 +46,7 @@
 				</c:if>
 			</div>
 			<div class="guestbookCommentList">
-				<c:forEach items="${guestbook.commentList }" var="comment">
+				<c:forEach items="${findGuestbook.commentList }" var="comment">
 				<div class="guestbookComment">
 					<div>
 						${comment.writer.name } 님 
