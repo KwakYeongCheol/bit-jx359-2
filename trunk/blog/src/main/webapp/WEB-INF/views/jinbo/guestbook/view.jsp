@@ -19,7 +19,13 @@
 		<!-- guestbook start -->
 		<div class="guestbook">
 			<div class="guestbookTitle">
+				<c:if test="${findGuestbook.writer.blog == null}">
 				${findGuestbook.writer.name } 님 
+				</c:if>
+				<c:if test="${findGuestbook.writer.blog != null}">
+				<a href="${pageContext.request.contextPath }/${findGuestbook.writer.blog.id}">${findGuestbook.writer.name }</a> 님
+				</c:if>
+				 
 				| <span class="date"><spring:eval expression="findGuestbook.dateCreated"/></span>
 				<c:if test="${loginUserProvider.loginUser.loginId == blog.owner || loginUserProvider.loginUser.loginId == findGuestbook.writer.loginId }">
 				| <a href="${pageContext.request.contextPath }/${blog.id}/guestbook/delete?displayId=${findGuestbook.displayId}&redirectURI=${pageURI}" >삭제</a>

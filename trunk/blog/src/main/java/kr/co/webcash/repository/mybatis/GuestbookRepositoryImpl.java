@@ -7,6 +7,8 @@ import java.util.Map;
 import kr.co.webcash.domain.Guestbook;
 import kr.co.webcash.domain.Page;
 import kr.co.webcash.domain.comment.CommentType;
+import kr.co.webcash.domain.user.User;
+import kr.co.webcash.repository.BlogRepository;
 import kr.co.webcash.repository.CommentRepository;
 import kr.co.webcash.repository.GuestbookRepository;
 
@@ -18,7 +20,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class GuestbookRepositoryImpl implements GuestbookRepository{
 	@Autowired private SqlSession sqlSession;
-	@Autowired CommentRepository commentRepository;
+	
+	@Autowired private CommentRepository commentRepository;
+	@Autowired private BlogRepository blogRepository; 
 	
 	private List<Guestbook> wrap(List<Guestbook> guestbookList){
 		for(Guestbook guestbook : guestbookList){
@@ -29,13 +33,23 @@ public class GuestbookRepositoryImpl implements GuestbookRepository{
 	}
 	
 	private Guestbook wrap(Guestbook guestbook){
-		if(guestbook != null)	addComments(guestbook);
+		if(guestbook != null){
+			addComments(guestbook);
+			addWritersBlogList(guestbook);
+		}
 		
 		return guestbook;
 	}
 	
 	private void addComments(Guestbook guestbook) {
 		guestbook.setCommentList(commentRepository.findAllByTargetIdAndType(guestbook.getId(), CommentType.guestbook));
+	}
+	
+	private void addWritersBlogList(Guestbook guestbook){
+		User writer = guestbook.getWriter();
+		if(writer == null)	return;
+		
+		writer.setBlogList(blogRepository.findAllByUserLoginId(writer.getLoginId()));
 	}
 	
 	@Override
