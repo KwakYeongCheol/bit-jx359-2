@@ -33,8 +33,8 @@
 				</dd>
 				<dd class="desc">
 					<a href="${pageContext.request.contextPath }/${post.blogId}/${post.displayId}">
-						<c:if test="${post.contents.length() <= 130 }">${post.contents }</c:if>
-						<c:if test="${post.contents.length() > 130 }">${post.contents.substring(0, 130) } ...</c:if>
+						<c:if test="${post.contentsWithoutTag.length() <= 130 }">${post.contentsWithoutTag }</c:if>
+						<c:if test="${post.contentsWithoutTag.length() > 130 }">${post.contentsWithoutTag.substring(0, 130) } ...</c:if>
 					</a>
 				</dd>
 				<dd class="tag">

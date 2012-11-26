@@ -1,7 +1,30 @@
 package kr.co.webcash.service;
 
+import org.junit.Test;
+
 
 public class PostServiceTest {
+	
+	@Test
+	public void removeHtml(){
+		StringBuilder builder = new StringBuilder("   <div>         Hello Super mario?     </div><p><a href='showmethemoney'>         hi  </a>".trim());
+		
+		int fromIndex = -1;
+		while((fromIndex = builder.indexOf("<")) != -1){
+			builder.replace(0, fromIndex, builder.substring(0, fromIndex).trim());
+			int toIndex = builder.indexOf(">", fromIndex);
+			
+			if(toIndex != -1){
+				int nextToIndex = builder.indexOf("<", toIndex);
+				
+				if(nextToIndex != -1){
+					builder.replace(toIndex+1, nextToIndex, builder.substring(toIndex+1, nextToIndex).trim());
+				}
+				
+				builder.replace(fromIndex, toIndex+1, "");
+			}
+		}
+	}
 	
 //	@Test
 //	public void successCase(){

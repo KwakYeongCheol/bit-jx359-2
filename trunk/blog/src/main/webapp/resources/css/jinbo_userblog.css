@@ -17,6 +17,10 @@ body{
 	background: #DDD;
 }
 
+body img{
+	max-width:100%;
+}
+
 #wrap{
 	width:1000px;
 	margin: 0 auto 0;

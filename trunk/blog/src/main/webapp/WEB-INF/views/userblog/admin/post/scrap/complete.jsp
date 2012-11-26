@@ -6,23 +6,14 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Editor</title>
-	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/editor.css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jinbo_editor.css" />
 	<script src="${pageContext.request.contextPath }/resources/js/jquery-1.8.2.js"></script>
 </head>
 <body>
 	<div class="editor">
-		<div class="editor_group" style="margin-bottom:10px;">
-			<div class="editor_title" style="background:#bbb; font-size:15px; height: 25px;padding: 10 0 0 10px;">
-				생성된 스크랩 정보
-			</div>
-			<div class="editor_editor">
-				<div class="editor_row">
-					<div class="scrap">
-					${scrap.targetPostContents }
-					<br />
-					</div>
-				</div>
-			</div>
+		<div style="text-align:center;">
+			<input class="btn cancel" type="button" value="취소하기" />
+			<input class="btn next" type="button" value="다음으로" />
 		</div>
 		<div class="editor_group" style="margin-bottom:10px;">
 			<div class="editor_title" style="background:#bbb; font-size:15px; height: 25px;padding: 10 0 0 10px;">
@@ -37,10 +28,19 @@
 				</div>
 			</div>
 		</div>
-		<div style="text-align:center;">
-			<input class="btn cancel" type="button" value="취소하기" />
-			<input class="btn next" type="button" value="다음으로" />
-		</div>
+		<div class="editor_group" style="margin-bottom:10px;">
+			<div class="editor_title" style="background:#bbb; font-size:15px; height: 25px;padding: 10 0 0 10px;">
+				생성된 스크랩 정보
+			</div>
+			<div class="editor_editor">
+				<div class="editor_row">
+					<div class="scrap">
+					${scrap.targetPostContents }
+					<br />
+					</div>
+				</div>
+			</div>
+		</div>		
 	</div>	
 <script type="text/javascript">
 $(document).ready(function(){

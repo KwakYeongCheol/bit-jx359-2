@@ -20,6 +20,13 @@ public class AdminCategoryValidator implements Validator{
 		
 		if(category != null){
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "field.required.category.title");
+			
+			String title = category.getTitle();
+			if(title != null){
+				if(title.length() < 3)		errors.rejectValue("title", "field.minlength.category.title");
+				if(title.length() > 12)		errors.rejectValue("title", "field.maxlength.category.title");
+			}
+			
 		}
 	}
 }

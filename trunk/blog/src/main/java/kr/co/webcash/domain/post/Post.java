@@ -21,6 +21,8 @@ public class Post {
 	private String title;
 	private String contents;
 	
+	private String contentsWithoutTag;
+	
 	@DateTimeFormat(pattern="yyyy/MM/dd HH:mm")
 	private Date dateCreated;
 	
@@ -122,4 +124,7 @@ public class Post {
 	public void setPostRevisionList(List<PostRevision> postRevisionList) {		this.postRevisionList = postRevisionList;	}
 	public List<PostTag> getPostTagList() {		return postTagList;	}
 	public void setPostTagList(List<PostTag> postTagList) {		this.postTagList = postTagList;	}
+
+	public String getContentsWithoutTag() {	return contentsWithoutTag;	}
+	public void setContentsWithoutTag(String contentsWithoutTag) {		this.contentsWithoutTag = contentsWithoutTag;	}
 }
