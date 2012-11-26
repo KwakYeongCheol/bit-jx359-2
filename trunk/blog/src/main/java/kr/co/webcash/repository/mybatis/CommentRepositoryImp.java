@@ -6,6 +6,8 @@ import java.util.Map;
 
 import kr.co.webcash.domain.comment.Comment;
 import kr.co.webcash.domain.comment.CommentType;
+import kr.co.webcash.domain.user.User;
+import kr.co.webcash.repository.BlogRepository;
 import kr.co.webcash.repository.CommentRepository;
 
 import org.apache.ibatis.session.RowBounds;
@@ -16,7 +18,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CommentRepositoryImp implements CommentRepository {
 
-	@Autowired SqlSession sqlSession;
+	@Autowired private SqlSession sqlSession;
+	@Autowired private BlogRepository blogRepository;
 	
 	@Override
 	public void save(Comment comment) {
@@ -32,6 +35,29 @@ public class CommentRepositoryImp implements CommentRepository {
 	public void update(Comment comment) {
 		sqlSession.update("Comment.update",comment);
 	}
+	
+	private List<Comment> wrap(List<Comment> commentList){
+		for(Comment comment : commentList){
+			wrap(comment);
+		}
+		return commentList;
+	}
+	
+	private Comment wrap(Comment comment){
+		if(comment != null){
+			addCommentWritersBlogList(comment);
+		}
+		
+		return comment;
+	}
+	
+
+	private void addCommentWritersBlogList(Comment comment) {
+		User writer = comment.getWriter();
+		if(writer == null)	return;
+		
+		writer.setBlogList(blogRepository.findAllByUserLoginId(writer.getLoginId()));
+	}
 
 	@Override
 	public List<Comment> findAllByTargetIdAndType(long targetId, CommentType type) {
@@ -39,12 +65,12 @@ public class CommentRepositoryImp implements CommentRepository {
 		params.put("targetId", targetId);
 		params.put("type", type.toString());
 		
-		return sqlSession.selectList("Comment.findAllByTargetIdAndType", params);
+		return wrap(sqlSession.<Comment>selectList("Comment.findAllByTargetIdAndType", params));
 	}
 	
 	@Override
 	public List<Comment> findAllByBlogIdAndPageNumberAndPageSize(String blogId, int pageNumber, int pageSize) {
-			return sqlSession.<Comment>selectList("Comment.findAllByBlogId", blogId, new RowBounds((pageNumber-1) * pageSize, pageSize));
+		return wrap(sqlSession.<Comment>selectList("Comment.findAllByBlogId", blogId, new RowBounds((pageNumber-1) * pageSize, pageSize)));
 	}
 
 
@@ -54,7 +80,7 @@ public class CommentRepositoryImp implements CommentRepository {
 		params.put("blogId", blogId);
 		params.put("type", type.toString());
 		
-		return (Comment) sqlSession.selectOne("Comment.findLastByBlogIdAndCommentType", params);
+		return wrap(sqlSession.<Comment>selectOne("Comment.findLastByBlogIdAndCommentType", params));
 	}
 
 
@@ -65,12 +91,12 @@ public class CommentRepositoryImp implements CommentRepository {
 		params.put("targetId", targetId);
 		params.put("type", type);
 		
-		return (Comment) sqlSession.selectOne("Comment.findByDisplayIdAndTargetIdAndType",params);
+		return wrap(sqlSession.<Comment>selectOne("Comment.findByDisplayIdAndTargetIdAndType",params));
 	}
 
 	@Override
 	public Comment findLast() {
-		return (Comment) sqlSession.selectOne("Comment.findLast");
+		return wrap(sqlSession.<Comment>selectOne("Comment.findLast"));
 	}
 
 	@Override
