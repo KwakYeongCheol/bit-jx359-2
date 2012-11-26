@@ -55,7 +55,12 @@
 				<c:forEach items="${findGuestbook.commentList }" var="comment">
 				<div class="guestbookComment">
 					<div>
-						${comment.writer.name } 님 
+						<c:if test="${comment.writer.blog == null }">
+						${comment.writer.name } 님
+						</c:if>
+						<c:if test="${comment.writer.blog != null }">
+						<a href="${pageContext.request.contextPath }/${comment.writer.blog.id}">${comment.writer.name }</a> 님
+						</c:if> 
 						| <spring:eval expression="comment.dateCreated" />
 						<c:if test="${loginUserProvider.loginUser.loginId == comment.writer.loginId  }">
 						| <a href="${pageContext.request.contextPath }/${blog.id }/comment/modify?displayId=${comment.displayId}&targetId=${comment.target.id}&type=guestbook" >수정</a>
