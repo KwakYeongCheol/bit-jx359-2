@@ -43,7 +43,7 @@
 			
 			<div class="postAction">
 				<c:if test="${post.canScrap }">
-				<form action="${pageContext.request.contextPath }/${loginUserProvider.blog.id }/admin/post/scrap" method="post" style="display:inline;">
+				<form action="${pageContext.request.contextPath }/${loginUserProvider.blog.id }/admin/post/scrap" method="post" style="display:inline;" onsubmit="return scrapFormCheck();">
 					<input type="hidden" name="targetBlogId" value="${blog.id }">
 					<input type="hidden" name="targetPostDisplayId" value="${post.displayId }">
 					<input type="hidden" name="targetPostRevisionId" value="${post.postRevisionList.get(0).displayId }"> 
@@ -104,6 +104,25 @@
 	<!-- contentsWrap postWrap end -->		
 </div>
 <!-- contentsWrap category end -->
+<script>
+function scrapFormCheck(){
+	var login = ${loginUserProvider.loggedIn };
+	var blogId = "${loginUserProvider.blog.id }";
+	
+	if(login && blogId != ''){
+		return true;
+	}
+	
+	if(!login){
+		alert("로그인이 필요한 서비스입니다.");
+	}else if(blogId == ''){
+		alert("스크랩이 가능한 블로그가 없습니다. 블로그를 생성해주세요!");
+	}
+	
+	return false;
+}
+</script>
+
 
 <jsp:include page="/WEB-INF/views/jinbo/common/footer.jsp" />
 

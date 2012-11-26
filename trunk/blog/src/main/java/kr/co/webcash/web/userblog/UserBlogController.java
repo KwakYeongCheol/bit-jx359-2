@@ -28,6 +28,10 @@ public class UserBlogController {
 	
 	@Inject private Provider<LoginUser> loginUserProvider;
 	
+	private LoginUser loginUser(){
+		return loginUserProvider.get();
+	}
+	
 	@RequestMapping
 	public String main(@PathVariable String blogId, @RequestParam(defaultValue="1") int pageNumber , Model model){
 		if(!blogService.isExist(blogId))	return "redirect:/";
@@ -54,10 +58,21 @@ public class UserBlogController {
 	
 	@RequestMapping("/{postId}")
 	public String postView(@PathVariable String blogId, @PathVariable long postId, Model model){
-		model.addAttribute("post", postService.findByBlogIdAndDisplayId(blogId, postId));
 		
-//		return "/userblog/post/view";
-		return "/jinbo/post/view";
+		Post findPost = postService.findByBlogIdAndDisplayId(blogId, postId);
+		
+		if(findPost == null){
+			model.addAttribute("message", "해당 글이 존재하지 않습니다.");
+			return "/jinbo/common/notfound";
+		}
+		
+		if(findPost.getIsPublic() || loginUser().isMyBlog(blogId)){
+			model.addAttribute("post", findPost);
+			return "/jinbo/post/view";
+		}else{
+			model.addAttribute("message", "해당 글은 존재하지 않거나 비공개된 글입니다.");
+			return "/jinbo/common/notfound";
+		}
 	}
 	
 	@RequestMapping("/{postId}/revision/{revisionId}")

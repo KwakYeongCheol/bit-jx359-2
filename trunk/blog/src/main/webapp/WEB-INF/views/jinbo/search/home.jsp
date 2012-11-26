@@ -21,8 +21,8 @@
 	<!-- contentsWrap postWrap start -->
 	<div class="postWrap">
 		<div class="postSimple">
-			<span style="font-weight:bold;">${post.title }</span> 
-			<span style="float:right;">${post.category.title } | <spring:eval expression="post.dateCreated" /></span>
+			<span style="font-weight:bold;display:block;">${post.title }</span> 
+			<span style="font-size:13px;">${post.category.title } | <spring:eval expression="post.dateCreated" /></span>
 		</div>
 		
 		<!-- contentsWrap post start -->
@@ -30,12 +30,11 @@
 			<div class="postTitle">
 				${post.title }
 				<span class="postFold" style="margin-left:10px;font-size:13px; color:#888;">접기</span>
-				<span class="postURL" style="float:right; color:#888; font-size:12px;">
-					http://localhost:8080/${blog.id }/${post.displayId }
-				</span>
 			</div>
 			<div class="postInfo">
-				<a href="${pageContext.request.contextPath }/${blog.id}/category/${post.category.displayId}">${post.category.title }</a> | <spring:eval expression="post.dateCreated" />
+				<a href="${pageContext.request.contextPath }/${blog.id}/category/${post.category.displayId}">${post.category.title }</a> 
+				| <spring:eval expression="post.dateCreated" />
+				| <span class="postURL" style="color:#888; font-size:12px;">http://localhost:8080/${blog.id }/${post.displayId }</span>
 				
 				<c:if test="${loginUserProvider.loginUser.loginId == blog.owner }">
 				<span style="float:right;">
@@ -61,7 +60,7 @@
 			
 			<div class="postAction">
 				<c:if test="${post.canScrap }">
-				<form action="${pageContext.request.contextPath }/${loginUserProvider.blog.id }/admin/post/scrap" method="post" style="display:inline;">
+				<form action="${pageContext.request.contextPath }/${loginUserProvider.blog.id }/admin/post/scrap" method="post" style="display:inline;" onsubmit="return scrapFormCheck();">
 					<input type="hidden" name="targetBlogId" value="${blog.id }">
 					<input type="hidden" name="targetPostDisplayId" value="${post.displayId }">
 					<input type="hidden" name="targetPostRevisionId" value="${post.postRevisionList.get(0).displayId }"> 
@@ -149,6 +148,25 @@
 	</c:if>
 </div>
 <!-- contentsWrap category end -->
+
+<script>
+function scrapFormCheck(){
+	var login = ${loginUserProvider.loggedIn };
+	var blogId = "${loginUserProvider.blog.id }";
+	
+	if(login && blogId != ''){
+		return true;
+	}
+	
+	if(!login){
+		alert("로그인이 필요한 서비스입니다.");
+	}else if(blogId == ''){
+		alert("스크랩이 가능한 블로그가 없습니다. 블로그를 생성해주세요!");
+	}
+	
+	return false;
+}
+</script>
 
 <jsp:include page="/WEB-INF/views/jinbo/common/footer.jsp" />
 

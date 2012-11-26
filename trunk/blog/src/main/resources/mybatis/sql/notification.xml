@@ -42,7 +42,7 @@
 		<include refid="select" />
 		WHERE
 			blogId = #{blogId}
-			and isPublic = 'true'
+			AND (isPublic = 'true' OR isPublic = '1')
 		ORDER BY dateCreated DESC
 	</select>
 	

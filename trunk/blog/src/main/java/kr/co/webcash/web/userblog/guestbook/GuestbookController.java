@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
 @SessionAttributes("guestbook")
@@ -45,7 +46,7 @@ public class GuestbookController {
 	}
 	
 	@RequestMapping(value="/wirteAction", method=RequestMethod.POST)
-	public String wirteAction(@ModelAttribute Guestbook guestbook, @PathVariable String blogId){
+	public String wirteAction(@ModelAttribute Guestbook guestbook, @PathVariable String blogId, SessionStatus sessionStatus){
 		if(loginUser() != null){
 			guestbook.setBlog(new Blog(blogId));
 			guestbook.setWriter(loginUser());
@@ -54,6 +55,7 @@ public class GuestbookController {
 			
 			guestbookService.save(guestbook);
 			notificationService.sendNotification(guestbook);
+			sessionStatus.setComplete();
 		}
 		
 		return "redirect:/" + blogId +"/guestbook";
