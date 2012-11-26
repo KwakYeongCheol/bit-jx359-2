@@ -31,6 +31,10 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public void save(Post post) {
 		Post findPost = postRepository.findByBlogIdAndDisplayId(post.getBlogId(), post.getDisplayId());
+		
+		if(post.getIsTemp()){
+			post.getPostMetadata().setIsPublic(false);
+		}
 		if(findPost == null){
 			insert(post);
 		}else{
