@@ -34,7 +34,11 @@
 		<!-- contentsWrap post start -->
 		<div class="post">
 			<div class="postTitle">
-				${post.title }	<span class="postFold" style="font-size:13px; color:#888;">접기</span>
+				${post.title }
+				<span class="postFold" style="margin-left:10px; font-size:13px; color:#888;">접기</span>
+				<span class="postURL" style="float:right; color:#888; font-size:12px;">
+					http://localhost:8080/${blog.id }/${post.displayId }
+				</span>				
 			</div>
 			<div class="postInfo">
 				<a href="${pageContext.request.contextPath }/${blog.id}/category/${post.category.displayId}">${post.category.title }</a> | <spring:eval expression="post.dateCreated" />

@@ -548,6 +548,16 @@ section{
 	margin-bottom: 10px;
 }
 
+.post .compare_delete{
+	background-color: #faa0a0;
+	border:1px solid #faa0a0;
+}
+
+.post .compare_insert{
+	background-color: #a0ffa0;
+	border:1px solid #a0ffa0;
+}
+
 .post scrap{
 	margin: 15px 0 15px 0;	
 	display: block;
