@@ -650,6 +650,33 @@ section{
 
 /* guestbook wrap end */
 
+/* popUp start */
+.popUpBackground{
+	position: absolute;
+	top:0;left:0;
+	width:100%;
+	min-width: 1000px;
+	min-height: 1000px;
+	background-color: #000;
+	z-index: 15;
+	opacity: 0.3;
+}
+
+
+.popUpContents{
+	position: absolute;
+	padding: 10px;
+	left:15%;
+	top:5%;
+	background: #FFF;
+	width:70%;
+	min-width: 800px;
+	min-height: 550px;
+	z-index: 20;
+	border-radius: 5px;
+}
+/* popUp end */
+
 /* notfound start */
 .notfound{
 	float:right;
