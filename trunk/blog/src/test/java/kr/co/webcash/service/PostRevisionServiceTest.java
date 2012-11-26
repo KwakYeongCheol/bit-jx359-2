@@ -359,6 +359,13 @@ class MockPostService implements PostService{
 		return null;
 	}
 
+	@Override
+	public Post findByBlogIdAndDisplayIdWithOutWrap(String blogId,
+			long displayId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
 
 

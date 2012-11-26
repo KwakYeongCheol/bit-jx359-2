@@ -8,6 +8,8 @@ public class Blog {
 	private String owner;
 	private Date dateCreated;
 	
+	private BlogTheme blogTheme;
+	
 	private long todayCount;
 	private long totalCount;
 	
@@ -17,14 +19,16 @@ public class Blog {
 	private long totalScrapCount;
 	
 	public Blog(){
+		blogTheme = BlogTheme.defaultTheme;
 	}
 	
 	public Blog(String id) {
+		this();
 		setId(id);
 	}
 	
 	public Blog(String id, String title, String owner, Date dateCreated, long totalCount){
-		setId(id);
+		this(id);
 		setTitle(title);
 		setOwner(owner);
 		setDateCreated(dateCreated);
@@ -88,4 +92,7 @@ public class Blog {
 	public void setTotalCommentCount(long totalCommentCount) {		this.totalCommentCount = totalCommentCount;	}
 	public long getTotalScrapCount() {		return totalScrapCount;	}
 	public void setTotalScrapCount(long totalScrapCount) {		this.totalScrapCount = totalScrapCount;	}
+
+	public BlogTheme getBlogTheme() {		return blogTheme;	}
+	public void setBlogTheme(BlogTheme blogTheme) {		this.blogTheme = blogTheme;	}
 }

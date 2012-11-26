@@ -29,6 +29,14 @@
 					http://jinbo.kr/<form:input path="id" placeholder="블로그 URL" cssClass="short" />
 				</div>
 			</div>
+			<div class="row">
+				<div class="key">
+					블로그 테마 :
+				</div>
+				<div class="value">
+					<form:radiobuttons cssStyle="width:20px;margin:0 0px 0 5px;" path="blogTheme" items="${blogThemeList }"/>
+				</div>
+			</div>
 			
 			<div class="row">
 				<div class="submit">

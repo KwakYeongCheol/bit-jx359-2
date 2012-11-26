@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 
 import kr.co.webcash.domain.blog.Blog;
+import kr.co.webcash.domain.blog.BlogTheme;
 import kr.co.webcash.domain.user.User;
 import kr.co.webcash.service.blog.BlogService;
 import kr.co.webcash.web.security.LoginUser;
@@ -45,6 +46,7 @@ public class SettingsBlogController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public void createForm(Model model){
 		model.addAttribute("blog", new Blog());
+		model.addAttribute("blogThemeList", BlogTheme.values());
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -69,6 +71,7 @@ public class SettingsBlogController {
 	public String modifyForm(@RequestParam("id") String blogId, Model model){
 		if(blogService.isAdmin(blogId, loginUser())){
 			model.addAttribute("blog", blogService.findById(blogId));
+			model.addAttribute("blogThemeList", BlogTheme.values());
 			return "/settings/blog/modify";
 		}
 		

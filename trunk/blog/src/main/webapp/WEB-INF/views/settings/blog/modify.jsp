@@ -26,6 +26,15 @@
 		</div>
 		
 		<div class="row">
+				<div class="key">
+					블로그 테마 :
+				</div>
+				<div class="value">
+					<form:radiobuttons cssStyle="width:20px;margin:0 0px 0 5px;" path="blogTheme" items="${blogThemeList }"/>
+				</div>
+			</div>
+		
+		<div class="row">
 			<div class="submit">
 				<input type="submit" value="블로그 수정" />
 			</div>
