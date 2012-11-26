@@ -101,7 +101,7 @@
 				
 				<c:if test="${loginUserProvider.loggedIn }">
 					<c:if test="${loginUserProvider.loginUser.loginId == blog.owner }">
-						<li><a href="#">글쓰기</a></li>
+						<li><a id="btnEditor" href="openEditor();">글쓰기</a></li>
 						<li><a href="${pageContext.request.contextPath }/${blog.id}/admin">관리자</a></li>
 					</c:if>
 				</c:if>
