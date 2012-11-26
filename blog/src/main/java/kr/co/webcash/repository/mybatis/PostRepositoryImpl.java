@@ -153,7 +153,8 @@ public class PostRepositoryImpl implements PostRepository {
 
 	@Override
 	public List<Post> findAllByQueryAndPage(String query, int offset, int limit) {
-		return wrap(sqlSession.<Post>selectList("Post.findAllByQuery", query, new RowBounds(offset, limit)));
+		List<Post> selectList = sqlSession.<Post>selectList("Post.findAllByQuery", query, new RowBounds(offset, limit));
+		return wrap(selectList);
 	}
 	
 	@Override

@@ -1,6 +1,7 @@
 package kr.co.webcash.web.userblog.common;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -46,18 +47,27 @@ public class AddBlogInfoInterceptor extends HandlerInterceptorAdapter {
 				new BlogVisitHistory(blog, request.getRemoteAddr(), new Date())
 			);
 			
-			if(loginUserProvider.get().isLoggedIn() && loginUserProvider.get().isMyBlog(blog.getId())){
-				modelAndView.addObject("notificationList", notificationService.listByBlogIdAndPageNumberAndPageSize(blog.getId(), 1, 10));
-			}else{
-				modelAndView.addObject("notificationList", notificationService.listPublicByBlogAndPage(blog, 1, 10));
-			}
-			
 			modelAndView.addObject("pageURI", request.getRequestURI());
 			modelAndView.addObject("blog", blog);
-			modelAndView.addObject("categoryList", categoryService.listByBlogId(blog.getId()));
 			
+			List<Category> categoryList = categoryService.listByBlogId(blog.getId());
 			Category allCategory = new Category("모든 글");
-			allCategory.setPostList(postService.listByBlogIdAndPageNumberAndPageSize(blogId, 1, 10));
+			
+			if(loginUserProvider.get().isLoggedIn() && loginUserProvider.get().isMyBlog(blog.getId())){
+				modelAndView.addObject("notificationList", notificationService.listByBlogIdAndPageNumberAndPageSize(blog.getId(), 1, 10));
+				allCategory.setTotalPostCount(postService.countByBlogId(blogId));
+			}else{
+				modelAndView.addObject("notificationList", notificationService.listPublicByBlogAndPage(blog, 1, 10));
+				
+				/* 공개글에 대한 카운트로 변경 */
+				blog.setTotalPostCount(postService.countPublicByBlogId(blog.getId()));
+				for(Category category : categoryList){
+					category.setTotalPostCount(postService.countPublicByCategory(category));
+				}
+				allCategory.setTotalPostCount(postService.countPublicByBlogId(blogId));
+			}
+			
+			modelAndView.addObject("categoryList", categoryList);
 			modelAndView.addObject("allCategory", allCategory);
 		}
 	}

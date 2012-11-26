@@ -25,13 +25,13 @@ public class CategoryRepositoryImpl implements CategoryRepository{
 	}
 	public Category wrap(Category category){
 		if(category == null)		return category;
-		addPostList(category);
+		category.setTotalPostCount(postRepository.countByCategoryId(category.getId()));
 		return category;
 	}
 	
-	private void addPostList(Category category) {
-		category.setPostList(postRepository.findAllByCategoryIdAndOffsetAndLimit(category.getId(), 0, 10));
-	}
+//	private void addPostList(Category category) {
+//		category.setPostList(postRepository.findAllByCategoryIdAndOffsetAndLimit(category.getId(), 0, 10));
+//	}
 	
 	@Override
 	public void insert(Category category) {

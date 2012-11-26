@@ -17,10 +17,6 @@ body{
 	background: #DDD;
 }
 
-body img{
-	max-width:100%;
-}
-
 #wrap{
 	width:1000px;
 	margin: 0 auto 0;
@@ -356,6 +352,7 @@ section{
 	width: 200px;
 	padding: 10px;
 	border-radius: 10px;
+	font-size: 15px;
 }
 
 .sidebar .category a{
@@ -373,6 +370,7 @@ section{
 
 .sidebar .category li{
 	margin-left: 20px;
+	line-height: 1.4;
 }
 
 .sidebar .category hr{
@@ -381,6 +379,10 @@ section{
 
 .sidebar .category .selected{
 	font-weight: bold;
+}
+
+.sidebar .category ul span{
+	font-size: 11px;
 }
 
 
@@ -403,6 +405,14 @@ section{
 	height:40px;
 	font-size: 20px;
 	font-weight: bold;
+}
+
+.contentsWrap .category form{
+	display: inline;
+}
+
+.contentsWrap .category .searchBox{
+	display: inline;
 }
 
 .contentsWrap .category .menu{

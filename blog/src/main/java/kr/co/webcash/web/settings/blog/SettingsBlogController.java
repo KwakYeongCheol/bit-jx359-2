@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
-@SessionAttributes("blog")
+@SessionAttributes({"blog", "blogThemeList"})
 @RequestMapping("/settings/blog")
 public class SettingsBlogController {
 	

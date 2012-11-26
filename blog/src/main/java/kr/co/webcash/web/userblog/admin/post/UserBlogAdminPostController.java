@@ -84,6 +84,12 @@ public class UserBlogAdminPostController {
 		Scrap scrap = new Scrap();
 		
 		Post targetPost = postService.findByBlogIdAndDisplayId(targetBlogId, targetPostDisplayId);
+		
+		if(blogService.isAdmin(targetPost.getBlogId(), loginUser())){
+			model.addAttribute("message", "내 글을 스크랩할 수 없습니다.");
+			return "/common/back";
+		}
+		
 		scrap.setTarget(new ScrapTarget(targetPost, targetPostRevisionId));
 		
 		model.addAttribute("scrap", scrap);
@@ -110,7 +116,7 @@ public class UserBlogAdminPostController {
 		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
 		model.addAttribute("post", post);
 		
-		return "/userblog/admin/post/write";
+		return "/userblog/admin/post/editor";
 	}
 
 	@RequestMapping("/write")
@@ -118,12 +124,20 @@ public class UserBlogAdminPostController {
 		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
 		model.addAttribute("tempPostList", postService.tempListByBlogId(blogId));
 		model.addAttribute("post", new Post());
-		return "/userblog/admin/post/write";
+		return "/userblog/admin/post/editor";
+	}
+	
+	@RequestMapping("/editor")
+	public String editor(@PathVariable String blogId, Model model) {
+		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
+		model.addAttribute("tempPostList", postService.tempListByBlogId(blogId));
+		model.addAttribute("post", new Post());
+		return "/userblog/admin/post/editor";
 	}
 	
 	@RequestMapping("/modify")
 	public String modify(@PathVariable String blogId, @RequestParam long displayId, Model model) {
-		Post post = postService.findByBlogIdAndDisplayId(blogId, displayId);
+		Post post = postService.findByBlogIdAndDisplayIdWithOutWrap(blogId, displayId);
 
 		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
 		model.addAttribute("tempPostList", postService.tempListByBlogId(blogId));
