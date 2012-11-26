@@ -17,11 +17,14 @@ public interface PostService {
 	int count();
 	
 	int countByCategory(Category category);
+	int countByBlogId(String blogId);
+	int countByBlogIdAndQuery(String blogId, String query);
+
 	int countPublicByCategory(Category findCategory);
+	int countPublicByBlogId(String blogId);
 	
 	int countByTagCategory(TagCategory tagCategory);
 	int countByQuery(String query);
-	int countByBlogIdAndQuery(String blogId, String query);
 	
 	Post findById(long id);
 	Post findByBlogIdAndDisplayId(String blogId, long displayId);

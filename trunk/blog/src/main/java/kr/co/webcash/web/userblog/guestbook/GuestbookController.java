@@ -35,13 +35,13 @@ public class GuestbookController {
 	public String main(@PathVariable String blogId, Model model){	
 		model.addAttribute("guestbookList",guestbookService.listByBlogId(blogId));
 		model.addAttribute("guestbook",new Guestbook());
-		return "userblog/guestbook/home";
+		return "/jinbo/guestbook/home";
 	}
 	
 	@RequestMapping("/{guestbookDisplayId}")
 	public String guestbookView(@PathVariable String blogId, @PathVariable long guestbookDisplayId, Model model){
 		model.addAttribute("guestbook", guestbookService.findByBlogIdAndDisplayId(blogId, guestbookDisplayId));
-		return "/userblog/guestbook/view";
+		return "/jinbo/guestbook/view";
 	}
 	
 	@RequestMapping(value="/wirteAction", method=RequestMethod.POST)
@@ -49,6 +49,8 @@ public class GuestbookController {
 		if(loginUser() != null){
 			guestbook.setBlog(new Blog(blogId));
 			guestbook.setWriter(loginUser());
+			
+			guestbook.setContents(guestbook.getContents().replace("\n", "<br />"));
 			
 			guestbookService.save(guestbook);
 			notificationService.sendNotification(guestbook);

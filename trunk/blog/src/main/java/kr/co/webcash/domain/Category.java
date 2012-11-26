@@ -18,7 +18,10 @@ public class Category {
 	private String title;
 	private long orderValue;
 
+	private int totalPostCount;
+	
 	private List<Post> postList;
+	
 	public Category(){}
 	
 	public Category(String title){
@@ -73,5 +76,6 @@ public class Category {
 	public void setOrderValue(long orderValue) {		this.orderValue = orderValue;	}
 	public List<Post> getPostList() { return postList; }
 	public void setPostList(List<Post> postList) {	this.postList = postList;	}
-
+	public int getTotalPostCount() {		return totalPostCount;	}
+	public void setTotalPostCount(int totalPostCount) {		this.totalPostCount = totalPostCount;	}
 }

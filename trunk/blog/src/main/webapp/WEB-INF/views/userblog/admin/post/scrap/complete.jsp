@@ -75,7 +75,7 @@ $(document).ready(function(){
 	});
 	
 	$(".cancel").bind('click', function(){
-		window.close();
+		history.back();
 	});
 	
 	$(".editor_title").bind('click', function(){

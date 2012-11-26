@@ -12,6 +12,8 @@
 	<!--  user blog theme start -->
 	<style>
 		.jinbo .buttonBox{			background-color: ${blog.blogTheme.backgroundColor};		}
+		.jinbo .nav-title{			background-color: ${blog.blogTheme.backgroundColor};	border-radius: 4px;		}
+		.jinbo .nav-title:hover{	background-color: #026987;		}
 		.blogHeader{			background-color: ${blog.blogTheme.backgroundColor};		}
 		footer{			background-color: ${blog.blogTheme.backgroundColor};		}
 	</style>
@@ -143,10 +145,10 @@
 				<span class="label">카테고리</span>
 				<hr />
 				<ul>
-					<li><a href="${pageContext.request.contextPath }/${blog.id}">모든글</a></li>
+					<li><a href="${pageContext.request.contextPath }/${blog.id}">${allCategory.title } <span>(${allCategory.totalPostCount })</span></a></li>
 					<c:forEach items="${categoryList }" var="category">
 					<li <c:if test="${category.displayId == pageCategory.displayId }">class="selected"</c:if>>
-						<a href="${pageContext.request.contextPath }/${blog.id }/category/${category.displayId}">${category.title }</a>
+						<a href="${pageContext.request.contextPath }/${blog.id }/category/${category.displayId}">${category.title } <span>(${category.totalPostCount })</span></a>
 					</c:forEach>
 				</ul>
 			</div>

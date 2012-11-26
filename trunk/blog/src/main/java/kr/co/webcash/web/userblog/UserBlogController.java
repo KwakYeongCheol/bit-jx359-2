@@ -1,8 +1,6 @@
 package kr.co.webcash.web.userblog;
 
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 
@@ -50,38 +48,47 @@ public class UserBlogController {
 			model.addAttribute("page", page);
 		}
 		 
-		return "/userblog/home";
+//		return "/userblog/home";
+		return "/jinbo/home";
 	}
 	
 	@RequestMapping("/{postId}")
 	public String postView(@PathVariable String blogId, @PathVariable long postId, Model model){
 		model.addAttribute("post", postService.findByBlogIdAndDisplayId(blogId, postId));
 		
-		return "/userblog/post/view";
+//		return "/userblog/post/view";
+		return "/jinbo/post/view";
 	}
 	
 	@RequestMapping("/{postId}/revision/{revisionId}")
 	public String getRevisionContents(@PathVariable String blogId, @PathVariable long postId, @PathVariable long revisionId, Model model){
 		Post post = postService.findByBlogIdAndDisplayId(blogId, postId);
-		model.addAttribute("contents", post.getContents(revisionId));
+		
+		post.setContents(post.getContents(revisionId));
+		model.addAttribute("post", post);
 
-		return "/userblog/post/revision";
+		return "/jinbo/post/view";
 	}
 	
 	@RequestMapping("/{postId}/compare/{revisionId}")
 	public String compare(@PathVariable String blogId, @PathVariable long postId, @PathVariable long revisionId, Model model){
 		Post post = postService.findByBlogIdAndDisplayId(blogId, postId);
-		model.addAttribute("contents", post.getCompareContents(revisionId));
+		post.setContents(post.getCompareContents(revisionId));
 		
-		return "/userblog/post/compare";
+		model.addAttribute("post", post);
+		
+		return "/jinbo/post/view";
 	}
 	
 	@RequestMapping("/{postId}/compare/{fromRevisionId}/{toRevisionId}")
 	public String compare(@PathVariable String blogId, @PathVariable long postId, 
 			@PathVariable long fromRevisionId, @PathVariable long toRevisionId, Model model){
 		Post post = postService.findByBlogIdAndDisplayId(blogId, postId);
-		model.addAttribute("contents", post.getCompareContents(fromRevisionId, toRevisionId));
 		
-		return "/userblog/post/compare";
+		post.setContents(post.getCompareContents(fromRevisionId, toRevisionId));
+		model.addAttribute("post", post);
+		
+		
+		return "/jinbo/post/view";
 	}
 }

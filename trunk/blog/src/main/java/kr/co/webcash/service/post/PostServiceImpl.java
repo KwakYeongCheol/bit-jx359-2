@@ -250,6 +250,11 @@ public class PostServiceImpl implements PostService {
 	public int countPublicByCategory(Category findCategory) {
 		return postRepository.countPublicByCategoryId(findCategory.getId());
 	}
+	
+	@Override
+	public int countPublicByBlogId(String blogId) {
+		return postRepository.countPublicByBlogId(blogId);
+	}
 
 	@Override
 	public List<Post> listByBlogIdAndCategoryDisplayIdAndPage(String blogId, long categoryDisplayId, Page page) {
@@ -266,6 +271,13 @@ public class PostServiceImpl implements PostService {
 		
 		return wrap(postRepository.findAllPublicByCategoryIdAndOffsetAndLimit(findCategory.getId(), page.getStartPage(), page.getPageSize()));
 	}
+
+	@Override
+	public int countByBlogId(String blogId) {
+		return postRepository.countByBlogId(blogId);
+	}
+
+	
 }
 
 
