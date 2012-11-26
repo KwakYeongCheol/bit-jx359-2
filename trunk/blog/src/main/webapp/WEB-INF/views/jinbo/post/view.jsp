@@ -12,6 +12,9 @@
 		<div class="post" style="display:block;">
 			<div class="postTitle">
 				${post.title }
+				<span class="postURL" style="float:right; color:#888; font-size:12px;">
+					http://localhost:8080/${blog.id }/${post.displayId }
+				</span>
 			</div>
 			<div class="postInfo">
 				<a href="${pageContext.request.contextPath }/${blog.id}/category/${post.category.displayId}">${post.category.title }</a> | <spring:eval expression="post.dateCreated" />
