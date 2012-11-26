@@ -378,6 +378,18 @@ class MockPostService implements PostService{
 		return 0;
 	}
 
+	@Override
+	public int countPublic() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Post> listPublicByPage(Page page) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
 
 

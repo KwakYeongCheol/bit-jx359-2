@@ -57,35 +57,35 @@
 	background-color: #DDD;
 }
 
-.search{
+.searchList .search{
 	margin: 12px 0 0 20px;
 }
 
-.search dt{
+.searchList .search dt{
 	font-weight: bold;
 	font-size: 15px;
 	float:left;
 }
 
-.search dt a{
+.searchList .search dt a{
 	color: #12529f;
 	text-decoration: underline;
 }
 
-.search .searchInfo{
+.searchList .search .searchInfo{
 	display:inline;
 }
 
-.search .desc{
+.searchList .search .desc{
 	line-height: 18px;
 	padding-top: 10px;
 }
 
-.search .tag{
+.searchList .search .tag{
 	line-height: 17px;
 }
 
-.search .tag a{
+.searchList .search .tag a{
 	color:#999;
 	margin-right: 8px;
 }

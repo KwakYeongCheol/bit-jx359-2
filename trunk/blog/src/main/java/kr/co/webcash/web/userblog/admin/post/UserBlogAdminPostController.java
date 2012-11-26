@@ -143,7 +143,7 @@ public class UserBlogAdminPostController {
 		model.addAttribute("tempPostList", postService.tempListByBlogId(blogId));
 		model.addAttribute("post", post);
 
-		return "/userblog/admin/post/write";
+		return "/userblog/admin/post/editor";
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)

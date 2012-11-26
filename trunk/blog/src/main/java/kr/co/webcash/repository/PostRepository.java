@@ -11,6 +11,7 @@ public interface PostRepository {
 	void delete(Post post);
 
 	int count();
+	int countPublic();
 	
 	int countByTagList(List<String> tagList);
 	int countByQuery(String query);
@@ -32,6 +33,7 @@ public interface PostRepository {
 	
 	List<Post> findAll();
 	List<Post> findAllByPage(Page page);
+	List<Post> findAllPublicByPage(int offset, int limit);
 	List<Post> findAllByCategoryId(long categoryId);
 	List<Post> findAllByCategoryIdAndOffsetAndLimit(long categoryId, int offset, int limit);
 	List<Post> findAllByBlogId(String blogId);

@@ -26,8 +26,8 @@ public class MainController {
 	public String main(@RequestParam(defaultValue="1") int pageNumber, @RequestParam(defaultValue="10") int pageSize,
 			Model model){
 		
-		Page page = new Page(pageNumber, postService.count(), pageSize);
-		model.addAttribute("postList", postService.listByPage(page));
+		Page page = new Page(pageNumber, postService.countPublic(), pageSize);
+		model.addAttribute("postList", postService.listPublicByPage(page));
 		model.addAttribute("page", page);
 		
 		return "home";
