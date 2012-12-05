@@ -23,6 +23,31 @@ $(document).ready(function(){
 		$(this).next().slideToggle();
 	});
 	
+	$(".quickMenuTitle").click(function(){
+		$(this).next().slideToggle();
+	});
+	
+	$(".dropdownCategory").click(function(){
+		$(this).next().next().slideToggle();
+	});
+	
+	$(".category").bind("click", function(){
+		if($(window).width() < 981)
+			$(this).find("ul").slideToggle();
+	});
+	
+	$(window).resize(function(){
+		var width = $(this).width();
+		
+		if(width >= 981){
+			$(".quickMenuTitle").next().show();
+			$(".dropdownCategory").next().next().show();
+		}else if(width < 981){
+			$(".quickMenuTitle").next().hide();
+			$(".dropdownCategory").next().next().hide();			
+		}
+	});
+	
 	$(".postSimple").click(function(){
 		$(this).hide();
 		$(this).next().slideDown();

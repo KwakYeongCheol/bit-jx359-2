@@ -18,6 +18,12 @@
 			postId = #{post.id}
 	</update>
 	
+	<delete id="deleteByPostId">
+		DELETE from post_metadata
+		WHERE
+			postId = #{postId}
+	</delete>
+	
 	<select id="findByPostId" resultType="PostMetadata">
 		SELECT
 			postId,

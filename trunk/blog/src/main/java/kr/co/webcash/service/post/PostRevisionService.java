@@ -14,4 +14,5 @@ public interface PostRevisionService {
 	PostRevision get(long postId, long postRevisionDisplayId);
 	
 	List<PostRevision> list(Post post);
+	void delete(Post post);
 }

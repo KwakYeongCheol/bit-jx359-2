@@ -11,6 +11,8 @@ public interface PostService {
 	void save(Post post);
 	void update(Post post);
 	void delete(Post post);
+	
+	void updateScrap(Post findPost, String targetBlogId, long targetPostDisplayId, long targetRevisionId);
 
 	long findLastDisplayIdByBlogId(String blogId);
 	

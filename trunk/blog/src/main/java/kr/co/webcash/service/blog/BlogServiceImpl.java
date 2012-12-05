@@ -1,10 +1,10 @@
 package kr.co.webcash.service.blog;
 
-import java.util.Date;
 import java.util.List;
 
 import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.domain.blog.BlogVisitHistory;
+import kr.co.webcash.domain.blog.BlogWidget;
 import kr.co.webcash.domain.user.User;
 import kr.co.webcash.repository.BlogRepository;
 import kr.co.webcash.repository.CategoryRepository;
@@ -22,6 +22,8 @@ public class BlogServiceImpl implements BlogService {
 	@Autowired private CategoryService categoryService;
 	@Autowired private CategoryRepository categoryRepository;
 	
+	@Autowired private BlogWidgetService blogWidgetService;
+	
 	@Autowired PlatformTransactionManager transactionManager;
 	
 	@Override
@@ -29,6 +31,11 @@ public class BlogServiceImpl implements BlogService {
 		this.save(blog);
 		
 		categoryService.saveDefault(blog);
+		
+		BlogWidget blogWidget = blog.getBlogWidget();
+		blogWidget.setBlog(blog);
+		
+		blogWidgetService.save(blogWidget);
 		
 		return true;
 	}
@@ -53,6 +60,11 @@ public class BlogServiceImpl implements BlogService {
 	@Override
 	public void modify(Blog blog) {
 		blogRepository.update(blog);
+		
+		BlogWidget blogWidget = blog.getBlogWidget();
+		blogWidget.setBlog(blog);
+		
+		blogWidgetService.save(blogWidget);
 	}
 
 	@Override

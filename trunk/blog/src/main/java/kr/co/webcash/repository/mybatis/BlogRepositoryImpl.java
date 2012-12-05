@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.repository.BlogRepository;
+import kr.co.webcash.repository.BlogWidgetRepository;
 import kr.co.webcash.repository.CommentRepository;
 import kr.co.webcash.repository.GuestbookRepository;
 import kr.co.webcash.repository.PostRepository;
@@ -22,6 +23,7 @@ public class BlogRepositoryImpl implements BlogRepository{
 	@Autowired private GuestbookRepository guestbookRepository;
 	@Autowired private CommentRepository commentRepository;
 	@Autowired private ScrapRepository scrapRepository;
+	@Autowired private BlogWidgetRepository blogWidgetRepository;
 	
 	@Override
 	public void create(Blog blog) {
@@ -55,9 +57,14 @@ public class BlogRepositoryImpl implements BlogRepository{
 			addTotalGuestbookCount(blog);
 			addTotalCommentCount(blog);
 			addTotalScrapCount(blog);
+			addBlogWidget(blog);
 		}
 		
 		return blog;
+	}
+	
+	private void addBlogWidget(Blog blog){
+		blog.setBlogWidget(blogWidgetRepository.findByBlogId(blog.getId()));
 	}
 	
 

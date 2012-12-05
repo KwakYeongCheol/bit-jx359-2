@@ -7,6 +7,12 @@
 			(#{post.id}, #{value})
 	</insert>
 	
+	<delete id="deleteFromPostId">
+		DELETE FROM post_tag
+		WHERE
+			postId = #{postId}
+	</delete>
+	
 	<select id="findAllByPostId" resultType="PostTag">
 		SELECT
 			postId as "post.id",

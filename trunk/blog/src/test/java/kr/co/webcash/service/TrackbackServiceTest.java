@@ -17,10 +17,14 @@ import org.xml.sax.InputSource;
 public class TrackbackServiceTest {
 	
 	@Test
+	public void xmlParser(){
+	}
+	
+	@Test
 	public void xmlParserTest() throws Exception{
 		DOMParser parser = new DOMParser();
 		
-		URL url = new URL("http://kwakyc87.tistory.com/trackback/151");
+		URL url = new URL("http://blog.naver.com/tb/nem0/100164812952");
 //		URL url = new URL("http://localhost:8080/trackback/1/100");
 		
 		URLConnection connection = url.openConnection();
@@ -29,13 +33,12 @@ public class TrackbackServiceTest {
 		
 		OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
 		StringBuilder builder = new StringBuilder();
-		builder.append(getEncodingString("url")).append("=").append(getEncodingString("http://127.0.0.1:8080/5/1"))
-			.append("&").append(getEncodingString("blog_name")).append("=").append(getEncodingString("BlogName ::"))
-			.append("&").append(getEncodingString("title")).append("=").append(getEncodingString("TitleMessage :("))
-			.append("&").append(getEncodingString("excerpt")).append("=").append(getEncodingString("Excerpt :D"));
+		builder.append(getEncodingString("url")).append("=").append(getEncodingString("http://127.0.0.1:8080/kwakyc87/13"))
+			.append("&").append(getEncodingString("blog_name")).append("=").append(getEncodingString("곽군의 블로그 123"))
+			.append("&").append(getEncodingString("title")).append("=").append(getEncodingString("Let's go trackback"))
+			.append("&").append(getEncodingString("excerpt")).append("=").append(getEncodingString("trackback 남깁니다 :D"));
 		
 		String data = builder.toString();
-		System.out.println(data);
 		
 		writer.write(data);
 		writer.flush();

@@ -7,18 +7,28 @@
 			(#{post.id}, #{target.post.id}, #{target.postRevisionId})
 	</insert>
 	
+	<delete id="deleteFromPostId">
+		DELETE FROM scraps
+		WHERE
+			postId = #{postId}
+	</delete>
+	
 	<sql id="select">
 		SELECT
 			s.postId as "post.id",
 				p.displayId as "post.displayId",
 				p.title as "post.title",
 					c.id as "post.category.id",
+					c.title as "post.category.title",
+					c.displayId as "post.category.displayId",
 						b.id as "post.category.blog.id",
 						b.title as "post.category.blog.title",
 			s.targetPostId as "target.post.id",
 				tp.displayId as "target.post.displayId",
 				tp.title as "target.post.title",
 					tc.id as "target.post.category.id",
+					tc.title as "target.post.category.title",
+					tc.displayId as "target.post.category.displayId",
 						tb.id as "target.post.category.blog.id",
 						tb.title as "target.post.category.blog.title",
 			s.targetPostRevisionId as "target.postRevisionId"
@@ -61,6 +71,8 @@
 		<include refid="select" />
 		WHERE
 			s.postId = #{postId}
+		ORDER by
+			p.dateCreated desc;
 	</select>
 	
 	
@@ -76,12 +88,24 @@
 		<include refid="select" />
 		WHERE
 			tb.id = #{blogId}
+		ORDER by
+			p.dateCreated desc;
+	</select>
+	
+	<select id="findAllByBlogId" resultType="Scrap">
+		<include refid="select" />
+		WHERE
+			b.id = #{blogId}
+		ORDER by
+			p.dateCreated desc;
 	</select>
 	
 	<select id="findAllByTargetPostId" resultType="Scrap">
 		<include refid="select" />
 		WHERE
 			s.targetPostId = #{targetPostId}
+		ORDER by
+			p.dateCreated desc;
 	</select>
 	
 	<select id="countByBlogId" resultType="Integer">

@@ -10,12 +10,21 @@ CREATE TABLE blogs (
 INSERT INTO blogs(id, title, owner, dateCreated, totalCount, blogTheme) VALUES ('1', '곽범생의 블로그', '1', now(), 1024, 'defaultTheme');
 INSERT INTO blogs(id, title, owner, dateCreated, totalCount, blogTheme) VALUES ('2', 'Is This Blog?', '2', now(), 551, 'black');
 
+CREATE TABLE blog_widget(
+	blogId VARCHAR(10) NOT NULL,
+	visitCount VARCHAR(5) NOT NULL,
+	contents VARCHAR(5) NOT NULL,
+	PRIMARY KEY(blogId)
+);
+
+INSERT INTO blog_widget(blogId, visitCount, contents) VALUES ('1', 'true', 'true');
+INSERT INTO blog_widget(blogId, visitCount, contents) VALUES ('2', 'true', 'false');
+
 CREATE TABLE blog_visit_history(
 	blogId VARCHAR(10) NOT NULL,
 	connectIPAddress VARCHAR(50) NOT NULL,
 	visited timestamp NOT NULL
 );
-
 
 INSERT INTO blog_visit_history(blogId, connectIPAddress, visited)
 VALUES ('1', '1', '2012-11-18');

@@ -17,6 +17,13 @@
 		where id = #{id}
 	</delete>
 	
+	<delete id="deleteFromTargetIdAndCommentType">
+		DELETE FROM comment
+		WHERE
+			targetId = #{targetId}
+			AND commentType = #{commentType}
+	</delete>
+	
 	<sql id="select">
 		SELECT
 			c.id as id,

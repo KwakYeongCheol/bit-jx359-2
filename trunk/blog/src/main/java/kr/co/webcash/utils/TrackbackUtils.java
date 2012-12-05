@@ -28,8 +28,9 @@ public class TrackbackUtils {
 			OutputStreamWriter writer = new OutputStreamWriter(
 					connection.getOutputStream());
 			StringBuilder builder = new StringBuilder();
+			
 			builder.append(getEncodingString("url")).append("=").append(getEncodingString(trackback.getUrl()))
-				.append("&").append(getEncodingString("blog_name")).append("=").append(getEncodingString(trackback.getBlogId()))
+				.append("&").append(getEncodingString("blog_name")).append("=").append(getEncodingString(trackback.getBlogName()))
 				.append("&").append(getEncodingString("title")).append("=").append(getEncodingString(trackback.getTitle()))
 				.append("&").append(getEncodingString("excerpt")).append("=").append(getEncodingString(trackback.getTitle()));
 			
@@ -52,6 +53,7 @@ public class TrackbackUtils {
 				}
 			}
 		}catch(Exception e){
+			e.printStackTrace();
 		}
 		
 		return false;

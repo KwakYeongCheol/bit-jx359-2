@@ -9,8 +9,10 @@ public interface CommentRepository {
 	void save(Comment comment);
 	void update(Comment comment);
 	void delete(Comment comment);
+	void deleteFromTargetIdAndCommentType(long targetId, CommentType post);
 
 	List<Comment> findAllByTargetIdAndType(long targetId, CommentType type);
+	
 	List<Comment> findAllByBlogIdAndPageNumberAndPageSize(String blogId, int pageNumber, int pageSize);
 
 //	Comment findLastByTargetIdAndType(long targetId, String type);

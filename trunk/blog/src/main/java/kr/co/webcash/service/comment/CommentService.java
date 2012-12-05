@@ -5,6 +5,7 @@ import java.util.List;
 import kr.co.webcash.domain.Page;
 import kr.co.webcash.domain.comment.Comment;
 import kr.co.webcash.domain.comment.CommentType;
+import kr.co.webcash.domain.post.Post;
 
 public interface CommentService {
 	void save(Comment comment);
@@ -24,4 +25,5 @@ public interface CommentService {
 	
 	int countByBlogId(String blogId);
 	List<Comment> listByBlogIdAndPage(String blogId, Page page);
+	void delete(Post post);
 }

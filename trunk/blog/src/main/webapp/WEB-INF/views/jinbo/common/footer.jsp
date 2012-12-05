@@ -6,7 +6,8 @@
 	
 	<div style="clear:both;"></div>		
 	<footer>
-		Hello~
+		JINBO Is Not Blog<br />
+		created by 곽영철, 강현모, 민용기, 최준용
 	</footer>
 </div>
 

@@ -1,0 +1,30 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BlogWidget">
+	<insert id="insert" parameterType="BlogWidget">
+		INSERT INTO blog_widget
+			(blogId, visitCount, contents)
+		VALUES
+			(#{blog.id}, #{visitCount}, #{contents})
+	</insert>
+	
+	<update id="update" parameterType="BlogWidget">
+		UPDATE blog_widget SET
+			visitCount = #{visitCount},
+			contents = #{contents}
+		WHERE
+			blogId = #{blog.id}
+	</update>
+
+	<select id="findByBlogId" resultType="BlogWidget">
+		SELECT
+			blogId as "blog.id", 
+			visitCount, 
+			contents
+		FROM
+			blog_widget
+		WHERE
+			blogId = #{blogId}
+	</select>
+</mapper>
+
+

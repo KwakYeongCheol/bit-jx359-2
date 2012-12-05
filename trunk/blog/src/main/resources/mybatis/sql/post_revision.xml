@@ -11,6 +11,12 @@
 			AND displayId = #{displayId}
 	</update>
 	
+	<delete id="deleteFromPostId">
+		DELETE from post_revision
+		WHERE
+			postId = #{postId}
+	</delete>
+	
 	<sql id="select">
 		SELECT
 			postId as "post.id",

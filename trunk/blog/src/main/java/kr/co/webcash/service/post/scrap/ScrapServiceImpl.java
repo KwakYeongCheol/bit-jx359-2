@@ -1,7 +1,9 @@
 package kr.co.webcash.service.post.scrap;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import kr.co.webcash.domain.Page;
 import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.domain.post.scrap.Scrap;
@@ -49,6 +51,32 @@ public class ScrapServiceImpl implements ScrapService{
 	}
 	
 	@Override
+	public void update(Post post) {
+		List<Scrap> scrapList = Scrap.convert(post.getContents());
+		List<Scrap> insertedScrapList = new ArrayList<Scrap>();
+		
+		for(Scrap scrap : scrapList){
+			Scrap existScrap = scrapRepository.findByPostIdAndTargetPostIdAndTargetPostRevisionId(post.getId(), scrap.getTargetPostDisplayId(), scrap.getTargetPostRevisionId());
+			scrap.setPost(post);
+			
+			if(existScrap != null){
+				insertedScrapList.add(existScrap);
+			}else{
+				Post targetPost = postService.findByBlogIdAndDisplayIdWithOutWrap(scrap.getTargetBlogId(), scrap.getTargetPostDisplayId());
+				if(targetPost != null && targetPost.getCanScrap()){
+					scrap.setTarget(new ScrapTarget(targetPost, scrap.getTargetPostRevisionId()));
+					insertedScrapList.add(scrap);
+				}
+			}
+		}
+		
+		scrapRepository.deleteFromPostId(post.getId());
+		for(Scrap scrap : scrapList){
+			save(scrap);
+		}
+	}
+	
+	@Override
 	public void sendNotification(Post post) {
 		List<Scrap> scrapList = scrapRepository.findAllByTargetPostId(post.getId());
 		
@@ -65,6 +93,8 @@ public class ScrapServiceImpl implements ScrapService{
 		
 		for(Scrap scrap : scrapList){
 			Post findPost = postService.findByBlogIdAndDisplayId(scrap.getTargetBlogId(), scrap.getTargetPostDisplayId());
+			if(findPost == null)		continue;
+			
 			Scrap findScrap = scrapRepository.findByPostIdAndTargetPostIdAndTargetPostRevisionId(
 					post.getId(),
 					findPost.getId(),
@@ -96,5 +126,20 @@ public class ScrapServiceImpl implements ScrapService{
 		}
 		
 		post.setContents(buffer.toString());
+	}
+
+	@Override
+	public int countByBlog(Blog blog) {
+		return scrapRepository.countByBlogId(blog.getId());
+	}
+
+	@Override
+	public List<Scrap> listByBlogAndPage(Blog blog, Page page) {
+		return scrapRepository.findAllByBlogIdAndPage(blog.getId(), page.getStartPage(), page.getPageSize());
+	}
+
+	@Override
+	public void delete(Post post) {
+		scrapRepository.deleteFromPostId(post.getId());
 	}
 }

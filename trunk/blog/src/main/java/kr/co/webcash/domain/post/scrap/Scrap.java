@@ -93,6 +93,16 @@ public class Scrap implements Notificable {
 		return builder.toString();
 	}
 	
+	public static String getTag(String blogId, long postDisplayId, long postRevisionId){
+		StringBuilder builder = new StringBuilder();
+		builder.append("@@")
+			.append(blogId).append("/")
+			.append(postDisplayId).append("/")
+			.append(postRevisionId).append("##");
+		
+		return builder.toString();
+	}
+	
 	@Override
 	public String toString() {
 		return "Scrap [post=" + post + ", target=" + target + "]";

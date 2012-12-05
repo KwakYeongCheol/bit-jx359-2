@@ -24,7 +24,7 @@
 		<table class="table" style="margin-top:30px;">
 			<thead>
 				<tr>
-					<th>카테고리명</th>
+					<th style="min-width:300px;">카테고리명</th>
 					<th>수정</th>
 					<th>삭제</th>
 				</tr>

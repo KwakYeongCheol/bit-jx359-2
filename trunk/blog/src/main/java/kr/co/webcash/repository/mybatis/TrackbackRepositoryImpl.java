@@ -23,4 +23,9 @@ public class TrackbackRepositoryImpl implements TrackbackRepository {
 		return sqlSession.selectList("Trackback.findAllByPostId",postId);
 	}
 
+	@Override
+	public void deleteFromPostId(long postId) {
+		sqlSession.delete("Trackback.deleteByPostId", postId);
+	}
+
 }

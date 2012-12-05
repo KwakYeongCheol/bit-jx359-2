@@ -4,6 +4,12 @@
 		insert into trackback (postId, blogId, url, blogName, title, excerpt, dateCreated) 
 		values(#{postId}, #{blogId}, #{url}, #{blogName}, #{title}, #{excerpt}, #{dateCreated})
 	</insert>
+	
+	<delete id="deleteByPostId">
+		DELETE FROM trackback
+		WHERE
+			postId = #{postId}
+	</delete>
 
 	<select id="findAllByPostId" resultType="Trackback">
 		SELECT

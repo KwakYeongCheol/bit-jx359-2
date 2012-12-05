@@ -16,6 +16,13 @@ import com.sun.syndication.feed.rss.Item;
 
 
 public class UserBlogRssFeedView extends AbstractRssFeedView{
+	
+	@Override
+	protected void prepareResponse(HttpServletRequest request, HttpServletResponse response) {
+		super.prepareResponse(request, response);
+		response.setCharacterEncoding("utf-8");
+	}
+	
 	@Override
 	protected void buildFeedMetadata(Map<String, Object> model, Channel feed, HttpServletRequest request) {
 		super.buildFeedMetadata(model, feed, request);

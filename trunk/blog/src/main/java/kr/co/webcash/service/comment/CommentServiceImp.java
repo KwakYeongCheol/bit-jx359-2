@@ -87,4 +87,9 @@ public class CommentServiceImp implements CommentService{
 	public List<Comment> listByBlogIdAndPage(String blogId, Page page) {
 		return commentRepository.findAllByBlogIdAndPageNumberAndPageSize(blogId, page.getCurrentPage(), page.getPageSize());
 	}
+
+	@Override
+	public void delete(Post post) {
+		commentRepository.deleteFromTargetIdAndCommentType(post.getId(), CommentType.post);
+	}
 }

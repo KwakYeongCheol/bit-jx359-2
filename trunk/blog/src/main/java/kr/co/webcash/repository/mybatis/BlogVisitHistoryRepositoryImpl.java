@@ -6,6 +6,7 @@ import java.util.Map;
 import kr.co.webcash.domain.blog.BlogVisitHistory;
 import kr.co.webcash.repository.BlogVisitHistoryRepository;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -33,5 +34,15 @@ public class BlogVisitHistoryRepositoryImpl implements BlogVisitHistoryRepositor
 	@Override
 	public List<String> select(String blogId) {
 		return sqlSession.selectList("BlogVisitHistory.select", blogId);
+	}
+
+	@Override
+	public int countByBlogId(String blogId) {
+		return sqlSession.<Integer>selectOne("BlogVisitHistory.countByBlogId", blogId);
+	}
+
+	@Override
+	public List<BlogVisitHistory> findAllByBlogIdAndOffsetAndLimit(String blogId, int offset, int limit) {
+		return sqlSession.<BlogVisitHistory>selectList("BlogVisitHistory.findAllByBlogId", blogId, new RowBounds(offset, limit));
 	}
 }

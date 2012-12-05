@@ -15,4 +15,8 @@ public interface BlogVisitHistoryRepository {
 
 	List<String> select(String blogId);
 
+	int countByBlogId(String blogId);
+
+	List<BlogVisitHistory> findAllByBlogIdAndOffsetAndLimit(String blogId, int offset, int limit);
+
 }

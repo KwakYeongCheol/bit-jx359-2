@@ -26,13 +26,23 @@
 		</div>
 		
 		<div class="row">
-				<div class="key">
-					블로그 테마 :
-				</div>
-				<div class="value">
-					<form:radiobuttons cssStyle="width:20px;margin:0 0px 0 5px;" path="blogTheme" items="${blogThemeList }"/>
-				</div>
+			<div class="key">
+				블로그 테마 :
 			</div>
+			<div class="value">
+				<form:radiobuttons cssStyle="width:20px;margin:0 0px 0 5px;" path="blogTheme" items="${blogThemeList }"/>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="key">
+				블로그 위젯 :
+			</div>
+			<div class="value">
+				<form:checkbox cssStyle="width:20px;margin:0 0px 0 5px;" path="blogWidget.visitCount"/> 방문자 통계 
+				<form:checkbox cssStyle="width:20px;margin:0 0px 0 5px;" path="blogWidget.contents"/>컨텐츠 통계 
+			</div>
+		</div>
 		
 		<div class="row">
 			<div class="submit">

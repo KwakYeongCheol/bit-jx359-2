@@ -77,7 +77,7 @@
 	<div class="menu-group">
 		<ul>
 			<li><a href="${pageContext.request.contextPath }/${blog.id}">블로그 홈</a></li>
-			<li><a class="openEditor">글쓰기</a></li>
+			<li><a href="${pageContext.request.contextPath }/${blog.id }/admin/post/editor">글쓰기</a></li>
 		</ul>				
 	</div>
 	<hr />
@@ -92,13 +92,20 @@
 	<hr />
 	<div class="menu-group">
 		<ul>
+			<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/external">외부 컨텐츠 관리</a>
+		</ul>
+	</div>	
+	<hr />
+	<div class="menu-group">
+		<ul>
 			<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/notification">알림 관리</a>
 		</ul>
 	</div>
 	<hr />
 	<div class="menu-group">
 		<ul>
-			<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/visit_history">방문자 통계</a></li>
+			<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/post/revision">게시글 변경 내역</a></li>
+			<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/visit_history">방문자 목록</a></li>
 			<li><a href="${pageContext.request.contextPath }/${blog.id}/admin/scrap">스크랩 통계</a></li>
 		</ul>				
 	</div>

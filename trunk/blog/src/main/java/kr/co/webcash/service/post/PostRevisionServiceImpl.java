@@ -62,4 +62,9 @@ public class PostRevisionServiceImpl implements PostRevisionService{
 	public PostRevision get(long postId, long postRevisionDisplayId) {
 		return postRevisionRepository.findByPostIdAndDisplayId(postId, postRevisionDisplayId);
 	}
+
+	@Override
+	public void delete(Post post) {
+		postRevisionRepository.deleteFromPostId(post.getId());
+	}
 }

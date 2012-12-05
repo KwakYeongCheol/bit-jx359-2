@@ -18,7 +18,6 @@
 	<div class="editor">
 		<div class="editor_menu">
 			<input class="btn" id="btnWrite" type="button" value="글쓰기" />
-			<input class="btn" type="button" value="미리보기" />
 			<input class="btn" id="btnWriteTemp" type="button" value="임시저장" />
 			
 			<select id="tempSelect" style="width: 45%;float:right;font-size:20px;">
@@ -77,6 +76,10 @@
 			</div>
 		</div>
 		<div class="editor_editor">
+			<div class="editor_row">
+				<form:errors path="title" cssClass="error" />
+				<form:errors path="contents" cssClass="error" />
+			</div>
 			<div class="editor_row">
 				<form:select path="category.displayId" cssStyle="width:25%;font-size:20px;">
 					<form:options items="${categoryList }" itemLabel="title" itemValue="displayId" />
