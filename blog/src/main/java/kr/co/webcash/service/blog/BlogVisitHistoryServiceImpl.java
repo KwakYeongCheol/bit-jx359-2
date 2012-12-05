@@ -12,6 +12,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.webcash.domain.Page;
 import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.domain.blog.BlogVisitHistory;
 import kr.co.webcash.repository.BlogVisitHistoryRepository;
@@ -104,5 +105,15 @@ public class BlogVisitHistoryServiceImpl implements BlogVisitHistoryService{
 			count=0;
 		}
 		return al;
+	}
+
+	@Override
+	public int countByBlogId(String blogId) {
+		return visitHistoryRepository.countByBlogId(blogId);
+	}
+
+	@Override
+	public List<BlogVisitHistory> listByBlogIdAndPage(String blogId, Page page) {
+		return visitHistoryRepository.findAllByBlogIdAndOffsetAndLimit(blogId, page.getStartPage(), page.getPageSize());
 	}
 }

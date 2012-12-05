@@ -93,6 +93,9 @@ public class Post {
 	public String getBlogId(){		return this.category.getBlogId();	}
 	public String getBlogTitle(){	return this.category.getBlogTitle();	}
 	public PostRevision getCurrentRevision(){		return postRevisionList.get(0);	}
+	
+	public String getCategoryTitle(){		return this.category.getTitle();	}
+	public long getCategoryDisplayId(){		return this.category.getDisplayId();	}
 
 	public boolean getCanTrackback(){		return postMetadata.getCanTrackback();	}
 	public boolean getCanComment(){			return postMetadata.getCanComment();	}

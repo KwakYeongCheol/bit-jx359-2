@@ -13,6 +13,7 @@
 				<li><a href="${pageContext.request.contextPath }/">전체</a></li>
 				<li><a href="${pageContext.request.contextPath }/recent/it">IT</a></li>
 				<li><a href="${pageContext.request.contextPath }/recent/tour">여행</a></li>
+				<li><a href="${pageContext.request.contextPath }/recent/book">도서</a></li>
 			</ul>
 		</div>
 		<div class="newPostList">

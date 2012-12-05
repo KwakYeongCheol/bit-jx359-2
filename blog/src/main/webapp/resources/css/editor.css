@@ -40,6 +40,11 @@
 
 }
 
+.editor .editor_row .error{
+	display:block;
+	color:#F00;	
+}
+
 .editor .editor_row_desc{
 	display: inline;
 }

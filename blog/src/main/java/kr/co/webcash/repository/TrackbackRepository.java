@@ -8,4 +8,6 @@ public interface TrackbackRepository {
 	void insert(Trackback trackback);
 
 	List<Trackback> findAllByPostId(long postId);
+
+	void deleteFromPostId(long postId);
 }

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Page;
 import kr.co.webcash.domain.Trackback;
+import kr.co.webcash.domain.blog.Blog;
 import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.domain.post.scrap.Scrap;
 import kr.co.webcash.domain.post.scrap.ScrapTarget;
@@ -16,6 +17,7 @@ import kr.co.webcash.domain.user.User;
 import kr.co.webcash.service.CategoryService;
 import kr.co.webcash.service.TrackbackService;
 import kr.co.webcash.service.blog.BlogService;
+import kr.co.webcash.service.post.PostRevisionService;
 import kr.co.webcash.service.post.PostService;
 import kr.co.webcash.web.security.LoginUser;
 import kr.co.webcash.web.validator.PostValidator;
@@ -43,6 +45,7 @@ public class UserBlogAdminPostController {
 	@Autowired	private CategoryService categoryService;
 	@Autowired	private TrackbackService trackbackService;
 	@Autowired	private PostValidator postValidator;
+	@Autowired private PostRevisionService postRevisionService;
 
 	@Inject	private Provider<LoginUser> loginUserProvider;
 
@@ -61,6 +64,32 @@ public class UserBlogAdminPostController {
 		
 		return "/userblog/admin/post/home";
 	}
+	
+	@RequestMapping("/revision")
+	public String revisionHome(@PathVariable String blogId, @RequestParam(defaultValue="1") int pageNumber, @RequestParam(defaultValue="10") int pageSize, Model model) {
+		Page page = postService.getPage(blogId, pageNumber);
+		
+		model.addAttribute("categoryList", categoryService.listByBlogId(blogId));
+		model.addAttribute("postList", postService.listByBlogIdAndPage(blogId, page));
+		model.addAttribute("page", page);
+		
+		return "/userblog/admin/post/revision/home";
+	}
+	
+	@RequestMapping("/revision/{postDisplayId}")
+	public String revisionView(@PathVariable String blogId, @PathVariable long postDisplayId, Model model){
+		
+		Post findPost = postService.findByBlogIdAndDisplayId(blogId, postDisplayId);
+		
+		if(findPost == null)	return "redirect:/" + blogId + "/admin/post/revision";
+		
+		model.addAttribute("post", findPost);
+		model.addAttribute("postRevisionList", postRevisionService.list(findPost));
+		
+		return "/userblog/admin/post/revision/view";
+	}
+	
+	
 	
 	@RequestMapping("/category/{categoryDisplayId}")
 	public String homeCategoryFilter(@PathVariable String blogId, @PathVariable long categoryDisplayId, 
@@ -107,7 +136,7 @@ public class UserBlogAdminPostController {
 			post = new Post();
 			post.setContents(scrap.getTag());
 		}else{
-			post = postService.findByBlogIdAndDisplayId(blogId, postDisplayId);
+			post = postService.findByBlogIdAndDisplayIdWithOutWrap(blogId, postDisplayId);
 			if(post == null)		return "/userblog/admin/post/scrap/complete";
 			
 			post.setContents(post.getContents() + "<br />" + scrap.getTag());
@@ -118,6 +147,23 @@ public class UserBlogAdminPostController {
 		
 		return "/userblog/admin/post/editor";
 	}
+	
+	@RequestMapping(value = "/updateScrap", method = RequestMethod.POST)
+	public String updateScrap(@PathVariable String blogId, @RequestParam(required=false) String redirectURI, Model model,
+			@RequestParam long postDisplayId, @RequestParam String targetBlogId, @RequestParam long targetPostDisplayId, @RequestParam long targetRevisionId 
+			){
+		
+		Post findPost = postService.findByBlogIdAndDisplayId(blogId, postDisplayId);
+		
+		if(findPost != null){
+			postService.updateScrap(findPost, targetBlogId, targetPostDisplayId, targetRevisionId);
+		}
+		
+		if(redirectURI != null)	return "redirect:/redirectURI";
+		else					return "redirect:/" + blogId + "/admin/external";
+		
+	}
+	
 
 	@RequestMapping("/write")
 	public String write(@PathVariable String blogId, Model model) {
@@ -171,8 +217,13 @@ public class UserBlogAdminPostController {
 					StringBuilder urlBuilder = new StringBuilder();
 					urlBuilder.append(components.toUriString()).append("/").append(blogId).append("/").append(post.getDisplayId());
 					
+					Blog findBlog = blogService.findById(blogId);
+					
 					trackback.setUrl(urlBuilder.toString());
+					trackback.setBlogName(findBlog.getTitle());
 					trackback.setTitle(post.getTitle());
+					trackback.setExcerpt("trackback 남깁니다 :D");
+					
 					trackback.setDateCreated(new Date(System.currentTimeMillis()));
 
 					if (trackbackService.sendTrackback(trackbackURL, trackback)) {
@@ -180,12 +231,13 @@ public class UserBlogAdminPostController {
 						 * TODO  Trackback Log 구현해야함
 						 */
 					}
+					
 				}
 			}
 
 			return "redirect:/" + blogId + "/" + post.getDisplayId();
 		}
-		return "/userblog/admin/post/write";
+		return "/userblog/admin/post/editor";
 	}
 
 	@RequestMapping("/delete")

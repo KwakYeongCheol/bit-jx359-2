@@ -16,6 +16,7 @@ public interface PostRevisionRepository {
 
 	List<PostRevision> findAllByPost(Post post);
 	List<PostRevision> findAllByPostAndFromRevisionAndToRevision(Post post, long fromDisplayId, long toDisplayId);
+	void deleteFromPostId(long postId);
 
 
 }

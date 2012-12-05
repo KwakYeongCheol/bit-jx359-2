@@ -9,6 +9,7 @@ public class Blog {
 	private Date dateCreated;
 	
 	private BlogTheme blogTheme;
+	private BlogWidget blogWidget;
 	
 	private long todayCount;
 	private long totalCount;
@@ -20,6 +21,7 @@ public class Blog {
 	
 	public Blog(){
 		blogTheme = BlogTheme.defaultTheme;
+		blogWidget = new BlogWidget();
 	}
 	
 	public Blog(String id) {
@@ -33,6 +35,14 @@ public class Blog {
 		setOwner(owner);
 		setDateCreated(dateCreated);
 		setTotalCount(totalCount);
+	}
+	
+	public boolean getWidgetVisitCount(){
+		return blogWidget.getVisitCount();
+	}
+	
+	public boolean getWidgetContents(){
+		return blogWidget.getContents();
 	}
 	
 	@Override
@@ -95,4 +105,6 @@ public class Blog {
 
 	public BlogTheme getBlogTheme() {		return blogTheme;	}
 	public void setBlogTheme(BlogTheme blogTheme) {		this.blogTheme = blogTheme;	}
+	public BlogWidget getBlogWidget() {		return blogWidget;	}
+	public void setBlogWidget(BlogWidget blogWidget) {		this.blogWidget = blogWidget;	}
 }

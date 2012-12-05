@@ -7,6 +7,8 @@ public interface PostTagService {
 
 	void save(Post post);
 	boolean save(PostTag postTag);
+	void delete(Post post);
+	void update(Post post);
 
 
 }

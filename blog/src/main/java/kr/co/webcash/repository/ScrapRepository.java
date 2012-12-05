@@ -6,6 +6,7 @@ import kr.co.webcash.domain.post.scrap.Scrap;
 
 public interface ScrapRepository {
 
+	List<Scrap> findAllByBlogIdAndPage(String blogId, int startPage, int pageSize);
 	List<Scrap> findAllByPostId(long postId);
 	List<Scrap> findAllByTargetPostId(long targetPostId);
 	List<Scrap> findAllByTargetBlogId(String targetBlogId);
@@ -17,4 +18,5 @@ public interface ScrapRepository {
 
 	int countByBlogId(String blogId);
 
+	void deleteFromPostId(long postId);
 }

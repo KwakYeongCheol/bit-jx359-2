@@ -103,4 +103,14 @@ public class CommentRepositoryImp implements CommentRepository {
 	public int countByBlogId(String blogId) {
 		return sqlSession.<Integer>selectOne("Comment.countByBlogId", blogId);
 	}
+
+	@Override
+	public void deleteFromTargetIdAndCommentType(long targetId, CommentType commentType) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("targetId", targetId);
+		params.put("commentType", commentType);
+		
+		sqlSession.delete("Comment.deleteFromTargetIdAndCommentType", params);
+		
+	}
 }

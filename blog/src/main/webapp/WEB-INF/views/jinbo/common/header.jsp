@@ -84,69 +84,94 @@
 		</div>
 		<!-- jinbo header end -->
 		
-		<!-- blog header start -->
+		<!--  blog header start -->
 		<div class="blogHeader">
-			<div class="title">
-				<a href="${pageContext.request.contextPath }/${blog.id}">${blog.title }</a>
-				<c:if test="${loginUserProvider.loggedIn }">
-					<c:if test="${!loginUserProvider.isMyBlog(blog.id) }">
-						<c:if test="${!loginUserProvider.isExistFavorite(blog.id) }">
-							<span class="addFavorite"><a href="${pageContext.request.contextPath }/favorite/addAction?blogId=${blog.id}">내 이웃으로 추가</a></span>
+			<!-- blog title start -->
+			<div class="blogTitle">
+				<div class="title">
+					<a href="${pageContext.request.contextPath }/${blog.id}">${blog.title }</a>
+					<c:if test="${loginUserProvider.loggedIn }">
+						<c:if test="${!loginUserProvider.isMyBlog(blog.id) }">
+							<c:if test="${!loginUserProvider.isExistFavorite(blog.id) }">
+								<span class="addFavorite"><a href="${pageContext.request.contextPath }/favorite/addAction?blogId=${blog.id}">내 이웃으로 추가</a></span>
+							</c:if>
 						</c:if>
 					</c:if>
-				</c:if>
+				</div>
+				<div class="searchBox">
+					<form action="${pageContext.request.contextPath }/${blog.id}/search" method="get">
+						<input type="text" class="input" name="query" placeholder="블로그 내 검색"/>
+						<input type="submit" class="submit" value="검색" />
+					</form>
+				</div>
+				<span style="margin:40px 10px 5px 20px;font-size:14px;float:right">
+					<a href="${pageContext.request.contextPath }/${blog.id}/rss" style="font-size:16px;"><img src="${pageContext.request.contextPath }/resources/images/rss.png" style="width:12px;margin-right:5px;" />rss 2.0</a>
+				</span>
 			</div>
-			<div class="searchBox">
-				<form action="${pageContext.request.contextPath }/${blog.id}/search" method="get">
-					<input type="text" class="input" name="query" placeholder="블로그 내 검색"/>
-					<input type="submit" class="submit" value="검색" />
-				</form>
+			<!-- blog title end -->
+			
+			<!-- blog menu start -->
+			<div class="blogMenu">
+				<nav class="quickMenu">
+					<div class="quickMenuTitle"></div>
+					<ul>
+						<li><a href="${pageContext.request.contextPath }/${blog.id}">홈</a></li>
+						<li><a href="${pageContext.request.contextPath }/${blog.id}/guestbook">방명록</a></li>
+						
+						<c:if test="${loginUserProvider.loggedIn }">
+							<c:if test="${loginUserProvider.loginUser.loginId == blog.owner }">
+								<li><a id="btnEditor" href="openEditor();">글쓰기</a></li>
+								<li><a href="${pageContext.request.contextPath }/${blog.id}/admin">관리자</a></li>
+							</c:if>
+						</c:if>
+					</ul>
+				</nav>
+				<nav class="notification">
+					<div class="notification-nav-title">최근 알림 #</div>
+					<ul>
+						<c:if test="${notificationList.isEmpty() }">
+						<li>최근 알림이 없습니다.</li>
+						</c:if>
+						<c:forEach items="${notificationList }" var="notification">
+						<li>
+							${notification.contents } | <span style="color:#CCC;">${notification.dateCreated }</span>
+						</li>
+						</c:forEach>
+					</ul>
+				</nav>
 			</div>
+			<!-- blog menu end -->
 		</div>
 		<!-- blog header end -->
-		
-		<!-- blog menu start -->
-		<div class="blogMenu">
-			<ul>
-				<li><a href="${pageContext.request.contextPath }/${blog.id}">홈</a></li>
-				<li><a href="${pageContext.request.contextPath }/${blog.id}/guestbook">방명록</a></li>
-				
-				<c:if test="${loginUserProvider.loggedIn }">
-					<c:if test="${loginUserProvider.loginUser.loginId == blog.owner }">
-						<li><a id="btnEditor" href="openEditor();">글쓰기</a></li>
-						<li><a href="${pageContext.request.contextPath }/${blog.id}/admin">관리자</a></li>
-					</c:if>
-				</c:if>
-			</ul>
-			<nav class="notification">
-				<div class="notification-nav-title">최근 알림 #</div>
-				<ul>
-					<c:if test="${notificationList.isEmpty() }">
-					<li>최근 알림이 없습니다.</li>
-					</c:if>
-					<c:forEach items="${notificationList }" var="notification">
-					<li>
-						${notification.contents } | <span style="color:#CCC;">${notification.dateCreated }</span>
-					</li>
-					</c:forEach>
-				</ul>
-			</nav>
-		</div>
-		<!-- blog menu end -->
 	</header>
 	
 	<section>
 		<div id="background"></div>
 		<div class="sidebar">
-			<div class="blogInfo">
-				<div class="today">
-					<span class="label">Today</span> ${blog.todayCount } <br />
-					<span class="label">Total</span> ${blog.totalCount }					
-				</div>				
+			<div class="widgetBox">
+				<c:if test="${blog.widgetVisitCount }">
+				<div class="blogInfo">
+					<div class="today">
+						<span class="label">Today</span> ${blog.todayCount } <br />
+						<span class="label">Total</span> ${blog.totalCount }					
+					</div>				
+				</div>
+				<hr />
+				</c:if>
+				<c:if test="${blog.widgetContents }">
+				<div class="blogInfo">
+					<div class="today">
+						<span class="label">글</span> ${blog.totalPostCount} <br />
+						<span class="label">댓글</span> ${blog.totalCommentCount } <br />
+						<span class="label">방명록</span> ${blog.totalGuestbookCount } <br />
+						<span class="label">스크랩</span> ${blog.totalScrapCount } <br />	
+					</div>				
+				</div>
+				<hr />
+				</c:if>
 			</div>
-			<hr />
 			<div class="category">
-				<span class="label">카테고리</span>
+				<span class="label">카테고리</span><input type="button" class="dropdownCategory" />
 				<hr />
 				<ul>
 					<li><a href="${pageContext.request.contextPath }/${blog.id}">${allCategory.title } <span>(${allCategory.totalPostCount })</span></a></li>

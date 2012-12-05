@@ -15,6 +15,15 @@
 			AND visited BETWEEN #{startDate} AND #{endDate}
 	</select>
 	
+	<select id="countByBlogId" resultType="Integer">
+		SELECT
+			count(*)
+		FROM
+			blog_visit_history
+		WHERE
+			blogId = #{blogId}
+	</select>
+	
 	<select id="findByBlogIdAndConnectIPAddressAndFromStartDateToEndDate" resultType="BlogVisitHistory">
 		SELECT
 			blogId as "blog.id",
@@ -26,6 +35,18 @@
 			blogId = #{blogId}
 			AND connectIPAddress = #{connectIPAddress}
 			AND visited BETWEEN #{startDate} AND #{endDate}
+	</select>
+	
+	<select id="findAllByBlogId" resultType="BlogVisitHistory">
+		SELECT
+			blogId as "blog.id",
+			connectIPAddress,
+			visited
+		FROM
+			blog_visit_history
+		WHERE
+			blogId = #{blogId}
+		ORDER BY visited DESC
 	</select>
 	
 	<select id="select" resultType="String">

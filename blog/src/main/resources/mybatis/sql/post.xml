@@ -27,6 +27,7 @@
 	<sql id="select">
 		SELECT distinct
 			p.id as id,
+				c.id as "category.id",
 				c.displayId as "category.displayId", 
 				c.title as "category.title",
 					b.id as "category.blog.id",
@@ -226,7 +227,7 @@
 		LEFT OUTER JOIN
 			post_tag pt on pt.postId = p.id
 		WHERE
-			(p.contents LIKE '%${query}%' OR pt.tag_value = #{query})
+			(p.title LIKE '%${value}%' OR p.contents LIKE '%${query}%' OR pt.tag_value = #{query})
 			AND (pm.isPublic = 'true' OR pm.isPublic = '1')
 			AND c.blogId = #{blogId}
 	</select>
@@ -246,7 +247,7 @@
 		LEFT OUTER JOIN
 			post_tag pt on pt.postId = p.id
 		WHERE
-			(p.contents LIKE '%${query}%' OR pt.tag_value = #{query})
+			(p.title LIKE '%${value}%' OR p.contents LIKE '%${query}%' OR pt.tag_value = #{query})
 			AND (pm.isPublic = 'true' OR pm.isPublic='1')
 			AND c.blogId = #{blogId}
 		ORDER BY p.dateCreated DESC

@@ -186,6 +186,12 @@ class MockPostRevisionRepository implements PostRevisionRepository{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void deleteFromPostId(long postId) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 class MockPostService implements PostService{
@@ -388,6 +394,13 @@ class MockPostService implements PostService{
 	public List<Post> listPublicByPage(Page page) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void updateScrap(Post findPost, String targetBlogId,
+			long targetPostDisplayId, long targetRevisionId) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

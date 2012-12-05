@@ -7,10 +7,13 @@ import kr.co.webcash.domain.Category;
 import kr.co.webcash.domain.Page;
 import kr.co.webcash.domain.TagCategory;
 import kr.co.webcash.domain.post.Post;
+import kr.co.webcash.domain.post.scrap.Scrap;
 import kr.co.webcash.repository.CategoryRepository;
 import kr.co.webcash.repository.PostMetadataRepository;
 import kr.co.webcash.repository.PostRepository;
 import kr.co.webcash.repository.TagCategoryRepository;
+import kr.co.webcash.service.TrackbackService;
+import kr.co.webcash.service.comment.CommentService;
 import kr.co.webcash.service.post.scrap.ScrapService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +23,12 @@ import org.springframework.stereotype.Service;
 public class PostServiceImpl implements PostService {
 	@Autowired private PostRevisionService postRevisionService;
 	@Autowired private PostTagService postTagService;
-	
 	@Autowired private ScrapService scrapService;
-	
-	@Autowired private PostRepository postRepository;
+	@Autowired private CommentService commentService;
+	@Autowired private TrackbackService trackbackService;
 	
 	@Autowired private PostMetadataRepository postMetadataRepository;
+	@Autowired private PostRepository postRepository;
 	@Autowired private CategoryRepository categoryRepository;
 	
 	@Override
@@ -33,6 +36,8 @@ public class PostServiceImpl implements PostService {
 		Post findPost = postRepository.findByBlogIdAndDisplayId(post.getBlogId(), post.getDisplayId());
 		
 		removeBlank(post);
+		post.setContents(post.getContents().replaceAll("</p>\n", "</p>"));
+		post.setContents(post.getContents().replaceAll("</p>", "</p>\n"));
 		
 		if(post.getIsTemp()){
 			post.getPostMetadata().setIsPublic(false);
@@ -90,11 +95,42 @@ public class PostServiceImpl implements PostService {
 		post.getPostMetadata().setPost(post);
 		postMetadataRepository.update(post.getPostMetadata());
 		
+		postTagService.update(post);
+		scrapService.update(post);
+		
 		scrapService.sendNotification(post);
 	}
 	
 	@Override
+	public void updateScrap(Post findPost, String targetBlogId, long targetPostDisplayId, long targetRevisionId) {
+		Post currentPost = postRepository.findById(findPost.getId());
+		Post targetPost = postRepository.findByBlogIdAndDisplayId(targetBlogId, targetPostDisplayId);
+		
+		if(targetPost != null && targetPost.getCanScrap()){
+			if(targetPost.getCurrentRevision().getDisplayId() > targetRevisionId){
+				String myPostTag = Scrap.getTag(targetBlogId, targetPostDisplayId, targetRevisionId);
+				String updatedPostTag = Scrap.getTag(targetBlogId, targetPostDisplayId, targetPost.getCurrentRevision().getDisplayId());
+				
+				System.out.println(myPostTag);
+				System.out.println(updatedPostTag);
+				
+				System.out.println(currentPost.getContents());
+				currentPost.setContents(currentPost.getContents().replaceAll(myPostTag, updatedPostTag));
+				System.out.println(currentPost.getContents());
+			}
+		}
+		save(currentPost);
+	}
+	
+	
+	@Override
 	public void delete(Post post) {
+		scrapService.delete(post);
+		postMetadataRepository.delete(post);
+		postRevisionService.delete(post);
+		postTagService.delete(post);
+		commentService.delete(post);
+		trackbackService.delete(post);
 		postRepository.delete(post);
 	}
 	
@@ -286,12 +322,6 @@ public class PostServiceImpl implements PostService {
 	public int countByBlogId(String blogId) {
 		return postRepository.countByBlogId(blogId);
 	}
-
-	
-
-	
-
-	
 }
 
 

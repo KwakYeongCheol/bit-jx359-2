@@ -10,4 +10,6 @@ public interface PostTagRepository {
 
 	List<PostTag> findAllByPostId(long postId);
 
+	void deleteFromPostId(long postId);
+
 }

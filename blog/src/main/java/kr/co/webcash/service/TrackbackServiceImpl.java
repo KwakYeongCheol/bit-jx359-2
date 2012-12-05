@@ -42,5 +42,8 @@ public class TrackbackServiceImpl implements TrackbackService {
 		return trackbackRepository.findAllByPostId(post.getId());
 	}
 
-
+	@Override
+	public void delete(Post post) {
+		trackbackRepository.deleteFromPostId(post.getId());
+	}
 }

@@ -57,4 +57,9 @@ public class PostRevisionRepositoryImpl implements PostRevisionRepository{
 		
 		return sqlSession.selectList("PostRevision.findAllByPostAndFromRevisionAndToRevision", params);
 	}
+
+	@Override
+	public void deleteFromPostId(long postId) {
+		sqlSession.delete("PostRevision.deleteFromPostId", postId);
+	}
 }

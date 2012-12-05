@@ -2,11 +2,14 @@ package kr.co.webcash.domain.blog;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class BlogVisitHistory {
 	private Blog blog;
 	
 	private String connectIPAddress;
 	
+	@DateTimeFormat(pattern="yyyy/MM/dd HH:mm:ss")
 	private Date visited;
 	
 	public BlogVisitHistory(){

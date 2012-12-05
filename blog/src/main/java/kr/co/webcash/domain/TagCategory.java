@@ -1,7 +1,7 @@
 package kr.co.webcash.domain;
 
 public enum TagCategory {
-	it, tour;
+	it, tour, book;
 	
 	@Override
 	public String toString() {

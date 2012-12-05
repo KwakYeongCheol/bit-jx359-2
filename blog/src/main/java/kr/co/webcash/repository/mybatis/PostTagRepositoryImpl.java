@@ -25,4 +25,9 @@ public class PostTagRepositoryImpl implements PostTagRepository {
 		return session.selectList("PostTag.findAllByPostId", postId);
 	}
 
+	@Override
+	public void deleteFromPostId(long postId) {
+		session.delete("PostTag.deleteFromPostId", postId);
+	}
+
 }

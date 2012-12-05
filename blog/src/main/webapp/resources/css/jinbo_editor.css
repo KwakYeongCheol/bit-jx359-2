@@ -39,6 +39,12 @@
 	margin: 10px;
 }
 
+.editor .editor_row .error{
+	text-align:center;
+	color:#F00;
+	display:block;
+}
+
 .editor .editor_row_header{
 	text-align: right;
 	width: 100px;

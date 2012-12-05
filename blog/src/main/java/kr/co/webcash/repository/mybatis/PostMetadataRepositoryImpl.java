@@ -1,5 +1,6 @@
 package kr.co.webcash.repository.mybatis;
 
+import kr.co.webcash.domain.post.Post;
 import kr.co.webcash.domain.post.PostMetadata;
 import kr.co.webcash.repository.PostMetadataRepository;
 
@@ -27,4 +28,8 @@ public class PostMetadataRepositoryImpl implements PostMetadataRepository{
 		sqlSession.update("PostMetadata.update", postMetadata);
 	}
 
+	@Override
+	public void delete(Post post) {
+		sqlSession.delete("PostMetadata.deleteByPostId", post.getId());
+	}
 }
