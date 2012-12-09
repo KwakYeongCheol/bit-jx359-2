@@ -41,6 +41,7 @@
 			<div class="value">
 				<form:checkbox cssStyle="width:20px;margin:0 0px 0 5px;" path="blogWidget.visitCount"/> 방문자 통계 
 				<form:checkbox cssStyle="width:20px;margin:0 0px 0 5px;" path="blogWidget.contents"/>컨텐츠 통계 
+				<form:checkbox cssStyle="width:20px;margin:0 0px 0 5px;" path="blogWidget.tag"/>태그 목록 
 			</div>
 		</div>
 		

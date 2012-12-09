@@ -14,11 +14,12 @@ CREATE TABLE blog_widget(
 	blogId VARCHAR(10) NOT NULL,
 	visitCount VARCHAR(5) NOT NULL,
 	contents VARCHAR(5) NOT NULL,
+	tag VARCHAR(5) NOT NULL,
 	PRIMARY KEY(blogId)
 );
 
-INSERT INTO blog_widget(blogId, visitCount, contents) VALUES ('1', 'true', 'true');
-INSERT INTO blog_widget(blogId, visitCount, contents) VALUES ('2', 'true', 'false');
+INSERT INTO blog_widget(blogId, visitCount, contents, tag) VALUES ('1', 'true', 'true', 'true');
+INSERT INTO blog_widget(blogId, visitCount, contents, tag) VALUES ('2', 'true', 'false', 'true');
 
 CREATE TABLE blog_visit_history(
 	blogId VARCHAR(10) NOT NULL,

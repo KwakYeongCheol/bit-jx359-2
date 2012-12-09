@@ -227,9 +227,9 @@
 		LEFT OUTER JOIN
 			post_tag pt on pt.postId = p.id
 		WHERE
-			(p.title LIKE '%${value}%' OR p.contents LIKE '%${query}%' OR pt.tag_value = #{query})
+			(p.title LIKE '%${query}%' OR p.contents LIKE '%${query}%' OR pt.tag_value = #{query})
 			AND (pm.isPublic = 'true' OR pm.isPublic = '1')
-			AND c.blogId = #{blogId}
+			AND b.id = #{blogId}
 	</select>
 	
 	<select id="findAllByQuery" resultType="Post">
@@ -247,7 +247,7 @@
 		LEFT OUTER JOIN
 			post_tag pt on pt.postId = p.id
 		WHERE
-			(p.title LIKE '%${value}%' OR p.contents LIKE '%${query}%' OR pt.tag_value = #{query})
+			(p.title LIKE '%${query}%' OR p.contents LIKE '%${query}%' OR pt.tag_value = #{query})
 			AND (pm.isPublic = 'true' OR pm.isPublic='1')
 			AND c.blogId = #{blogId}
 		ORDER BY p.dateCreated DESC

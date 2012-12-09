@@ -14,7 +14,7 @@
 		.jinbo .buttonBox{			background-color: ${blog.blogTheme.backgroundColor};		}
 		.jinbo .nav-title{			background-color: ${blog.blogTheme.backgroundColor};	border-radius: 4px;		}
 		.jinbo .nav-title:hover{	background-color: #026987;		}
-		.blogHeader{			background-color: ${blog.blogTheme.backgroundColor};		}
+		.blogTitle{			background-color: ${blog.blogTheme.backgroundColor};		}
 		footer{			background-color: ${blog.blogTheme.backgroundColor};		}
 	</style>
 	<!--  user blog theme end -->
@@ -168,6 +168,43 @@
 					</div>				
 				</div>
 				<hr />
+				</c:if>
+				<c:if test="${blog.widgetTag }">
+				<div class="blogInfo">
+					<div class="blogTag">
+						<c:forEach items="${blog.blogTagList }" var="blogTag">
+						<span>
+							<input type="hidden" class="tagValue" value="${blogTag.totalCount }">
+							<a href="${pageContext.request.contextPath }/${blog.id}/search?query=${blogTag.value}">${blogTag.value }</a>
+						</span>
+						</c:forEach>
+					</div>				
+				</div>
+				<hr />
+				<script>
+				$(document).ready(function(){
+					var blogTag = $(".blogTag");					
+					var maxCount = -1;
+					
+					$.each(blogTag.find("span"), function(){
+						var tagValue = parseInt($(this).find(".tagValue").val());
+						if(maxCount < tagValue)		maxCount = tagValue;		
+					});
+					
+					if(maxCount <= 0)	maxCount = 1;
+					
+					$.each(blogTag.find("span"), function(){
+						var tagValue = $(this).find(".tagValue").val();
+						var weight = tagValue / maxCount;
+						
+						if(weight > 1)			weight = 1;
+						else if(weight < 0.5)	weight = 0.5;
+						
+						var fontSize = 15 * weight;
+						$(this).css("font-size", fontSize + "px");
+					});
+				});
+				</script>
 				</c:if>
 			</div>
 			<div class="category">

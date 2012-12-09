@@ -2,15 +2,16 @@
 <mapper namespace="BlogWidget">
 	<insert id="insert" parameterType="BlogWidget">
 		INSERT INTO blog_widget
-			(blogId, visitCount, contents)
+			(blogId, visitCount, contents, tag)
 		VALUES
-			(#{blog.id}, #{visitCount}, #{contents})
+			(#{blog.id}, #{visitCount}, #{contents}, #{tag})
 	</insert>
 	
 	<update id="update" parameterType="BlogWidget">
 		UPDATE blog_widget SET
 			visitCount = #{visitCount},
-			contents = #{contents}
+			contents = #{contents},
+			tag = #{tag}
 		WHERE
 			blogId = #{blog.id}
 	</update>
@@ -19,7 +20,8 @@
 		SELECT
 			blogId as "blog.id", 
 			visitCount, 
-			contents
+			contents,
+			tag
 		FROM
 			blog_widget
 		WHERE

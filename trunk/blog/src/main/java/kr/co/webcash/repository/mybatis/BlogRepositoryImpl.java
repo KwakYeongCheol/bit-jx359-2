@@ -8,6 +8,7 @@ import kr.co.webcash.repository.BlogWidgetRepository;
 import kr.co.webcash.repository.CommentRepository;
 import kr.co.webcash.repository.GuestbookRepository;
 import kr.co.webcash.repository.PostRepository;
+import kr.co.webcash.repository.PostTagRepository;
 import kr.co.webcash.repository.ScrapRepository;
 
 import org.apache.ibatis.session.SqlSession;
@@ -20,6 +21,7 @@ public class BlogRepositoryImpl implements BlogRepository{
 	@Autowired private SqlSession sqlSession;
 	
 	@Autowired private PostRepository postRepository;
+	@Autowired private PostTagRepository postTagRepository;
 	@Autowired private GuestbookRepository guestbookRepository;
 	@Autowired private CommentRepository commentRepository;
 	@Autowired private ScrapRepository scrapRepository;
@@ -58,11 +60,16 @@ public class BlogRepositoryImpl implements BlogRepository{
 			addTotalCommentCount(blog);
 			addTotalScrapCount(blog);
 			addBlogWidget(blog);
+			addBlogTag(blog);
 		}
 		
 		return blog;
 	}
 	
+	private void addBlogTag(Blog blog) {
+		blog.setBlogTagList(postTagRepository.findAllBlogTagByBlogId(blog.getId()));
+	}
+
 	private void addBlogWidget(Blog blog){
 		blog.setBlogWidget(blogWidgetRepository.findByBlogId(blog.getId()));
 	}
