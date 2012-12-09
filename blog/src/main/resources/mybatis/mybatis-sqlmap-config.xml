@@ -7,6 +7,7 @@
 		<typeAlias alias="Blog" type="kr.co.webcash.domain.blog.Blog"/>
 		<typeAlias alias="BlogVisitHistory" type="kr.co.webcash.domain.blog.BlogVisitHistory"/>
 		<typeAlias alias="BlogWidget" type="kr.co.webcash.domain.blog.BlogWidget"/>
+		<typeAlias alias="BlogTag" type="kr.co.webcash.domain.blog.BlogTag"/>
 		
 		<typeAlias alias="Category" type="kr.co.webcash.domain.Category"/>
 		<typeAlias alias="Comment" type="kr.co.webcash.domain.comment.Comment"/>

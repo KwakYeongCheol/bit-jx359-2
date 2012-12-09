@@ -359,6 +359,7 @@ section{
 
 .sidebar .blogInfo .label{
 	float:left;
+	line-height: 17px;
 }
 
 .sidebar .category{

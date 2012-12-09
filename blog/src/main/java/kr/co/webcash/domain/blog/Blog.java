@@ -1,6 +1,7 @@
 package kr.co.webcash.domain.blog;
 
 import java.util.Date;
+import java.util.List;
 
 public class Blog {
 	private String id;
@@ -18,6 +19,8 @@ public class Blog {
 	private long totalGuestbookCount;
 	private long totalCommentCount;
 	private long totalScrapCount;
+	
+	private List<BlogTag> blogTagList;
 	
 	public Blog(){
 		blogTheme = BlogTheme.defaultTheme;
@@ -37,13 +40,15 @@ public class Blog {
 		setTotalCount(totalCount);
 	}
 	
-	public boolean getWidgetVisitCount(){
-		return blogWidget.getVisitCount();
-	}
+	/* blog widget start */
 	
-	public boolean getWidgetContents(){
-		return blogWidget.getContents();
-	}
+	public boolean getWidgetVisitCount(){		return blogWidget.getVisitCount();	}
+	
+	public boolean getWidgetContents(){		return blogWidget.getContents();	}
+	
+	public boolean getWidgetTag(){		return blogWidget.getTag();		}
+	
+	/* blog widget end */
 	
 	@Override
 	public String toString() {
@@ -107,4 +112,7 @@ public class Blog {
 	public void setBlogTheme(BlogTheme blogTheme) {		this.blogTheme = blogTheme;	}
 	public BlogWidget getBlogWidget() {		return blogWidget;	}
 	public void setBlogWidget(BlogWidget blogWidget) {		this.blogWidget = blogWidget;	}
+
+	public List<BlogTag> getBlogTagList() {		return blogTagList;	}
+	public void setBlogTagList(List<BlogTag> blogTagList) {		this.blogTagList = blogTagList;	}
 }

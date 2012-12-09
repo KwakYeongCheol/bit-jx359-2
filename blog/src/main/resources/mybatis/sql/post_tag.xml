@@ -22,4 +22,24 @@
 		WHERE
 			postId = #{postId}
 	</select>
+	
+	<select id="findAllBlogTagByBlogId" resultType="BlogTag">
+		SELECT
+			pt.tag_value as value,
+			count(pt.tag_value) as totalCount
+		FROM
+			post_tag pt
+		JOIN
+			post p on p.id = pt.postId
+		JOIN
+			category c on c.id = p.categoryId
+		JOIN
+			blogs b on b.id = c.blogId
+		WHERE
+			b.id = #{blogId}
+		GROUP BY
+			pt.tag_value
+	</select>
+	
+	
 </mapper>
