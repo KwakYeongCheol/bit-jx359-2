@@ -1,5 +1,8 @@
 package kr.co.webcash.domain;
 
+/*
+ * Change.
+ */
 import java.util.List;
 
 import kr.co.webcash.domain.blog.Blog;
